@@ -1,0 +1,89 @@
+"""
+ZH(H->WW) -> 4l + MET ZZ control region configuration.
+"""
+
+#: tag used to identify the configuration folder version
+tag = "ZH_4lMET_ZZCR"
+
+#: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner
+runnerFile = "default"
+
+#: output file name
+outputFile = "mkShapes__{}.root".format(tag)
+
+#: path to output folder
+outputFolder = "rootFiles/ZH_4lMET/rootFiles__{}".format(tag)
+
+#: path to batch folder (used for condor submission)
+batchFolder = "condor"
+
+#: path to configuration folder (compiled configs)
+configsFolder = "configs"
+
+#: luminosity to normalize to (in 1/fb)
+lumi = 8.0
+
+#: file with dict of aliases to define
+aliasesFile = "aliases.py"
+
+#: file with dict of variables
+variablesFile = "variables.py"
+
+#: file with dict of cuts
+cutsFile = "cuts.py"
+
+#: file with dict of samples
+samplesFile = "samples.py"
+
+#: file with dict of plots
+plotFile = "plot.py"
+
+#: file with dict of structure (used to define combine processes)
+structureFile = "structure.py"
+
+#: nuisances file for mkDatacards and for mkShape
+nuisancesFile = "nuisances.py"
+
+#: path to folder where to save plots
+plotPath = "plots/{}".format(tag)
+
+#: this lines are executed right before the runner on the condor node
+mountEOS = []
+
+#: list of imports to import when compiling the whole configuration folder
+imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
+
+#: list of files to compile
+filesToExec = [
+    samplesFile,
+    aliasesFile,
+    variablesFile,
+    cutsFile,
+    plotFile,
+    nuisancesFile,
+    structureFile,
+]
+
+#: list of variables to keep in the compiled configuration folder
+varsToKeep = [
+    "batchVars",
+    "outputFolder",
+    "batchFolder",
+    "configsFolder",
+    "outputFile",
+    "runnerFile",
+    "tag",
+    "samples",
+    "aliases",
+    "variables",
+    ("cuts", {"cuts": "cuts", "preselections": "preselections"}),
+    ("plot", {"plot": "plot", "groupPlot": "groupPlot", "legend": "legend"}),
+    "nuisances",
+    "structure",
+    "lumi",
+]
+
+#: list of variables to keep in the batch submission script (script.py)
+batchVars = varsToKeep[varsToKeep.index("samples") :]
+
+varsToKeep += ["plotPath"]
