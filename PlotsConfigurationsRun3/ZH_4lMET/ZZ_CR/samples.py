@@ -89,26 +89,26 @@ samples["ZZ"] = {
     "FilesPerJob": 10,
 }
 
-files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
-samples["WZ"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 10,
+# files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
+# samples["WZ"] = {
+#     "name": files,
+#     "weight": mcCommonWeight,
+#     "FilesPerJob": 10,
 }
 
-files = nanoGetSampleFiles(mcDirectory, "DYto2L-2Jets_MLL-50")
-samples["DY"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 20,
-}
+# files = nanoGetSampleFiles(mcDirectory, "DYto2L-2Jets_MLL-50")
+# samples["DY"] = {
+#     "name": files,
+#     "weight": mcCommonWeight,
+#     "FilesPerJob": 20,
+# }
 
-files = nanoGetSampleFiles(mcDirectory, "TTTo2L2Nu")
-samples["top"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 15,
-}
+# files = nanoGetSampleFiles(mcDirectory, "TTTo2L2Nu")
+# samples["top"] = {
+#     "name": files,
+#     "weight": mcCommonWeight,
+#     "FilesPerJob": 15,
+# }
 
 ###########################################
 ############# DATA ########################
