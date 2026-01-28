@@ -204,28 +204,28 @@ variables["Lepton_pdgId_3"] = {
 }
 
 variables["Lepton_charge_0"] = {
-    "name": "Alt(Lepton_charge, 0, 0)",
+    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 0, 0)",
     "range": (5, -2.5, 2.5),
     "xaxis": "q^{l1}",
     "fold": 0,
 }
 
 variables["Lepton_charge_1"] = {
-    "name": "Alt(Lepton_charge, 1, 0)",
+    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 1, 0)",
     "range": (5, -2.5, 2.5),
     "xaxis": "q^{l2}",
     "fold": 0,
 }
 
 variables["Lepton_charge_2"] = {
-    "name": "Alt(Lepton_charge, 2, 0)",
+    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 2, 0)",
     "range": (5, -2.5, 2.5),
     "xaxis": "q^{l3}",
     "fold": 0,
 }
 
 variables["Lepton_charge_3"] = {
-    "name": "Alt(Lepton_charge, 3, 0)",
+    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 3, 0)",
     "range": (5, -2.5, 2.5),
     "xaxis": "q^{l4}",
     "fold": 0,
@@ -306,4 +306,16 @@ variables["CleanJet_phi_1"] = {
     "range": (32, -3.2, 3.2),
     "xaxis": "#phi^{j2}",
     "fold": 3,
+}
+
+tree_branches = {}
+for var_name, var_def in variables.items():
+    if "tree" in var_def:
+        continue
+    for index, expr in enumerate(var_def["name"].split(":")):
+        tree_branches[f"{var_name}_{index}"] = expr
+
+variables["tree"] = {
+    "tree": tree_branches,
+    "cuts": ["zz_cr"],
 }
