@@ -325,7 +325,30 @@ for var_name, var_def in variables.items():
             nd_single = f"{var_name}_{index}"
             tree_branches[nd_single] = nd_single
 
+electron_tight_wps_2022 = [
+    "testrecipes",
+    "wp90iso",
+    "mvaWinter22V2Iso_WP90",
+    "cutBased_LooseID_tthMVA_Run3",
+    "cutBased_LooseID_tthMVA_HWW",
+]
+muon_tight_wps_2022 = [
+    "cut_TightID_POG",
+    "cut_Tight_HWW",
+    "cut_TightID_pfIsoTight_HWW_tthmva_67",
+    "cut_TightID_pfIsoLoose_HWW_tthmva_67",
+    "cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+]
+
 for index in range(4):
+    for wp in electron_tight_wps_2022:
+        tree_branches[f"Lepton_isTightElectron_{wp}_{index}"] = (
+            f"Alt(Lepton_isTightElectron_{wp}, {index}, 0)"
+        )
+    for wp in muon_tight_wps_2022:
+        tree_branches[f"Lepton_isTightMuon_{wp}_{index}"] = (
+            f"Alt(Lepton_isTightMuon_{wp}, {index}, 0)"
+        )
     tree_branches[f"Lepton_genPdgId_{index}"] = f"Alt(Lepton_genPdgId, {index}, 0)"
     tree_branches[f"Lepton_genPt_{index}"] = f"Alt(Lepton_genPt, {index}, 0)"
     tree_branches[f"Lepton_genEta_{index}"] = f"Alt(Lepton_genEta, {index}, 0)"
