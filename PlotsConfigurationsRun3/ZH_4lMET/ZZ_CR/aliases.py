@@ -92,6 +92,28 @@ namespace ZH4lMETZZCR {
     ROOT::Math::PtEtaPhiMVector v4(pt[3], eta[3], phi[3], lepMass(pdgId[3]));
     return (v1 + v2 + v3 + v4).Pt();
   }
+  ROOT::VecOps::RVec<int> genPdgIdFromIdx(const ROOT::VecOps::RVec<int>& genIdx,
+                                          const ROOT::VecOps::RVec<int>& genPdgId) {
+    ROOT::VecOps::RVec<int> out(genIdx.size(), 0);
+    for (size_t i = 0; i < genIdx.size(); ++i) {
+      int idx = genIdx[i];
+      if (idx >= 0 && static_cast<size_t>(idx) < genPdgId.size()) {
+        out[i] = genPdgId[idx];
+      }
+    }
+    return out;
+  }
+  ROOT::VecOps::RVec<float> genFloatFromIdx(const ROOT::VecOps::RVec<int>& genIdx,
+                                            const ROOT::VecOps::RVec<float>& genValues) {
+    ROOT::VecOps::RVec<float> out(genIdx.size(), 0.0f);
+    for (size_t i = 0; i < genIdx.size(); ++i) {
+      int idx = genIdx[i];
+      if (idx >= 0 && static_cast<size_t>(idx) < genValues.size()) {
+        out[i] = genValues[idx];
+      }
+    }
+    return out;
+  }
 }
 #endif
         """,
@@ -161,3 +183,54 @@ aliases["sumLeptonCharge"] = {
 }
 
 aliases["HT"] = {"expr": "Sum(CleanJet_pt)"}
+
+aliases["GenMET_pt"] = {
+    "expr": "0.0",
+    "samples": ["DATA"],
+}
+
+aliases["GenMET_phi"] = {
+    "expr": "0.0",
+    "samples": ["DATA"],
+}
+
+aliases["GenPart_pdgId"] = {
+    "expr": "ROOT::VecOps::RVec<int>()",
+    "samples": ["DATA"],
+}
+
+aliases["GenPart_pt"] = {
+    "expr": "ROOT::VecOps::RVec<float>()",
+    "samples": ["DATA"],
+}
+
+aliases["GenPart_eta"] = {
+    "expr": "ROOT::VecOps::RVec<float>()",
+    "samples": ["DATA"],
+}
+
+aliases["GenPart_phi"] = {
+    "expr": "ROOT::VecOps::RVec<float>()",
+    "samples": ["DATA"],
+}
+
+aliases["Lepton_genPartIdx"] = {
+    "expr": "ROOT::VecOps::RVec<int>(nLepton, -1)",
+    "samples": ["DATA"],
+}
+
+aliases["Lepton_genPdgId"] = {
+    "expr": "ZH4lMETZZCR::genPdgIdFromIdx(Lepton_genPartIdx, GenPart_pdgId)"
+}
+
+aliases["Lepton_genPt"] = {
+    "expr": "ZH4lMETZZCR::genFloatFromIdx(Lepton_genPartIdx, GenPart_pt)"
+}
+
+aliases["Lepton_genEta"] = {
+    "expr": "ZH4lMETZZCR::genFloatFromIdx(Lepton_genPartIdx, GenPart_eta)"
+}
+
+aliases["Lepton_genPhi"] = {
+    "expr": "ZH4lMETZZCR::genFloatFromIdx(Lepton_genPartIdx, GenPart_phi)"
+}
