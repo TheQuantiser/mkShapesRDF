@@ -65,6 +65,7 @@ DataRun = [
 
 DataSets = ["MuonEG", "Muon", "EGamma"]
 
+#https://github.com/TheQuantiser/mkShapesRDF/blob/master/mkShapesRDF/processor/data/TrigMaker_cfg.py
 DataTrig = {
     "MuonEG": "Trigger_ElMu",
     "Muon": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
@@ -94,7 +95,7 @@ samples["ZZ"] = {
 #     "name": files,
 #     "weight": mcCommonWeight,
 #     "FilesPerJob": 10,
-}
+# }
 
 # files = nanoGetSampleFiles(mcDirectory, "DYto2L-2Jets_MLL-50")
 # samples["DY"] = {
