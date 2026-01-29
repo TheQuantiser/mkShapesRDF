@@ -315,6 +315,15 @@ for var_name, var_def in variables.items():
     for index, expr in enumerate(var_def["name"].split(":")):
         tree_branches[f"{var_name}_{index}"] = expr
 
+for index in range(4):
+    tree_branches[f"Lepton_genPdgId_{index}"] = f"Alt(Lepton_genPdgId, {index}, 0)"
+    tree_branches[f"Lepton_genPt_{index}"] = f"Alt(Lepton_genPt, {index}, 0)"
+    tree_branches[f"Lepton_genEta_{index}"] = f"Alt(Lepton_genEta, {index}, 0)"
+    tree_branches[f"Lepton_genPhi_{index}"] = f"Alt(Lepton_genPhi, {index}, 0)"
+
+tree_branches["GenMET_pt"] = "GenMET_pt"
+tree_branches["GenMET_phi"] = "GenMET_phi"
+
 variables["tree"] = {
     "tree": tree_branches,
     "cuts": ["zz_cr"],
