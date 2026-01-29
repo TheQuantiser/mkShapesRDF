@@ -114,6 +114,28 @@ namespace ZH4lMETZZCR {
     }
     return out;
   }
+  ROOT::VecOps::RVec<int> leptonGenPartIdx(const ROOT::VecOps::RVec<int>& leptonPdgId,
+                                           const ROOT::VecOps::RVec<int>& leptonElectronIdx,
+                                           const ROOT::VecOps::RVec<int>& leptonMuonIdx,
+                                           const ROOT::VecOps::RVec<int>& electronGenPartIdx,
+                                           const ROOT::VecOps::RVec<int>& muonGenPartIdx) {
+    ROOT::VecOps::RVec<int> out(leptonPdgId.size(), -1);
+    for (size_t i = 0; i < leptonPdgId.size(); ++i) {
+      int pdgId = leptonPdgId[i];
+      if (std::abs(pdgId) == 11) {
+        int idx = leptonElectronIdx[i];
+        if (idx >= 0 && static_cast<size_t>(idx) < electronGenPartIdx.size()) {
+          out[i] = electronGenPartIdx[idx];
+        }
+      } else if (std::abs(pdgId) == 13) {
+        int idx = leptonMuonIdx[i];
+        if (idx >= 0 && static_cast<size_t>(idx) < muonGenPartIdx.size()) {
+          out[i] = muonGenPartIdx[idx];
+        }
+      }
+    }
+    return out;
+  }
 }
 #endif
         """,
@@ -214,9 +236,18 @@ aliases["GenPart_phi"] = {
     "samples": ["DATA"],
 }
 
-aliases["Lepton_genPartIdx"] = {
-    "expr": "ROOT::VecOps::RVec<int>(nLepton, -1)",
+aliases["Electron_genPartIdx"] = {
+    "expr": "ROOT::VecOps::RVec<int>()",
     "samples": ["DATA"],
+}
+
+aliases["Muon_genPartIdx"] = {
+    "expr": "ROOT::VecOps::RVec<int>()",
+    "samples": ["DATA"],
+}
+
+aliases["Lepton_genPartIdx"] = {
+    "expr": "ZH4lMETZZCR::leptonGenPartIdx(Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_genPartIdx, Muon_genPartIdx)"
 }
 
 aliases["Lepton_genPdgId"] = {
