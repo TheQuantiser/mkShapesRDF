@@ -7,16 +7,16 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
-mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__sblancof__l2tight'
-dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
-dataSteps    = 'DATAl1loose2022v12'
+mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
+mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
+dataReco     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataSteps    = 'DATAl2loose2024v15__l2loose'
 
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano"
+treeBaseDir = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
 limitFiles = -1
 
 samples = {}
@@ -60,17 +60,21 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ['B','Run2022B-ReReco-v1'],
-    ['C','Run2022C-ReReco-v1'],
-    ['D','Run2022D-ReReco-v1'],
+    ['C','Run2024C-ReReco-v1'],
+    ['D','Run2024D-ReReco-v1'],
+    ['E','Run2024E-ReReco-v1'],
+    ['F','Run2024F-Prompt-v1'],
+    ['G','Run2024G-Prompt-v1'],
+    ['H','Run2024H-Prompt-v1'],
+    ['I','Run2024I-Prompt-v1'],
 ]
 
-DataSets = ["MuonEG", "Muon", "EGamma"]
-
+# DataSets = ["MuonEG", "Muon", "EGamma"]
+DataSets = ["EGamma"]
 #https://github.com/TheQuantiser/mkShapesRDF/blob/master/mkShapesRDF/processor/data/TrigMaker_cfg.py
 DataTrig = {
-    "MuonEG": "Trigger_ElMu",
-    "Muon": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+    # "MuonEG": "Trigger_ElMu",
+    # "Muon": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
     "EGamma": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
 }
 

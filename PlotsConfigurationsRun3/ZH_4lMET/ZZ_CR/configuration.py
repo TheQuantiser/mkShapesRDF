@@ -3,7 +3,7 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 """
 
 #: tag used to identify the configuration folder version
-tag = "ZH_4lMET_ZZCR"
+tag = "ZH_4lMET_ZZCR_2024"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner
 runnerFile = "default"

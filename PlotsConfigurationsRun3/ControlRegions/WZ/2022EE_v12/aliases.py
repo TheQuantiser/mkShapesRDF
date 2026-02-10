@@ -17,8 +17,7 @@ mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA', 'DATA_Mu', 'D
 
 # LepCut3l__ele_wp90iso__mu_cut_TightID_POG
 eleWP = 'wp90iso'
-muWP = 'cut_Tight_HWW'
-#muWP  = 'cut_TightID_POG'
+muWP  = 'cut_TightID_POG'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut3l__ele_'+eleWP+'__mu_'+muWP,
@@ -178,8 +177,6 @@ aliases['SFweightMuDown'] = {
     'samples': mc
 }
 
-# The following aliases have already been defined.
-"""
 # WH3l_mOSll for data
 aliases['WH3l_mOSll'] = {
     'linesToAdd' : [f'#include "{configurations}/ControlRegions/WZ/macros/mOS_ll.cc"'],
@@ -219,4 +216,3 @@ aliases['WH3l_chlll'] = {
     'args'       : 'nLepton,Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId',
     'samples'    : ['DATA'],
 }
-"""
