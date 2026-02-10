@@ -3,7 +3,7 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 """
 
 #: tag used to identify the configuration folder version
-tag = "ZH_4lMET_ZZCR_2024"
+tag = "ZH_4lMET_ZZCR_2024v15"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner
 runnerFile = "default"
@@ -21,7 +21,7 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 #: luminosity to normalize to (in 1/fb)
-lumi = 8.0
+lumi = 109.08
 
 #: file with dict of aliases to define
 aliasesFile = "aliases.py"

@@ -1,6 +1,15 @@
 # ZH(H→WW) → 4ℓ + MET ZZ control region
 
-This configuration implements the ZZ control region definition from AN2019_238_v9.
+This configuration implements the ZZ control region definition from AN2019_238_v9,
+aligned to the 2024 Run-3 (`2024_v15`) production conventions used in
+`PlotsConfigurationsRun3` control-region setups.
+
+## Dataset / normalization conventions
+
+- MC production: `Summer24_150x_nAODv15_Full2024v15`
+- Data production: `Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15`
+- Data streams: `MuonEG`, `Muon0`, `Muon1`, `EGamma0`, `EGamma1`
+- Integrated luminosity: `109.08 fb^{-1}`
 
 ## ZZ CR definition
 
@@ -23,3 +32,4 @@ Categories:
 ## Notes
 - The Z0/X pairing follows the AN rule: choose the OSSF pair closest to mZ and
   assign the remaining two leptons to X.
+- `WZ`, `DY`, and `top` are enabled as sub-leading backgrounds for closure checks.

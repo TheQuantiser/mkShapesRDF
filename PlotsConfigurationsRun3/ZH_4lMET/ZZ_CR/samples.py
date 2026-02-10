@@ -7,11 +7,10 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
-mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
-dataReco     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
-dataSteps    = 'DATAl2loose2024v15__l2loose'
-
+mcProduction = "Summer24_150x_nAODv15_Full2024v15"
+mcSteps = "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight"
+dataReco = "Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15"
+dataSteps = "DATAl2loose2024v15__l2loose"
 
 ##############################################
 ###### Tree base directory for the site ######
@@ -55,71 +54,77 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
 
-################################################
-############ DATA DECLARATION ##################
-################################################
-
-DataRun = [
-    ['C','Run2024C-ReReco-v1'],
-    ['D','Run2024D-ReReco-v1'],
-    ['E','Run2024E-ReReco-v1'],
-    ['F','Run2024F-Prompt-v1'],
-    ['G','Run2024G-Prompt-v1'],
-    ['H','Run2024H-Prompt-v1'],
-    ['I','Run2024I-Prompt-v1'],
-]
-
-# DataSets = ["MuonEG", "Muon", "EGamma"]
-DataSets = ["EGamma"]
-#https://github.com/TheQuantiser/mkShapesRDF/blob/master/mkShapesRDF/processor/data/TrigMaker_cfg.py
-DataTrig = {
-    # "MuonEG": "Trigger_ElMu",
-    # "Muon": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
-    "EGamma": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
-}
-
 #########################################
 ############ MC COMMON ##################
 #########################################
 
-mcCommonWeight = "XSWeight*METFilter_Common"
+# Keep the ZZ CR on the same baseline as other 2024 CR setups.
+mcCommonWeight = "XSWeight*METFilter_Common*SFweight"
 
 ###########################################
 #############  BACKGROUNDS  ###############
 ###########################################
 
+# Dominant background in this control region
 files = nanoGetSampleFiles(mcDirectory, "ZZ")
-
 samples["ZZ"] = {
     "name": files,
     "weight": mcCommonWeight,
     "FilesPerJob": 10,
 }
 
-# files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
-# samples["WZ"] = {
-#     "name": files,
-#     "weight": mcCommonWeight,
-#     "FilesPerJob": 10,
-# }
+# Sub-leading backgrounds kept active for closure / shape checks
+files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
+samples["WZ"] = {
+    "name": files,
+    "weight": mcCommonWeight,
+    "FilesPerJob": 10,
+}
 
-# files = nanoGetSampleFiles(mcDirectory, "DYto2L-2Jets_MLL-50")
-# samples["DY"] = {
-#     "name": files,
-#     "weight": mcCommonWeight,
-#     "FilesPerJob": 20,
-# }
+files = (
+    nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-50")
+    + nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-50")
+    + nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-50")
+)
+samples["DY"] = {
+    "name": files,
+    "weight": mcCommonWeight,
+    "FilesPerJob": 20,
+}
 
-# files = nanoGetSampleFiles(mcDirectory, "TTTo2L2Nu")
-# samples["top"] = {
-#     "name": files,
-#     "weight": mcCommonWeight,
-#     "FilesPerJob": 15,
-# }
+files = (
+    nanoGetSampleFiles(mcDirectory, "TTTo2L2Nu")
+    + nanoGetSampleFiles(mcDirectory, "TbarWplusto2L2Nu")
+    + nanoGetSampleFiles(mcDirectory, "TWminusto2L2Nu")
+)
+samples["top"] = {
+    "name": files,
+    "weight": mcCommonWeight,
+    "FilesPerJob": 15,
+}
 
 ###########################################
 ############# DATA ########################
 ###########################################
+
+DataRun = [
+    ["C", "Run2024C-ReReco-v1"],
+    ["D", "Run2024D-ReReco-v1"],
+    ["E", "Run2024E-ReReco-v1"],
+    ["F", "Run2024F-Prompt-v1"],
+    ["G", "Run2024G-Prompt-v1"],
+    ["H", "Run2024H-Prompt-v1"],
+    ["I", "Run2024I-Prompt-v1"],
+]
+
+DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
+DataTrig = {
+    "MuonEG": "Trigger_ElMu",
+    "Muon0": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+    "Muon1": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+    "EGamma0": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+    "EGamma1": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+}
 
 samples["DATA"] = {
     "name": [],
