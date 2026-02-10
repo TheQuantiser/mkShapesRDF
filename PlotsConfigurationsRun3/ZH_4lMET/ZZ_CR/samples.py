@@ -36,8 +36,17 @@ dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
 
 def nanoGetSampleFiles(path, name):
     files = searchFiles.searchFiles(path, name, redirector=redirector)
+
+    if not files:
+        print(f"[nanoGetSampleFiles] No files found for sample '{name}' under path '{path}'.")
+        return [(name, [])]
+
+    # apply limit (if enabled)
     if limitFiles != -1 and len(files) > limitFiles:
+        print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' (returning first {limitFiles}).")
         return [(name, files[:limitFiles])]
+
+    print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}'.")
     return [(name, files)]
 
 
