@@ -1,8 +1,11 @@
 # ZH_4lMET ZZ CR setup tasks
 
-1. Wire the correct Run 3 production tags and base directory in `samples.py`.
-2. Replace placeholder weights (`XSWeight*SFweight`) with the official ZZ and data weights.
-3. Confirm the b-tagging loose working point for the target era and update `btag_WP_loose`.
-4. Validate the lepton ordering or implement a robust Z0/X pairing algorithm in `aliases.py`.
-5. Run `mkShapesRDF -c 1` and validate the compiled config.
-6. Produce histograms for ZZ and data to check the expected ZZ-dominant purity.
+- [x] Wire the Run-3 2024v15 production tags and base directory in `samples.py`.
+- [x] Replace placeholder MC/data setup with active 2024 dataset streams and trigger partitioning.
+- [x] Add active `groupPlot` / `plot` entries for enabled samples.
+- [x] Keep `structure.py` synchronized with active sample keys.
+- [x] Add minimal 2024 nuisance model (`lumi_2024`, auto MC stat).
+- [ ] Confirm the final object/analysis weight expression with analysis conveners.
+- [ ] Confirm the b-tagging loose working point for the target era and update `bVeto`/WP if needed.
+- [ ] Run `mkShapesRDF -c 1` and validate yields/plots on EOS inputs.
+- [ ] Validate ZZ CR purity and kinematic shapes vs expectations.
