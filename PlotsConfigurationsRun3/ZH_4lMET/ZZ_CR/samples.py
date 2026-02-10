@@ -7,15 +7,16 @@ searchFiles = SearchFiles()
 redirector = ""
 useXROOTD = False
 
-mcProduction = "Summer22_130x_nAODv12_Full2022v12"
-mcSteps = "MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight"
-dataReco = "Run2022_ReReco_nAODv12_Full2022v12"
-dataSteps = "DATAl2loose2022v12__l2tight"
+mcProduction = 'Summer22_130x_nAODv12_Full2022v12'
+mcSteps      = 'MCl2loose2022v12__MCCorr2022v12JetScaling__sblancof__l2tight'
+dataReco     = 'Run2022_ReReco_nAODv12_Full2022v12'
+dataSteps    = 'DATAl1loose2022v12'
+
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
+treeBaseDir = "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano"
 limitFiles = -1
 
 samples = {}
@@ -59,8 +60,9 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 ################################################
 
 DataRun = [
-    ["C", "Run2022C-ReReco-v1"],
-    ["D", "Run2022D-ReReco-v1"],
+    ['B','Run2022B-ReReco-v1'],
+    ['C','Run2022C-ReReco-v1'],
+    ['D','Run2022D-ReReco-v1'],
 ]
 
 DataSets = ["MuonEG", "Muon", "EGamma"]
@@ -76,13 +78,13 @@ DataTrig = {
 ############ MC COMMON ##################
 #########################################
 
-mcCommonWeight = "XSWeight*METFilter_Common*SFweight"
+mcCommonWeight = "XSWeight*METFilter_Common"
 
 ###########################################
 #############  BACKGROUNDS  ###############
 ###########################################
 
-files = nanoGetSampleFiles(mcDirectory, "ZZTo4L")
+files = nanoGetSampleFiles(mcDirectory, "ZZ")
 
 samples["ZZ"] = {
     "name": files,
