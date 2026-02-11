@@ -23,14 +23,6 @@ namespace ZH4lMETZZCR {
     if (static_cast<size_t>(i0) >= pt.size() || static_cast<size_t>(i1) >= pt.size()) return {-1, -1};
     return (pt[i0] >= pt[i1]) ? ROOT::VecOps::RVec<int>{i0, i1} : ROOT::VecOps::RVec<int>{i1, i0};
   }
-  ROOT::VecOps::RVec<int> orderPairByPt(const ROOT::VecOps::RVec<int>& idx,
-                                        const ROOT::VecOps::RVec<float>& pt) {
-    if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return {-1, -1};
-    int i0 = idx[0];
-    int i1 = idx[1];
-    if (static_cast<size_t>(i0) >= pt.size() || static_cast<size_t>(i1) >= pt.size()) return {-1, -1};
-    return (pt[i0] >= pt[i1]) ? ROOT::VecOps::RVec<int>{i0, i1} : ROOT::VecOps::RVec<int>{i1, i0};
-  }
   ROOT::VecOps::RVec<int> bestZ0Idx(const ROOT::VecOps::RVec<float>& pt,
                                     const ROOT::VecOps::RVec<float>& eta,
                                     const ROOT::VecOps::RVec<float>& phi,
