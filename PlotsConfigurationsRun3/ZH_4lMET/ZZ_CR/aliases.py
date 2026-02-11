@@ -5,7 +5,7 @@ aliases = {}
 configurations = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
 
 aliases["Z0_idx"] = {
-    "linesToAdd": ['#include "%s/macros/zh4lmet_zzcr_helpers.cc"' % configurations],
+    "linesToAdd": ['#include "%sZH_4lMET/macros/zh4lmet_zzcr_helpers.cc"' % configurations],
     "expr": "ZH4lMETZZCR::bestZ0Idx(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId)"
 }
 
@@ -67,8 +67,7 @@ aliases["X_isMM"] = {
 btag_veto_algo = "btagDeepFlavB"
 btag_veto_WP = 0.0485
 aliases["bVeto_{btag_veto_algo}"] = {
-    "expr": "Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && "
-    f"Take(Jet_{btag_veto_algo}, CleanJet_jetIdx) > {btag_veto_WP}) == 0",
+    "expr": f"ZH4lMETZZCR::bVetoDeepFlavB(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, Jet_{btag_veto_algo}, {btag_veto_WP})",
 }
 
 aliases["sumLeptonCharge"] = {
@@ -78,42 +77,42 @@ aliases["sumLeptonCharge"] = {
 aliases["HT"] = {"expr": "Sum(CleanJet_pt)"}
 
 aliases["GenMET_pt"] = {
-    "expr": "0.0",
+    "expr": "ZH4lMETZZCR::zeroFloat()",
     "samples": ["DATA"],
 }
 
 aliases["GenMET_phi"] = {
-    "expr": "0.0",
+    "expr": "ZH4lMETZZCR::zeroFloat()",
     "samples": ["DATA"],
 }
 
 aliases["GenPart_pdgId"] = {
-    "expr": "ROOT::VecOps::RVec<int>()",
+    "expr": "ZH4lMETZZCR::emptyIntVec()",
     "samples": ["DATA"],
 }
 
 aliases["GenPart_pt"] = {
-    "expr": "ROOT::VecOps::RVec<float>()",
+    "expr": "ZH4lMETZZCR::emptyFloatVec()",
     "samples": ["DATA"],
 }
 
 aliases["GenPart_eta"] = {
-    "expr": "ROOT::VecOps::RVec<float>()",
+    "expr": "ZH4lMETZZCR::emptyFloatVec()",
     "samples": ["DATA"],
 }
 
 aliases["GenPart_phi"] = {
-    "expr": "ROOT::VecOps::RVec<float>()",
+    "expr": "ZH4lMETZZCR::emptyFloatVec()",
     "samples": ["DATA"],
 }
 
 aliases["Electron_genPartIdx"] = {
-    "expr": "ROOT::VecOps::RVec<int>()",
+    "expr": "ZH4lMETZZCR::emptyIntVec()",
     "samples": ["DATA"],
 }
 
 aliases["Muon_genPartIdx"] = {
-    "expr": "ROOT::VecOps::RVec<int>()",
+    "expr": "ZH4lMETZZCR::emptyIntVec()",
     "samples": ["DATA"],
 }
 

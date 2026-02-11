@@ -3,6 +3,30 @@
 #include <ROOT/RVec.hxx>
 #include <Math/Vector4D.h>
 namespace ZH4lMETZZCR {
+  float zeroFloat() {
+    return 0.0f;
+  }
+  ROOT::VecOps::RVec<int> emptyIntVec() {
+    return ROOT::VecOps::RVec<int>();
+  }
+  ROOT::VecOps::RVec<float> emptyFloatVec() {
+    return ROOT::VecOps::RVec<float>();
+  }
+  bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float>& cleanJetPt,
+                      const ROOT::VecOps::RVec<float>& cleanJetEta,
+                      const ROOT::VecOps::RVec<int>& cleanJetJetIdx,
+                      const ROOT::VecOps::RVec<float>& jetBtagDeepFlavB,
+                      float btagVetoWP) {
+    const size_t n = std::min<size_t>(cleanJetPt.size(),
+                                      std::min<size_t>(cleanJetEta.size(), cleanJetJetIdx.size()));
+    for (size_t i = 0; i < n; ++i) {
+      if (cleanJetPt[i] <= 30.f || std::abs(cleanJetEta[i]) >= 2.5f) continue;
+      const int jetIdx = cleanJetJetIdx[i];
+      if (jetIdx < 0 || static_cast<size_t>(jetIdx) >= jetBtagDeepFlavB.size()) continue;
+      if (jetBtagDeepFlavB[jetIdx] > btagVetoWP) return false;
+    }
+    return true;
+  }
   float lepMass(int pdgId) {
     return (std::abs(pdgId) == 11) ? 0.000511f : 0.105658f;
   }
