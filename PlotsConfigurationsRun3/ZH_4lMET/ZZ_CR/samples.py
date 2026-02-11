@@ -12,9 +12,6 @@ mcSteps = "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight"
 dataReco = "Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15"
 dataSteps = "DATAl2loose2024v15__l2loose"
 
-##############################################
-###### Tree base directory for the site ######
-##############################################
 treeBaseDir = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
 limitFiles = -1
 
@@ -30,8 +27,24 @@ def makeMCDirectory(var=""):
     return "/".join([_treeBaseDir, mcProduction, mcSteps + "__" + var])
 
 
+def makeDataDirectory(stream_tag):
+    _treeBaseDir = treeBaseDir + ""
+    if redirector != "":
+        _treeBaseDir = redirector + treeBaseDir
+    # stream_tag examples: "MuonEG", "Muon", "EGamma"
+    return "/".join([_treeBaseDir, f"{dataReco}_{stream_tag}", dataSteps])
+
+
 mcDirectory = makeMCDirectory()
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+
+# dataset -> stream tag used in the directory name
+DATASET_STREAM = {
+    "MuonEG": "MuonEG",
+    "Muon0": "Muon",
+    "Muon1": "Muon",
+    "EGamma0": "EGamma",
+    "EGamma1": "EGamma",
+}
 
 
 def nanoGetSampleFiles(path, name):
@@ -41,7 +54,6 @@ def nanoGetSampleFiles(path, name):
         print(f"[nanoGetSampleFiles] No files found for sample '{name}' under path '{path}'.")
         return [(name, [])]
 
-    # apply limit (if enabled)
     if limitFiles != -1 and len(files) > limitFiles:
         print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' (returning first {limitFiles}).")
         return [(name, files[:limitFiles])]
@@ -63,58 +75,28 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
 
-#########################################
-############ MC COMMON ##################
-#########################################
+mcCommonWeight = "XSWeight"
 
-# Keep the ZZ CR on the same baseline as other 2024 CR setups.
-mcCommonWeight = "XSWeight*METFilter_Common*SFweight"
-
-###########################################
-#############  BACKGROUNDS  ###############
-###########################################
-
-# Dominant background in this control region
 files = nanoGetSampleFiles(mcDirectory, "ZZ")
-samples["ZZ"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 10,
-}
+samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
 
-# Sub-leading backgrounds kept active for closure / shape checks
-files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
-samples["WZ"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 10,
-}
+# files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
+# samples["WZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
 
-files = (
-    nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-50")
-    + nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-50")
-    + nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-50")
-)
-samples["DY"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 20,
-}
+# files = (
+#     nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-50")
+#     + nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-50")
+#     + nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-50")
+# )
+# samples["DY"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 20}
 
-files = (
-    nanoGetSampleFiles(mcDirectory, "TTTo2L2Nu")
-    + nanoGetSampleFiles(mcDirectory, "TbarWplusto2L2Nu")
-    + nanoGetSampleFiles(mcDirectory, "TWminusto2L2Nu")
-)
-samples["top"] = {
-    "name": files,
-    "weight": mcCommonWeight,
-    "FilesPerJob": 15,
-}
+# files = (
+#     nanoGetSampleFiles(mcDirectory, "TTTo2L2Nu")
+#     + nanoGetSampleFiles(mcDirectory, "TbarWplusto2L2Nu")
+#     + nanoGetSampleFiles(mcDirectory, "TWminusto2L2Nu")
+# )
+# samples["top"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 15}
 
-###########################################
-############# DATA ########################
-###########################################
 
 DataRun = [
     ["C", "Run2024C-ReReco-v1"],
@@ -126,7 +108,8 @@ DataRun = [
     ["I", "Run2024I-Prompt-v1"],
 ]
 
-DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
+# DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
+DataSets = ["MuonEG", "EGamma0", "EGamma1"]
 DataTrig = {
     "MuonEG": "Trigger_ElMu",
     "Muon0": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
@@ -145,6 +128,8 @@ samples["DATA"] = {
 
 for run in DataRun:
     for dataset in DataSets:
+        stream_tag = DATASET_STREAM[dataset]
+        dataDirectory = makeDataDirectory(stream_tag)
         files = nanoGetSampleFiles(dataDirectory, dataset + "_" + run[1])
         samples["DATA"]["name"].extend(files)
         addSampleWeight(samples, "DATA", dataset + "_" + run[1], DataTrig[dataset])
