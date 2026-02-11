@@ -4,7 +4,7 @@ aliases = {}
 
 configurations = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
 
-aliases["dileptonMass"] = {
+aliases["Z0_idx"] = {
     "linesToAdd": [
         """
 #ifndef ZH4LMET_ZZCR_HELPERS
@@ -200,10 +200,6 @@ namespace ZH4lMETZZCR {
 #endif
         """,
     ],
-    "expr": "1.0",
-}
-
-aliases["Z0_idx"] = {
     "expr": "ZH4lMETZZCR::bestZ0Idx(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId)"
 }
 
