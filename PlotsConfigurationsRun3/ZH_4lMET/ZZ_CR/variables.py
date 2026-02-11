@@ -91,145 +91,48 @@ variables["HT"] = {
     "fold": 3,
 }
 
-variables["Lepton_pt_0"] = {
-    "name": "Alt(Lepton_pt, 0, 0)",
-    "range": (30, 0, 150),
-    "xaxis": "p_{T}^{l1} [GeV]",
-    "fold": 3,
-}
+pair_leptons = [
+    ("lZ1", "Alt(Z0_idx, 0, -1)"),
+    ("lZ2", "Alt(Z0_idx, 1, -1)"),
+    ("lX1", "Alt(X_idx, 0, -1)"),
+    ("lX2", "Alt(X_idx, 1, -1)"),
+]
 
-variables["Lepton_pt_1"] = {
-    "name": "Alt(Lepton_pt, 1, 0)",
-    "range": (30, 0, 150),
-    "xaxis": "p_{T}^{l2} [GeV]",
-    "fold": 3,
-}
+for lep_label, lep_idx in pair_leptons:
+    variables[f"{lep_label}_pt"] = {
+        "name": f"Alt(Lepton_pt, {lep_idx}, 0)",
+        "range": (30, 0, 150),
+        "xaxis": f"p_{{T}}^{{{lep_label}}} [GeV]",
+        "fold": 3,
+    }
 
-variables["Lepton_pt_2"] = {
-    "name": "Alt(Lepton_pt, 2, 0)",
-    "range": (30, 0, 100),
-    "xaxis": "p_{T}^{l3} [GeV]",
-    "fold": 3,
-}
+    variables[f"{lep_label}_eta"] = {
+        "name": f"Alt(Lepton_eta, {lep_idx}, 0)",
+        "range": (30, -3.0, 3.0),
+        "xaxis": f"#eta^{{{lep_label}}}",
+        "fold": 3,
+    }
 
-variables["Lepton_pt_3"] = {
-    "name": "Alt(Lepton_pt, 3, 0)",
-    "range": (30, 0, 100),
-    "xaxis": "p_{T}^{l4} [GeV]",
-    "fold": 3,
-}
+    variables[f"{lep_label}_phi"] = {
+        "name": f"Alt(Lepton_phi, {lep_idx}, 0)",
+        "range": (32, -3.2, 3.2),
+        "xaxis": f"#phi^{{{lep_label}}}",
+        "fold": 3,
+    }
 
-variables["Lepton_eta_0"] = {
-    "name": "Alt(Lepton_eta, 0, 0)",
-    "range": (30, -3.0, 3.0),
-    "xaxis": "#eta^{l1}",
-    "fold": 3,
-}
+    variables[f"{lep_label}_pdgId"] = {
+        "name": f"Alt(Lepton_pdgId, {lep_idx}, 0)",
+        "range": (27, -13.5, 13.5),
+        "xaxis": f"pdgId^{{{lep_label}}}",
+        "fold": 0,
+    }
 
-variables["Lepton_eta_1"] = {
-    "name": "Alt(Lepton_eta, 1, 0)",
-    "range": (30, -3.0, 3.0),
-    "xaxis": "#eta^{l2}",
-    "fold": 3,
-}
-
-variables["Lepton_eta_2"] = {
-    "name": "Alt(Lepton_eta, 2, 0)",
-    "range": (30, -3.0, 3.0),
-    "xaxis": "#eta^{l3}",
-    "fold": 3,
-}
-
-variables["Lepton_eta_3"] = {
-    "name": "Alt(Lepton_eta, 3, 0)",
-    "range": (30, -3.0, 3.0),
-    "xaxis": "#eta^{l4}",
-    "fold": 3,
-}
-
-variables["Lepton_phi_0"] = {
-    "name": "Alt(Lepton_phi, 0, 0)",
-    "range": (32, -3.2, 3.2),
-    "xaxis": "#phi^{l1}",
-    "fold": 3,
-}
-
-variables["Lepton_phi_1"] = {
-    "name": "Alt(Lepton_phi, 1, 0)",
-    "range": (32, -3.2, 3.2),
-    "xaxis": "#phi^{l2}",
-    "fold": 3,
-}
-
-variables["Lepton_phi_2"] = {
-    "name": "Alt(Lepton_phi, 2, 0)",
-    "range": (32, -3.2, 3.2),
-    "xaxis": "#phi^{l3}",
-    "fold": 3,
-}
-
-variables["Lepton_phi_3"] = {
-    "name": "Alt(Lepton_phi, 3, 0)",
-    "range": (32, -3.2, 3.2),
-    "xaxis": "#phi^{l4}",
-    "fold": 3,
-}
-
-variables["Lepton_pdgId_0"] = {
-    "name": "Alt(Lepton_pdgId, 0, 0)",
-    "range": (27, -13.5, 13.5),
-    "xaxis": "pdgId^{l1}",
-    "fold": 0,
-}
-
-variables["Lepton_pdgId_1"] = {
-    "name": "Alt(Lepton_pdgId, 1, 0)",
-    "range": (27, -13.5, 13.5),
-    "xaxis": "pdgId^{l2}",
-    "fold": 0,
-}
-
-variables["Lepton_pdgId_2"] = {
-    "name": "Alt(Lepton_pdgId, 2, 0)",
-    "range": (27, -13.5, 13.5),
-    "xaxis": "pdgId^{l3}",
-    "fold": 0,
-}
-
-variables["Lepton_pdgId_3"] = {
-    "name": "Alt(Lepton_pdgId, 3, 0)",
-    "range": (27, -13.5, 13.5),
-    "xaxis": "pdgId^{l4}",
-    "fold": 0,
-}
-
-variables["Lepton_charge_0"] = {
-    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 0, 0)",
-    "range": (5, -2.5, 2.5),
-    "xaxis": "q^{l1}",
-    "fold": 0,
-}
-
-variables["Lepton_charge_1"] = {
-    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 1, 0)",
-    "range": (5, -2.5, 2.5),
-    "xaxis": "q^{l2}",
-    "fold": 0,
-}
-
-variables["Lepton_charge_2"] = {
-    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 2, 0)",
-    "range": (5, -2.5, 2.5),
-    "xaxis": "q^{l3}",
-    "fold": 0,
-}
-
-variables["Lepton_charge_3"] = {
-    "name": "Alt(-Lepton_pdgId / abs(Lepton_pdgId), 3, 0)",
-    "range": (5, -2.5, 2.5),
-    "xaxis": "q^{l4}",
-    "fold": 0,
-}
+    variables[f"{lep_label}_charge"] = {
+        "name": f"Alt((Lepton_pdgId < 0) - (Lepton_pdgId > 0), {lep_idx}, 0)",
+        "range": (5, -2.5, 2.5),
+        "xaxis": f"q^{{{lep_label}}}",
+        "fold": 0,
+    }
 
 variables["sumLeptonCharge"] = {
     "name": "sumLeptonCharge",
@@ -340,19 +243,45 @@ muon_tight_wps_2022 = [
     "cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
 ]
 
-for index in range(4):
+for wp in electron_tight_wps_2022:
+    variables[f"nTightElectron_{wp}"] = {
+        "name": f"Sum((abs(Lepton_pdgId) == 11) && (Lepton_isTightElectron_{wp} > 0.5))",
+        "range": (5, 0, 5),
+        "xaxis": f"N_{{e}} passing {wp}",
+        "fold": 3,
+    }
+
+for wp in muon_tight_wps_2022:
+    variables[f"nTightMuon_{wp}"] = {
+        "name": f"Sum((abs(Lepton_pdgId) == 13) && (Lepton_isTightMuon_{wp} > 0.5))",
+        "range": (5, 0, 5),
+        "xaxis": f"N_{{#mu}} passing {wp}",
+        "fold": 3,
+    }
+
+for lep_label, lepton_index in pair_leptons:
     for wp in electron_tight_wps_2022:
-        tree_branches[f"Lepton_isTightElectron_{wp}_{index}"] = (
-            f"Alt(Lepton_isTightElectron_{wp}, {index}, 0)"
+        tree_branches[f"{lep_label}_isTightElectron_{wp}"] = (
+            f"Alt(Lepton_isTightElectron_{wp}, {lepton_index}, 0)"
         )
     for wp in muon_tight_wps_2022:
-        tree_branches[f"Lepton_isTightMuon_{wp}_{index}"] = (
-            f"Alt(Lepton_isTightMuon_{wp}, {index}, 0)"
+        tree_branches[f"{lep_label}_isTightMuon_{wp}"] = (
+            f"Alt(Lepton_isTightMuon_{wp}, {lepton_index}, 0)"
         )
-    tree_branches[f"Lepton_genPdgId_{index}"] = f"Alt(Lepton_genPdgId, {index}, 0)"
-    tree_branches[f"Lepton_genPt_{index}"] = f"Alt(Lepton_genPt, {index}, 0)"
-    tree_branches[f"Lepton_genEta_{index}"] = f"Alt(Lepton_genEta, {index}, 0)"
-    tree_branches[f"Lepton_genPhi_{index}"] = f"Alt(Lepton_genPhi, {index}, 0)"
+    tree_branches[f"{lep_label}_genPdgId"] = f"Alt(Lepton_genPdgId, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_genPt"] = f"Alt(Lepton_genPt, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_genEta"] = f"Alt(Lepton_genEta, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_genPhi"] = f"Alt(Lepton_genPhi, {lepton_index}, 0)"
+
+for wp in electron_tight_wps_2022:
+    tree_branches[f"nTightElectron_{wp}"] = (
+        f"Sum((abs(Lepton_pdgId) == 11) && (Lepton_isTightElectron_{wp} > 0.5))"
+    )
+
+for wp in muon_tight_wps_2022:
+    tree_branches[f"nTightMuon_{wp}"] = (
+        f"Sum((abs(Lepton_pdgId) == 13) && (Lepton_isTightMuon_{wp} > 0.5))"
+    )
 
 tree_branches["GenMET_pt"] = "GenMET_pt"
 tree_branches["GenMET_phi"] = "GenMET_phi"
