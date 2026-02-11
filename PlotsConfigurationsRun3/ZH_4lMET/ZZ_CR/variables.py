@@ -1,30 +1,9 @@
 variables = {}
 
-variables["nLepton"] = {
-    "name": "nLepton",
-    "range": (6, 0, 6),
-    "xaxis": "nLepton",
-    "fold": 3,
-}
-
 variables["nCleanJet"] = {
     "name": "nCleanJet",
     "range": (6, 0, 6),
     "xaxis": "nCleanJet",
-    "fold": 3,
-}
-
-variables["nElectron"] = {
-    "name": "Sum(abs(Lepton_pdgId) == 11)",
-    "range": (5, 0, 5),
-    "xaxis": "nElectron",
-    "fold": 3,
-}
-
-variables["nMuon"] = {
-    "name": "Sum(abs(Lepton_pdgId) == 13)",
-    "range": (5, 0, 5),
-    "xaxis": "nMuon",
     "fold": 3,
 }
 
@@ -212,21 +191,20 @@ variables["CleanJet_phi_1"] = {
 }
 
 tree_branches = {}
+
 for var_name, var_def in variables.items():
     if "tree" in var_def:
         continue
-    expressions = var_def["name"].split(":")
-    if len(expressions) == 1:
-        base, sep, suffix = var_name.rpartition("_")
-        if sep and suffix.isdigit():
-            tree_branches[var_name] = expressions[0]
-        else:
-            nd_single = f"{var_name}_0"
-            tree_branches[nd_single] = nd_single
+
+    exprs = [e.strip() for e in var_def["name"].split(":")]
+
+    if len(exprs) == 1:
+        # one output branch: <var_name> = <expression>
+        tree_branches[var_name] = exprs[0]
     else:
-        for index, _expr in enumerate(expressions):
-            nd_single = f"{var_name}_{index}"
-            tree_branches[nd_single] = nd_single
+        # multiple output branches: <var_name>_<i> = <expr_i>
+        for i, expr in enumerate(exprs):
+            tree_branches[f"{var_name}_{i}"] = expr
 
 
 for lep_label, lepton_index in pair_leptons:
@@ -243,6 +221,7 @@ electron_tight_wps_2022 = [
     "cutBased_LooseID_tthMVA_Run3",
     "cutBased_LooseID_tthMVA_HWW",
 ]
+
 muon_tight_wps_2022 = [
     "cut_TightID_POG",
     "cut_Tight_HWW",
