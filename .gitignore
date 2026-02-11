@@ -14,5 +14,5 @@ start.sh
 *build*
 *html*
 .DS*
-PlotsConfigurationsRun3/*/*/configs/
-PlotsConfigurationsRun3/*/*/rootFiles/
+PlotsConfigurationsRun3/*/*/configs/*
+PlotsConfigurationsRun3/*/*/rootFiles/*
