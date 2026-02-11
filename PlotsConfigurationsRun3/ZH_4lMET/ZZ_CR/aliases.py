@@ -66,7 +66,7 @@ aliases["X_isMM"] = {
 
 btag_veto_algo = "btagDeepFlavB"
 btag_veto_WP = 0.0485
-aliases["bVeto_{btag_veto_algo}"] = {
+aliases[f"bVeto"] = {
     "expr": f"ZH4lMETZZCR::bVetoDeepFlavB(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, Jet_{btag_veto_algo}, {btag_veto_WP})",
 }
 
