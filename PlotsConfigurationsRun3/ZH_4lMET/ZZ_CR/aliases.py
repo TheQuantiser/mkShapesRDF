@@ -142,11 +142,11 @@ namespace ZH4lMETZZCR {
   int sumLeptonChargeFromPairs(const ROOT::VecOps::RVec<int>& pdgId,
                               const ROOT::VecOps::RVec<int>& zidx,
                               const ROOT::VecOps::RVec<int>& xidx) {
-    if (zidx.size() < 2 || xidx.size() < 2) return 0;
+    if (zidx.size() < 2 || xidx.size() < 2) return -999;
     ROOT::VecOps::RVec<int> idx = {zidx[0], zidx[1], xidx[0], xidx[1]};
     int chargeSum = 0;
     for (int i : idx) {
-      if (i < 0 || static_cast<size_t>(i) >= pdgId.size()) return 0;
+      if (i < 0 || static_cast<size_t>(i) >= pdgId.size()) return -999;
       if (pdgId[i] == 0) continue;
       chargeSum += (pdgId[i] < 0) ? 1 : -1;
     }
@@ -250,10 +250,19 @@ aliases["X_isMM"] = {
     "expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 13"
 }
 
-btag_WP_loose = 0.049
-aliases["bVeto"] = {
-    "expr": "Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && "
-    f"Take(Jet_btagDeepFlavB, CleanJet_jetIdx) > {btag_WP_loose}) == 0",
+# use UParT
+# https://indico.cern.ch/event/1556659/contributions/6559758/attachments/3083466/5458488/BTag_250610_Summer24WPs.pdf
+# https://cms-talk.web.cern.ch/t/ak4-b-tagging-and-c-tagging-working-points-for-runiiisummer24-now-available/126466
+# https://github.com/cms-btv-pog/BTVNanoCommissioning/blob/master/src/BTVNanoCommissioning/utils/selection.py#L394-L412
+# https://github.com/cms-btv-pog/BTVNanoCommissioning/blob/master/src/BTVNanoCommissioning/utils/selection.py#L45-L74
+# https://gitlab.cern.ch/cms-btv/btv-scale-factors
+# https://gitlab.cern.ch/cms-btv/btv-scale-factors/-/blob/master/2024_Summer24/wp/wp_database_btagging.yml?ref_type=heads
+
+btag_veto_algo = "btagDeepFlavB"
+btag_veto_WP = 0.0485
+aliases["bVeto_{btag_veto_algo}"] = {
+    "expr": "Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && "
+    f"Take(Jet_{btag_veto_algo}, CleanJet_jetIdx) > {btag_veto_WP}) == 0",
 }
 
 aliases["sumLeptonCharge"] = {
