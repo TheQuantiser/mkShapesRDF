@@ -139,6 +139,19 @@ namespace ZH4lMETZZCR {
     ROOT::Math::PtEtaPhiMVector vx2(pt[xidx[1]], eta[xidx[1]], phi[xidx[1]], lepMass(pdgId[xidx[1]]));
     return (vz1 + vz2 + vx1 + vx2).Pt();
   }
+  int sumLeptonChargeFromPairs(const ROOT::VecOps::RVec<int>& pdgId,
+                              const ROOT::VecOps::RVec<int>& zidx,
+                              const ROOT::VecOps::RVec<int>& xidx) {
+    if (zidx.size() < 2 || xidx.size() < 2) return 0;
+    ROOT::VecOps::RVec<int> idx = {zidx[0], zidx[1], xidx[0], xidx[1]};
+    int chargeSum = 0;
+    for (int i : idx) {
+      if (i < 0 || static_cast<size_t>(i) >= pdgId.size()) return 0;
+      if (pdgId[i] == 0) continue;
+      chargeSum += (pdgId[i] < 0) ? 1 : -1;
+    }
+    return chargeSum;
+  }
   ROOT::VecOps::RVec<int> genPdgIdFromIdx(const ROOT::VecOps::RVec<int>& genIdx,
                                           const ROOT::VecOps::RVec<int>& genPdgId) {
     ROOT::VecOps::RVec<int> out(genIdx.size(), 0);
@@ -248,7 +261,7 @@ aliases["bVeto"] = {
 }
 
 aliases["sumLeptonCharge"] = {
-    "expr": "Sum(-Lepton_pdgId / abs(Lepton_pdgId))"
+    "expr": "ZH4lMETZZCR::sumLeptonChargeFromPairs(Lepton_pdgId, Z0_idx, X_idx)"
 }
 
 aliases["HT"] = {"expr": "Sum(CleanJet_pt)"}

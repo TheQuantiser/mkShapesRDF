@@ -214,6 +214,14 @@ for lep_label, lepton_index in pair_leptons:
     tree_branches[f"{lep_label}_pdgId"] = f"Alt(Lepton_pdgId, {lepton_index}, 0)"
     tree_branches[f"{lep_label}_charge"] = f"Alt((Lepton_pdgId < 0) - (Lepton_pdgId > 0), {lepton_index}, 0)"
 
+
+for lep_label, lepton_index in pair_leptons:
+    tree_branches[f"{lep_label}_pt"] = f"Alt(Lepton_pt, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_eta"] = f"Alt(Lepton_eta, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_phi"] = f"Alt(Lepton_phi, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_pdgId"] = f"Alt(Lepton_pdgId, {lepton_index}, 0)"
+    tree_branches[f"{lep_label}_charge"] = f"Alt((Lepton_pdgId < 0) - (Lepton_pdgId > 0), {lepton_index}, 0)"
+
 electron_tight_wps_2022 = [
     "testrecipes",
     "wp90iso",
