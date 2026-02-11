@@ -18,6 +18,14 @@ namespace ZH4lMETZZCR {
   int min4(int nlep) {
     return (nlep > 4) ? 4 : nlep;
   }
+  ROOT::VecOps::RVec<int> orderPairByPt(const ROOT::VecOps::RVec<int>& idx,
+                                        const ROOT::VecOps::RVec<float>& pt) {
+    if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return {-1, -1};
+    int i0 = idx[0];
+    int i1 = idx[1];
+    if (static_cast<size_t>(i0) >= pt.size() || static_cast<size_t>(i1) >= pt.size()) return {-1, -1};
+    return (pt[i0] >= pt[i1]) ? ROOT::VecOps::RVec<int>{i0, i1} : ROOT::VecOps::RVec<int>{i1, i0};
+  }
   ROOT::VecOps::RVec<int> bestZ0Idx(const ROOT::VecOps::RVec<float>& pt,
                                     const ROOT::VecOps::RVec<float>& eta,
                                     const ROOT::VecOps::RVec<float>& phi,
@@ -41,15 +49,18 @@ namespace ZH4lMETZZCR {
         }
       }
     }
-    return out;
+    return orderPairByPt(out, pt);
   }
-  ROOT::VecOps::RVec<int> xPairIdx(const ROOT::VecOps::RVec<int>& zidx, int nlep) {
+  ROOT::VecOps::RVec<int> xPairIdx(const ROOT::VecOps::RVec<int>& zidx,
+                                   const ROOT::VecOps::RVec<float>& pt, int nlep) {
+    if (zidx.size() < 2 || zidx[0] < 0 || zidx[1] < 0) return {-1, -1};
     ROOT::VecOps::RVec<int> out;
     for (int i = 0; i < nlep; ++i) {
       if (i != zidx[0] && i != zidx[1]) out.push_back(i);
     }
     if (out.size() < 2) return {-1, -1};
-    return {out[0], out[1]};
+    ROOT::VecOps::RVec<int> pair = {out[0], out[1]};
+    return orderPairByPt(pair, pt);
   }
   float pairMass(const ROOT::VecOps::RVec<float>& pt, const ROOT::VecOps::RVec<float>& eta,
                  const ROOT::VecOps::RVec<float>& phi, const ROOT::VecOps::RVec<int>& pdgId,
@@ -148,7 +159,7 @@ aliases["Z0_idx"] = {
 }
 
 aliases["X_idx"] = {
-    "expr": "ZH4lMETZZCR::xPairIdx(Z0_idx, ZH4lMETZZCR::min4(nLepton))"
+    "expr": "ZH4lMETZZCR::xPairIdx(Z0_idx, Lepton_pt, ZH4lMETZZCR::min4(nLepton))"
 }
 
 aliases["Z0_mass"] = {
