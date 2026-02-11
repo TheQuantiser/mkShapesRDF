@@ -13,8 +13,8 @@ preselections += " && bVeto"
 # preselections += " && sumLeptonCharge == 0"
 
 cuts["zz_cr"] = {
+    "expr": "(Z0_mass > 0.) && abs(Z0_mass - 91.1876) < 30",
     # "expr": "abs(Z0_mass - 91.1876) < 15 && X_mass > 75 && X_mass < 105 && PuppiMET_pt < 35",
-    expr": "abs(Z0_mass - 91.1876) < 15 && X_mass > 75 && X_mass < 105 && PuppiMET_pt < 35",
     "categories": {
         "XSF_ZEE": "X_isSF && Z0_isEE",
         "XSF_ZMM": "X_isSF && Z0_isMM",
