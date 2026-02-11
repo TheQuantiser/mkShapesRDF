@@ -30,7 +30,8 @@ namespace ZH4lMETZZCR {
     ROOT::VecOps::RVec<int> out = {-1, -1};
     const float mZ = 91.1876f;
     float bestDiff = 1e9f;
-    int n = pt.size();
+    int n = std::min<int>(std::min<int>(pt.size(), eta.size()),
+                          std::min<int>(phi.size(), pdgId.size()));
     for (int i = 0; i < n; ++i) {
       for (int j = i + 1; j < n; ++j) {
         if (pdgId[i] * pdgId[j] >= 0) continue;
@@ -50,35 +51,25 @@ namespace ZH4lMETZZCR {
   }
   ROOT::VecOps::RVec<int> xPairIdx(const ROOT::VecOps::RVec<int>& zidx,
                                    const ROOT::VecOps::RVec<float>& pt) {
-    if (zidx.size() < 2 || zidx[0] < 0 || zidx[1] < 0) return {-1, -1};
-    ROOT::VecOps::RVec<int> out;
+    if (zidx.size() < 2 || zidx[0] < 0 || zidx[1] < 0 || zidx[0] == zidx[1]) return {-1, -1};
+    if (static_cast<size_t>(zidx[0]) >= pt.size() || static_cast<size_t>(zidx[1]) >= pt.size()) return {-1, -1};
+
+    int lead = -1;
+    int sublead = -1;
     for (size_t i = 0; i < pt.size(); ++i) {
-      if (static_cast<int>(i) != zidx[0] && static_cast<int>(i) != zidx[1]) out.push_back(i);
+      int idx = static_cast<int>(i);
+      if (idx == zidx[0] || idx == zidx[1]) continue;
+      if (lead < 0 || pt[idx] > pt[lead]) {
+        sublead = lead;
+        lead = idx;
+      } else if (sublead < 0 || pt[idx] > pt[sublead]) {
+        sublead = idx;
+      }
     }
-    if (out.size() < 2) return {-1, -1};
-    ROOT::VecOps::RVec<int> pair = {out[0], out[1]};
+
+    if (lead < 0 || sublead < 0) return {-1, -1};
+    ROOT::VecOps::RVec<int> pair = {lead, sublead};
     return orderPairByPt(pair, pt);
-  }
-  float pairMass(const ROOT::VecOps::RVec<float>& pt, const ROOT::VecOps::RVec<float>& eta,
-                 const ROOT::VecOps::RVec<float>& phi, const ROOT::VecOps::RVec<int>& pdgId,
-                 const ROOT::VecOps::RVec<int>& idx) {
-    if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return -999.0f;
-    ROOT::Math::PtEtaPhiMVector v1(pt[idx[0]], eta[idx[0]], phi[idx[0]], lepMass(pdgId[idx[0]]));
-    ROOT::Math::PtEtaPhiMVector v2(pt[idx[1]], eta[idx[1]], phi[idx[1]], lepMass(pdgId[idx[1]]));
-    return (v1 + v2).M();
-  }
-  float pairPt(const ROOT::VecOps::RVec<float>& pt, const ROOT::VecOps::RVec<float>& eta,
-               const ROOT::VecOps::RVec<float>& phi, const ROOT::VecOps::RVec<int>& pdgId,
-               const ROOT::VecOps::RVec<int>& idx) {
-    if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return -999.0f;
-    ROOT::Math::PtEtaPhiMVector v1(pt[idx[0]], eta[idx[0]], phi[idx[0]], lepMass(pdgId[idx[0]]));
-    ROOT::Math::PtEtaPhiMVector v2(pt[idx[1]], eta[idx[1]], phi[idx[1]], lepMass(pdgId[idx[1]]));
-    return (v1 + v2).Pt();
-  }
-  int pairFlavor(const ROOT::VecOps::RVec<int>& pdgId, const ROOT::VecOps::RVec<int>& idx) {
-    if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return 0;
-    int flav = std::abs(pdgId[idx[0]]);
-    return (flav == std::abs(pdgId[idx[1]])) ? flav : 0;
   }
   bool validLeptonIndex(int idx,
                         const ROOT::VecOps::RVec<float>& pt,
@@ -97,6 +88,28 @@ namespace ZH4lMETZZCR {
     if (idx.size() < 2) return false;
     return validLeptonIndex(idx[0], pt, eta, phi, pdgId) &&
            validLeptonIndex(idx[1], pt, eta, phi, pdgId);
+  }
+  float pairMass(const ROOT::VecOps::RVec<float>& pt, const ROOT::VecOps::RVec<float>& eta,
+                 const ROOT::VecOps::RVec<float>& phi, const ROOT::VecOps::RVec<int>& pdgId,
+                 const ROOT::VecOps::RVec<int>& idx) {
+    if (!validPairIndices(idx, pt, eta, phi, pdgId)) return -999.0f;
+    ROOT::Math::PtEtaPhiMVector v1(pt[idx[0]], eta[idx[0]], phi[idx[0]], lepMass(pdgId[idx[0]]));
+    ROOT::Math::PtEtaPhiMVector v2(pt[idx[1]], eta[idx[1]], phi[idx[1]], lepMass(pdgId[idx[1]]));
+    return (v1 + v2).M();
+  }
+  float pairPt(const ROOT::VecOps::RVec<float>& pt, const ROOT::VecOps::RVec<float>& eta,
+               const ROOT::VecOps::RVec<float>& phi, const ROOT::VecOps::RVec<int>& pdgId,
+               const ROOT::VecOps::RVec<int>& idx) {
+    if (!validPairIndices(idx, pt, eta, phi, pdgId)) return -999.0f;
+    ROOT::Math::PtEtaPhiMVector v1(pt[idx[0]], eta[idx[0]], phi[idx[0]], lepMass(pdgId[idx[0]]));
+    ROOT::Math::PtEtaPhiMVector v2(pt[idx[1]], eta[idx[1]], phi[idx[1]], lepMass(pdgId[idx[1]]));
+    return (v1 + v2).Pt();
+  }
+  int pairFlavor(const ROOT::VecOps::RVec<int>& pdgId, const ROOT::VecOps::RVec<int>& idx) {
+    if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return 0;
+    if (static_cast<size_t>(idx[0]) >= pdgId.size() || static_cast<size_t>(idx[1]) >= pdgId.size()) return 0;
+    int flav = std::abs(pdgId[idx[0]]);
+    return (flav == std::abs(pdgId[idx[1]])) ? flav : 0;
   }
   float fourLeptonMassFromPairs(const ROOT::VecOps::RVec<float>& pt,
                                 const ROOT::VecOps::RVec<float>& eta,
