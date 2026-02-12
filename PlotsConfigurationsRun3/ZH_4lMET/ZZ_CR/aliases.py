@@ -59,33 +59,20 @@ aliases["phi4l"] = {
     "expr": "ZH4lMETZZCR::fourLeptonPhiFromPairs(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, Z0_idx, X_idx)",
 }
 
-aliases["lZ1_phi"] = {
-    "expr": "ZH4lMETZZCR::leptonPhiAtIdx(Lepton_phi, Alt(Z0_idx, 0, -1))"
-}
-aliases["lZ2_phi"] = {
-    "expr": "ZH4lMETZZCR::leptonPhiAtIdx(Lepton_phi, Alt(Z0_idx, 1, -1))"
-}
-aliases["lX1_phi"] = {
-    "expr": "ZH4lMETZZCR::leptonPhiAtIdx(Lepton_phi, Alt(X_idx, 0, -1))"
-}
-aliases["lX2_phi"] = {
-    "expr": "ZH4lMETZZCR::leptonPhiAtIdx(Lepton_phi, Alt(X_idx, 1, -1))"
-}
-
 aliases["dPhi_MET_Z"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, Z0_phi)"}
 aliases["dPhi_MET_X"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, X_phi)"}
-aliases["dPhi_MET_lZ1"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, lZ1_phi)"}
-aliases["dPhi_MET_lZ2"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, lZ2_phi)"}
-aliases["dPhi_MET_lX1"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, lX1_phi)"}
-aliases["dPhi_MET_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, lX2_phi)"}
+aliases["dPhi_MET_lZ1"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, Alt(Lepton_phi, Alt(Z0_idx, 0, -1), -999.f))"}
+aliases["dPhi_MET_lZ2"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, Alt(Lepton_phi, Alt(Z0_idx, 1, -1), -999.f))"}
+aliases["dPhi_MET_lX1"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, Alt(Lepton_phi, Alt(X_idx, 0, -1), -999.f))"}
+aliases["dPhi_MET_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, Alt(Lepton_phi, Alt(X_idx, 1, -1), -999.f))"}
 aliases["dPhi_MET_ZplusX"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, phi4l)"}
 
-aliases["dPhi_lZ1_lZ2"] = {"expr": "ZH4lMETZZCR::deltaPhi(lZ1_phi, lZ2_phi)"}
-aliases["dPhi_lZ1_lX1"] = {"expr": "ZH4lMETZZCR::deltaPhi(lZ1_phi, lX1_phi)"}
-aliases["dPhi_lZ1_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(lZ1_phi, lX2_phi)"}
-aliases["dPhi_lZ2_lX1"] = {"expr": "ZH4lMETZZCR::deltaPhi(lZ2_phi, lX1_phi)"}
-aliases["dPhi_lZ2_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(lZ2_phi, lX2_phi)"}
-aliases["dPhi_lX1_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(lX1_phi, lX2_phi)"}
+aliases["dPhi_lZ1_lZ2"] = {"expr": "ZH4lMETZZCR::deltaPhi(Alt(Lepton_phi, Alt(Z0_idx, 0, -1), -999.f), Alt(Lepton_phi, Alt(Z0_idx, 1, -1), -999.f))"}
+aliases["dPhi_lZ1_lX1"] = {"expr": "ZH4lMETZZCR::deltaPhi(Alt(Lepton_phi, Alt(Z0_idx, 0, -1), -999.f), Alt(Lepton_phi, Alt(X_idx, 0, -1), -999.f))"}
+aliases["dPhi_lZ1_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(Alt(Lepton_phi, Alt(Z0_idx, 0, -1), -999.f), Alt(Lepton_phi, Alt(X_idx, 1, -1), -999.f))"}
+aliases["dPhi_lZ2_lX1"] = {"expr": "ZH4lMETZZCR::deltaPhi(Alt(Lepton_phi, Alt(Z0_idx, 1, -1), -999.f), Alt(Lepton_phi, Alt(X_idx, 0, -1), -999.f))"}
+aliases["dPhi_lZ2_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(Alt(Lepton_phi, Alt(Z0_idx, 1, -1), -999.f), Alt(Lepton_phi, Alt(X_idx, 1, -1), -999.f))"}
+aliases["dPhi_lX1_lX2"] = {"expr": "ZH4lMETZZCR::deltaPhi(Alt(Lepton_phi, Alt(X_idx, 0, -1), -999.f), Alt(Lepton_phi, Alt(X_idx, 1, -1), -999.f))"}
 
 aliases["recoil_ux"] = {"expr": "ZH4lMETZZCR::recoilUx(pT4l, phi4l, PuppiMET_pt, PuppiMET_phi)"}
 aliases["recoil_uy"] = {"expr": "ZH4lMETZZCR::recoilUy(pT4l, phi4l, PuppiMET_pt, PuppiMET_phi)"}
