@@ -7,6 +7,18 @@ aliases = {}
 
 _L2TIGHT_ERA = "Full2024v15"
 
+# Pair-ID configuration used when selecting Z0 and X lepton pairs.
+PAIR_ID_CONFIG = {
+    "eleWP": "cutBased_LooseID_tthMVA_Run3",
+    "muWP": "cut_TightID_pfIsoTight_HWW_tthmva_67",
+    # Required number of leptons in the pair passing the WP (0, 1, or 2)
+    "Z0_minPass": 0,
+    "X_minPass": 0,
+    # Per-pair pT thresholds [GeV] for (leading, subleading) leptons. Use 0 to disable.
+    "Z0_ptMins": (0.0, 0.0),
+    "X_ptMins": (0.0, 0.0),
+}
+
 
 def _l2tight_leading2_expr(era):
     """Reproduce mkShapesRDF l2tight logic for leading leptons via aliases.
@@ -49,11 +61,27 @@ configurations = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath
 
 aliases["Z0_idx"] = {
     "linesToAdd": ['#include "%s/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc"' % configurations],
-    "expr": "ZH4lMETZZCR::bestZ0Idx(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId)"
+    "expr": (
+        "ZH4lMETZZCR::bestZ0IdxWithID("
+        "Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, "
+        f"Lepton_isTightElectron_{PAIR_ID_CONFIG['eleWP']}, "
+        f"Lepton_isTightMuon_{PAIR_ID_CONFIG['muWP']}, "
+        f"{PAIR_ID_CONFIG['Z0_minPass']}, "
+        f"{PAIR_ID_CONFIG['Z0_ptMins'][0]}, "
+        f"{PAIR_ID_CONFIG['Z0_ptMins'][1]})"
+    ),
 }
 
 aliases["X_idx"] = {
-    "expr": "ZH4lMETZZCR::xPairIdx(Z0_idx, Lepton_pt)"
+    "expr": (
+        "ZH4lMETZZCR::xPairIdxWithID("
+        "Z0_idx, Lepton_pt, Lepton_pdgId, "
+        f"Lepton_isTightElectron_{PAIR_ID_CONFIG['eleWP']}, "
+        f"Lepton_isTightMuon_{PAIR_ID_CONFIG['muWP']}, "
+        f"{PAIR_ID_CONFIG['X_minPass']}, "
+        f"{PAIR_ID_CONFIG['X_ptMins'][0]}, "
+        f"{PAIR_ID_CONFIG['X_ptMins'][1]})"
+    ),
 }
 
 
