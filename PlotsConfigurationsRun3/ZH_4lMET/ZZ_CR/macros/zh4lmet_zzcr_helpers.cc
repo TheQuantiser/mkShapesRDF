@@ -2,6 +2,7 @@
 #define ZH4LMET_ZZCR_HELPERS
 #include <ROOT/RVec.hxx>
 #include <Math/Vector4D.h>
+#include <cmath>
 namespace ZH4lMETZZCR {
   float zeroFloat() {
     return 0.0f;
@@ -120,6 +121,14 @@ namespace ZH4lMETZZCR {
     ROOT::Math::PtEtaPhiMVector v2(pt[idx[1]], eta[idx[1]], phi[idx[1]], lepMass(pdgId[idx[1]]));
     return (v1 + v2).Pt();
   }
+  float pairPhi(const ROOT::VecOps::RVec<float>& pt, const ROOT::VecOps::RVec<float>& eta,
+                const ROOT::VecOps::RVec<float>& phi, const ROOT::VecOps::RVec<int>& pdgId,
+                const ROOT::VecOps::RVec<int>& idx) {
+    if (!validPairIndices(idx, pt, eta, phi, pdgId)) return -999.0f;
+    ROOT::Math::PtEtaPhiMVector v1(pt[idx[0]], eta[idx[0]], phi[idx[0]], lepMass(pdgId[idx[0]]));
+    ROOT::Math::PtEtaPhiMVector v2(pt[idx[1]], eta[idx[1]], phi[idx[1]], lepMass(pdgId[idx[1]]));
+    return (v1 + v2).Phi();
+  }
   int pairFlavor(const ROOT::VecOps::RVec<int>& pdgId, const ROOT::VecOps::RVec<int>& idx) {
     if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0) return 0;
     if (static_cast<size_t>(idx[0]) >= pdgId.size() || static_cast<size_t>(idx[1]) >= pdgId.size()) return 0;
@@ -153,6 +162,55 @@ namespace ZH4lMETZZCR {
     ROOT::Math::PtEtaPhiMVector vx1(pt[xidx[0]], eta[xidx[0]], phi[xidx[0]], lepMass(pdgId[xidx[0]]));
     ROOT::Math::PtEtaPhiMVector vx2(pt[xidx[1]], eta[xidx[1]], phi[xidx[1]], lepMass(pdgId[xidx[1]]));
     return (vz1 + vz2 + vx1 + vx2).Pt();
+  }
+  float fourLeptonPhiFromPairs(const ROOT::VecOps::RVec<float>& pt,
+                               const ROOT::VecOps::RVec<float>& eta,
+                               const ROOT::VecOps::RVec<float>& phi,
+                               const ROOT::VecOps::RVec<int>& pdgId,
+                               const ROOT::VecOps::RVec<int>& zidx,
+                               const ROOT::VecOps::RVec<int>& xidx) {
+    if (!validPairIndices(zidx, pt, eta, phi, pdgId) || !validPairIndices(xidx, pt, eta, phi, pdgId)) return -999.0f;
+    if (zidx[0] == xidx[0] || zidx[0] == xidx[1] || zidx[1] == xidx[0] || zidx[1] == xidx[1]) return -999.0f;
+    ROOT::Math::PtEtaPhiMVector vz1(pt[zidx[0]], eta[zidx[0]], phi[zidx[0]], lepMass(pdgId[zidx[0]]));
+    ROOT::Math::PtEtaPhiMVector vz2(pt[zidx[1]], eta[zidx[1]], phi[zidx[1]], lepMass(pdgId[zidx[1]]));
+    ROOT::Math::PtEtaPhiMVector vx1(pt[xidx[0]], eta[xidx[0]], phi[xidx[0]], lepMass(pdgId[xidx[0]]));
+    ROOT::Math::PtEtaPhiMVector vx2(pt[xidx[1]], eta[xidx[1]], phi[xidx[1]], lepMass(pdgId[xidx[1]]));
+    return (vz1 + vz2 + vx1 + vx2).Phi();
+  }
+  float leptonPhiAtIdx(const ROOT::VecOps::RVec<float>& phi, int idx) {
+    if (idx < 0 || static_cast<size_t>(idx) >= phi.size()) return -999.0f;
+    return phi[idx];
+  }
+  float deltaPhi(float phi1, float phi2) {
+    if (phi1 <= -998.0f || phi2 <= -998.0f) return -999.0f;
+    return std::abs(std::atan2(std::sin(phi1 - phi2), std::cos(phi1 - phi2)));
+  }
+  float recoilUx(float pT4l, float phi4l, float metPt, float metPhi) {
+    return -(pT4l * std::cos(phi4l) + metPt * std::cos(metPhi));
+  }
+  float recoilUy(float pT4l, float phi4l, float metPt, float metPhi) {
+    return -(pT4l * std::sin(phi4l) + metPt * std::sin(metPhi));
+  }
+  float recoilUt(float pT4l, float phi4l, float metPt, float metPhi) {
+    const float ux = recoilUx(pT4l, phi4l, metPt, metPhi);
+    const float uy = recoilUy(pT4l, phi4l, metPt, metPhi);
+    return std::hypot(ux, uy);
+  }
+  float recoilUpar(float pT4l, float phi4l, float metPt, float metPhi) {
+    if (pT4l <= 1.0e-6f) return -999.0f;
+    const float nx = std::cos(phi4l);
+    const float ny = std::sin(phi4l);
+    const float ux = recoilUx(pT4l, phi4l, metPt, metPhi);
+    const float uy = recoilUy(pT4l, phi4l, metPt, metPhi);
+    return ux * nx + uy * ny;
+  }
+  float recoilUperp(float pT4l, float phi4l, float metPt, float metPhi) {
+    if (pT4l <= 1.0e-6f) return -999.0f;
+    const float nx = std::cos(phi4l);
+    const float ny = std::sin(phi4l);
+    const float ux = recoilUx(pT4l, phi4l, metPt, metPhi);
+    const float uy = recoilUy(pT4l, phi4l, metPt, metPhi);
+    return ux * (-ny) + uy * nx;
   }
   int sumLeptonChargeFromPairs(const ROOT::VecOps::RVec<int>& pdgId,
                               const ROOT::VecOps::RVec<int>& zidx,
