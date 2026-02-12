@@ -1,6 +1,37 @@
 import os
 
+from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
+
 aliases = {}
+
+
+_L2TIGHT_ERA = "Full2024v15"
+
+
+def _l2tight_leading2_expr(era):
+    """Reproduce mkShapesRDF l2tight logic for leading leptons via aliases.
+
+    Equivalent to L2TightSelection: each of the two leading leptons must pass
+    at least one tight electron or muon WP (OR over all WPs, for each lepton).
+    """
+    ele_wps = list(ElectronWP[era]["TightObjWP"].keys())
+    mu_wps = list(MuonWP[era]["TightObjWP"].keys())
+
+    lead0_terms = [f"Alt(Lepton_isTightElectron_{wp}, 0, 0) > 0.5" for wp in ele_wps]
+    lead0_terms += [f"Alt(Lepton_isTightMuon_{wp}, 0, 0) > 0.5" for wp in mu_wps]
+
+    lead1_terms = [f"Alt(Lepton_isTightElectron_{wp}, 1, 0) > 0.5" for wp in ele_wps]
+    lead1_terms += [f"Alt(Lepton_isTightMuon_{wp}, 1, 0) > 0.5" for wp in mu_wps]
+
+    # Also keep the explicit leading-lepton multiplicity protection.
+    return (
+        "(nLepton > 1)"
+        + " && ("
+        + " || ".join(lead0_terms)
+        + ") && ("
+        + " || ".join(lead1_terms)
+        + ")"
+    )
 
 
 def _data_samples(samples_dict):
@@ -9,6 +40,10 @@ def _data_samples(samples_dict):
 
 
 DATA_SAMPLES = _data_samples(globals().get("samples", {}))
+
+aliases["L2TightLeading2"] = {
+    "expr": _l2tight_leading2_expr(_L2TIGHT_ERA)
+}
 
 configurations = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
 
