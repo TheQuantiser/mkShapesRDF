@@ -11,7 +11,7 @@ BASE_EVENT_BRANCHES = [
     "PuppiMET_pt",
     "PuppiMET_phi",
     "PuppiMET_significance",
-    "PuppiMET_sumPtUnclustered",
+    "PuppiMET_sumEt",
     "HT",
     "Z0_phi",
     "X_phi",

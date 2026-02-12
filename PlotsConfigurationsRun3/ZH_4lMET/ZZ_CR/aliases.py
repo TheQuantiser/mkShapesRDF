@@ -18,7 +18,7 @@ aliases["PuppiMET_significance"] = {
     "expr": "PuppiMET_significance"
 }
 
-aliases["PuppiMET_sumPtUnclustered"] = {
+aliases["PuppiMET_sumEt"] = {
     "expr": "PuppiMET_sumEt"
 }
 
