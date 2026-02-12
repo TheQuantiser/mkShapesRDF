@@ -2,6 +2,14 @@ import os
 
 aliases = {}
 
+
+def _data_samples(samples_dict):
+    """Return sample keys that should be treated as data in this config."""
+    return [sample for sample, cfg in samples_dict.items() if "isData" in cfg]
+
+
+DATA_SAMPLES = _data_samples(globals().get("samples", {}))
+
 configurations = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
 
 aliases["Z0_idx"] = {
@@ -120,45 +128,26 @@ aliases["sumLeptonCharge"] = {
 
 aliases["HT"] = {"expr": "Sum(CleanJet_pt)"}
 
-aliases["GenMET_pt"] = {
-    "expr": "ZH4lMETZZCR::zeroFloat()",
-    "samples": ["DATA"],
+DATA_GEN_FALLBACKS = {
+    "GenMET_pt": "ZH4lMETZZCR::zeroFloat()",
+    "GenMET_phi": "ZH4lMETZZCR::zeroFloat()",
+    "GenPart_pdgId": "ZH4lMETZZCR::emptyIntVec()",
+    "GenPart_pt": "ZH4lMETZZCR::emptyFloatVec()",
+    "GenPart_eta": "ZH4lMETZZCR::emptyFloatVec()",
+    "GenPart_phi": "ZH4lMETZZCR::emptyFloatVec()",
+    "Electron_genPartIdx": "ZH4lMETZZCR::emptyIntVec()",
+    "Muon_genPartIdx": "ZH4lMETZZCR::emptyIntVec()",
+    "Jet_genJetIdx": "ZH4lMETZZCR::emptyIntVec()",
+    "GenJet_pt": "ZH4lMETZZCR::emptyFloatVec()",
+    "GenJet_eta": "ZH4lMETZZCR::emptyFloatVec()",
+    "GenJet_phi": "ZH4lMETZZCR::emptyFloatVec()",
 }
 
-aliases["GenMET_phi"] = {
-    "expr": "ZH4lMETZZCR::zeroFloat()",
-    "samples": ["DATA"],
-}
-
-aliases["GenPart_pdgId"] = {
-    "expr": "ZH4lMETZZCR::emptyIntVec()",
-    "samples": ["DATA"],
-}
-
-aliases["GenPart_pt"] = {
-    "expr": "ZH4lMETZZCR::emptyFloatVec()",
-    "samples": ["DATA"],
-}
-
-aliases["GenPart_eta"] = {
-    "expr": "ZH4lMETZZCR::emptyFloatVec()",
-    "samples": ["DATA"],
-}
-
-aliases["GenPart_phi"] = {
-    "expr": "ZH4lMETZZCR::emptyFloatVec()",
-    "samples": ["DATA"],
-}
-
-aliases["Electron_genPartIdx"] = {
-    "expr": "ZH4lMETZZCR::emptyIntVec()",
-    "samples": ["DATA"],
-}
-
-aliases["Muon_genPartIdx"] = {
-    "expr": "ZH4lMETZZCR::emptyIntVec()",
-    "samples": ["DATA"],
-}
+for branch_name, fallback_expr in DATA_GEN_FALLBACKS.items():
+    aliases[branch_name] = {
+        "expr": fallback_expr,
+        "samples": DATA_SAMPLES,
+    }
 
 aliases["Lepton_genPartIdx"] = {
     "expr": "ZH4lMETZZCR::leptonGenPartIdx(Lepton_pdgId, Lepton_electronIdx, Lepton_muonIdx, Electron_genPartIdx, Muon_genPartIdx)"
