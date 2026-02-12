@@ -7,23 +7,6 @@ pair_leptons = [
     ("lX2", "Alt(X_idx, 1, -1)"),
 ]
 
-electron_tight_wps_2022 = [
-    "testrecipes",
-    "wp90iso",
-    "mvaWinter22V2Iso_WP90",
-    "cutBased_LooseID_tthMVA_Run3",
-    "cutBased_LooseID_tthMVA_HWW",
-]
-
-muon_tight_wps_2022 = [
-    "cut_TightID_POG",
-    "cut_Tight_HWW",
-    "cut_TightID_pfIsoTight_HWW_tthmva_67",
-    "cut_TightID_pfIsoLoose_HWW_tthmva_67",
-    "cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
-]
-
-# Centralized branch recipes to keep related objects grouped.
 BASE_EVENT_BRANCHES = [
     "nCleanJet",
     "Z0_mass",
@@ -57,7 +40,7 @@ LEPTON_BRANCH_RECIPES = {
     "genPhi": "Lepton_genPhi",
 }
 
-JET_AND_GENJET_BRANCH_RECIPES = {
+JET_BRANCH_RECIPES = {
     "pt": ("CleanJet_pt", "{jet_idx}", "0"),
     "eta": ("CleanJet_eta", "{jet_idx}", "0"),
     "phi": ("CleanJet_phi", "{jet_idx}", "0"),
@@ -65,6 +48,22 @@ JET_AND_GENJET_BRANCH_RECIPES = {
     "genEta": ("GenJet_eta", "{clean_jet_gen_idx}", "0"),
     "genPhi": ("GenJet_phi", "{clean_jet_gen_idx}", "0"),
 }
+
+electron_tight_wps_2022 = [
+    "testrecipes",
+    "wp90iso",
+    "mvaWinter22V2Iso_WP90",
+    "cutBased_LooseID_tthMVA_Run3",
+    "cutBased_LooseID_tthMVA_HWW",
+]
+
+muon_tight_wps_2022 = [
+    "cut_TightID_POG",
+    "cut_Tight_HWW",
+    "cut_TightID_pfIsoTight_HWW_tthmva_67",
+    "cut_TightID_pfIsoLoose_HWW_tthmva_67",
+    "cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+]
 
 TIGHT_OBJECT_CONFIG = {
     "Electron": {
@@ -79,18 +78,15 @@ TIGHT_OBJECT_CONFIG = {
     },
 }
 
-
 tree_branches = {branch: branch for branch in BASE_EVENT_BRANCHES}
 
-# Group clean-jet and matched gen-jet branch syntaxes in one recipe table.
 for jet_idx in range(2):
     clean_jet_gen_idx = f"Alt(Jet_genJetIdx, Alt(CleanJet_jetIdx, {jet_idx}, -1), -1)"
-    for suffix, (source, index_expr, default) in JET_AND_GENJET_BRANCH_RECIPES.items():
+    for suffix, (source, index_expr, default) in JET_BRANCH_RECIPES.items():
         tree_branches[f"CleanJet_{suffix}_{jet_idx}"] = (
             f"Alt({source}, {index_expr.format(jet_idx=jet_idx, clean_jet_gen_idx=clean_jet_gen_idx)}, {default})"
         )
 
-# Group all per-lepton branches in one place.
 for lep_label, lep_idx in pair_leptons:
     for suffix, source in LEPTON_BRANCH_RECIPES.items():
         tree_branches[f"{lep_label}_{suffix}"] = f"Alt({source}, {lep_idx}, 0)"
@@ -101,15 +97,13 @@ for lep_label, lep_idx in pair_leptons:
                 f"Alt({obj_cfg['flag_branch']}_{wp}, {lep_idx}, 0)"
             )
 
-# Tight object counters.
 for obj_name, obj_cfg in TIGHT_OBJECT_CONFIG.items():
     for wp in obj_cfg["wps"]:
         tree_branches[f"nTight{obj_name}_{wp}"] = (
             f"Sum((abs(Lepton_pdgId) == {obj_cfg['pdg_id']}) && ({obj_cfg['flag_branch']}_{wp} > 0.5))"
         )
 
-# Keep variable-to-branch conversion in place for compatibility with potential
-# local additions to `variables`.
+# Variable-to-branch conversion
 for var_name, var_def in variables.items():
     if "tree" in var_def:
         continue
