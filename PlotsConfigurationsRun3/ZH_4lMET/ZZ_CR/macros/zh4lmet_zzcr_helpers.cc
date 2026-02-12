@@ -39,10 +39,73 @@ namespace ZH4lMETZZCR {
     if (static_cast<size_t>(i0) >= pt.size() || static_cast<size_t>(i1) >= pt.size()) return {-1, -1};
     return (pt[i0] >= pt[i1]) ? ROOT::VecOps::RVec<int>{i0, i1} : ROOT::VecOps::RVec<int>{i1, i0};
   }
-  ROOT::VecOps::RVec<int> bestZ0Idx(const ROOT::VecOps::RVec<float>& pt,
-                                    const ROOT::VecOps::RVec<float>& eta,
-                                    const ROOT::VecOps::RVec<float>& phi,
-                                    const ROOT::VecOps::RVec<int>& pdgId) {
+
+  int clampPairMinPassID(int minPassID) {
+    if (minPassID < 0) return 0;
+    if (minPassID > 2) return 2;
+    return minPassID;
+  }
+  float clampPtMin(float ptMin) {
+    return (ptMin < 0.f) ? 0.f : ptMin;
+  }
+  bool leptonPassesPairWP(int idx,
+                          const ROOT::VecOps::RVec<int>& pdgId,
+                          const ROOT::VecOps::RVecB& passEleWP,
+                          const ROOT::VecOps::RVecB& passMuWP) {
+    if (idx < 0 || static_cast<size_t>(idx) >= pdgId.size()) return false;
+    const int absPdgId = std::abs(pdgId[idx]);
+    if (absPdgId == 11) {
+      return static_cast<size_t>(idx) < passEleWP.size() && passEleWP[idx] != 0;
+    }
+    if (absPdgId == 13) {
+      return static_cast<size_t>(idx) < passMuWP.size() && passMuWP[idx] != 0;
+    }
+    return false;
+  }
+  bool pairPassesIDRequirement(const ROOT::VecOps::RVec<int>& pairIdx,
+                               const ROOT::VecOps::RVec<int>& pdgId,
+                               const ROOT::VecOps::RVecB& passEleWP,
+                               const ROOT::VecOps::RVecB& passMuWP,
+                               int minPassID) {
+    if (pairIdx.size() < 2 || pairIdx[0] < 0 || pairIdx[1] < 0) return false;
+    const int required = clampPairMinPassID(minPassID);
+    if (required == 0) return true;
+
+    int nPass = 0;
+    if (leptonPassesPairWP(pairIdx[0], pdgId, passEleWP, passMuWP)) ++nPass;
+    if (leptonPassesPairWP(pairIdx[1], pdgId, passEleWP, passMuWP)) ++nPass;
+    return nPass >= required;
+  }
+  bool pairPassesPtRequirement(const ROOT::VecOps::RVec<int>& pairIdx,
+                               const ROOT::VecOps::RVec<float>& pt,
+                               float leadPtMin,
+                               float subleadPtMin) {
+    ROOT::VecOps::RVec<int> ordered = orderPairByPt(pairIdx, pt);
+    if (ordered.size() < 2 || ordered[0] < 0 || ordered[1] < 0) return false;
+    const float leadMin = clampPtMin(leadPtMin);
+    const float subleadMin = clampPtMin(subleadPtMin);
+    return pt[ordered[0]] >= leadMin && pt[ordered[1]] >= subleadMin;
+  }
+  bool pairPassesSelection(const ROOT::VecOps::RVec<int>& pairIdx,
+                           const ROOT::VecOps::RVec<float>& pt,
+                           const ROOT::VecOps::RVec<int>& pdgId,
+                           const ROOT::VecOps::RVecB& passEleWP,
+                           const ROOT::VecOps::RVecB& passMuWP,
+                           int minPassID,
+                           float leadPtMin,
+                           float subleadPtMin) {
+    return pairPassesIDRequirement(pairIdx, pdgId, passEleWP, passMuWP, minPassID)
+        && pairPassesPtRequirement(pairIdx, pt, leadPtMin, subleadPtMin);
+  }
+  ROOT::VecOps::RVec<int> bestZ0IdxWithID(const ROOT::VecOps::RVec<float>& pt,
+                                          const ROOT::VecOps::RVec<float>& eta,
+                                          const ROOT::VecOps::RVec<float>& phi,
+                                          const ROOT::VecOps::RVec<int>& pdgId,
+                                          const ROOT::VecOps::RVecB& passEleWP,
+                                          const ROOT::VecOps::RVecB& passMuWP,
+                                          int minPassID,
+                                          float leadPtMin,
+                                          float subleadPtMin) {
     ROOT::VecOps::RVec<int> out = {-1, -1};
     const float mZ = 91.1876f;
     float bestDiff = 1e9f;
@@ -52,6 +115,8 @@ namespace ZH4lMETZZCR {
       for (int j = i + 1; j < n; ++j) {
         if (pdgId[i] * pdgId[j] >= 0) continue;
         if (std::abs(pdgId[i]) != std::abs(pdgId[j])) continue;
+        ROOT::VecOps::RVec<int> cand = {i, j};
+        if (!pairPassesSelection(cand, pt, pdgId, passEleWP, passMuWP, minPassID, leadPtMin, subleadPtMin)) continue;
         ROOT::Math::PtEtaPhiMVector v1(pt[i], eta[i], phi[i], lepMass(pdgId[i]));
         ROOT::Math::PtEtaPhiMVector v2(pt[j], eta[j], phi[j], lepMass(pdgId[j]));
         float mll = (v1 + v2).M();
@@ -64,6 +129,46 @@ namespace ZH4lMETZZCR {
       }
     }
     return orderPairByPt(out, pt);
+  }
+  ROOT::VecOps::RVec<int> bestZ0Idx(const ROOT::VecOps::RVec<float>& pt,
+                                    const ROOT::VecOps::RVec<float>& eta,
+                                    const ROOT::VecOps::RVec<float>& phi,
+                                    const ROOT::VecOps::RVec<int>& pdgId) {
+    return bestZ0IdxWithID(pt, eta, phi, pdgId,
+                           ROOT::VecOps::RVecB(pdgId.size(), false),
+                           ROOT::VecOps::RVecB(pdgId.size(), false),
+                           0,
+                           0.f,
+                           0.f);
+  }
+  ROOT::VecOps::RVec<int> xPairIdxWithID(const ROOT::VecOps::RVec<int>& zidx,
+                                         const ROOT::VecOps::RVec<float>& pt,
+                                         const ROOT::VecOps::RVec<int>& pdgId,
+                                         const ROOT::VecOps::RVecB& passEleWP,
+                                         const ROOT::VecOps::RVecB& passMuWP,
+                                         int minPassID,
+                                         float leadPtMin,
+                                         float subleadPtMin) {
+    if (zidx.size() < 2 || zidx[0] < 0 || zidx[1] < 0 || zidx[0] == zidx[1]) return {-1, -1};
+    if (static_cast<size_t>(zidx[0]) >= pt.size() || static_cast<size_t>(zidx[1]) >= pt.size()) return {-1, -1};
+
+    int lead = -1;
+    int sublead = -1;
+    for (size_t i = 0; i < pt.size(); ++i) {
+      int idx = static_cast<int>(i);
+      if (idx == zidx[0] || idx == zidx[1]) continue;
+      if (lead < 0 || pt[idx] > pt[lead]) {
+        sublead = lead;
+        lead = idx;
+      } else if (sublead < 0 || pt[idx] > pt[sublead]) {
+        sublead = idx;
+      }
+    }
+
+    if (lead < 0 || sublead < 0) return {-1, -1};
+    ROOT::VecOps::RVec<int> pair = orderPairByPt(ROOT::VecOps::RVec<int>{lead, sublead}, pt);
+    if (!pairPassesSelection(pair, pt, pdgId, passEleWP, passMuWP, minPassID, leadPtMin, subleadPtMin)) return {-1, -1};
+    return pair;
   }
   ROOT::VecOps::RVec<int> xPairIdx(const ROOT::VecOps::RVec<int>& zidx,
                                    const ROOT::VecOps::RVec<float>& pt) {
