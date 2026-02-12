@@ -1,7 +1,17 @@
 cuts = {}
 
+# https://github.com/TheQuantiser/mkShapesRDF/blob/4004a246f19a3001746b5f874aacbfe3f38c4368/mkShapesRDF/processor/data/TrigMaker_cfg.py#L1334
+# https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/triggerObjects_cff.py
+
+# 'EleMu'     : [ 'HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL', 'HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ', 'HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ'] ,
+# 'DoubleMu'  : [ 'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8'] ,
+# 'SingleMu'  : [ 'HLT_IsoMu24'] ,
+# 'DoubleEle' : [ 'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL'] ,
+# 'SingleEle' : [ 'HLT_Ele30_WPTight_Gsf'] ,
+
 preselections = ""
-preselections += "(Trigger_ElMu || (!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)) || (!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)))"
+# preselections += "(Trigger_ElMu || (!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)) || (!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)))"
+preselections += "((Trigger_ElMu) || (!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)))"
 preselections += " && nLepton >= 4"
 # preselections += " && Alt(Lepton_pt, 0, 0) > 25"
 # preselections += " && Alt(Lepton_pt, 1, 0) > 15"

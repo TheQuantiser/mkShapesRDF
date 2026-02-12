@@ -17,7 +17,6 @@ limitFiles = -1
 
 samples = {}
 
-
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
     if redirector != "":
@@ -34,7 +33,6 @@ def makeDataDirectory(stream_tag):
     # stream_tag examples: "MuonEG", "Muon", "EGamma"
     return "/".join([_treeBaseDir, f"{dataReco}_{stream_tag}", dataSteps])
 
-
 mcDirectory = makeMCDirectory()
 
 # dataset -> stream tag used in the directory name
@@ -45,7 +43,6 @@ DATASET_STREAM = {
     "EGamma0": "EGamma",
     "EGamma1": "EGamma",
 }
-
 
 def nanoGetSampleFiles(path, name):
     files = searchFiles.searchFiles(path, name, redirector=redirector)
@@ -78,7 +75,7 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 mcCommonWeight = "XSWeight"
 
 files = nanoGetSampleFiles(mcDirectory, "ZZ")
-samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+# samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
 
 # files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
 # samples["WZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
@@ -97,39 +94,38 @@ samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
 # )
 # samples["top"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 15}
 
+DataRun = [
+    ["C", "Run2024C-ReReco-v1"],
+    ["D", "Run2024D-ReReco-v1"],
+    ["E", "Run2024E-ReReco-v1"],
+    ["F", "Run2024F-Prompt-v1"],
+    ["G", "Run2024G-Prompt-v1"],
+    ["H", "Run2024H-Prompt-v1"],
+    ["I", "Run2024I-Prompt-v1"],
+]
 
-# DataRun = [
-#     ["C", "Run2024C-ReReco-v1"],
-#     ["D", "Run2024D-ReReco-v1"],
-#     ["E", "Run2024E-ReReco-v1"],
-#     ["F", "Run2024F-Prompt-v1"],
-#     ["G", "Run2024G-Prompt-v1"],
-#     ["H", "Run2024H-Prompt-v1"],
-#     ["I", "Run2024I-Prompt-v1"],
-# ]
+# DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
+DataSets = ["EGamma0", "EGamma1"]
+DataTrig = {
+    "MuonEG": "Trigger_ElMu",
+    "Muon0": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+    "Muon1": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+    "EGamma0": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+    "EGamma1": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+}
 
-# # DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
-# DataSets = ["MuonEG", "EGamma0", "EGamma1"]
-# DataTrig = {
-#     "MuonEG": "Trigger_ElMu",
-#     "Muon0": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
-#     "Muon1": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
-#     "EGamma0": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
-#     "EGamma1": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
-# }
+samples["DATA"] = {
+    "name": [],
+    "weight": "METFilter_DATA",
+    "weights": [],
+    "isData": ["all"],
+    "FilesPerJob": 10,
+}
 
-# samples["DATA"] = {
-#     "name": [],
-#     "weight": "METFilter_DATA",
-#     "weights": [],
-#     "isData": ["all"],
-#     "FilesPerJob": 10,
-# }
-
-# for run in DataRun:
-#     for dataset in DataSets:
-#         stream_tag = DATASET_STREAM[dataset]
-#         dataDirectory = makeDataDirectory(stream_tag)
-#         files = nanoGetSampleFiles(dataDirectory, dataset + "_" + run[1])
-#         samples["DATA"]["name"].extend(files)
-#         addSampleWeight(samples, "DATA", dataset + "_" + run[1], DataTrig[dataset])
+for run in DataRun:
+    for dataset in DataSets:
+        stream_tag = DATASET_STREAM[dataset]
+        dataDirectory = makeDataDirectory(stream_tag)
+        files = nanoGetSampleFiles(dataDirectory, dataset + "_" + run[1])
+        samples["DATA"]["name"].extend(files)
+        addSampleWeight(samples, "DATA", dataset + "_" + run[1], DataTrig[dataset])
