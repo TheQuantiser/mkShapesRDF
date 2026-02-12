@@ -5,7 +5,7 @@ aliases = {}
 configurations = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
 
 aliases["Z0_idx"] = {
-    "linesToAdd": ['#include "%s/PlotsConfigurationsRun3/ZH_4lMET/macros/zh4lmet_zzcr_helpers.cc"' % configurations],
+    "linesToAdd": ['#include "%s/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc"' % configurations],
     "expr": "ZH4lMETZZCR::bestZ0Idx(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId)"
 }
 
