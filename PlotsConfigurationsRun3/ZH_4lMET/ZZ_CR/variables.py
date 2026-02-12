@@ -21,12 +21,12 @@ tree_branches = {
     "GenMET_phi": "GenMET_phi",
     "bVeto": "bVeto",
     # Leading jets
-    "CleanJet_pt_0": "Alt(CleanJet_pt, 0, 0)",
-    "CleanJet_pt_1": "Alt(CleanJet_pt, 1, 0)",
-    "CleanJet_eta_0": "Alt(CleanJet_eta, 0, 0)",
-    "CleanJet_eta_1": "Alt(CleanJet_eta, 1, 0)",
-    "CleanJet_phi_0": "Alt(CleanJet_phi, 0, 0)",
-    "CleanJet_phi_1": "Alt(CleanJet_phi, 1, 0)",
+    "CleanJet_pt_0": "Alt(CleanJet_pt, 0, -999)",
+    "CleanJet_pt_1": "Alt(CleanJet_pt, 1, -999)",
+    "CleanJet_eta_0": "Alt(CleanJet_eta, 0, -999)",
+    "CleanJet_eta_1": "Alt(CleanJet_eta, 1, -999)",
+    "CleanJet_phi_0": "Alt(CleanJet_phi, 0, -999)",
+    "CleanJet_phi_1": "Alt(CleanJet_phi, 1, -999)",
 }
 
 pair_leptons = [
@@ -37,22 +37,21 @@ pair_leptons = [
 ]
 
 for lep_label, lep_idx in pair_leptons:
-    tree_branches[f"{lep_label}_pt"] = f"Alt(Lepton_pt, {lep_idx}, 0)"
-    tree_branches[f"{lep_label}_eta"] = f"Alt(Lepton_eta, {lep_idx}, 0)"
-    tree_branches[f"{lep_label}_phi"] = f"Alt(Lepton_phi, {lep_idx}, 0)"
-    tree_branches[f"{lep_label}_pdgId"] = f"Alt(Lepton_pdgId, {lep_idx}, 0)"
+    tree_branches[f"{lep_label}_pt"] = f"Alt(Lepton_pt, {lep_idx}, -999)"
+    tree_branches[f"{lep_label}_eta"] = f"Alt(Lepton_eta, {lep_idx}, -999)"
+    tree_branches[f"{lep_label}_phi"] = f"Alt(Lepton_phi, {lep_idx}, -999)"
+    tree_branches[f"{lep_label}_pdgId"] = f"Alt(Lepton_pdgId, {lep_idx}, -999)"
     tree_branches[f"{lep_label}_charge"] = (
-        f"Alt((Lepton_pdgId < 0) - (Lepton_pdgId > 0), {lep_idx}, 0)"
+        f"Alt((Lepton_pdgId < 0) - (Lepton_pdgId > 0), {lep_idx}, -999)"
     )
 
 for i in range(2):
     clean_jet_gen_idx = f"Alt(Jet_genJetIdx, Alt(CleanJet_jetIdx, {i}, -1), -1)"
     tree_branches[f"CleanJet_genPt_{i}"] = f"Alt(GenJet_pt, {clean_jet_gen_idx}, -999)"
-    tree_branches[f"CleanJet_genEta_{i}"] = f"Alt(GenJet_eta, {clean_jet_gen_idx}, 0)"
-    tree_branches[f"CleanJet_genPhi_{i}"] = f"Alt(GenJet_phi, {clean_jet_gen_idx}, 0)"
+    tree_branches[f"CleanJet_genEta_{i}"] = f"Alt(GenJet_eta, {clean_jet_gen_idx}, -999)"
+    tree_branches[f"CleanJet_genPhi_{i}"] = f"Alt(GenJet_phi, {clean_jet_gen_idx}, -999)"
 
-# Keep variable-to-branch conversion in place for compatibility with potential
-# local additions to `variables`.
+# Variable-to-branch conversion
 for var_name, var_def in variables.items():
     if "tree" in var_def:
         continue
@@ -84,12 +83,12 @@ muon_tight_wps_2022 = [
 ]
 
 for wp in electron_tight_wps_2022:
-    tree_branches[f"nTightElectron_{wp}"] = (
+    tree_branches[f"nElectron_{wp}"] = (
         f"Sum((abs(Lepton_pdgId) == 11) && (Lepton_isTightElectron_{wp} > 0.5))"
     )
 
 for wp in muon_tight_wps_2022:
-    tree_branches[f"nTightMuon_{wp}"] = (
+    tree_branches[f"nMuon_{wp}"] = (
         f"Sum((abs(Lepton_pdgId) == 13) && (Lepton_isTightMuon_{wp} > 0.5))"
     )
 
