@@ -286,6 +286,14 @@ for wp in muon_tight_wps_2022:
         f"Sum((abs(Lepton_pdgId) == 13) && (Lepton_isTightMuon_{wp} > 0.5))"
     )
 
+
+for i in range(2):
+    clean_jet_gen_idx = f"Alt(Jet_genJetIdx, Alt(CleanJet_jetIdx, {i}, -1), -1)"
+    tree_branches[f"CleanJet_genJetIdx_{i}"] = clean_jet_gen_idx
+    tree_branches[f"CleanJet_genPt_{i}"] = f"Alt(GenJet_pt, {clean_jet_gen_idx}, 0)"
+    tree_branches[f"CleanJet_genEta_{i}"] = f"Alt(GenJet_eta, {clean_jet_gen_idx}, 0)"
+    tree_branches[f"CleanJet_genPhi_{i}"] = f"Alt(GenJet_phi, {clean_jet_gen_idx}, 0)"
+
 tree_branches["GenMET_pt"] = "GenMET_pt"
 tree_branches["GenMET_phi"] = "GenMET_phi"
 

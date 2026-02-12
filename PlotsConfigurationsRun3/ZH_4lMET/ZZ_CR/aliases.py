@@ -106,6 +106,26 @@ aliases["GenPart_phi"] = {
     "samples": ["DATA"],
 }
 
+aliases["Jet_genJetIdx"] = {
+    "expr": "ZH4lMETZZCR::emptyIntVec()",
+    "samples": ["DATA"],
+}
+
+aliases["GenJet_pt"] = {
+    "expr": "ZH4lMETZZCR::emptyFloatVec()",
+    "samples": ["DATA"],
+}
+
+aliases["GenJet_eta"] = {
+    "expr": "ZH4lMETZZCR::emptyFloatVec()",
+    "samples": ["DATA"],
+}
+
+aliases["GenJet_phi"] = {
+    "expr": "ZH4lMETZZCR::emptyFloatVec()",
+    "samples": ["DATA"],
+}
+
 aliases["Electron_genPartIdx"] = {
     "expr": "ZH4lMETZZCR::emptyIntVec()",
     "samples": ["DATA"],
