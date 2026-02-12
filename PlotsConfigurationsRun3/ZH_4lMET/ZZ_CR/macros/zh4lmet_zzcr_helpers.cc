@@ -49,10 +49,10 @@ namespace ZH4lMETZZCR {
     int n = std::min<int>(std::min<int>(pt.size(), eta.size()),
                           std::min<int>(phi.size(), pdgId.size()));
     for (int i = 0; i < n; ++i) {
+      ROOT::Math::PtEtaPhiMVector v1(pt[i], eta[i], phi[i], lepMass(pdgId[i]));
       for (int j = i + 1; j < n; ++j) {
-        if (pdgId[i] * pdgId[j] >= 0) continue;
         if (std::abs(pdgId[i]) != std::abs(pdgId[j])) continue;
-        ROOT::Math::PtEtaPhiMVector v1(pt[i], eta[i], phi[i], lepMass(pdgId[i]));
+        if (pdgId[i] * pdgId[j] >= 0) continue;
         ROOT::Math::PtEtaPhiMVector v2(pt[j], eta[j], phi[j], lepMass(pdgId[j]));
         float mll = (v1 + v2).M();
         float diff = std::abs(mll - mZ);
