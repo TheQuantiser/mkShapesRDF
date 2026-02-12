@@ -75,7 +75,7 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 mcCommonWeight = "XSWeight"
 
 files = nanoGetSampleFiles(mcDirectory, "ZZ")
-# samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
 
 # files = nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
 # samples["WZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}

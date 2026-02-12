@@ -16,3 +16,4 @@ start.sh
 .DS*
 PlotsConfigurationsRun3/*/*/configs/*
 PlotsConfigurationsRun3/*/*/rootFiles/*
+PlotsConfigurationsRun3/*/*/condor/*
