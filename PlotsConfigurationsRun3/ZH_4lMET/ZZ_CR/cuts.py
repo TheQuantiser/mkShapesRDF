@@ -15,6 +15,7 @@ preselections += "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_
 preselections += " && nLepton >= 4"
 # Keep Data/MC aligned at the same leading-lepton tightness; remove this line to disable.
 preselections += " && L2TightLeading2"
+preselections += " && PassesZZCR4lOrderedPt"
 # preselections += " && Alt(Lepton_pt, 0, 0) > 25"
 # preselections += " && Alt(Lepton_pt, 1, 0) > 15"
 # preselections += " && Alt(Lepton_pt, 2, 0) > 10"

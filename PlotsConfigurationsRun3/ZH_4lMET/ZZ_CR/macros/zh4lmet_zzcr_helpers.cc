@@ -208,6 +208,42 @@ ROOT::VecOps::RVec<int> xPairIdx(const ROOT::VecOps::RVec<int> &zidx,
   ROOT::VecOps::RVec<int> pair = {lead, sublead};
   return orderPairByPt(pair, pt);
 }
+
+bool passesOrderedPtThresholdsFromPairs(const ROOT::VecOps::RVec<float> &pt,
+                                        const ROOT::VecOps::RVec<int> &zidx,
+                                        const ROOT::VecOps::RVec<int> &xidx,
+                                        float pt1Min, float pt2Min,
+                                        float pt3Min, float pt4Min) {
+  if (zidx.size() < 2 || xidx.size() < 2)
+    return false;
+
+  ROOT::VecOps::RVec<int> lepIdx = {zidx[0], zidx[1], xidx[0], xidx[1]};
+  for (const int idx : lepIdx) {
+    if (idx < 0 || static_cast<size_t>(idx) >= pt.size())
+      return false;
+  }
+
+  // Safety: ensure exactly 4 distinct leptons are used.
+  for (size_t i = 0; i < lepIdx.size(); ++i) {
+    for (size_t j = i + 1; j < lepIdx.size(); ++j) {
+      if (lepIdx[i] == lepIdx[j])
+        return false;
+    }
+  }
+
+  ROOT::VecOps::RVec<float> lepPt = {pt[lepIdx[0]], pt[lepIdx[1]], pt[lepIdx[2]],
+                                     pt[lepIdx[3]]};
+  ROOT::VecOps::RVec<float> sortedPt = ROOT::VecOps::Reverse(ROOT::VecOps::Sort(lepPt));
+
+  const float min1 = clampPtMin(pt1Min);
+  const float min2 = clampPtMin(pt2Min);
+  const float min3 = clampPtMin(pt3Min);
+  const float min4 = clampPtMin(pt4Min);
+
+  return sortedPt[0] >= min1 && sortedPt[1] >= min2 && sortedPt[2] >= min3 &&
+         sortedPt[3] >= min4;
+}
+
 bool validLeptonIndex(int idx, const ROOT::VecOps::RVec<float> &pt,
                       const ROOT::VecOps::RVec<float> &eta,
                       const ROOT::VecOps::RVec<float> &phi,
