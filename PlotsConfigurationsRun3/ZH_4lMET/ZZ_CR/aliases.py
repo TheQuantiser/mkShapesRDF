@@ -19,8 +19,6 @@ PAIR_ID_CONFIG = {
     "X_ptMins": (10.0, 10.0),
 }
 
-
-
 # Per-event ordered pT thresholds [GeV] applied to the four leptons in Z0+X.
 # Sorted order is global over the 4 leptons: leading, subleading, 3rd, 4th.
 FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
@@ -195,14 +193,12 @@ aliases["recoil_uperp"] = {
 }
 # aliases["recoil_upar_bal"] = {"expr": "-recoil_upar"}
 
-aliases["X_isSF"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) != 0"}
-aliases["X_isDF"] = {
-    "expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 0 && X_idx[0] >= 0"
-}
 aliases["Z0_isEE"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, Z0_idx) == 11"}
 aliases["Z0_isMM"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, Z0_idx) == 13"}
 aliases["X_isEE"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 11"}
 aliases["X_isMM"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 13"}
+aliases["X_isSF"] = {"X_isEE || X_isMM"}
+aliases["X_isDF"] = {"!X_isEE && !X_isMM"}
 
 # use UParT
 # https://indico.cern.ch/event/1556659/contributions/6559758/attachments/3083466/5458488/BTag_250610_Summer24WPs.pdf

@@ -109,6 +109,7 @@ DataRun = [
     ["G", "Run2024G-Prompt-v1"],
     ["H", "Run2024H-Prompt-v1"],
     ["I", "Run2024I-Prompt-v1"],
+    ["I", "Run2024I-Prompt-v2"],
 ]
 
 # DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
