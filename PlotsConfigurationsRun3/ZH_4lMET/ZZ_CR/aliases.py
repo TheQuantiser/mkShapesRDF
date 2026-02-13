@@ -20,6 +20,11 @@ PAIR_ID_CONFIG = {
 }
 
 
+
+# Per-event ordered pT thresholds [GeV] applied to the four leptons in Z0+X.
+# Sorted order is global over the 4 leptons: leading, subleading, 3rd, 4th.
+FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
+
 def _l2tight_leading2_expr(era):
     """
     Reproduce mkShapesRDF l2tight logic for leading leptons via aliases.
@@ -85,6 +90,17 @@ aliases["X_idx"] = {
     ),
 }
 
+
+aliases["PassesZZCR4lOrderedPt"] = {
+    "expr": (
+        "ZH4lMETZZCR::passesOrderedPtThresholdsFromPairs("
+        "Lepton_pt, Z0_idx, X_idx, "
+        f"{FOUR_LEPTON_PT_MINS[0]}, "
+        f"{FOUR_LEPTON_PT_MINS[1]}, "
+        f"{FOUR_LEPTON_PT_MINS[2]}, "
+        f"{FOUR_LEPTON_PT_MINS[3]})"
+    )
+}
 
 aliases["PuppiMET_significance"] = {"expr": "PuppiMET_significance"}
 
