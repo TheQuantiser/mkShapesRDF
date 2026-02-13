@@ -12,11 +12,11 @@ PAIR_ID_CONFIG = {
     "eleWP": "cutBased_LooseID_tthMVA_Run3",
     "muWP": "cut_TightID_pfIsoTight_HWW_tthmva_67",
     # Required number of leptons in the pair passing the WP (0, 1, or 2)
-    "Z0_minPass": 0,
-    "X_minPass": 0,
+    "Z0_minPass": 2,
+    "X_minPass": 2,
     # Per-pair pT thresholds [GeV] for (leading, subleading) leptons. Use 0 to disable.
-    "Z0_ptMins": (0.0, 0.0),
-    "X_ptMins": (0.0, 0.0),
+    "Z0_ptMins": (25., 10.0),
+    "X_ptMins": (15., 10.0),
 }
 
 
