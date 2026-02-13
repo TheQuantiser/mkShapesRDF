@@ -15,8 +15,8 @@ PAIR_ID_CONFIG = {
     "Z0_minPass": 2,
     "X_minPass": 2,
     # Per-pair pT thresholds [GeV] for (leading, subleading) leptons. Use 0 to disable.
-    "Z0_ptMins": (25.0, 10.0),
-    "X_ptMins": (15.0, 10.0),
+    "Z0_ptMins": (10.0, 10.0),
+    "X_ptMins": (10.0, 10.0),
 }
 
 
