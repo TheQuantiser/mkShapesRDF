@@ -17,6 +17,7 @@ limitFiles = -1
 
 samples = {}
 
+
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""
     if redirector != "":
@@ -33,6 +34,7 @@ def makeDataDirectory(stream_tag):
     # stream_tag examples: "MuonEG", "Muon", "EGamma"
     return "/".join([_treeBaseDir, f"{dataReco}_{stream_tag}", dataSteps])
 
+
 mcDirectory = makeMCDirectory()
 
 # dataset -> stream tag used in the directory name
@@ -44,15 +46,20 @@ DATASET_STREAM = {
     "EGamma1": "EGamma",
 }
 
+
 def nanoGetSampleFiles(path, name):
     files = searchFiles.searchFiles(path, name, redirector=redirector)
 
     if not files:
-        print(f"[nanoGetSampleFiles] No files found for sample '{name}' under path '{path}'.")
+        print(
+            f"[nanoGetSampleFiles] No files found for sample '{name}' under path '{path}'."
+        )
         return [(name, [])]
 
     if limitFiles != -1 and len(files) > limitFiles:
-        print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' (returning first {limitFiles}).")
+        print(
+            f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' (returning first {limitFiles})."
+        )
         return [(name, files[:limitFiles])]
 
     print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}'.")

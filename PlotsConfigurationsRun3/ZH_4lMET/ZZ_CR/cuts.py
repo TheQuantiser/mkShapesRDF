@@ -11,7 +11,7 @@ cuts = {}
 
 preselections = ""
 # preselections += "(Trigger_ElMu || (!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)) || (!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)))"
-preselections += "((Trigger_ElMu) || (!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)))"
+preselections += "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
 preselections += " && nLepton >= 4"
 # Keep Data/MC aligned at the same leading-lepton tightness; remove this line to disable.
 preselections += " && L2TightLeading2"
@@ -21,7 +21,7 @@ preselections += " && L2TightLeading2"
 # preselections += " && Alt(Lepton_pt, 3, 0) > 10"
 # preselections += " && Alt(Lepton_pt, 4, 0) < 10"
 # preselections += " && Z0_mass > 12"
-preselections += " && bVeto"
+# preselections += " && bVeto"
 # preselections += " && sumLeptonCharge == 0"
 
 cuts["zz_cr"] = {
