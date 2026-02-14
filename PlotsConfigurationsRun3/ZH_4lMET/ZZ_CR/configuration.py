@@ -21,7 +21,8 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 #: luminosity to normalize to (in 1/fb)
-lumi = 109.08
+# lumi = 109.08
+lumi = 26.49
 
 #: file with dict of aliases to define
 aliasesFile = "aliases.py"

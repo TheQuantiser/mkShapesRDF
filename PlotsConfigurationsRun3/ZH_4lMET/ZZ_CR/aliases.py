@@ -197,8 +197,8 @@ aliases["Z0_isEE"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, Z0_idx) == 
 aliases["Z0_isMM"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, Z0_idx) == 13"}
 aliases["X_isEE"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 11"}
 aliases["X_isMM"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 13"}
-aliases["X_isSF"] = {"X_isEE || X_isMM"}
-aliases["X_isDF"] = {"!X_isEE && !X_isMM"}
+aliases["X_isSF"] = {"expr": "X_isEE || X_isMM"}
+aliases["X_isDF"] = {"expr": "!X_isEE && !X_isMM"}
 
 # use UParT
 # https://indico.cern.ch/event/1556659/contributions/6559758/attachments/3083466/5458488/BTag_250610_Summer24WPs.pdf

@@ -105,15 +105,15 @@ DataRun = [
     ["C", "Run2024C-ReReco-v1"],
     ["D", "Run2024D-ReReco-v1"],
     ["E", "Run2024E-ReReco-v1"],
-    ["F", "Run2024F-Prompt-v1"],
-    ["G", "Run2024G-Prompt-v1"],
-    ["H", "Run2024H-Prompt-v1"],
-    ["I", "Run2024I-Prompt-v1"],
-    ["I", "Run2024I-Prompt-v2"],
+    # ["F", "Run2024F-Prompt-v1"],
+    # ["G", "Run2024G-Prompt-v1"],
+    # ["H", "Run2024H-Prompt-v1"],
+    # ["I", "Run2024I-Prompt-v1"],
+    # ["I", "Run2024I-Prompt-v2"],
 ]
 
-# DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
-DataSets = ["EGamma0", "EGamma1"]
+DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
+# DataSets = ["EGamma0", "EGamma1"]
 DataTrig = {
     "MuonEG": "Trigger_ElMu",
     "Muon0": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
