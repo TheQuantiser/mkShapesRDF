@@ -1,0 +1,109 @@
+# WH charge asymmetry analysis
+
+This is an adaptation of the analysis which is part of HIG-20-013. It is used to measure the asymmetry in the prodution of W+H and W-H. Here, the 3-leptons final state is inspected.
+
+The instructions to run the analysis follow.
+
+### Load the mkShapesRDF environment
+
+Here, we assume `PlotsConfigurationsRun3` was installed in the same directory as `mkShapesRDF`. E.g., let's assume we have a `Run3` directory where we installed both `mkShapesRDF` and `PlotsConfigurationsRun3`.
+
+Then, we can source the `mkShapesRDF` environment using these commands:
+
+    cd ../../../mkShapesRDF/
+
+    source start.sh
+
+    cd -
+
+### Produce distributions using mkShapesMulti.py in batch mode
+
+Compile the configuration. Do it after every change to any file in this directory:
+
+    mkShapesRDF -c 1
+
+Produce histograms using batch:
+
+    mkShapesRDF -c 1 -o 0 -f . -b 1
+
+Check jobs status:
+
+    mkShapesRDF -o 1 -f .
+
+Resubmit failed jobs:
+
+    mkShapesRDF -o 1 -f . -r 1		 		
+
+Merge rootfiles:
+
+    mkShapesRDF -o 2 -f .
+
+Plot distributions:
+
+    bash do_plots.sh
+
+Produce datacards. Here, using the correct normalization for the signals:
+
+    bash do_datacards.sh
+
+Combine datacards:
+
+    mkdir -p Combination
+
+    cmssw-cc7
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+
+    python script_datacards_binning.py
+
+Fit data to get results:
+
+    bash do_fit.sh
+
+### Produce Impact Plots
+
+Source combine:
+
+    cd $HOME/work/combine/CMSSW_11_3_4/src/
+    cmsenv
+    cd -
+
+    ulimit -s unlimited
+
+Prepare directory:
+
+    mkdir -p Impact_plots
+
+Actually produce impact plots:
+
+    cd Impact_plots
+
+Using r_A as POI:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016HIPM_v9.root -m 125 --doInitialFit -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --freezeParameters r_higgs
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016HIPM_v9.root -m 125 --doFits -t -1 --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A --job-mode condor --freezeParameters r_higgs --sub-opts='+JobFlavour="workday"'
+
+From outside the singularity:
+
+    condor_submit condor_combine_task.sub
+
+Back to the singularity:
+
+    combineTool.py -M Impacts -d ../Combination/WH_chargeAsymmetry_WH_3l_2016HIPM_v9.root -m 125 -t -1 -o impacts_WH3l_2016HIPM_binning.json --setParameters r_S=1.3693,r_A=0.224,r_higgs=1 --setParameterRanges r_S=0,10:r_A=-1,1 --redefineSignalPOIs r_A
+
+    plotImpacts.py -i impacts_WH3l_2016HIPM_binning.json -o Impact_WH3l_2016HIPM_binning
+
+    rm combine_*
+    rm condor_*
+    rm higgsCombine_*
+
+Copy the plots on the web:
+
+    DATE=2024_05_03
+
+    mkdir -p /eos/user/n/ntrevisa/www/plots/${DATE}/2016HIPM/Impacts/
+
+    cp ~/index.php /eos/user/n/ntrevisa/www/plots/${DATE}/2016HIPM/Impacts/
+
+    cp impacts_WH3l_2016HIPM_binning.json Impact_WH3l_2016HIPM_binning.pdf /eos/user/n/ntrevisa/www/plots/${DATE}/2016HIPM/Impacts/
