@@ -81,25 +81,25 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
 mcCommonWeight = "XSWeight"
 
 files = nanoGetSampleFiles(mcDirectory, "ZZ")
-samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 files = nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-10to50")
-samples["DYto2E-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["DYto2E-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 files = nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-50")
-samples["DYto2E-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["DYto2E-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 files = nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-10to50")
-samples["DYto2Mu-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["DYto2Mu-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 files = nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-50")
-samples["DYto2Mu-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["DYto2Mu-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 files = nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-10to50")
-samples["DYto2Tau-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["DYto2Tau-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 files = nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-50")
-samples["DYto2Tau-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+samples["DYto2Tau-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 5}
 
 
 

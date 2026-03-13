@@ -1,6 +1,13 @@
 variables = {}
 
 BASE_EVENT_BRANCHES = [
+
+    "Trigger_ElMu",
+    "Trigger_sngMu",
+    "Trigger_dblMu",
+    "Trigger_sngEl",
+    "Trigger_dblEl",
+
     "nCleanJet",
     "Z0_mass",
     "Z0_pt",
