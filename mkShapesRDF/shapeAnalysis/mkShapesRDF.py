@@ -26,6 +26,41 @@ headersPath = os.path.dirname(os.path.dirname(__file__)) + "/include/headers.hh"
 ROOT.gInterpreter.Declare(f'#include "{headersPath}"')
 
 
+def _ensure_valid_proxy_for_eos():
+    """
+    Verify a valid VOMS proxy is available before EOS batch submission.
+    Requires at least one hour of validity.
+    """
+    try:
+        check = subprocess.run(
+            ["voms-proxy-info", "-exists", "-hours", "1"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except FileNotFoundError:
+        print(
+            "EOS output requested but `voms-proxy-info` is not available in PATH.\n"
+            "Load the grid environment and run:\n"
+            "  voms-proxy-init --voms cms -valid 192:0",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if check.returncode != 0:
+        print(
+            "EOS output requested but no valid VOMS proxy was found.\n"
+            "Please run this command now and then resubmit:\n"
+            "  voms-proxy-init --voms cms -valid 192:0",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
+def _is_remote_output_folder(path):
+    return path.startswith("/eos/") or path.startswith("/ceph/")
+
+
 def defaultParser():
     parser = argparse.ArgumentParser()
 
@@ -207,7 +242,7 @@ def main():
 
     batchFolder = f"{folder}/{batchFolder}"
 
-    if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
+    if _is_remote_output_folder(outputFolder):
         Path(f"{outputFolder}").mkdir(parents=True, exist_ok=True)
         outputPath = os.path.abspath(f"{outputFolder}")
         outputFileMap = f"{outputPath}/{outputFile}"
@@ -249,6 +284,8 @@ def main():
 
         if doBatch == 1:
             print("#" * 20, "\n\n", " Running on condor  ", "\n\n", "#" * 20)
+            if _is_remote_output_folder(outputFolder):
+                _ensure_valid_proxy_for_eos()
 
             _samples = RunAnalysis.splitSamples(samples)
 
@@ -433,7 +470,7 @@ def main():
         _samples = RunAnalysis.splitSamples(samples)
         print(len(_samples))
         outputFileTrunc = ".".join(outputFile.split(".")[:-1])
-        if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
+        if _is_remote_output_folder(outputFolder):
             filesToMerge = list(
                 map(
                     lambda k: f"{outputFolder}/{outputFileTrunc}__ALL__{k[0]}_{str(k[3])}.root",
@@ -472,7 +509,7 @@ def main():
         #    rm filesToMerge_{outputFile}.txt",
         #    shell=True,
         #)
-        if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
+        if _is_remote_output_folder(outputFolder):
             process = subprocess.Popen(
                 f'hadd2 -j 10 {outputFolder}/{outputFile} @filesToMerge_{outputFile}.txt; \
                 rm filesToMerge_{outputFile}.txt',
