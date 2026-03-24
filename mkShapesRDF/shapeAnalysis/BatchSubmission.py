@@ -75,12 +75,9 @@ class BatchSubmission:
         # submission folder
         sampleName = sample[0]
         i = sample[3]
-        try:
-            Path(f"{self.batchFolder}/{self.tag}/{sampleName}_{str(i)}").mkdir(
-                parents=True, exist_ok=False
-            )
-        except:  # noqa E722
-            print("Error creating condor folder!")
+        Path(f"{self.batchFolder}/{self.tag}/{sampleName}_{str(i)}").mkdir(
+            parents=True, exist_ok=True
+        )
         self.folders.append(f"{sampleName}_{str(i)}")
         # python file
 
@@ -108,6 +105,7 @@ class BatchSubmission:
             f.write(txtpy)
 
     def createBatches(self):
+        self.folders = []
         try:
             print("Removing dir:", os.path.abspath(f"{self.batchFolder}/{self.tag}"))
             shutil.rmtree(os.path.abspath(f"{self.batchFolder}/{self.tag}"))

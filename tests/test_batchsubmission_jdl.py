@@ -47,6 +47,31 @@ condor_config = []
         assert 'transfer_output_files = ""' in submit_jdl
 
 
+def test_createbatches_resets_folder_list():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        project = Path(tmpdir) / "project"
+        batch = Path(tmpdir) / "condor"
+        project.mkdir(parents=True, exist_ok=True)
+
+        b = BatchSubmission(
+            folder=str(project),
+            outputPath=str(project / "out"),
+            batchFolder=str(batch),
+            headersPath="/tmp/headers.hh",
+            runnerPath="/tmp/runner.py",
+            tag="TAG",
+            samples=[("SAMPLE", ["f.root"], 1.0, 0)],
+            d={"outputFile": "mkShapes__TAG.root", "mountEOS": []},
+            batchVars=["samples"],
+            jdlconfigfile="",
+        )
+
+        b.createBatches()
+        assert b.folders == ["SAMPLE_0"]
+        b.createBatches()
+        assert b.folders == ["SAMPLE_0"]
+
+
 def test_batchsubmission_invalid_jdl_fails_fast():
     with tempfile.TemporaryDirectory() as tmpdir:
         project = Path(tmpdir) / "project"
