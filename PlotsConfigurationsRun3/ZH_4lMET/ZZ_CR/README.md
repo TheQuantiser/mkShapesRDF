@@ -33,3 +33,21 @@ Categories:
 - The Z0/X pairing follows the AN rule: choose the OSSF pair closest to mZ and
   assign the remaining two leptons to X.
 - `WZ`, `DY`, and `top` are enabled as sub-leading backgrounds for closure checks.
+
+## Optional EOS-user output with x509 on Condor
+
+This configuration now supports an **optional** mode to write per-job `output.root`
+files directly to EOS user space from Condor jobs.
+
+- Default behavior is unchanged: local output folder under the configuration path.
+- To enable EOS output, set `useEOSUserOutput = True` in `configuration.py`.
+- To enable x509-aware Condor submission, set `useX509Proxy = True` in
+  `configuration.py`.
+- The submission workflow automatically discovers the active proxy path via
+  `voms-proxy-info -path` and stages it for Condor transfer.
+- If EOS output is requested but no valid proxy is available (at least 1 hour),
+  submission stops and asks you to run:
+
+  ```bash
+  voms-proxy-init --voms cms -valid 192:0
+  ```
