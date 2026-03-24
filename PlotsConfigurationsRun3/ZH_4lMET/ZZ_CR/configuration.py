@@ -13,6 +13,7 @@ outputFile = "mkShapes__{}.root".format(tag)
 
 useEOSUserOutput = False
 useX509Proxy = False
+xrdRedirector = "cms-xrd-global.cern.ch"
 
 _user = os.environ.get("USER", getpass.getuser())
 eosUserOutputFolder = (
@@ -69,6 +70,7 @@ jdlconfigfile = "jdl_dict_zzcr.py" if useX509Proxy else ""
 varsToKeep = [
     "useEOSUserOutput",
     "useX509Proxy",
+    "xrdRedirector",
     "eosUserOutputFolder",
     "jdlconfigfile",
     "batchVars",

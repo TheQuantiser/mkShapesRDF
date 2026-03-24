@@ -1,57 +1,57 @@
-# ZH(H→WW) → 4ℓ + MET ZZ control region
+# ZZ_CR (ZH_4lMET) quick guide
 
-This configuration implements the ZZ control region definition from AN2019_238_v9,
-aligned to the 2024 Run-3 (`2024_v15`) production conventions used in
-`PlotsConfigurationsRun3` control-region setups.
+Minimal map for running this config without guessing.
 
-## Dataset / normalization conventions
+## Core files (what matters)
 
-- MC production: `Summer24_150x_nAODv15_Full2024v15`
-- Data production: `Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15`
-- Data streams: `MuonEG`, `Muon0`, `Muon1`, `EGamma0`, `EGamma1`
-- Integrated luminosity: `109.08 fb^{-1}`
+- `configuration.py`  
+  Main switchboard: tag, output mode, batch folder, EOS/x509 flags, redirector.
+- `samples.py`, `aliases.py`, `variables.py`, `cuts.py`, `nuisances.py`, `structure.py`, `plot.py`  
+  Standard analysis definitions.
+- `jdl_dict_zzcr.py`  
+  Condor payload/JDL helper for EOS+x509 mode:
+  - checks proxy,
+  - creates target dir (`xrdfs mkdir -p`),
+  - stages proxy,
+  - runs runner,
+  - `xrdcp` output.
 
-## ZZ CR definition
+## Operation modes
 
-Preselection:
-- 4 leptons with pT thresholds 25/15/10/10 GeV
-- 5th lepton veto at 10 GeV
-- Z0 mass > 12 GeV
-- b-jet veto (DeepJet loose, update WP as needed)
-- sum of lepton charges = 0
+### 1) Default/local mode
+- `useEOSUserOutput = False`
+- `useX509Proxy = False`
+- Outputs go to local `rootFiles/...`
 
-ZZ CR selection:
-- |m(Z0) − mZ| < 15 GeV
-- 75 < m(X) < 105 GeV
-- PuppiMET pT < 35 GeV
+### 2) EOS+x509 mode (Condor)
+- `useEOSUserOutput = True`
+- `useX509Proxy = True`
+- Output base: `/eos/cms/store/user/<user>/...`
+- Redirector configurable with:
+  - `xrdRedirector = "cms-xrd-global.cern.ch"` (default)
+  - or `cmsxrootd.fnal.gov`, `xrootd-cms.infn.it`, etc.
 
-Categories:
-- XSF: X dilepton is same-flavor
-- XDF: X dilepton is different-flavor
+## Usage
 
-## Notes
-- The Z0/X pairing follows the AN rule: choose the OSSF pair closest to mZ and
-  assign the remaining two leptons to X.
-- `WZ`, `DY`, and `top` are enabled as sub-leading backgrounds for closure checks.
+```bash
+# from this folder
+mkShapesRDF -c 1 -o 0 -b 1 -l -1
+```
 
-## Optional EOS-user output with x509 on Condor
+### Inspect jobs
 
-This configuration now supports an **optional** mode to write per-job `output.root`
-files directly to EOS user space from Condor jobs.
+```bash
+condor_q
+cat condor/<tag>/<sample_idx>/out.txt
+cat condor/<tag>/<sample_idx>/err.txt
+cat condor/<tag>/<sample_idx>/log.txt
+```
 
-- Default behavior is unchanged: local output folder under the configuration path.
-- To enable EOS output, set `useEOSUserOutput = True` in `configuration.py`.
-- To enable x509-aware Condor submission, set `useX509Proxy = True` in
-  `configuration.py`.
-- The default EOS destination for this mode is under:
-  `/eos/cms/store/user/<user>/mkShapesRDF_rootfiles/<tag>/rootFile/`.
-- The submission workflow automatically discovers the active proxy path via
-  `voms-proxy-info -path` and stages it for Condor transfer.
-- Before submitting jobs, it also creates the EOS destination directory via
-  `xrdfs` and uses `xrdcp` with the proper xrootd namespace path.
-- If EOS output is requested but no valid proxy is available (at least 1 hour),
-  submission stops and asks you to run:
+## Practical notes
 
+- If EOS mode is on, keep a valid proxy alive:
   ```bash
   voms-proxy-init --voms cms -valid 192:0
   ```
+- In EOS mode, transfer logs are printed in `out.txt` with `[ZZCR-JDL]` markers.
+- If you don’t want EOS/x509 behavior, keep both flags off and use local mode.
