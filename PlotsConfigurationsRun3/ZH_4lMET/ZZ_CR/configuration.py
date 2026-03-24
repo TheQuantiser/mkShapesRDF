@@ -2,13 +2,28 @@
 ZH(H->WW) -> 4l + MET ZZ control region configuration.
 """
 
+import os
+import getpass
+
 tag = "ZH_4lMET_ZZCR_2024v15"
 
 runnerFile = "default"
 
 outputFile = "mkShapes__{}.root".format(tag)
 
-outputFolder = "rootFiles/ZH_4lMET/rootFiles__{}".format(tag)
+useEOSUserOutput = False
+useX509Proxy = False
+
+_user = os.environ.get("USER", getpass.getuser())
+eosUserOutputFolder = (
+    "/eos/cms/store/user/{}/mkShapesRDF_rootfiles/{}/rootFile/".format(_user, tag)
+)
+
+outputFolder = (
+    eosUserOutputFolder
+    if useEOSUserOutput
+    else "rootFiles/ZH_4lMET/rootFiles__{}".format(tag)
+)
 
 batchFolder = "condor"
 
@@ -49,7 +64,13 @@ filesToExec = [
     structureFile,
 ]
 
+jdlconfigfile = "jdl_dict_zzcr.py" if useX509Proxy else ""
+
 varsToKeep = [
+    "useEOSUserOutput",
+    "useX509Proxy",
+    "eosUserOutputFolder",
+    "jdlconfigfile",
     "batchVars",
     "outputFolder",
     "batchFolder",
