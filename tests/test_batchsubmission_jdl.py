@@ -166,7 +166,7 @@ def test_zzcr_jdl_dict_builds_expected_commands():
 
             assert any("X509_USER_PROXY" in line for line in executable)
             assert any("PYTHON_BIN=$(command -v python3" in line for line in executable)
-            assert any("xrdcp -f output.root" in line for line in executable)
+            assert any("xrdcp -f -v output.root" in line for line in executable)
             assert "x509up" in jdl_dict["transfer_input_files"]
             assert (batch_folder / tag / "x509up").exists()
         finally:
@@ -257,7 +257,7 @@ def test_zzcr_jdl_maps_eos_home_to_eos_user_for_xrdcp():
             exec(zzcr_jdl.read_text(), scope)
 
             executable = scope["executable"]
-            xrdcp_lines = [line for line in executable if "xrdcp -f output.root" in line]
+            xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
             assert len(xrdcp_lines) == 1
             assert "/eos/user/m/mwadud/" in xrdcp_lines[0]
             assert "/eos/home-m/" not in xrdcp_lines[0]
@@ -314,7 +314,7 @@ def test_zzcr_jdl_uses_store_namespace_for_eos_cms_path():
             exec(zzcr_jdl.read_text(), scope)
 
             executable = scope["executable"]
-            xrdcp_lines = [line for line in executable if "xrdcp -f output.root" in line]
+            xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
             assert len(xrdcp_lines) == 1
             assert "root://eoscms.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
             assert "/eos/cms/store/" not in xrdcp_lines[0]

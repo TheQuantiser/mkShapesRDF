@@ -26,6 +26,7 @@ if eos_output_path.startswith("/eos/cms/store/"):
 
 # Ensure destination directory exists before submission.
 target_dir = xrd_target_path.rstrip("/")
+print(f"[ZZCR-JDL] xrdfs mkdir -p endpoint={xrd_endpoint} path={target_dir}")
 try:
     subprocess.run(
         ["xrdfs", xrd_endpoint, "mkdir", "-p", target_dir],
@@ -84,6 +85,8 @@ if startpath != "" and os.path.exists(startpath):
     with open(startpath) as f:
         setup_lines = [line.rstrip("\n") for line in f.readlines()]
 
+output_file_eos = f"{xrd_endpoint}/{xrd_target_path}/{output_file_trunc}__ALL__" + "${1}.root"
+
 # 1) Run mkShapes runner.
 # 2) Export proxy in the worker sandbox.
 # 3) Copy output to EOS using xrdcp.
@@ -92,17 +95,19 @@ executable = setup_lines + [
     "set -e",
     "echo \"Running in: $PWD\"",
     "ls -l .",
+    f'echo "[ZZCR-JDL] EOS endpoint: {xrd_endpoint}"',
+    f'echo "[ZZCR-JDL] EOS target directory: {xrd_target_path}"',
     f"export X509_USER_PROXY={shlex.quote(proxy_filename)}",
     "voms-proxy-info -all -file \"$X509_USER_PROXY\"",
     "PYTHON_BIN=$(command -v python3 || command -v python || true)",
     'if [ -z "$PYTHON_BIN" ]; then echo "No python interpreter found in PATH" >&2; exit 127; fi',
     f'time "$PYTHON_BIN" {shlex.quote(os.path.basename(self.runnerPath))}',
-    (
-        "xrdcp -f output.root "
-        f"{xrd_endpoint}/{xrd_target_path}/"
-        + f"{output_file_trunc}__ALL__"
-        + "${1}.root"
-    ),
+    'if [ ! -f output.root ]; then echo "[ZZCR-JDL] ERROR: output.root not found before transfer" >&2; exit 66; fi',
+    'echo "[ZZCR-JDL] output.root size:"',
+    "ls -lh output.root",
+    f'echo "[ZZCR-JDL] xrdcp destination: {output_file_eos}"',
+    f"xrdcp -f -v output.root {output_file_eos}",
+    'echo "[ZZCR-JDL] xrdcp finished successfully"',
     "rm -f output.root script.py",
 ]
 
