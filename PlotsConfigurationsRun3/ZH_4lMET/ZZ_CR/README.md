@@ -43,8 +43,12 @@ files directly to EOS user space from Condor jobs.
 - To enable EOS output, set `useEOSUserOutput = True` in `configuration.py`.
 - To enable x509-aware Condor submission, set `useX509Proxy = True` in
   `configuration.py`.
+- The default EOS destination for this mode is under:
+  `/eos/cms/store/user/<user>/mkShapesRDF_rootfiles/<tag>/rootFile/`.
 - The submission workflow automatically discovers the active proxy path via
   `voms-proxy-info -path` and stages it for Condor transfer.
+- Before submitting jobs, it also creates the EOS destination directory via
+  `xrdfs` and uses `xrdcp` with the proper xrootd namespace path.
 - If EOS output is requested but no valid proxy is available (at least 1 hour),
   submission stops and asks you to run:
 

@@ -4,12 +4,47 @@ import shutil
 import subprocess
 
 
-eos_output_path = os.path.realpath(self.outputPath).rstrip("/")
+eos_output_path = os.path.abspath(self.outputPath).rstrip("/")
+if eos_output_path.startswith("/eos/home-"):
+    # /eos/home-x/<user> is a filesystem-level path. xrootd authorization for
+    # user areas is handled through /eos/user/x/<user>.
+    _tail = eos_output_path[len("/eos/home-") :]
+    _initial, _rest = _tail.split("/", 1)
+    eos_output_path = f"/eos/user/{_initial}/{_rest}"
 if not eos_output_path.startswith("/eos/"):
     raise RuntimeError(
         "ZZ_CR x509 JDL is intended for EOS output paths. "
         f"Found outputPath={self.outputPath}"
     )
+
+# Select xrootd endpoint and target namespace path.
+xrd_endpoint = "root://eosuser.cern.ch"
+xrd_target_path = eos_output_path
+if eos_output_path.startswith("/eos/cms/store/"):
+    xrd_endpoint = "root://eoscms.cern.ch"
+    xrd_target_path = eos_output_path[len("/eos/cms") :]
+
+# Ensure destination directory exists before submission.
+target_dir = xrd_target_path.rstrip("/")
+try:
+    subprocess.run(
+        ["xrdfs", xrd_endpoint, "mkdir", "-p", target_dir],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+except FileNotFoundError as exc:
+    raise RuntimeError(
+        "`xrdfs` was not found in PATH. "
+        "Load ROOT/XRootD tools before submitting."
+    ) from exc
+except subprocess.CalledProcessError as exc:
+    raise RuntimeError(
+        "Could not create EOS destination directory via xrdfs.\n"
+        f"endpoint={xrd_endpoint}\n"
+        f"path={target_dir}\n"
+        f"stderr={exc.stderr.strip()}"
+    ) from exc
 
 try:
     proxy_check = subprocess.run(
@@ -64,7 +99,7 @@ executable = setup_lines + [
     f'time "$PYTHON_BIN" {shlex.quote(os.path.basename(self.runnerPath))}',
     (
         "xrdcp -f output.root "
-        f"root://eosuser.cern.ch/{eos_output_path}/"
+        f"{xrd_endpoint}/{xrd_target_path}/"
         + f"{output_file_trunc}__ALL__"
         + "${1}.root"
     ),

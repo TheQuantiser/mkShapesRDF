@@ -16,7 +16,7 @@ useX509Proxy = False
 
 _user = os.environ.get("USER", getpass.getuser())
 eosUserOutputFolder = (
-    "/eos/user/{}/{}/mkShapesRDF_rootfiles/{}/rootFile/".format(_user[0], _user, tag)
+    "/eos/cms/store/user/{}/mkShapesRDF_rootfiles/{}/rootFile/".format(_user, tag)
 )
 
 outputFolder = (
