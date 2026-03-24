@@ -11,8 +11,8 @@ runnerFile = "default"
 
 outputFile = "mkShapes__{}.root".format(tag)
 
-useEOSUserOutput = False
-useX509Proxy = False
+useEOSUserOutput = True
+useX509Proxy =True
 
 _user = os.environ.get("USER", getpass.getuser())
 eosUserOutputFolder = (
