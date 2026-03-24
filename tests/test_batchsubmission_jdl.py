@@ -137,6 +137,7 @@ def test_zzcr_jdl_dict_builds_expected_commands():
             jdl_dict = scope["jdl_dict"]
 
             assert any("X509_USER_PROXY" in line for line in executable)
+            assert any("PYTHON_BIN=$(command -v python3" in line for line in executable)
             assert any("xrdcp -f output.root" in line for line in executable)
             assert "x509up" in jdl_dict["transfer_input_files"]
             assert (batch_folder / tag / "x509up").exists()
