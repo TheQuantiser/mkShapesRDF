@@ -121,18 +121,31 @@ class BatchSubmission:
 
         txtsh = ""
         use_jdlconfigfile = self.jdlconfigfile != ""
+        executable = []
+        jdl_dict = {}
+        condor_config = []
 
         if use_jdlconfigfile:
             try:
                 print("Opening jdlconfigfile")
                 print(self.project_folder + "/" + self.jdlconfigfile)
-                exec(
-                    open(self.project_folder + "/" + self.jdlconfigfile).read(),
-                    globals(),
-                )
+                jdl_scope = {"self": self, "os": os, "subprocess": subprocess}
+                with open(self.project_folder + "/" + self.jdlconfigfile) as file:
+                    exec(file.read(), jdl_scope)
+
+                executable = jdl_scope["executable"]
+                jdl_dict = jdl_scope["jdl_dict"]
+                condor_config = jdl_scope.get("condor_config", [])
+                if not isinstance(executable, list):
+                    raise TypeError("`executable` must be a list of shell lines")
+                if not isinstance(jdl_dict, dict):
+                    raise TypeError("`jdl_dict` must be a dict")
+                if not isinstance(condor_config, list):
+                    raise TypeError("`condor_config` must be a list")
             except Exception as e:
-                print('could not parse jdlconfigfile "', self.jdlconfigfile, '"\n', e)
-                use_jdlconfigfile = False
+                raise RuntimeError(
+                    f'Could not parse jdlconfigfile "{self.jdlconfigfile}"'
+                ) from e
 
         if use_jdlconfigfile:
             txtsh += "\n".join(executable)
