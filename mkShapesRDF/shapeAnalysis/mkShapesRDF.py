@@ -240,6 +240,26 @@ def main():
 
     print("\n\n", batchVars, "\n\n")
 
+    useEOSUserOutput = bool(globals().get("useEOSUserOutput", False))
+    useX509Proxy = bool(globals().get("useX509Proxy", False))
+    eosUserOutputFolder = globals().get("eosUserOutputFolder", "")
+
+    if useX509Proxy and not useEOSUserOutput:
+        raise ValueError(
+            "Invalid configuration: useX509Proxy=True requires useEOSUserOutput=True."
+        )
+
+    # Keep outputFolder consistent with flags even if loading an older compiled config.
+    if useEOSUserOutput and eosUserOutputFolder:
+        outputFolder = eosUserOutputFolder
+
+    print(
+        "[mkShapesRDF] Output mode -> "
+        f"useEOSUserOutput={useEOSUserOutput}, "
+        f"useX509Proxy={useX509Proxy}, "
+        f"outputFolder={outputFolder}"
+    )
+
     batchFolder = f"{folder}/{batchFolder}"
 
     if _is_remote_output_folder(outputFolder):
