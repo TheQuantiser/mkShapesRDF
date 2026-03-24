@@ -26,6 +26,37 @@ headersPath = os.path.dirname(os.path.dirname(__file__)) + "/include/headers.hh"
 ROOT.gInterpreter.Declare(f'#include "{headersPath}"')
 
 
+def _ensure_valid_proxy_for_eos():
+    """
+    Verify a valid VOMS proxy is available before EOS batch submission.
+    Requires at least one hour of validity.
+    """
+    try:
+        check = subprocess.run(
+            ["voms-proxy-info", "-exists", "-hours", "1"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except FileNotFoundError:
+        print(
+            "EOS output requested but `voms-proxy-info` is not available in PATH.\n"
+            "Load the grid environment and run:\n"
+            "  voms-proxy-init --voms cms -valid 192:0",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if check.returncode != 0:
+        print(
+            "EOS output requested but no valid VOMS proxy was found.\n"
+            "Please run this command now and then resubmit:\n"
+            "  voms-proxy-init --voms cms -valid 192:0",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
 def defaultParser():
     parser = argparse.ArgumentParser()
 
@@ -249,6 +280,8 @@ def main():
 
         if doBatch == 1:
             print("#" * 20, "\n\n", " Running on condor  ", "\n\n", "#" * 20)
+            if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
+                _ensure_valid_proxy_for_eos()
 
             _samples = RunAnalysis.splitSamples(samples)
 
