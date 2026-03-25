@@ -44,12 +44,20 @@ except FileNotFoundError as exc:
         "Load ROOT/XRootD tools before submitting."
     ) from exc
 except subprocess.CalledProcessError as exc:
-    raise RuntimeError(
-        "Could not create EOS destination directory via xrdfs.\n"
-        f"endpoint={xrd_endpoint}\n"
-        f"path={target_dir}\n"
-        f"stderr={exc.stderr.strip()}"
-    ) from exc
+    stderr = (exc.stderr or "").strip()
+    # Some EOS/XRootD endpoints report a non-zero exit code even for
+    # `mkdir -p` if the directory already exists (e.g. error code 3018).
+    if "already exists" not in stderr.lower() and "[3018]" not in stderr:
+        raise RuntimeError(
+            "Could not create EOS destination directory via xrdfs.\n"
+            f"endpoint={xrd_endpoint}\n"
+            f"path={target_dir}\n"
+            f"stderr={stderr}"
+        ) from exc
+    print(
+        "[ZZCR-JDL] xrdfs mkdir returned an 'already exists' condition; "
+        "continuing."
+    )
 
 try:
     proxy_check = subprocess.run(
