@@ -167,6 +167,7 @@ def test_zzcr_jdl_dict_builds_expected_commands():
             assert any("X509_USER_PROXY" in line for line in executable)
             assert any("PYTHON_BIN=$(command -v python3" in line for line in executable)
             assert any("xrdcp -f -v output.root" in line for line in executable)
+            assert any("xrdfs " in line and " stat " in line for line in executable)
             assert "x509up" in jdl_dict["transfer_input_files"]
             assert (batch_folder / tag / "x509up").exists()
         finally:
@@ -257,7 +258,9 @@ def test_zzcr_jdl_maps_eos_home_to_eos_user_for_xrdcp():
             exec(zzcr_jdl.read_text(), scope)
 
             executable = scope["executable"]
-            xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
+            xrdcp_lines = [
+                line for line in executable if line.strip().startswith("xrdcp -f -v output.root")
+            ]
             assert len(xrdcp_lines) == 1
             assert "/eos/user/m/mwadud/" in xrdcp_lines[0]
             assert "/eos/home-m/" not in xrdcp_lines[0]
@@ -314,9 +317,11 @@ def test_zzcr_jdl_uses_store_namespace_for_eos_cms_path():
             exec(zzcr_jdl.read_text(), scope)
 
             executable = scope["executable"]
-            xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
+            xrdcp_lines = [
+                line for line in executable if line.strip().startswith("xrdcp -f -v output.root")
+            ]
             assert len(xrdcp_lines) == 1
-            assert "root://cms-xrd-global.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
+            assert "root://eoscms.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
             assert "/eos/cms/store/" not in xrdcp_lines[0]
         finally:
             os.environ["PATH"] = old_path
@@ -374,8 +379,72 @@ def test_zzcr_jdl_uses_custom_redirector_from_configuration():
             exec(zzcr_jdl.read_text(), scope)
 
             executable = scope["executable"]
-            xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
+            xrdcp_lines = [
+                line for line in executable if line.strip().startswith("xrdcp -f -v output.root")
+            ]
             assert len(xrdcp_lines) == 1
             assert "root://xrootd-cms.infn.it//store/user/mwadud/" in xrdcp_lines[0]
+        finally:
+            os.environ["PATH"] = old_path
+
+
+def test_zzcr_jdl_overrides_global_redirector_for_writes():
+    zzcr_jdl = (
+        Path("PlotsConfigurationsRun3")
+        / "ZH_4lMET"
+        / "ZZ_CR"
+        / "jdl_dict_zzcr.py"
+    )
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        proxy_src = Path(tmpdir) / "x509up_u123"
+        proxy_src.write_text("proxy")
+
+        fake_voms = Path(tmpdir) / "voms-proxy-info"
+        fake_voms.write_text(
+            "\n".join(
+                [
+                    "#!/bin/bash",
+                    'if [[ \"$1\" == \"-exists\" ]]; then exit 0; fi',
+                    'if [[ \"$1\" == \"-path\" ]]; then echo \"'
+                    + str(proxy_src)
+                    + '\"; exit 0; fi',
+                    "exit 1",
+                ]
+            )
+        )
+        fake_voms.chmod(0o755)
+        fake_xrdfs = Path(tmpdir) / "xrdfs"
+        fake_xrdfs.write_text("#!/bin/bash\nexit 0\n")
+        fake_xrdfs.chmod(0o755)
+
+        old_path = os.environ.get("PATH", "")
+        os.environ["PATH"] = f"{tmpdir}:{old_path}"
+        try:
+            batch_folder = Path(tmpdir) / "condor"
+            tag = "TAG"
+            (batch_folder / tag).mkdir(parents=True, exist_ok=True)
+
+            class DummySelf:
+                outputPath = "/eos/cms/store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET/rootFile"
+                d = {
+                    "outputFile": "mkShapes__ZH_4lMET_ZZCR_2024v15.root",
+                    "xrdRedirector": "cms-xrd-global.cern.ch",
+                }
+                headersPath = "/tmp/headers.hh"
+                runnerPath = "/tmp/runner.py"
+                batchFolder = str(batch_folder)
+                tag = "TAG"
+
+            scope = {"self": DummySelf, "os": os}
+            exec(zzcr_jdl.read_text(), scope)
+
+            executable = scope["executable"]
+            xrdcp_lines = [
+                line for line in executable if line.strip().startswith("xrdcp -f -v output.root")
+            ]
+            assert len(xrdcp_lines) == 1
+            assert "root://eoscms.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
+            assert "cms-xrd-global.cern.ch" not in xrdcp_lines[0]
         finally:
             os.environ["PATH"] = old_path
