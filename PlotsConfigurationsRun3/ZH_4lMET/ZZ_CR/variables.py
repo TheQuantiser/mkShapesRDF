@@ -25,6 +25,7 @@ BASE_EVENT_BRANCHES = [
     "PuppiMET_significance",
     "PuppiMET_sumEt",
     "HT",
+    "nJetInHorn",
     "dPhi_MET_Z",
     "dPhi_MET_X",
     "dPhi_MET_lZ1",
