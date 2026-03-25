@@ -7,7 +7,7 @@ preselections += " && L2TightLeading2"
 
 cuts["zz_cr"] = {
     # "expr": "abs(Z0_mass - 91.1876) < 30",
-    "expr": "(Z0_mass > 10.) && (lZ1_pt > 10.) && (lZ1_pt > 10.)",
+    "expr": "(Z0_mass > 30.) && (lZ1_pt > 10.) && (lZ1_pt > 10.)",
     "categories": {
         # "XSF_ZEE": "X_isSF && Z0_isEE",
         # "XSF_ZMM": "X_isSF && Z0_isMM",
@@ -19,6 +19,6 @@ cuts["zz_cr"] = {
         # "XEE_ZMM": "X_isEE && Z0_isMM",
         # "ZMM": "Z0_isMM",
         # "ZEE": "Z0_isEE",
-        "ALL": "(Z0_mass > 10.) && (lZ1_pt > 10.) && (lZ1_pt > 10.)",
+        "ALL": "(Z0_mass > 30.) && (lZ1_pt > 10.) && (lZ1_pt > 10.)",
     },
 }

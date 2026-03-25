@@ -5,20 +5,14 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 import os
 import getpass
 
-tag = "ZH_4lMET_ZZCR_2024v15"
+tag = "ZH_4lMET_ZZCR_2024v15_2"
 
 runnerFile = "default"
 
 outputFile = "mkShapes__{}.root".format(tag)
 
-<<<<<<< HEAD
 useEOSUserOutput = True
 useX509Proxy =True
-=======
-useEOSUserOutput = False
-useX509Proxy = False
-xrdRedirector = "cms-xrd-global.cern.ch"
->>>>>>> b2b89e70b7b419ffcd33b58bfae86d25782cae43
 
 _user = os.environ.get("USER", getpass.getuser())
 eosUserOutputFolder = (
