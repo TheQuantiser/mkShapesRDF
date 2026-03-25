@@ -134,6 +134,8 @@ for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
     PAIR_LEPTON_HELPER_COLUMNS[lep_name] = {"eta": eta_helper, "phi": phi_helper}
 
 for lep_a, lep_b in LEPTON_PAIR_COMBINATIONS:
+    a_alias = lepton_angular_aliases[lep_a]
+    b_alias = lepton_angular_aliases[lep_b]
     aliases[f"dPhi_{lep_a}_{lep_b}"] = {
         "expr": (
             "ZH4lMETZZCR::deltaPhi("
