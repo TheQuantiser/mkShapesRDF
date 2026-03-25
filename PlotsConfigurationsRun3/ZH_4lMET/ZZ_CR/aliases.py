@@ -121,23 +121,41 @@ for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
     }
 aliases["dPhi_MET_ZplusX"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, phi4l)"}
 
+PAIR_COORD_ALIAS_NAMES = {
+    lep_name: {
+        "eta": f"lepcoordEta_{lep_name}",
+        "phi": f"lepcoordPhi_{lep_name}",
+    }
+    for lep_name in LEPTON_PAIR_INDEX_EXPRESSIONS
+}
+
 for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
-    aliases[f"{lep_name}_eta"] = {
+    aliases[PAIR_COORD_ALIAS_NAMES[lep_name]["eta"]] = {
         "expr": f"Alt(Lepton_eta, {lep_idx}, -999.f)",
     }
-    aliases[f"{lep_name}_phi"] = {
+    aliases[PAIR_COORD_ALIAS_NAMES[lep_name]["phi"]] = {
         "expr": f"Alt(Lepton_phi, {lep_idx}, -999.f)",
     }
 
 for lep_a, lep_b in LEPTON_PAIR_COMBINATIONS:
     aliases[f"dPhi_{lep_a}_{lep_b}"] = {
-        "expr": f"ZH4lMETZZCR::deltaPhi({lep_a}_phi, {lep_b}_phi)",
+        "expr": (
+            "ZH4lMETZZCR::deltaPhi("
+            f"{PAIR_COORD_ALIAS_NAMES[lep_a]['phi']}, {PAIR_COORD_ALIAS_NAMES[lep_b]['phi']})"
+        ),
     }
     aliases[f"dEta_{lep_a}_{lep_b}"] = {
-        "expr": f"ZH4lMETZZCR::deltaEta({lep_a}_eta, {lep_b}_eta)",
+        "expr": (
+            "ZH4lMETZZCR::deltaEta("
+            f"{PAIR_COORD_ALIAS_NAMES[lep_a]['eta']}, {PAIR_COORD_ALIAS_NAMES[lep_b]['eta']})"
+        ),
     }
     aliases[f"dR_{lep_a}_{lep_b}"] = {
-        "expr": f"ZH4lMETZZCR::deltaR({lep_a}_eta, {lep_a}_phi, {lep_b}_eta, {lep_b}_phi)",
+        "expr": (
+            "ZH4lMETZZCR::deltaR("
+            f"{PAIR_COORD_ALIAS_NAMES[lep_a]['eta']}, {PAIR_COORD_ALIAS_NAMES[lep_a]['phi']}, "
+            f"{PAIR_COORD_ALIAS_NAMES[lep_b]['eta']}, {PAIR_COORD_ALIAS_NAMES[lep_b]['phi']})"
+        ),
     }
 
 aliases["recoil_ux"] = {
