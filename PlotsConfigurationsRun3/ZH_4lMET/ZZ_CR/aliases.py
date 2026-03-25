@@ -121,23 +121,41 @@ for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
     }
 aliases["dPhi_MET_ZplusX"] = {"expr": "ZH4lMETZZCR::deltaPhi(PuppiMET_phi, phi4l)"}
 
+PAIR_LEPTON_HELPER_COLUMNS = {}
 for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
-    aliases[f"{lep_name}_eta"] = {
+    eta_helper = f"zzcr_{lep_name}_eta"
+    phi_helper = f"zzcr_{lep_name}_phi"
+    aliases[eta_helper] = {
         "expr": f"Alt(Lepton_eta, {lep_idx}, -999.f)",
     }
-    aliases[f"{lep_name}_phi"] = {
+    aliases[phi_helper] = {
         "expr": f"Alt(Lepton_phi, {lep_idx}, -999.f)",
     }
+    PAIR_LEPTON_HELPER_COLUMNS[lep_name] = {"eta": eta_helper, "phi": phi_helper}
 
 for lep_a, lep_b in LEPTON_PAIR_COMBINATIONS:
     aliases[f"dPhi_{lep_a}_{lep_b}"] = {
-        "expr": f"ZH4lMETZZCR::deltaPhi({lep_a}_phi, {lep_b}_phi)",
+        "expr": (
+            "ZH4lMETZZCR::deltaPhi("
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_a]['phi']}, "
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_b]['phi']})"
+        ),
     }
     aliases[f"dEta_{lep_a}_{lep_b}"] = {
-        "expr": f"ZH4lMETZZCR::deltaEta({lep_a}_eta, {lep_b}_eta)",
+        "expr": (
+            "ZH4lMETZZCR::deltaEta("
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_a]['eta']}, "
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_b]['eta']})"
+        ),
     }
     aliases[f"dR_{lep_a}_{lep_b}"] = {
-        "expr": f"ZH4lMETZZCR::deltaR({lep_a}_eta, {lep_a}_phi, {lep_b}_eta, {lep_b}_phi)",
+        "expr": (
+            "ZH4lMETZZCR::deltaR("
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_a]['eta']}, "
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_a]['phi']}, "
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_b]['eta']}, "
+            f"{PAIR_LEPTON_HELPER_COLUMNS[lep_b]['phi']})"
+        ),
     }
 
 aliases["recoil_ux"] = {
