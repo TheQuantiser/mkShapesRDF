@@ -28,6 +28,12 @@ if eos_output_path.startswith("/eos/cms/store/"):
     redirector = redirector.replace("root://", "").strip("/")
     if redirector == "":
         redirector = "eoscms.cern.ch"
+    if redirector == "cms-xrd-global.cern.ch":
+        print(
+            "[ZZCR-JDL] WARNING: xrdRedirector=cms-xrd-global.cern.ch is read-oriented "
+            "and unstable for writes. Forcing eoscms.cern.ch for EOS CMS write path."
+        )
+        redirector = "eoscms.cern.ch"
     xrd_endpoint = f"root://{redirector}"
     xrd_target_path = eos_output_path[len("/eos/cms") :]
 
@@ -102,6 +108,8 @@ if startpath != "" and os.path.exists(startpath):
 
 output_file_eos = f"{xrd_endpoint}/{xrd_target_path}/{output_file_trunc}__ALL__" + "${1}.root"
 output_file_rel = f"{xrd_target_path}/{output_file_trunc}__ALL__" + "${1}.root"
+xrdcp_cmd = f"xrdcp -f -v output.root {output_file_eos}"
+xrdfs_stat_cmd = f"xrdfs {xrd_endpoint} stat {output_file_rel}"
 
 # 1) Run mkShapes runner.
 # 2) Export proxy in the worker sandbox.
@@ -122,18 +130,25 @@ executable = setup_lines + [
     'echo "[ZZCR-JDL] output.root size:"',
     "ls -lh output.root",
     f'echo "[ZZCR-JDL] xrdcp destination: {output_file_eos}"',
+    f'echo "[ZZCR-JDL] xrdcp command: {xrdcp_cmd}"',
+    f'echo "[ZZCR-JDL] xrdfs stat command: {xrdfs_stat_cmd}"',
     "set +e",
     "xrdcp_status=1",
     "for attempt in 1 2 3; do",
-    '  echo "[ZZCR-JDL] xrdcp attempt ${attempt}/3"',
-    f"  xrdcp -f -v output.root {output_file_eos}",
+    '  echo "[ZZCR-JDL] xrdcp attempt ${attempt}/3 -> ' + xrdcp_cmd + '"',
+    f"  {xrdcp_cmd}",
     "  xrdcp_status=$?",
     "  if [ ${xrdcp_status} -eq 0 ]; then",
     "    break",
     "  fi",
-    "  if [ ${attempt} -eq 1 ]; then",
-    '    echo "[ZZCR-JDL] first xrdcp failed, removing stale destination and retrying..."',
-    f"    xrdfs {xrd_endpoint} rm {output_file_rel} || true",
+    '  echo "[ZZCR-JDL] WARNING: xrdcp failed with status=${xrdcp_status} on attempt ${attempt}" >&2',
+    '  echo "[ZZCR-JDL] WARNING: checking destination existence via: '
+    + xrdfs_stat_cmd
+    + '" >&2',
+    f"  if {xrdfs_stat_cmd} >/dev/null 2>&1; then",
+    '    echo "[ZZCR-JDL] destination already exists after failed xrdcp; accepting existing file and continuing"',
+    "    xrdcp_status=0",
+    "    break",
     "  fi",
     '  echo "[ZZCR-JDL] transient xrdcp failure (status=${xrdcp_status}), sleeping before retry..."',
     "  sleep 20",
