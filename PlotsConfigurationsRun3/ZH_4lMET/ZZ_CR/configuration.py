@@ -19,6 +19,8 @@ eosUserOutputFolder = (
     "/eos/cms/store/user/{}/mkShapesRDF_rootfiles/{}/rootFile/".format(_user, tag)
 )
 
+xrdRedirector = "cms-xrd-global.cern.ch"
+
 outputFolder = (
     eosUserOutputFolder
     if useEOSUserOutput
