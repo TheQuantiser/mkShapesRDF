@@ -21,10 +21,13 @@ if not eos_output_path.startswith("/eos/"):
 xrd_endpoint = "root://eosuser.cern.ch"
 xrd_target_path = eos_output_path
 if eos_output_path.startswith("/eos/cms/store/"):
-    redirector = str(self.d.get("xrdRedirector", "cms-xrd-global.cern.ch")).strip()
+    # Use the EOS CMS MGM endpoint by default for write operations.
+    # Global redirectors are primarily read-oriented and can cause unstable
+    # destination behavior for writes.
+    redirector = str(self.d.get("xrdRedirector", "eoscms.cern.ch")).strip()
     redirector = redirector.replace("root://", "").strip("/")
     if redirector == "":
-        redirector = "cms-xrd-global.cern.ch"
+        redirector = "eoscms.cern.ch"
     xrd_endpoint = f"root://{redirector}"
     xrd_target_path = eos_output_path[len("/eos/cms") :]
 

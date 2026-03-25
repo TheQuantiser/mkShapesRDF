@@ -316,7 +316,7 @@ def test_zzcr_jdl_uses_store_namespace_for_eos_cms_path():
             executable = scope["executable"]
             xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
             assert len(xrdcp_lines) == 1
-            assert "root://cms-xrd-global.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
+            assert "root://eoscms.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
             assert "/eos/cms/store/" not in xrdcp_lines[0]
         finally:
             os.environ["PATH"] = old_path
