@@ -167,6 +167,8 @@ def test_zzcr_jdl_dict_builds_expected_commands():
             assert any("X509_USER_PROXY" in line for line in executable)
             assert any("PYTHON_BIN=$(command -v python3" in line for line in executable)
             assert any("xrdcp -f -v output.root" in line for line in executable)
+            assert any("xrdfs " in line and " rm " in line for line in executable)
+            assert not any("xrdfs " in line and " rm -f " in line for line in executable)
             assert "x509up" in jdl_dict["transfer_input_files"]
             assert (batch_folder / tag / "x509up").exists()
         finally:
@@ -316,7 +318,7 @@ def test_zzcr_jdl_uses_store_namespace_for_eos_cms_path():
             executable = scope["executable"]
             xrdcp_lines = [line for line in executable if "xrdcp -f -v output.root" in line]
             assert len(xrdcp_lines) == 1
-            assert "root://cms-xrd-global.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
+            assert "root://eoscms.cern.ch//store/user/mwadud/" in xrdcp_lines[0]
             assert "/eos/cms/store/" not in xrdcp_lines[0]
         finally:
             os.environ["PATH"] = old_path
