@@ -133,7 +133,7 @@ executable = setup_lines + [
     "  fi",
     "  if [ ${attempt} -eq 1 ]; then",
     '    echo "[ZZCR-JDL] first xrdcp failed, removing stale destination and retrying..."',
-    f"    xrdfs {xrd_endpoint} rm -f {output_file_rel} || true",
+    f"    xrdfs {xrd_endpoint} rm {output_file_rel} || true",
     "  fi",
     '  echo "[ZZCR-JDL] transient xrdcp failure (status=${xrdcp_status}), sleeping before retry..."',
     "  sleep 20",
