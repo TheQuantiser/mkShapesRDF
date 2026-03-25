@@ -176,6 +176,9 @@ aliases["sumLeptonCharge"] = {
 }
 
 aliases["HT"] = {"expr": "Sum(CleanJet_pt)"}
+aliases["nJetInHorn"] = {
+    "expr": "Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.5 && abs(CleanJet_eta) < 3.0)"
+}
 
 # Data-only fallbacks for MC-only NanoAOD branches.
 DATA_FALLBACK_BLOCKS = {
