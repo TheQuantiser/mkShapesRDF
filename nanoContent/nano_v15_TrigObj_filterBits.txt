@@ -1,0 +1,156 @@
+TrigObj_filterBits  ULong64_t extra bits of associated information:
+
+[ 'HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL', 'HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ', 'HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ'] ,
+
+0 => HLT_AK8PFJetX_SoftDropMassY_PFAK8ParticleNetTauTau0p30
+1 => HLT_AK8PFJetX_SoftDropMassY_PNetTauTau0p03
+2 => HLT_AK8PFJetX_SoftDropMassY_PNetTauTau0p05 for BoostedTau; 0 => CaloIdL_TrackIdL_IsoVL
+1 => 1e (WPTight with possibile contribution from Xtriggers besides singleElectron)
+2 => 1e (WPLoose)
+3 => OverlapFilter PFTau
+4 => 2e (Leg 1)
+5 => 2e (Leg 2)
+6 => 1e-1mu
+7 => 1e-1tau
+8 => 3e
+9 => 2e-1mu
+10 => 1e-2mu
+11 => 1e (32_L1DoubleEG_AND_L1SingleEGOr)
+12 => 1e (CaloIdVT_GsfTrkIdT)
+13 => 1e (PFJet)
+14 => 1e (Photon175_OR_Photon200)
+15 => 2e (CaloIdL_MW seeded)
+16 => 2e (CaloIdL_MW unseeded)
+17 => 1e-1tau PNet
+18 => 1e (HLT30WPTightGSfTrackIso)
+19 => WPTightGsfTrackIso for VBF for Electron;
+
+0 => 
+1 => hltAK8SingleCaloJet200
+2 => 
+3 => hltAK8SinglePFJets230SoftDropMass40BTagParticleNetBB0p35 OR hltAK8SinglePFJets250SoftDropMass40BTagParticleNetBB0p35 OR hltAK8SinglePFJets275SoftDropMass40BTagParticleNetBB0p35
+4 => hltAK8DoublePFJetSDModMass30
+5 => hltAK8DoublePFJetSDModMass50
+6 => hltAK8SinglePFJets*SoftDropMass*PNetBBTag0p06 for FatJet; 0 => hltL1sTripleJetVBFIorHTTIorDoubleJetCIorSingleJet
+1 => hltL1sQuadJetC50IorQuadJetC60IorHTT280IorHTT300IorHTT320IorTripleJet846848VBFIorTripleJet887256VBFIorTripleJet927664VBF OR hltL1sQuadJetCIorTripleJetVBFIorHTT
+2 => hltL1sQuadJetC60IorHTT380IorHTT280QuadJetIorHTT300QuadJet OR hltL1sQuadJetC50to60IorHTT280to500IorHTT250to340QuadJet
+3 => hltCaloQuadJet30HT300 OR hltCaloQuadJet30HT320
+4 => hltPFCentralJetsLooseIDQuad30HT300 OR hltPFCentralJetsLooseIDQuad30HT330
+5 => hltPFHT280Jet30 for HT; 0 => hlt4PixelOnlyPFCentralJetTightIDPt20
+1 => hlt3PixelOnlyPFCentralJetTightIDPt30
+2 => hltPFJetFilterTwoC30
+3 => hlt4PFCentralJetTightIDPt30
+4 => hlt4PFCentralJetTightIDPt35
+5 => hltQuadCentralJet30
+6 => hlt2PixelOnlyPFCentralJetTightIDPt40
+7 => hltL1sTripleJet1008572VBFIorHTTIorDoubleJetCIorSingleJet OR hltL1sTripleJet1058576VBFIorHTTIorDoubleJetCIorSingleJet OR hltL1sTripleJetVBFIorHTTIorSingleJet
+8 => hlt3PFCentralJetTightIDPt40
+9 => hlt3PFCentralJetTightIDPt45
+10 => hltL1sQuadJetC60IorHTT380IorHTT280QuadJetIorHTT300QuadJet OR hltL1sQuadJetC50to60IorHTT280to500IorHTT250to340QuadJet
+11 => hltBTagCaloDeepCSVp17Double
+12 => hltPFCentralJetLooseIDQuad30
+13 => hlt1PFCentralJetLooseID75
+14 => hlt2PFCentralJetLooseID60
+15 => hlt3PFCentralJetLooseID45
+16 => hlt4PFCentralJetLooseID40
+17 => (DiTau+Jet (Jet) Signal)
+18 => (VBF DiTau Jets)
+19 => (VBF SingleTau Jets)
+20 => Muon+Tau+Jet (Jet) Monitoring
+21 => hlt2PFCentralJetTightIDPt50
+22 => hlt1PixelOnlyPFCentralJetTightIDPt60
+23 => hlt1PFCentralJetTightIDPt70
+24 => hltBTagPFDeepJet1p5Single
+25 => hltBTagPFDeepJet4p5Triple
+26 => hltBTagCentralJetPt35PFParticleNet2BTagSum0p65 OR hltBTagCentralJetPt30PFParticleNet2BTagSum0p65 OR hltPFJetTwoC30PFBTagParticleNet2BTagSum0p65 OR hltPFCentralJetPt30PNet2BTagMean0p55
+27 => hlt2PixelOnlyPFCentralJetTightIDPt20 OR hlt1PixelOnlyPFCentralJetTightIDPt50
+28 => hlt2PFCentralJetTightIDPt30 OR hltPF2CentralJetTightIDPt30
+29 => hlt1PFCentralJetTightIDPt60
+30 => hltPF2CentralJetPt30PNet2BTagMean0p50
+31 => hlt4PFCentralJetPt25
+32 => hltPFCentralJetNoIDPt25PNet1BTag0p20
+33 => hltPFCentralJetNoIDPt25PNet1TauHTag0p50
+34 => hlt4PFCentralJetTightIDPt25
+35 => hltPFCentralJetPt25PNet2BTagMean0p55
+36 => hltL1PFJetCategoriesVBFinclLoose OR hltL1PFJetCategoriesVBFinclLooseTripleJet OR hltL1PFJetCategoriesVBFinclTight1050
+37 => hltL1PFJetCategoriesVBFdijetQuadjet OR hltL1PFJetCategoriesVBFdijetFivejets OR hltL1PFJetCategoriesVBFdijetSixjets OR hltL1PFJetCategoriesVBFdijetTightQuadjet800
+38 => hltL1PFJetCategoriesVBFMET OR hltL1PFJetCategoriesVBFMETTripleJet OR hltL1PFJetCategoriesVBFMETTight650
+39 => hltL1PFJetCategoriesVBFMu OR hltL1PFJetCategoriesVBFMuTripleJet OR hltL1PFJetCategoriesVBFMuTight750
+40 => hltOverlapFilterDoublePFJet45Photon12 OR hltOverlapFilterDoublePFJet45Photon17 OR hltDiPFJet50Photon22OverlapFilter
+41 => hltOverlapFilterDoublePFJet45Ele12 OR hltOverlapFilterDoublePFJet45Ele17 OR hltDiPFJet50Ele22OverlapFilter
+42 => SinglePFJetX
+43 => SinglePFJetFwdX
+44 => DiPFJetAveX
+45 => DiPFJetAveX_HFJEC for Jet; 0 => hltCaloQuadJet30HT300 OR hltCaloQuadJet30HT320
+1 => hltPFCentralJetsLooseIDQuad30HT300 OR hltPFCentralJetsLooseIDQuad30HT330 for MHT;
+
+0 => TrkIsoVVL
+1 => Iso
+2 => OverlapFilter PFTau
+3 => 1mu
+4 => 2mu
+5 => 1mu-1e
+6 => 1mu-1tau
+7 => 3mu
+8 => 2mu-1e
+9 => 1mu-2e
+10 => 1mu (Mu50)
+11 => 1mu (Mu100)
+12 => 1mu-1photon
+13 => 1mu-1tau PNet for Muon;
+
+0 => hltEG33L1EG26HEFilter
+1 => hltEG50HEFilter
+2 => hltEG75HEFilter
+3 => hltEG90HEFilter
+4 => hltEG120HEFilter
+5 => hltEG150HEFilter
+6 => hltEG175HEFilter
+7 => hltEG200HEFilter
+8 => hltHtEcal800
+9 => hltEG45EBTightIDTightIsoTrackIsoFilter
+10 => hltEG50EBTightIDTightIsoTrackIsoFilter
+11 => hltEG110EBTightIDTightIsoTrackIsoFilter
+12 => hltEG120EBTightIDTightIsoTrackIsoFilter
+13 => 1mu-1photon
+14 => hltEG30LR9Id85b90eHE12R9Id50b80eR9IdLastFilter
+15 => hltEG30LIso60CaloId15b35eHE12R9Id50b80eEcalIsoLastFilter
+16 => hltEG22Iso60CaloId15b35eHE12R9Id50b80eTrackIsoUnseededLastFilter
+17 => hltEG22R9Id85b90eHE12R9Id50b80eR9UnseededLastFilter
+18 => hltEG30Iso60CaloId15b35eR9Id50b90eHE12b10eR9Id50b80eEcalIsoFilter
+19 => hltEG18TrackIso60Iso60CaloId15b35eR9Id50b90eHE12b10eR9Id50b80eTrackIsoUnseededFilter
+20 => hltEG*L1VBFLooseIsoEGHEFilter for Photon;
+
+0 => Loose
+1 => Medium
+2 => Tight
+3 => DeepTau no spec WP
+4 => PNet no specified WP
+5 => ChargedIso
+6 => Dxy
+7 => e-tau inside filter
+8 => mu-tau inside filter
+9 => Single Tau
+10 => VBF DiTau
+11 => di-tau
+12 => e-tau
+13 => mu-tau
+14 => di-tau + PFJet
+15 => e-tau displaced
+16 => mu-tau displaced
+17 => di-tau displaced
+18 => Monitoring
+19 => VBF SingleTau Monitoring
+20 => DiTau+Jet Monitoring
+21 => Monitoring muTau displaced
+22 => OneProng
+23 => DiTau Monitoring
+24 => OverlapFilter
+25 => VBF DiTau monitoring
+26 => SingleTau Monitoring
+27 => MatchL1HLT
+28 => HPS
+29 => single PF-tau inside filter
+30 => VBF SingleTau for Tau;
+
+
