@@ -5,7 +5,7 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 import os
 import getpass
 
-tag = "ZH_4lMET_ZZCR_2024v15"
+tag = "ZH_4lMET_ZZCR_2024v15_fnal"
 
 runnerFile = "default"
 
@@ -19,7 +19,8 @@ eosUserOutputFolder = (
     "/eos/cms/store/user/{}/mkShapesRDF_rootfiles/{}/rootFile/".format(_user, tag)
 )
 
-xrdRedirector = "eoscms.cern.ch"
+# xrdRedirector = "eoscms.cern.ch"
+xrdRedirector = "cmseos.fnal.gov"
 
 outputFolder = (
     eosUserOutputFolder
