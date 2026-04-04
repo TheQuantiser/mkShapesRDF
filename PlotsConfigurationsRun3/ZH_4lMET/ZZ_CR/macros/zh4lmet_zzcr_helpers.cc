@@ -4,6 +4,7 @@
 #include <Math/Vector4D.h>
 #include <ROOT/RVec.hxx>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 
@@ -29,16 +30,18 @@ ROOT::VecOps::RVec<int> createTrigIndexTnP(
     const ROOT::VecOps::RVec<float> &trigObjPhi,
     const ROOT::VecOps::RVec<int> &trigObjId,
     float minDR = 0.1f) {
-  // Keep this 1:1 with addTnPTree::CreateTrigIndex:
-  // - same PDG-id equality
+  // TnP-style nearest-object matching with an explicit lepton-flavor guard:
+  // - abs(PDG) match between reco lepton and TrigObj (11/13 flavor consistency)
   // - nearest TrigObj inside dR<0.1
+  // - robust against size mismatches in input vectors
+  const size_t nLepton = std::min({leptonEta.size(), leptonPhi.size(), leptonPdgId.size()});
+  const size_t nTrigObj = std::min({trigObjEta.size(), trigObjPhi.size(), trigObjId.size()});
   ROOT::VecOps::RVec<int> leptonTrigIdx(leptonEta.size(), 999);
-  for (size_t iLep = 0; iLep < leptonEta.size(); ++iLep) {
+  for (size_t iLep = 0; iLep < nLepton; ++iLep) {
     float bestDR = minDR;
-    for (size_t iTr = 0; iTr < trigObjEta.size(); ++iTr) {
-      if (iLep >= leptonPdgId.size() || iTr >= trigObjId.size())
-        continue;
-      if (leptonPdgId[iLep] != trigObjId[iTr])
+    const int recoAbsPdgId = std::abs(leptonPdgId[iLep]);
+    for (size_t iTr = 0; iTr < nTrigObj; ++iTr) {
+      if (recoAbsPdgId != std::abs(trigObjId[iTr]))
         continue;
       const float deta = leptonEta[iLep] - trigObjEta[iTr];
       const float dphi = ROOT::VecOps::DeltaPhi(leptonPhi[iLep], trigObjPhi[iTr]);
