@@ -4,7 +4,9 @@
 #include <Math/Vector4D.h>
 #include <ROOT/RVec.hxx>
 
+#include <algorithm>
 #include <cmath>
+#include <cstdint>
 
 namespace ZH4lMETZZCR {
 
@@ -18,6 +20,89 @@ ROOT::VecOps::RVec<int> emptyIntVec() {
 
 ROOT::VecOps::RVec<float> emptyFloatVec() {
   return ROOT::VecOps::RVec<float>();
+}
+
+ROOT::VecOps::RVec<int> createTrigIndexTnP(
+    const ROOT::VecOps::RVec<float> &leptonEta,
+    const ROOT::VecOps::RVec<float> &leptonPhi,
+    const ROOT::VecOps::RVec<int> &leptonPdgId,
+    const ROOT::VecOps::RVec<float> &trigObjEta,
+    const ROOT::VecOps::RVec<float> &trigObjPhi,
+    const ROOT::VecOps::RVec<int> &trigObjId,
+    float minDR = 0.1f) {
+  // TnP-style nearest-object matching with an explicit lepton-flavor guard:
+  // - abs(PDG) match between reco lepton and TrigObj (11/13 flavor consistency)
+  // - nearest TrigObj inside dR<0.1
+  // - robust against size mismatches in input vectors
+  const size_t nLepton = std::min({leptonEta.size(), leptonPhi.size(), leptonPdgId.size()});
+  const size_t nTrigObj = std::min({trigObjEta.size(), trigObjPhi.size(), trigObjId.size()});
+  ROOT::VecOps::RVec<int> leptonTrigIdx(leptonEta.size(), 999);
+  for (size_t iLep = 0; iLep < nLepton; ++iLep) {
+    float bestDR = minDR;
+    const int recoAbsPdgId = std::abs(leptonPdgId[iLep]);
+    for (size_t iTr = 0; iTr < nTrigObj; ++iTr) {
+      if (recoAbsPdgId != std::abs(trigObjId[iTr]))
+        continue;
+      const float deta = leptonEta[iLep] - trigObjEta[iTr];
+      const float dphi = ROOT::VecOps::DeltaPhi(leptonPhi[iLep], trigObjPhi[iTr]);
+      const float dR = std::sqrt(deta * deta + dphi * dphi);
+      if (dR < bestDR) {
+        bestDR = dR;
+        leptonTrigIdx[iLep] = static_cast<int>(iTr);
+      }
+    }
+  }
+  return leptonTrigIdx;
+}
+
+unsigned int pack4lTrigObjBits(int leptonPdgId, unsigned long long trigObjFilterBits) {
+  // Bit indices are from NanoAOD triggerObjects_cff qualityBits ordering
+  // (also mirrored in NanoAOD v15 docs).
+  // Verbatim matched lines from NanoAOD v15 docs used here:
+  // - "4 => 2e (Leg 1)"
+  // - "5 => 2e (Leg 2)"
+  // - "6 => 1e-1mu"
+  // - "18 => 1e (HLT30WPTightGSfTrackIso)"
+  // - "1 => Iso"
+  // - "3 => 1mu"
+  // - "4 => 2mu"
+  // - "5 => 1mu-1e"
+  const int absPdgId = std::abs(leptonPdgId);
+  auto hasBit = [&](int bitIdx) -> bool {
+    return ((trigObjFilterBits >> bitIdx) & 0x1ULL) != 0ULL;
+  };
+
+  unsigned int packed = 0u;
+  if (absPdgId == 11) {
+    // Electron compact mask for 4l trigger studies.
+    // out[0] <= e-mu leg (electron side): "6 => 1e-1mu"
+    // out[1] <= di-electron leg1: "4 => 2e (Leg 1)"
+    // out[2] <= di-electron leg2: "5 => 2e (Leg 2)"
+    // out[3] <= single-e Ele30 exact leg: "18 => 1e (HLT30WPTightGSfTrackIso)"
+    if (hasBit(6))
+      packed |= (1u << 0);
+    if (hasBit(4))
+      packed |= (1u << 1);
+    if (hasBit(5))
+      packed |= (1u << 2);
+    if (hasBit(18))
+      packed |= (1u << 3);
+  } else if (absPdgId == 13) {
+    // Muon compact mask for 4l trigger studies.
+    // out[0] <= single-mu leg: "3 => 1mu"
+    // out[1] <= iso qualifier: "1 => Iso"
+    // out[2] <= di-mu leg: "4 => 2mu"
+    // out[3] <= mu-e leg (muon side): "5 => 1mu-1e"
+    if (hasBit(3))
+      packed |= (1u << 0);
+    if (hasBit(1))
+      packed |= (1u << 1);
+    if (hasBit(4))
+      packed |= (1u << 2);
+    if (hasBit(5))
+      packed |= (1u << 3);
+  }
+  return packed;
 }
 
 bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float> &cleanJetPt,
