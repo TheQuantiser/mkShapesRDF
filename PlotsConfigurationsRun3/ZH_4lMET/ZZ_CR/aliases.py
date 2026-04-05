@@ -68,6 +68,20 @@ aliases["X_idx"] = {
     ),
 }
 
+aliases["Lepton_trigIdx_tnp"] = {
+    "linesToAdd": [
+        '#include "%s/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc"'
+        % configurations
+    ],
+    "expr": (
+        # Keep matching identical to addTnPTree (same-PDG, nearest dR<0.1),
+        # so trigger studies and TnP are numerically aligned.
+        "ZH4lMETZZCR::createTrigIndexTnP("
+        "Lepton_eta, Lepton_phi, Lepton_pdgId, "
+        "TrigObj_eta, TrigObj_phi, TrigObj_id, 0.1)"
+    ),
+}
+
 
 aliases["PassesZZCR4lOrderedPt"] = {
     "expr": (
@@ -155,6 +169,41 @@ for lep_a, lep_b in LEPTON_PAIR_COMBINATIONS:
             f"{PAIR_LEPTON_HELPER_COLUMNS[lep_a]['phi']}, "
             f"{PAIR_LEPTON_HELPER_COLUMNS[lep_b]['eta']}, "
             f"{PAIR_LEPTON_HELPER_COLUMNS[lep_b]['phi']})"
+        ),
+    }
+
+for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
+    # createTrigIndexTnP returns -1 on no-match; Alt(..., -1) keeps access safe.
+    trig_idx_expr = f"Alt(Lepton_trigIdx_tnp, {lep_idx}, -1)"
+    aliases[f"{lep_name}_trigObj_pt"] = {
+        # TrigObj kinematics at the TnP-consistent matched index.
+        "expr": f"Alt(TrigObj_pt, {trig_idx_expr}, -999.f)",
+    }
+    aliases[f"{lep_name}_trigObj_eta"] = {
+        # TrigObj kinematics at the TnP-consistent matched index.
+        "expr": f"Alt(TrigObj_eta, {trig_idx_expr}, -999.f)",
+    }
+    aliases[f"{lep_name}_trigObj_phi"] = {
+        # TrigObj kinematics at the TnP-consistent matched index.
+        "expr": f"Alt(TrigObj_phi, {trig_idx_expr}, -999.f)",
+    }
+    aliases[f"{lep_name}_trigObj_pdgId"] = {
+        # TrigObj id at the TnP-consistent matched index.
+        "expr": f"Alt(TrigObj_id, {trig_idx_expr}, -999)",
+    }
+    aliases[f"{lep_name}_trigObj_filterBits"] = {
+        # Full raw NanoAOD TrigObj_filterBits for debugging/path forensics.
+        "expr": f"Alt(TrigObj_filterBits, {trig_idx_expr}, 0)",
+    }
+    aliases[f"{lep_name}_trigObj_bits4l"] = {
+        "expr": (
+            # Compact 4l-focused bitmask distilled from TrigObj_filterBits.
+            # Verbatim matched NanoAOD v15 doc entries used by the helper include:
+            # "6 => 1e-1mu", "4 => 2e (Leg 1)", "5 => 2e (Leg 2)",
+            # "18 => 1e (HLT30WPTightGSfTrackIso)", "3 => 1mu", "1 => Iso", "4 => 2mu", "5 => 1mu-1e".
+            "ZH4lMETZZCR::pack4lTrigObjBits("
+            f"Alt(Lepton_pdgId, {lep_idx}, 0), "
+            f"Alt(TrigObj_filterBits, {trig_idx_expr}, 0))"
         ),
     }
 

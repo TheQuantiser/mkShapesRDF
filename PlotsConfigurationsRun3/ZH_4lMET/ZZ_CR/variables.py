@@ -110,6 +110,16 @@ for lep_label, lep_idx in pair_leptons:
     for suffix, source in LEPTON_BRANCH_RECIPES.items():
         tree_branches[f"{lep_label}_{suffix}"] = f"Alt({source}, {lep_idx}, -999)"
 
+    for trig_suffix in (
+        "trigObj_pt",
+        "trigObj_eta",
+        "trigObj_phi",
+        "trigObj_pdgId",
+        "trigObj_filterBits",
+        "trigObj_bits4l",
+    ):
+        tree_branches[f"{lep_label}_{trig_suffix}"] = f"{lep_label}_{trig_suffix}"
+
     for obj_name, obj_cfg in TIGHT_OBJECT_CONFIG.items():
         for wp in obj_cfg["wps"]:
             tree_branches[f"{lep_label}_isTight{obj_name}_{wp}"] = (
