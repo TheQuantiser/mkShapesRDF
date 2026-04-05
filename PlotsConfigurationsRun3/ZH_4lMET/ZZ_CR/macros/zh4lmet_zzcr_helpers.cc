@@ -4,7 +4,9 @@
 #include <Math/Vector4D.h>
 #include <ROOT/RVec.hxx>
 
+#include <algorithm>
 #include <cmath>
+#include <cstdint>
 
 namespace ZH4lMETZZCR {
 
@@ -18,6 +20,71 @@ ROOT::VecOps::RVec<int> emptyIntVec() {
 
 ROOT::VecOps::RVec<float> emptyFloatVec() {
   return ROOT::VecOps::RVec<float>();
+}
+
+ROOT::VecOps::RVec<int> createTrigIndexTnP(
+    const ROOT::VecOps::RVec<float> &leptonEta,
+    const ROOT::VecOps::RVec<float> &leptonPhi,
+    const ROOT::VecOps::RVec<int> &leptonPdgId,
+    const ROOT::VecOps::RVec<float> &trigObjEta,
+    const ROOT::VecOps::RVec<float> &trigObjPhi,
+    const ROOT::VecOps::RVec<int> &trigObjId,
+    float minDR = 0.1f) {
+  // TnP-style nearest matching with flavor guard and robust bounds.
+  const size_t nLepton = std::min({leptonEta.size(), leptonPhi.size(), leptonPdgId.size()});
+  const size_t nTrigObj = std::min({trigObjEta.size(), trigObjPhi.size(), trigObjId.size()});
+  // Output aligned to Lepton_* indexing; -1 means "no matched TrigObj".
+  ROOT::VecOps::RVec<int> leptonTrigIdx(leptonPdgId.size(), -1);
+  for (size_t iLep = 0; iLep < nLepton; ++iLep) {
+    float bestDR = minDR;
+    const int recoAbsPdgId = std::abs(leptonPdgId[iLep]);
+    if (recoAbsPdgId != 11 && recoAbsPdgId != 13)
+      continue;
+    for (size_t iTr = 0; iTr < nTrigObj; ++iTr) {
+      if (recoAbsPdgId != std::abs(trigObjId[iTr]))
+        continue;
+      const float deta = leptonEta[iLep] - trigObjEta[iTr];
+      const float dphi = ROOT::VecOps::DeltaPhi(leptonPhi[iLep], trigObjPhi[iTr]);
+      const float dR = std::sqrt(deta * deta + dphi * dphi);
+      if (dR < bestDR) {
+        bestDR = dR;
+        leptonTrigIdx[iLep] = static_cast<int>(iTr);
+      }
+    }
+  }
+  return leptonTrigIdx;
+}
+
+unsigned int pack4lTrigObjBits(int leptonPdgId, unsigned long long trigObjFilterBits) {
+  // Compact mask from NanoAOD v15 trigger-object docs/qualityBits.
+  const int absPdgId = std::abs(leptonPdgId);
+  auto hasBit = [&](int bitIdx) -> bool {
+    return ((trigObjFilterBits >> bitIdx) & 0x1ULL) != 0ULL;
+  };
+
+  unsigned int packed = 0u;
+  if (absPdgId == 11) {
+    // e: [0]=1e-1mu(bit6), [1]=2e leg1(bit4), [2]=2e leg2(bit5), [3]=Ele30(bit18)
+    if (hasBit(6))
+      packed |= (1u << 0);
+    if (hasBit(4))
+      packed |= (1u << 1);
+    if (hasBit(5))
+      packed |= (1u << 2);
+    if (hasBit(18))
+      packed |= (1u << 3);
+  } else if (absPdgId == 13) {
+    // mu: [0]=1mu(bit3), [1]=Iso(bit1), [2]=2mu(bit4), [3]=1mu-1e(bit5)
+    if (hasBit(3))
+      packed |= (1u << 0);
+    if (hasBit(1))
+      packed |= (1u << 1);
+    if (hasBit(4))
+      packed |= (1u << 2);
+    if (hasBit(5))
+      packed |= (1u << 3);
+  }
+  return packed;
 }
 
 bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float> &cleanJetPt,
