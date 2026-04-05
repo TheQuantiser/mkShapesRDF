@@ -174,32 +174,20 @@ for lep_a, lep_b in LEPTON_PAIR_COMBINATIONS:
 
 for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
     trig_idx_expr = f"Alt(Lepton_trigIdx_tnp, {lep_idx}, -1)"
-    aliases[f"{lep_name}_trigObj_pt"] = {
-        # TrigObj kinematics at the TnP-consistent matched index.
-        "expr": f"Alt(TrigObj_pt, {trig_idx_expr}, -999.f)",
+    trigobj_sources = {
+        "pt": ("TrigObj_pt", "-999.f"),
+        "eta": ("TrigObj_eta", "-999.f"),
+        "phi": ("TrigObj_phi", "-999.f"),
+        "pdgId": ("TrigObj_id", "-999"),
+        "filterBits": ("TrigObj_filterBits", "0"),
     }
-    aliases[f"{lep_name}_trigObj_eta"] = {
-        # TrigObj kinematics at the TnP-consistent matched index.
-        "expr": f"Alt(TrigObj_eta, {trig_idx_expr}, -999.f)",
-    }
-    aliases[f"{lep_name}_trigObj_phi"] = {
-        # TrigObj kinematics at the TnP-consistent matched index.
-        "expr": f"Alt(TrigObj_phi, {trig_idx_expr}, -999.f)",
-    }
-    aliases[f"{lep_name}_trigObj_pdgId"] = {
-        # TrigObj id at the TnP-consistent matched index.
-        "expr": f"Alt(TrigObj_id, {trig_idx_expr}, -999)",
-    }
-    aliases[f"{lep_name}_trigObj_filterBits"] = {
-        # Full raw NanoAOD TrigObj_filterBits for debugging/path forensics.
-        "expr": f"Alt(TrigObj_filterBits, {trig_idx_expr}, 0)",
-    }
+    for suffix, (source, default) in trigobj_sources.items():
+        aliases[f"{lep_name}_trigObj_{suffix}"] = {
+            "expr": f"Alt({source}, {trig_idx_expr}, {default})",
+        }
+
     aliases[f"{lep_name}_trigObj_bits4l"] = {
         "expr": (
-            # Compact 4l-focused bitmask distilled from TrigObj_filterBits.
-            # Verbatim matched NanoAOD v15 doc entries used by the helper include:
-            # "6 => 1e-1mu", "4 => 2e (Leg 1)", "5 => 2e (Leg 2)",
-            # "18 => 1e (HLT30WPTightGSfTrackIso)", "3 => 1mu", "1 => Iso", "4 => 2mu", "5 => 1mu-1e".
             "ZH4lMETZZCR::pack4lTrigObjBits("
             f"Alt(Lepton_pdgId, {lep_idx}, 0), "
             f"Alt(TrigObj_filterBits, {trig_idx_expr}, 0))"
