@@ -5,7 +5,7 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 import os
 import getpass
 
-tag = "ZH_4lMET_ZZCR_2024v15_fnal"
+tag = "ZH_4lMET_ZZCR_2024v15_fnal_2026_04_05"
 
 runnerFile = "default"
 
