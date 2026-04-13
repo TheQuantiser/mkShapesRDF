@@ -1,44 +1,60 @@
-# ZZ_CR (ZH_4lMET) quick guide
+# ZZ_CR (ZH_4lMET)
 
-Minimal map for running this config without guessing.
+Configuration package for the `ZH_4lMET` ZZ control region in Run 3.
 
-## Core files (what matters)
+## Layout
 
 - `configuration.py`  
-  Main switchboard: tag, output mode, batch folder, EOS/x509 flags, redirector.
-- `samples.py`, `aliases.py`, `variables.py`, `cuts.py`, `nuisances.py`, `structure.py`, `plot.py`  
-  Standard analysis definitions.
+  Entry point for runtime settings (tag, output mode, EOS/x509, selected year).
+- `zzcr_year_config.json`  
+  Single source of year-dependent settings.
+- `zzcr_year.py`  
+  Loader/validator for the selected year and helpers shared by other modules.
+- `samples.py`, `aliases.py`, `variables.py`, `cuts.py`, `nuisances.py`, `plot.py`, `structure.py`  
+  Analysis definitions using the selected year configuration.
 - `jdl_dict_zzcr.py`  
-  Condor payload/JDL helper for EOS+x509 mode:
-  - checks proxy,
-  - creates target dir (`xrdfs mkdir -p`),
-  - stages proxy,
-  - runs runner,
-  - `xrdcp` output.
+  Condor JDL helper for EOS+x509 workflows.
 
-## Operation modes
+## Year selection
 
-### 1) Default/local mode
-- `useEOSUserOutput = False`
-- `useX509Proxy = False`
-- Outputs go to local `rootFiles/...`
+The active year is controlled in `configuration.py` with:
 
-### 2) EOS+x509 mode (Condor)
-- `useEOSUserOutput = True`
-- `useX509Proxy = True`
-- Output base: `/eos/cms/store/user/<user>/...`
-- Redirector configurable with:
-  - `xrdRedirector = "cms-xrd-global.cern.ch"` (default)
-  - or `cmsxrootd.fnal.gov`, `xrootd-cms.infn.it`, etc.
+- `ZZCR_YEAR = "..."` (for example: `2024`, `2023BPix`, `2023`, `2022EE`, `2022`)
 
-## Usage
+`configuration.py` exports this key to the process environment; all ZZ_CR modules read the same selected year through `zzcr_year.py`.
+The output `tag` is built from this year key.
+
+## What is year-configured
+
+From `zzcr_year_config.json`, ZZ_CR uses:
+
+- MC production and steps
+- DATA reco and steps
+- Explicit MC sample list
+- Explicit DATA sample list (`dataset`, `stream`, `trigger`)
+- Data run tags
+- Common sample weights (`mc.common_weight`, `data.common_weight`)
+- `l2tight_era` for lepton WP expansion
+- b-tag veto algorithm / WP
+- Luminosity nuisance (`name`, `value`)
+- Integrated luminosity (`lumi_fb`) used by `configuration.py` and `plot.py`
+
+## Run-3 policy in this config
+
+- Only non-`_OLD` campaigns are used.
+- 2024 DATA defaults to non-prompt ReReco runs (`C/D/E`).
+- For years where only prompt-era datasets are available in repository inputs (notably `2022EE`, `2023`, `2023BPix`), those prompt entries are retained.
+- Year configuration is validated at load time (required keys, non-empty sample lists, and required DATA sample fields).
+
+## Execution
+
+Run from this directory:
 
 ```bash
-# from this folder
 mkShapesRDF -c 1 -o 0 -b 1 -l -1
 ```
 
-### Inspect jobs
+Inspect Condor jobs (when batch mode is enabled):
 
 ```bash
 condor_q
@@ -47,11 +63,12 @@ cat condor/<tag>/<sample_idx>/err.txt
 cat condor/<tag>/<sample_idx>/log.txt
 ```
 
-## Practical notes
+## EOS/x509 notes
 
-- If EOS mode is on, keep a valid proxy alive:
-  ```bash
-  voms-proxy-init --voms cms -valid 192:0
-  ```
-- In EOS mode, transfer logs are printed in `out.txt` with `[ZZCR-JDL]` markers.
-- If you don’t want EOS/x509 behavior, keep both flags off and use local mode.
+- Local mode: `useEOSUserOutput = False`, `useX509Proxy = False`
+- EOS mode: `useEOSUserOutput = True`, `useX509Proxy = True`
+- Keep a valid proxy in EOS mode:
+
+```bash
+voms-proxy-init --voms cms -valid 192:0
+```
