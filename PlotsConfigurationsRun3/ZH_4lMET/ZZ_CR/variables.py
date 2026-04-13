@@ -1,3 +1,14 @@
+from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
+
+from zzcr_year import load_selected_year
+
+if (
+    "PAIR_ID_CONFIG" not in globals()
+    or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals()
+    or "LEPTON_PAIR_COMBINATIONS" not in globals()
+):
+    from zzcr_selection_config import LEPTON_PAIR_COMBINATIONS, LEPTON_PAIR_INDEX_EXPRESSIONS, PAIR_ID_CONFIG
+
 variables = {}
 
 BASE_EVENT_BRANCHES = [
@@ -77,31 +88,20 @@ LEPTON_BRANCH_RECIPES = {
     "genPhi": "Lepton_genPhi",
 }
 
-electron_tight_wps_2022 = [
-    "testrecipes",
-    "wp90iso",
-    "mvaWinter22V2Iso_WP90",
-    "cutBased_LooseID_tthMVA_Run3",
-    "cutBased_LooseID_tthMVA_HWW",
-]
-
-muon_tight_wps_2022 = [
-    "cut_TightID_POG",
-    "cut_Tight_HWW",
-    "cut_TightID_pfIsoTight_HWW_tthmva_67",
-    "cut_TightID_pfIsoLoose_HWW_tthmva_67",
-    "cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
-]
+_, _selected_year, _ = load_selected_year()
+_L2TIGHT_ERA = _selected_year["l2tight_era"]
+electron_tight_wps = list(ElectronWP[_L2TIGHT_ERA]["TightObjWP"].keys())
+muon_tight_wps = list(MuonWP[_L2TIGHT_ERA]["TightObjWP"].keys())
 
 TIGHT_OBJECT_CONFIG = {
     "Electron": {
         "pdg_id": 11,
-        "wps": electron_tight_wps_2022,
+        "wps": electron_tight_wps,
         "flag_branch": "Lepton_isTightElectron",
     },
     "Muon": {
         "pdg_id": 13,
-        "wps": muon_tight_wps_2022,
+        "wps": muon_tight_wps,
         "flag_branch": "Lepton_isTightMuon",
     },
 }

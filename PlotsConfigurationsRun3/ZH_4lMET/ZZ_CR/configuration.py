@@ -4,8 +4,15 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 
 import os
 import getpass
+from zzcr_year import load_selected_year
 
-tag = "ZH_4lMET_ZZCR_2024v15_fnal_2026_04_05"
+# Central ZZ_CR year selection (used by samples/aliases/variables/nuisances).
+# Keep this in sync with keys available in zzcr_year_config.json.
+ZZCR_YEAR = "2024"
+os.environ["ZZCR_YEAR"] = ZZCR_YEAR
+_, _selected_year, _ = load_selected_year()
+
+tag = f"ZH_4lMET_ZZCR_{ZZCR_YEAR}"
 
 runnerFile = "default"
 
@@ -32,7 +39,7 @@ batchFolder = "condor"
 
 configsFolder = "configs"
 
-lumi = 26.49
+lumi = _selected_year.get("lumi_fb", 26.49)
 
 aliasesFile = "aliases.py"
 

@@ -1,12 +1,18 @@
+from zzcr_year import load_selected_year
+
 # Sample groups
-mc = [skey for skey in samples if skey not in ("DATA")]
+_samples_dict = globals().get("samples", {})
+mc = [skey for skey in _samples_dict if skey not in ("DATA")]
 
 nuisances = {}
 
-nuisances["lumi_2024"] = {
-    "name": "lumi_2024",
+ZZCR_YEAR, _selected_year, _ = load_selected_year()
+_lumi_cfg = _selected_year["lumi_nuisance"]
+
+nuisances[_lumi_cfg["name"]] = {
+    "name": _lumi_cfg["name"],
     "type": "lnN",
-    "samples": dict((skey, "1.016") for skey in mc),
+    "samples": dict((skey, _lumi_cfg["value"]) for skey in mc),
 }
 
 autoStats = True

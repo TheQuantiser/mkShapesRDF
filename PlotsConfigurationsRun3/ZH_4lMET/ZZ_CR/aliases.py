@@ -1,11 +1,16 @@
 import os
 
 from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
+from zzcr_year import load_selected_year
 
 aliases = {}
 
+if "PAIR_ID_CONFIG" not in globals() or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals():
+    from zzcr_selection_config import LEPTON_PAIR_COMBINATIONS, LEPTON_PAIR_INDEX_EXPRESSIONS, PAIR_ID_CONFIG
 
-_L2TIGHT_ERA = "Full2024v15"
+
+ZZCR_YEAR, _selected_year, _ = load_selected_year()
+_L2TIGHT_ERA = _selected_year["l2tight_era"]
 
 # Ordered pT thresholds for the four leptons in Z0+X (lead -> 4th).
 FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
@@ -217,10 +222,9 @@ aliases["X_isMM"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 13
 aliases["X_isSF"] = {"expr": "X_isEE || X_isMM"}
 aliases["X_isDF"] = {"expr": "!X_isEE && !X_isMM"}
 
-# DeepFlavB veto WP for Summer24.
-
-btag_veto_algo = "btagDeepFlavB"
-btag_veto_WP = 0.0485
+# DeepFlavB veto WP configurable by ZZCR_YEAR.
+btag_veto_algo = _selected_year["btag"]["algo"]
+btag_veto_WP = _selected_year["btag"]["veto_wp"]
 aliases[f"bVeto"] = {
     "expr": f"ZH4lMETZZCR::bVetoDeepFlavB(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, Jet_{btag_veto_algo}, {btag_veto_WP})",
 }
