@@ -1,25 +1,32 @@
 import os
+import sys
+
+_this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
+if _this_dir not in sys.path:
+    sys.path.insert(0, _this_dir)
 
 from mkShapesRDF.lib.search_files import SearchFiles
+from zzcr_year import load_selected_year, resolve_data_run_tags
 
 searchFiles = SearchFiles()
 
 redirector = ""
 useXROOTD = False
 
-mcProduction = "Summer24_150x_nAODv15_Full2024v15"
-mcSteps = "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight"
-dataReco = "Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15"
-dataSteps = "DATAl2loose2024v15__l2loose"
-
 treeBaseDir = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
 limitFiles = -1
 
 samples = {}
 
+ZZCR_YEAR, _selected_year, _ = load_selected_year()
+mcProduction = _selected_year["mc"]["production"]
+mcSteps = _selected_year["mc"]["steps"]
+dataReco = _selected_year["data"]["reco"]
+dataSteps = _selected_year["data"]["steps"]
+
 
 def makeMCDirectory(var=""):
-    _treeBaseDir = treeBaseDir + ""
+    _treeBaseDir = treeBaseDir
     if redirector != "":
         _treeBaseDir = redirector + treeBaseDir
     if var == "":
@@ -28,23 +35,13 @@ def makeMCDirectory(var=""):
 
 
 def makeDataDirectory(stream_tag):
-    _treeBaseDir = treeBaseDir + ""
+    _treeBaseDir = treeBaseDir
     if redirector != "":
         _treeBaseDir = redirector + treeBaseDir
     return "/".join([_treeBaseDir, f"{dataReco}_{stream_tag}", dataSteps])
 
 
 mcDirectory = makeMCDirectory()
-
-# Dataset -> stream tag in input directory naming.
-DATASET_STREAM = {
-    "MuonEG": "MuonEG",
-    "Muon0": "Muon",
-    "Muon1": "Muon",
-    "EGamma0": "EGamma",
-    "EGamma1": "EGamma",
-}
-
 
 def nanoGetSampleFiles(path, name):
     files = searchFiles.searchFiles(path, name, redirector=redirector)
@@ -78,59 +75,28 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
 
-mcCommonWeight = "XSWeight"
-
-files = nanoGetSampleFiles(mcDirectory, "ZZ")
-samples["ZZ"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
-
-files = nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-10to50")
-samples["DYto2E-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
-
-files = nanoGetSampleFiles(mcDirectory, "DYto2E-2Jets_MLL-50")
-samples["DYto2E-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
-
-files = nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-10to50")
-samples["DYto2Mu-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
-
-files = nanoGetSampleFiles(mcDirectory, "DYto2Mu-2Jets_MLL-50")
-samples["DYto2Mu-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
-
-files = nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-10to50")
-samples["DYto2Tau-2Jets_MLL-10to50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
-
-files = nanoGetSampleFiles(mcDirectory, "DYto2Tau-2Jets_MLL-50")
-samples["DYto2Tau-2Jets_MLL-50"] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+mcCommonWeight = _selected_year["mc"].get("common_weight", "XSWeight")
+for mc_sample in _selected_year["mc"]["samples"]:
+    files = nanoGetSampleFiles(mcDirectory, mc_sample)
+    samples[mc_sample] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
 
 
-
-
-DataRun = [
-    ["C", "Run2024C-ReReco-v1"],
-    ["D", "Run2024D-ReReco-v1"],
-    ["E", "Run2024E-ReReco-v1"],
-]
-
-DataSets = ["MuonEG", "Muon0", "Muon1", "EGamma0", "EGamma1"]
-DataTrig = {
-    "MuonEG": "Trigger_ElMu",
-    "Muon0": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
-    "Muon1": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
-    "EGamma0": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
-    "EGamma1": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
-}
+DataRunTags = resolve_data_run_tags(_selected_year)
+DataSamples = _selected_year["data"]["samples"]
 
 samples["DATA"] = {
     "name": [],
-    "weight": "METFilter_DATA",
+    "weight": _selected_year["data"].get("common_weight", "METFilter_DATA"),
     "weights": [],
     "isData": ["all"],
     "FilesPerJob": 10,
 }
 
-for run in DataRun:
-    for dataset in DataSets:
-        stream_tag = DATASET_STREAM[dataset]
+for run_tag in DataRunTags:
+    for data_sample in DataSamples:
+        dataset = data_sample["dataset"]
+        stream_tag = data_sample["stream"]
         dataDirectory = makeDataDirectory(stream_tag)
-        files = nanoGetSampleFiles(dataDirectory, dataset + "_" + run[1])
+        files = nanoGetSampleFiles(dataDirectory, dataset + "_" + run_tag)
         samples["DATA"]["name"].extend(files)
-        addSampleWeight(samples, "DATA", dataset + "_" + run[1], DataTrig[dataset])
+        addSampleWeight(samples, "DATA", dataset + "_" + run_tag, data_sample["trigger"])
