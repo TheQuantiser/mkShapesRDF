@@ -1,3 +1,10 @@
+import os
+import sys
+
+_this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
+if _this_dir not in sys.path:
+    sys.path.insert(0, _this_dir)
+
 from mkShapesRDF.lib.search_files import SearchFiles
 from zzcr_year import load_selected_year, resolve_data_run_tags
 

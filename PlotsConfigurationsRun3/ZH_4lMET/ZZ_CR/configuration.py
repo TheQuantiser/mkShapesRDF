@@ -3,7 +3,14 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 """
 
 import os
+import sys
 import getpass
+from datetime import datetime, timezone
+
+_this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
+if _this_dir not in sys.path:
+    sys.path.insert(0, _this_dir)
+
 from zzcr_year import load_selected_year
 
 # Central ZZ_CR year selection (used by samples/aliases/variables/nuisances).
@@ -13,6 +20,7 @@ os.environ["ZZCR_YEAR"] = ZZCR_YEAR
 _, _selected_year, _ = load_selected_year()
 
 tag = f"ZH_4lMET_ZZCR_{ZZCR_YEAR}"
+tag = f"{tag}_{datetime.now(timezone.utc).strftime('%Y%m%d')}"
 
 runnerFile = "default"
 
@@ -29,15 +37,13 @@ eosUserOutputFolder = (
 # xrdRedirector = "eoscms.cern.ch"
 xrdRedirector = "cmseos.fnal.gov"
 
-outputFolder = (
-    eosUserOutputFolder
-    if useEOSUserOutput
-    else "rootFiles/ZH_4lMET/rootFiles__{}".format(tag)
-)
+localJobDir = os.path.join("jobs", tag)
 
-batchFolder = "condor"
+outputFolder = eosUserOutputFolder if useEOSUserOutput else os.path.join(localJobDir, "rootFiles")
 
-configsFolder = "configs"
+batchFolder = os.path.join(localJobDir, "condor")
+
+configsFolder = os.path.join(localJobDir, "configs")
 
 lumi = _selected_year.get("lumi_fb", 26.49)
 
@@ -57,7 +63,7 @@ structureFile = "structure.py"
 
 nuisancesFile = "nuisances.py"
 
-plotPath = "plots/{}".format(tag)
+plotPath = os.path.join(localJobDir, "plots")
 
 mountEOS = []
 

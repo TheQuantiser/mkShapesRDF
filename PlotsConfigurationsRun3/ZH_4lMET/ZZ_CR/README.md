@@ -22,7 +22,7 @@ The active year is controlled in `configuration.py` with:
 - `ZZCR_YEAR = "..."` (for example: `2024`, `2023BPix`, `2023`, `2022EE`, `2022`)
 
 `configuration.py` exports this key to the process environment; all ZZ_CR modules read the same selected year through `zzcr_year.py`.
-The output `tag` is built from this year key.
+The output `tag` is built from this year key and the UTC date (`YYYYMMDD`).
 
 ## What is year-configured
 
@@ -58,10 +58,25 @@ Inspect Condor jobs (when batch mode is enabled):
 
 ```bash
 condor_q
-cat condor/<tag>/<sample_idx>/out.txt
-cat condor/<tag>/<sample_idx>/err.txt
-cat condor/<tag>/<sample_idx>/log.txt
+cat jobs/<tag>/condor/<sample_idx>/out.txt
+cat jobs/<tag>/condor/<sample_idx>/err.txt
+cat jobs/<tag>/condor/<sample_idx>/log.txt
 ```
+
+## Job output layout
+
+All local job artifacts are namespaced under one tag directory:
+
+- `jobs/<tag>/condor`
+- `jobs/<tag>/configs`
+- `jobs/<tag>/plots`
+- `jobs/<tag>/rootFiles` (local mode)
+
+In EOS mode, ROOT outputs are written to:
+
+- `/eos/cms/store/user/<user>/mkShapesRDF_rootfiles/<tag>/rootFile/`
+
+This keeps local and remote outputs coherent and non-clashing across runs.
 
 ## EOS/x509 notes
 
