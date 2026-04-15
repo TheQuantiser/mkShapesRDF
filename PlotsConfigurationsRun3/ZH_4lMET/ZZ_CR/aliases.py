@@ -6,7 +6,9 @@ if _this_dir not in sys.path:
     sys.path.insert(0, _this_dir)
 
 from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
-from zzcr_year import load_selected_year
+
+if "load_selected_year" not in globals():
+    exec(open("zzcr_year.py").read(), globals(), globals())
 
 aliases = {}
 
