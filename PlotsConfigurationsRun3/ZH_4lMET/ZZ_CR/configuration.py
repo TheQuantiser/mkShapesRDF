@@ -41,6 +41,10 @@ outputFolder = eosUserOutputFolder if useEOSUserOutput else os.path.join(localJo
 
 batchFolder = os.path.join(localJobDir, "condor")
 
+# mkShapesRDF batch submission removes "{batchFolder}/{tag}" before creating it.
+# Pre-creating it here avoids a noisy first-run FileNotFoundError message.
+os.makedirs(os.path.join(batchFolder, tag), exist_ok=True)
+
 configsFolder = os.path.join(localJobDir, "configs")
 
 lumi = _selected_year.get("lumi_fb", 26.49)

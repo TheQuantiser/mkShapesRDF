@@ -146,31 +146,6 @@ def _validate_year_cfg(year_key, year_cfg):
                     f"Year '{year_key}' storage.{field} entries must be string->string."
                 )
 
-    storage_cfg = year_cfg.get("storage", {})
-    if not isinstance(storage_cfg, dict):
-        raise ValueError(f"Year '{year_key}' storage must be a dictionary.")
-
-    string_fields = ("default_tree_base_dir", "mc_tree_base_dir", "data_tree_base_dir")
-    for field in string_fields:
-        if field in storage_cfg and not isinstance(storage_cfg[field], str):
-            raise ValueError(f"Year '{year_key}' storage.{field} must be a string.")
-
-    dict_fields = (
-        "mc_tree_base_dir_by_sample",
-        "data_tree_base_dir_by_sample",
-        "data_tree_base_dir_by_stream",
-    )
-    for field in dict_fields:
-        if field not in storage_cfg:
-            continue
-        if not isinstance(storage_cfg[field], dict):
-            raise ValueError(f"Year '{year_key}' storage.{field} must be a dictionary.")
-        for key, value in storage_cfg[field].items():
-            if not isinstance(key, str) or not isinstance(value, str):
-                raise ValueError(
-                    f"Year '{year_key}' storage.{field} entries must be string->string."
-                )
-
 
 def resolve_data_run_tags(year_cfg):
     """
