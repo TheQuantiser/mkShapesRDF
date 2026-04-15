@@ -5,7 +5,8 @@ _this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals(
 if _this_dir not in sys.path:
     sys.path.insert(0, _this_dir)
 
-from zzcr_year import load_selected_year
+if "load_selected_year" not in globals():
+    exec(open("zzcr_year.py").read(), globals(), globals())
 
 groupPlot = {}
 plot = {}

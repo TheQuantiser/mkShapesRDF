@@ -3,15 +3,11 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 """
 
 import os
-import sys
 import getpass
 from datetime import datetime, timezone
 
-_this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-if _this_dir not in sys.path:
-    sys.path.insert(0, _this_dir)
-
-from zzcr_year import load_selected_year
+if "load_selected_year" not in globals():
+    exec(open("zzcr_year.py").read(), globals(), globals())
 
 # Central ZZ_CR year selection (used by samples/aliases/variables/nuisances).
 # Keep this in sync with keys available in zzcr_year_config.json.
@@ -70,6 +66,7 @@ mountEOS = []
 imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
 
 filesToExec = [
+    "zzcr_year.py",
     samplesFile,
     selectionConfigFile,
     aliasesFile,

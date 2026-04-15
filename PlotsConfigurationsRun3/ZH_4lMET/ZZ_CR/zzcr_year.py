@@ -7,7 +7,8 @@ from functools import lru_cache
 
 @lru_cache(maxsize=1)
 def _load_year_config(config_filename):
-    cfg_path = os.path.join(os.path.dirname(__file__), config_filename)
+    base_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
+    cfg_path = os.path.join(base_dir, config_filename)
     with open(cfg_path, encoding="utf-8") as cfg_handle:
         return json.load(cfg_handle)
 
