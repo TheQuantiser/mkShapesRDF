@@ -1,7 +1,7 @@
 cuts = {}
 
 preselections = ""
-preselections += "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl)"
+# preselections += "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl)"
 preselections += " && nLepton >= 2"
 preselections += " && L2TightLeading2"
 
