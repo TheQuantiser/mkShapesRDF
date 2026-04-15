@@ -38,6 +38,47 @@ From `zzcr_year_config.json`, ZZ_CR uses:
 - b-tag veto algorithm / WP
 - Luminosity nuisance (`name`, `value`)
 - Integrated luminosity (`lumi_fb`) used by `configuration.py` and `plot.py`
+- Storage path policy (`storage`) for default/per-kind/per-sample EOS trees
+
+## Per-sample EOS base directory configuration
+
+`samples.py` now resolves EOS base directories through `zzcr_year_config.json` so you can
+set a global default and override it by kind (`mc`/`data`) and by specific sample.
+
+In each year block, use:
+
+- `storage.default_tree_base_dir`: fallback for everything
+- `storage.mc_tree_base_dir`: default for MC (falls back to `default_tree_base_dir`)
+- `storage.data_tree_base_dir`: default for DATA (falls back to `default_tree_base_dir`)
+- `storage.mc_tree_base_dir_by_sample`: per-MC-sample override, keyed by MC sample name
+- `storage.data_tree_base_dir_by_sample`: per-DATA-dataset override, keyed by `dataset`
+- `storage.data_tree_base_dir_by_stream`: per-DATA-stream override, keyed by `stream`
+
+Resolution priority is:
+
+1. Per-sample override
+2. Per-kind default (`mc_tree_base_dir`/`data_tree_base_dir`)
+3. Year default (`default_tree_base_dir`)
+4. Legacy fallback (`/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano`)
+
+Example (for data produced under another user area on EOS):
+
+```json
+"storage": {
+  "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+  "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+  "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+  "mc_tree_base_dir_by_sample": {
+    "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/<producer>/HWWNano"
+  },
+  "data_tree_base_dir_by_sample": {
+    "Muon": "/eos/cms/store/group/phys_higgs/cmshww/<producer>/HWWNano"
+  },
+  "data_tree_base_dir_by_stream": {
+    "EGamma": "/eos/cms/store/group/phys_higgs/cmshww/<producer>/HWWNano"
+  }
+}
+```
 
 ## Run-3 policy in this config
 
