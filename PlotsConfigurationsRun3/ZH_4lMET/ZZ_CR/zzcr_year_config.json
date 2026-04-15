@@ -38,17 +38,39 @@
           {
             "dataset": "MuonEG",
             "stream": "MuonEG",
-            "trigger": "Trigger_ElMu"
+            "trigger": "Trigger_ElMu",
+            "runs": [
+              "Run2022C-ReReco-v1",
+              "Run2022D-ReReco-v1"
+            ]
           },
           {
             "dataset": "Muon",
             "stream": "Muon",
-            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)"
+            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+            "runs": [
+              "Run2022C-ReReco-v1",
+              "Run2022D-ReReco-v1"
+            ]
           },
           {
             "dataset": "EGamma",
             "stream": "EGamma",
-            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
+            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+            "runs": [
+              "Run2022B-ReReco-v1",
+              "Run2022C-ReReco-v1",
+              "Run2022D-ReReco-v1"
+            ]
+          },
+          {
+            "dataset": "SingleMuon",
+            "stream": "Muon",
+            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+            "runs": [
+              "Run2022B-ReReco-v1",
+              "Run2022C-ReReco-v1"
+            ]
           }
         ],
         "common_weight": "METFilter_DATA"
@@ -74,6 +96,20 @@
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "MuonEG": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         }
+      },
+      "lepton_ids": {
+        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "z0_min_pass": 2,
+        "x_min_pass": 2,
+        "z0_pt_mins": [
+          10.0,
+          10.0
+        ],
+        "x_pt_mins": [
+          10.0,
+          10.0
+        ]
       }
     },
     "2022EE": {
@@ -84,7 +120,7 @@
       },
       "btag": {
         "algo": "btagDeepFlavB",
-        "veto_wp": 0.0583
+        "veto_wp": 0.0614
       },
       "mc": {
         "production": "Summer22EE_130x_nAODv12_Full2022v12",
@@ -113,17 +149,31 @@
           {
             "dataset": "MuonEG",
             "stream": "MuonEG",
-            "trigger": "Trigger_ElMu"
+            "trigger": "Trigger_ElMu",
+            "runs": [
+              "Run2022E-Prompt-v1",
+              "Run2022G-Prompt-v1"
+            ]
           },
           {
             "dataset": "Muon",
             "stream": "Muon",
-            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)"
+            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+            "runs": [
+              "Run2022E-Prompt-v1",
+              "Run2022F-Prompt-v1",
+              "Run2022G-Prompt-v1"
+            ]
           },
           {
             "dataset": "EGamma",
             "stream": "EGamma",
-            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
+            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+            "runs": [
+              "Run2022E-Prompt-v1",
+              "Run2022F-Prompt-v1",
+              "Run2022G-Prompt-v1"
+            ]
           }
         ],
         "common_weight": "METFilter_DATA"
@@ -148,6 +198,20 @@
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "MuonEG": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         }
+      },
+      "lepton_ids": {
+        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "z0_min_pass": 2,
+        "x_min_pass": 2,
+        "z0_pt_mins": [
+          10.0,
+          10.0
+        ],
+        "x_pt_mins": [
+          10.0,
+          10.0
+        ]
       }
     },
     "2023": {
@@ -230,6 +294,20 @@
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "MuonEG": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         }
+      },
+      "lepton_ids": {
+        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "z0_min_pass": 2,
+        "x_min_pass": 2,
+        "z0_pt_mins": [
+          10.0,
+          10.0
+        ],
+        "x_pt_mins": [
+          10.0,
+          10.0
+        ]
       }
     },
     "2023BPix": {
@@ -240,7 +318,7 @@
       },
       "btag": {
         "algo": "btagDeepFlavB",
-        "veto_wp": 0.0479
+        "veto_wp": 0.048
       },
       "mc": {
         "production": "Summer23BPix_130x_nAODv12_Full2023BPixv12",
@@ -312,6 +390,20 @@
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "MuonEG": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         }
+      },
+      "lepton_ids": {
+        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "z0_min_pass": 2,
+        "x_min_pass": 2,
+        "z0_pt_mins": [
+          10.0,
+          10.0
+        ],
+        "x_pt_mins": [
+          10.0,
+          10.0
+        ]
       }
     },
     "2024": {
@@ -426,6 +518,20 @@
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "MuonEG": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         }
+      },
+      "lepton_ids": {
+        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "z0_min_pass": 2,
+        "x_min_pass": 2,
+        "z0_pt_mins": [
+          10.0,
+          10.0
+        ],
+        "x_pt_mins": [
+          10.0,
+          10.0
+        ]
       }
     }
   }

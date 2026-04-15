@@ -32,6 +32,8 @@ From `zzcr_year_config.json`, ZZ_CR uses:
 - DATA reco and steps
 - Explicit MC sample list
 - Explicit DATA sample list (`dataset`, `stream`, `trigger`)
+- Optional per-sample DATA run override (`runs`) when a dataset exists only in a subset of eras
+  (must be a duplicate-free subset of year-level `data.runs`)
 - Data run tags
 - Common sample weights (`mc.common_weight`, `data.common_weight`)
 - `l2tight_era` for lepton WP expansion
@@ -39,6 +41,7 @@ From `zzcr_year_config.json`, ZZ_CR uses:
 - Luminosity nuisance (`name`, `value`)
 - Integrated luminosity (`lumi_fb`) used by `configuration.py` and `plot.py`
 - Storage path policy (`storage`) for default/per-kind/per-sample EOS trees
+- Lepton-pair ID policy (`lepton_ids`) for electron/muon WP and pair-level pass thresholds
 
 ## Per-sample EOS base directory configuration
 
@@ -80,10 +83,26 @@ Example (for data produced under another user area on EOS):
 }
 ```
 
+## Lepton and b-tag IDs in JSON (year/era aware)
+
+The ZZ_CR year JSON is now the source of truth for these IDs:
+
+- `lepton_ids.electron_wp`
+- `lepton_ids.muon_wp`
+- `lepton_ids.z0_min_pass`
+- `lepton_ids.x_min_pass`
+- `lepton_ids.z0_pt_mins`
+- `lepton_ids.x_pt_mins`
+- `btag.algo`
+- `btag.veto_wp`
+
+`zzcr_selection_config.py` reads `lepton_ids` from the selected year instead of hard-coding WPs.
+This keeps the lepton-ID and b-tag veto settings coherent across eras and avoids hidden constants in Python/C++.
+
 ## Run-3 policy in this config
 
 - Only non-`_OLD` campaigns are used.
-- 2024 DATA defaults to non-prompt ReReco runs (`C/D/E`).
+- 2024 DATA includes non-`_OLD` ReReco/prompt eras configured in JSON (`C/D/E/F/G/H/I`).
 - For years where only prompt-era datasets are available in repository inputs (notably `2022EE`, `2023`, `2023BPix`), those prompt entries are retained.
 - Year configuration is validated at load time (required keys, non-empty sample lists, and required DATA sample fields).
 

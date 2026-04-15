@@ -61,7 +61,10 @@ def makeDataDirectory(dataset_name, stream_tag):
             stream_name=stream_tag,
         )
     )
-    return "/".join([_treeBaseDir, f"{dataReco}_{stream_tag}", dataSteps])
+    return [
+        "/".join([_treeBaseDir, f"{dataReco}_{stream_tag}", dataSteps]),
+        "/".join([_treeBaseDir, dataReco, dataSteps]),
+    ]
 
 
 def nanoGetSampleFiles(path, name):
@@ -81,6 +84,32 @@ def nanoGetSampleFiles(path, name):
 
     print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}'.")
     return [(name, files)]
+
+
+def nanoGetSampleFilesWithFallback(paths, name):
+    """
+    Try multiple directory layouts and return the first non-empty sample file list.
+
+    Needed because Run3 data campaigns are not fully uniform:
+      - some years use <reco>_<stream>/<steps>
+      - others use <reco>/<steps>
+    """
+    for path in paths:
+        files = searchFiles.searchFiles(path, name, redirector=redirector)
+        if not files:
+            continue
+        if limitFiles != -1 and len(files) > limitFiles:
+            print(
+                f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' in '{path}' (returning first {limitFiles})."
+            )
+            return [(name, files[:limitFiles])]
+        print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' in '{path}'.")
+        return [(name, files)]
+
+    print(
+        f"[nanoGetSampleFiles] No files found for sample '{name}' in any of: {paths}."
+    )
+    return [(name, [])]
 
 
 def addSampleWeight(samples, sampleName, sampleNameType, weight):
@@ -114,11 +143,12 @@ samples["DATA"] = {
     "FilesPerJob": 10,
 }
 
-for run_tag in DataRunTags:
-    for data_sample in DataSamples:
-        dataset = data_sample["dataset"]
-        stream_tag = data_sample["stream"]
-        dataDirectory = makeDataDirectory(dataset, stream_tag)
-        files = nanoGetSampleFiles(dataDirectory, dataset + "_" + run_tag)
+for data_sample in DataSamples:
+    dataset = data_sample["dataset"]
+    stream_tag = data_sample["stream"]
+    sample_run_tags = list(dict.fromkeys(data_sample.get("runs", DataRunTags)))
+    for run_tag in sample_run_tags:
+        dataDirectories = makeDataDirectory(dataset, stream_tag)
+        files = nanoGetSampleFilesWithFallback(dataDirectories, dataset + "_" + run_tag)
         samples["DATA"]["name"].extend(files)
         addSampleWeight(samples, "DATA", dataset + "_" + run_tag, data_sample["trigger"])

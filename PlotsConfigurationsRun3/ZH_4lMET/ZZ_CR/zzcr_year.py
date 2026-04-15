@@ -40,7 +40,7 @@ def load_selected_year(config_filename="zzcr_year_config.json", env_var="ZZCR_YE
 
 
 def _validate_year_cfg(year_key, year_cfg):
-    required_top = ("mc", "data", "btag", "l2tight_era", "lumi_nuisance")
+    required_top = ("mc", "data", "btag", "l2tight_era", "lumi_nuisance", "lepton_ids")
     for key in required_top:
         if key not in year_cfg:
             raise ValueError(f"Year '{year_key}' is missing required key '{key}'.")
@@ -61,6 +61,89 @@ def _validate_year_cfg(year_key, year_cfg):
             if sample_key not in sample_cfg:
                 raise ValueError(
                     f"Year '{year_key}' data.samples[{i}] is missing '{sample_key}'."
+                )
+        if "runs" in sample_cfg:
+            if not isinstance(sample_cfg["runs"], list) or not all(
+                isinstance(run_tag, str) for run_tag in sample_cfg["runs"]
+            ):
+                raise ValueError(
+                    f"Year '{year_key}' data.samples[{i}].runs must be a list of run-tag strings."
+                )
+            if len(sample_cfg["runs"]) != len(set(sample_cfg["runs"])):
+                raise ValueError(
+                    f"Year '{year_key}' data.samples[{i}].runs contains duplicates."
+                )
+
+            allowed_runs = set()
+            for run_item in year_cfg["data"]["runs"]:
+                if isinstance(run_item, str):
+                    allowed_runs.add(run_item)
+                elif isinstance(run_item, (list, tuple)) and len(run_item) >= 2:
+                    allowed_runs.add(run_item[1])
+            unknown_runs = sorted(set(sample_cfg["runs"]) - allowed_runs)
+            if unknown_runs:
+                raise ValueError(
+                    f"Year '{year_key}' data.samples[{i}].runs contains unknown run tags: {unknown_runs}"
+                )
+
+    lepton_id_cfg = year_cfg["lepton_ids"]
+    required_lepton_id_keys = (
+        "electron_wp",
+        "muon_wp",
+        "z0_min_pass",
+        "x_min_pass",
+        "z0_pt_mins",
+        "x_pt_mins",
+    )
+    for key in required_lepton_id_keys:
+        if key not in lepton_id_cfg:
+            raise ValueError(f"Year '{year_key}' is missing lepton_ids.{key}.")
+
+    if not isinstance(lepton_id_cfg["electron_wp"], str) or not isinstance(
+        lepton_id_cfg["muon_wp"], str
+    ):
+        raise ValueError(
+            f"Year '{year_key}' lepton_ids electron/muon working points must be strings."
+        )
+
+    for key in ("z0_min_pass", "x_min_pass"):
+        if not isinstance(lepton_id_cfg[key], int):
+            raise ValueError(f"Year '{year_key}' lepton_ids.{key} must be an integer.")
+
+    for key in ("z0_pt_mins", "x_pt_mins"):
+        value = lepton_id_cfg[key]
+        if (
+            not isinstance(value, (list, tuple))
+            or len(value) != 2
+            or not all(isinstance(x, (int, float)) for x in value)
+        ):
+            raise ValueError(
+                f"Year '{year_key}' lepton_ids.{key} must be a 2-element numeric list/tuple."
+            )
+
+    storage_cfg = year_cfg.get("storage", {})
+    if not isinstance(storage_cfg, dict):
+        raise ValueError(f"Year '{year_key}' storage must be a dictionary.")
+
+    string_fields = ("default_tree_base_dir", "mc_tree_base_dir", "data_tree_base_dir")
+    for field in string_fields:
+        if field in storage_cfg and not isinstance(storage_cfg[field], str):
+            raise ValueError(f"Year '{year_key}' storage.{field} must be a string.")
+
+    dict_fields = (
+        "mc_tree_base_dir_by_sample",
+        "data_tree_base_dir_by_sample",
+        "data_tree_base_dir_by_stream",
+    )
+    for field in dict_fields:
+        if field not in storage_cfg:
+            continue
+        if not isinstance(storage_cfg[field], dict):
+            raise ValueError(f"Year '{year_key}' storage.{field} must be a dictionary.")
+        for key, value in storage_cfg[field].items():
+            if not isinstance(key, str) or not isinstance(value, str):
+                raise ValueError(
+                    f"Year '{year_key}' storage.{field} entries must be string->string."
                 )
 
     storage_cfg = year_cfg.get("storage", {})
