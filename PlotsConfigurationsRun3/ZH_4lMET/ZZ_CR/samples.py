@@ -8,7 +8,14 @@ if _this_dir not in sys.path:
 from mkShapesRDF.lib.search_files import SearchFiles
 
 if "load_selected_year" not in globals() or "resolve_data_run_tags" not in globals():
-    exec(open("zzcr_year.py").read(), globals(), globals())
+    _zzcr_config_dir = os.path.abspath(
+        globals().get("ZZCR_CONFIG_DIR", globals().get("folder", os.getcwd()))
+    )
+    exec(
+        open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
+        globals(),
+        globals(),
+    )
 
 searchFiles = SearchFiles()
 

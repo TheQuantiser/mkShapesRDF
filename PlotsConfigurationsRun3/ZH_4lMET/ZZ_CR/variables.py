@@ -7,7 +7,14 @@ if _this_dir not in sys.path:
 
 from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
 if "load_selected_year" not in globals():
-    exec(open("zzcr_year.py").read(), globals(), globals())
+    _zzcr_config_dir = os.path.abspath(
+        globals().get("ZZCR_CONFIG_DIR", globals().get("folder", os.getcwd()))
+    )
+    exec(
+        open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
+        globals(),
+        globals(),
+    )
 
 if (
     "PAIR_ID_CONFIG" not in globals()

@@ -6,8 +6,10 @@ import os
 import getpass
 from datetime import datetime, timezone
 
+ZZCR_CONFIG_DIR = os.path.abspath(globals().get("folder", os.getcwd()))
+
 if "load_selected_year" not in globals():
-    exec(open("zzcr_year.py").read(), globals(), globals())
+    exec(open(os.path.join(ZZCR_CONFIG_DIR, "zzcr_year.py")).read(), globals(), globals())
 
 # Central ZZ_CR year selection (used by samples/aliases/variables/nuisances).
 # Keep this in sync with keys available in zzcr_year_config.json.
