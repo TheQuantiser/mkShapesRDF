@@ -32,30 +32,29 @@ aliases = {}
 
 if "PAIR_ID_CONFIG" not in globals() or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals():
     from zzcr_selection_config import LEPTON_PAIR_COMBINATIONS, LEPTON_PAIR_INDEX_EXPRESSIONS, PAIR_ID_CONFIG
+from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
 
 
 ZZCR_YEAR, _selected_year, _ = load_selected_year()
+_L2TIGHT_ERA = _selected_year["l2tight_era"]
 
 # Ordered pT thresholds for the four leptons in Z0+X (lead -> 4th).
 FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
 
-def _l2tight_leading2_expr(ele_wp, mu_wp):
-    # IMPORTANT:
-    # Do not OR over every possible TightObjWP from LeptonSel_cfg here.
-    # Different ntuple campaigns expose different Lepton_isTight* branches,
-    # and referencing a missing branch causes RDF JIT compilation to fail.
-    # We therefore use only the year-configured WPs (same source of truth used
-    # by Z0_idx/X_idx selection) so the expression references columns expected
-    # to exist for the selected campaign.
-    lead0_terms = [
-        f"Alt(Lepton_isTightElectron_{ele_wp}, 0, 0) > 0.5",
-        f"Alt(Lepton_isTightMuon_{mu_wp}, 0, 0) > 0.5",
-    ]
+def _l2tight_leading2_expr(era):
+    # Keep this in sync with mkShapesRDF.processor.modules.L2TightSelection:
+    # the leading two leptons must each pass at least one TightObjWP
+    # (electron OR muon), where the available WPs come from LeptonSel_cfg.
+    # This guarantees data (built from ...__l2loose) and MC (...__l2tight)
+    # are aligned on the same logical tight-ID requirement in this analysis.
+    ele_wps = list(ElectronWP[era]["TightObjWP"].keys())
+    mu_wps = list(MuonWP[era]["TightObjWP"].keys())
 
-    lead1_terms = [
-        f"Alt(Lepton_isTightElectron_{ele_wp}, 1, 0) > 0.5",
-        f"Alt(Lepton_isTightMuon_{mu_wp}, 1, 0) > 0.5",
-    ]
+    lead0_terms = [f"Alt(Lepton_isTightElectron_{wp}, 0, 0) > 0.5" for wp in ele_wps]
+    lead0_terms += [f"Alt(Lepton_isTightMuon_{wp}, 0, 0) > 0.5" for wp in mu_wps]
+
+    lead1_terms = [f"Alt(Lepton_isTightElectron_{wp}, 1, 0) > 0.5" for wp in ele_wps]
+    lead1_terms += [f"Alt(Lepton_isTightMuon_{wp}, 1, 0) > 0.5" for wp in mu_wps]
 
     return (
         "(nLepton > 1)"
@@ -72,10 +71,7 @@ def _data_samples(samples_dict):
 DATA_SAMPLES = _data_samples(globals().get("samples", {}))
 
 aliases["L2TightLeading2"] = {
-    "expr": _l2tight_leading2_expr(
-        PAIR_ID_CONFIG["eleWP"],
-        PAIR_ID_CONFIG["muWP"],
-    )
+    "expr": _l2tight_leading2_expr(_L2TIGHT_ERA)
 }
 
 configurations = (
