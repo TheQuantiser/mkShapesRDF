@@ -5,7 +5,18 @@ _this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals(
 if _this_dir not in sys.path:
     sys.path.insert(0, _this_dir)
 
-from zzcr_year import load_selected_year
+if "load_selected_year" not in globals():
+    _zzcr_config_dir = os.path.abspath(
+        globals().get("ZZCR_CONFIG_DIR")
+        or (os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None)
+        or globals().get("folder")
+        or os.getcwd()
+    )
+    exec(
+        open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
+        globals(),
+        globals(),
+    )
 
 # Sample groups
 _samples_dict = globals().get("samples", {})

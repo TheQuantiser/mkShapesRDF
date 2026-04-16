@@ -3,15 +3,18 @@ ZH(H->WW) -> 4l + MET ZZ control region configuration.
 """
 
 import os
-import sys
 import getpass
 from datetime import datetime, timezone
 
-_this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-if _this_dir not in sys.path:
-    sys.path.insert(0, _this_dir)
+ZZCR_CONFIG_DIR = os.path.abspath(
+    globals().get("ZZCR_CONFIG_DIR")
+    or (os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None)
+    or globals().get("folder")
+    or os.getcwd()
+)
 
-from zzcr_year import load_selected_year
+if "load_selected_year" not in globals():
+    exec(open(os.path.join(ZZCR_CONFIG_DIR, "zzcr_year.py")).read(), globals(), globals())
 
 # Central ZZ_CR year selection (used by samples/aliases/variables/nuisances).
 # Keep this in sync with keys available in zzcr_year_config.json.
@@ -43,6 +46,10 @@ outputFolder = eosUserOutputFolder if useEOSUserOutput else os.path.join(localJo
 
 batchFolder = os.path.join(localJobDir, "condor")
 
+# mkShapesRDF batch submission removes "{batchFolder}/{tag}" before creating it.
+# Pre-creating it here avoids a noisy first-run FileNotFoundError message.
+os.makedirs(os.path.join(batchFolder, tag), exist_ok=True)
+
 configsFolder = os.path.join(localJobDir, "configs")
 
 lumi = _selected_year.get("lumi_fb", 26.49)
@@ -70,6 +77,7 @@ mountEOS = []
 imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
 
 filesToExec = [
+    "zzcr_year.py",
     samplesFile,
     selectionConfigFile,
     aliasesFile,
