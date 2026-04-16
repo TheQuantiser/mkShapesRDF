@@ -61,14 +61,14 @@ def _validate_year_cfg(year_key, year_cfg):
     for key in ("production", "steps", "samples"):
         if key not in year_cfg["mc"]:
             raise ValueError(f"Year '{year_key}' is missing mc.{key}.")
-    if not isinstance(year_cfg["mc"]["samples"], list) or not year_cfg["mc"]["samples"]:
-        raise ValueError(f"Year '{year_key}' must define a non-empty mc.samples list.")
+    if not isinstance(year_cfg["mc"]["samples"], list):
+        raise ValueError(f"Year '{year_key}' mc.samples must be a list.")
 
     for key in ("reco", "steps", "runs", "samples"):
         if key not in year_cfg["data"]:
             raise ValueError(f"Year '{year_key}' is missing data.{key}.")
-    if not isinstance(year_cfg["data"]["samples"], list) or not year_cfg["data"]["samples"]:
-        raise ValueError(f"Year '{year_key}' must define a non-empty data.samples list.")
+    if not isinstance(year_cfg["data"]["samples"], list):
+        raise ValueError(f"Year '{year_key}' data.samples must be a list.")
     for i, sample_cfg in enumerate(year_cfg["data"]["samples"]):
         for sample_key in ("dataset", "stream", "trigger"):
             if sample_key not in sample_cfg:
