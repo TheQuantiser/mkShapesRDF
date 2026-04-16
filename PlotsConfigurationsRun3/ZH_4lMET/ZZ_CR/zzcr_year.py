@@ -67,8 +67,15 @@ def _validate_year_cfg(year_key, year_cfg):
     for key in ("reco", "steps", "runs", "samples"):
         if key not in year_cfg["data"]:
             raise ValueError(f"Year '{year_key}' is missing data.{key}.")
+    if not isinstance(year_cfg["data"]["runs"], list):
+        raise ValueError(f"Year '{year_key}' data.runs must be a list.")
     if not isinstance(year_cfg["data"]["samples"], list):
         raise ValueError(f"Year '{year_key}' data.samples must be a list.")
+
+    run_tags = resolve_data_run_tags(year_cfg)
+    if len(run_tags) != len(set(run_tags)):
+        raise ValueError(f"Year '{year_key}' data.runs contains duplicate run tags.")
+
     for i, sample_cfg in enumerate(year_cfg["data"]["samples"]):
         for sample_key in ("dataset", "stream", "trigger"):
             if sample_key not in sample_cfg:
@@ -87,13 +94,7 @@ def _validate_year_cfg(year_key, year_cfg):
                     f"Year '{year_key}' data.samples[{i}].runs contains duplicates."
                 )
 
-            allowed_runs = set()
-            for run_item in year_cfg["data"]["runs"]:
-                if isinstance(run_item, str):
-                    allowed_runs.add(run_item)
-                elif isinstance(run_item, (list, tuple)) and len(run_item) >= 2:
-                    allowed_runs.add(run_item[1])
-            unknown_runs = sorted(set(sample_cfg["runs"]) - allowed_runs)
+            unknown_runs = sorted(set(sample_cfg["runs"]) - set(run_tags))
             if unknown_runs:
                 raise ValueError(
                     f"Year '{year_key}' data.samples[{i}].runs contains unknown run tags: {unknown_runs}"
