@@ -17,3 +17,5 @@ start.sh
 PlotsConfigurationsRun3/**/rootFiles/
 PlotsConfigurationsRun3/**/configs/
 PlotsConfigurationsRun3/**/condor/
+PlotsConfigurationsRun3/**/jobs/
+
