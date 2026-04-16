@@ -412,13 +412,7 @@
         "production": "Summer24_150x_nAODv15_Full2024v15",
         "steps": "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight",
         "samples": [
-          "ZZ",
-          "DYto2E-2Jets_MLL-10to50",
-          "DYto2E-2Jets_MLL-50",
-          "DYto2Mu-2Jets_MLL-10to50",
-          "DYto2Mu-2Jets_MLL-50",
-          "DYto2Tau-2Jets_MLL-10to50",
-          "DYto2Tau-2Jets_MLL-50"
+
         ],
         "common_weight": "XSWeight*METFilter_Common*SFweight"
       },
@@ -437,49 +431,13 @@
           [
             "E",
             "Run2024E-ReReco-v1"
-          ],
-          [
-            "F",
-            "Run2024F-Prompt-v1"
-          ],
-          [
-            "G",
-            "Run2024G-Prompt-v1"
-          ],
-          [
-            "H",
-            "Run2024H-Prompt-v1"
-          ],
-          [
-            "I",
-            "Run2024I-Prompt-v2"
           ]
         ],
         "samples": [
           {
-            "dataset": "MuonEG",
-            "stream": "MuonEG",
-            "trigger": "Trigger_ElMu"
-          },
-          {
             "dataset": "Muon0",
             "stream": "Muon",
             "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)"
-          },
-          {
-            "dataset": "Muon1",
-            "stream": "Muon",
-            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)"
-          },
-          {
-            "dataset": "EGamma0",
-            "stream": "EGamma",
-            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
-          },
-          {
-            "dataset": "EGamma1",
-            "stream": "EGamma",
-            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
           }
         ],
         "common_weight": "METFilter_DATA"
@@ -487,16 +445,16 @@
       "lumi_fb": 109.82,
       "storage": {
         "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
-        "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
+        "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "mc_tree_base_dir_by_sample": {
-          "DYto2E-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2E-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Mu-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Mu-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Tau-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Tau-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano"
+          "DYto2E-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2E-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Mu-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Mu-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Tau-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Tau-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         },
         "data_tree_base_dir_by_sample": {
           "EGamma0": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
@@ -512,7 +470,7 @@
         }
       },
       "lepton_ids": {
-        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "electron_wp": "mvaWinter22V2Iso_WP90_tthMVA_Run3",
         "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
         "z0_min_pass": 2,
         "x_min_pass": 2,
