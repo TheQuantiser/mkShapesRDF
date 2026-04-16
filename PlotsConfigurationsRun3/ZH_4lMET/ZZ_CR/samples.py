@@ -13,7 +13,10 @@ if (
     or "resolve_tree_base_dir" not in globals()
 ):
     _zzcr_config_dir = os.path.abspath(
-        globals().get("ZZCR_CONFIG_DIR", globals().get("folder", os.getcwd()))
+        globals().get("ZZCR_CONFIG_DIR")
+        or (os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None)
+        or globals().get("folder")
+        or os.getcwd()
     )
     exec(
         open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
