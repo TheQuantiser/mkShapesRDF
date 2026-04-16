@@ -6,12 +6,24 @@ import os
 import getpass
 from datetime import datetime, timezone
 
-ZZCR_CONFIG_DIR = os.path.abspath(
-    globals().get("ZZCR_CONFIG_DIR")
-    or (os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None)
-    or globals().get("folder")
-    or os.getcwd()
-)
+def _resolve_zzcr_config_dir():
+    candidates = [
+        globals().get("ZZCR_CONFIG_DIR"),
+        globals().get("folder"),
+        os.getcwd(),
+        os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None,
+    ]
+    for cand in candidates:
+        if not cand:
+            continue
+        cand_abs = os.path.abspath(cand)
+        if os.path.exists(os.path.join(cand_abs, "zzcr_year.py")):
+            return cand_abs
+    # Fallback to cwd if no candidate contains zzcr_year.py
+    return os.path.abspath(os.getcwd())
+
+
+ZZCR_CONFIG_DIR = _resolve_zzcr_config_dir()
 
 if "load_selected_year" not in globals():
     exec(open(os.path.join(ZZCR_CONFIG_DIR, "zzcr_year.py")).read(), globals(), globals())

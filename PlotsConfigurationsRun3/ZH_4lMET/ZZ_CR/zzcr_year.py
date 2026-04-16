@@ -9,23 +9,28 @@ DEFAULT_TREE_BASE_DIR = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano
 
 @lru_cache(maxsize=1)
 def _load_year_config(config_filename):
-    base_dir = (
-        globals().get("ZZCR_CONFIG_DIR")
-        or (
+    candidates = [
+        globals().get("ZZCR_CONFIG_DIR"),
+        globals().get("folder"),
+        os.getcwd(),
+        os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None,
+    ]
+    cfg_path = None
+    for cand in candidates:
+        if not cand:
+            continue
+        cand_abs = os.path.abspath(cand)
+        test_path = os.path.join(cand_abs, config_filename)
+        if os.path.exists(test_path):
+            cfg_path = test_path
+            break
+    if cfg_path is None:
+        fallback_dir = (
             os.path.dirname(os.path.abspath(__file__))
             if "__file__" in globals()
-            else None
+            else os.path.abspath(os.getcwd())
         )
-        or globals().get("folder")
-    )
-    if not base_dir:
-        base_dir = (
-            os.path.dirname(os.path.abspath(__file__))
-            if "__file__" in globals()
-            else os.getcwd()
-        )
-    base_dir = os.path.abspath(base_dir)
-    cfg_path = os.path.join(base_dir, config_filename)
+        cfg_path = os.path.join(fallback_dir, config_filename)
     with open(cfg_path, encoding="utf-8") as cfg_handle:
         return json.load(cfg_handle)
 

@@ -6,12 +6,22 @@ if _this_dir not in sys.path:
     sys.path.insert(0, _this_dir)
 
 if "load_selected_year" not in globals():
-    _zzcr_config_dir = os.path.abspath(
-        globals().get("ZZCR_CONFIG_DIR")
-        or (os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None)
-        or globals().get("folder")
-        or os.getcwd()
-    )
+    _candidates = [
+        globals().get("ZZCR_CONFIG_DIR"),
+        globals().get("folder"),
+        os.getcwd(),
+        os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None,
+    ]
+    _zzcr_config_dir = None
+    for _cand in _candidates:
+        if not _cand:
+            continue
+        _cand_abs = os.path.abspath(_cand)
+        if os.path.exists(os.path.join(_cand_abs, "zzcr_year.py")):
+            _zzcr_config_dir = _cand_abs
+            break
+    if _zzcr_config_dir is None:
+        _zzcr_config_dir = os.path.abspath(os.getcwd())
     exec(
         open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
         globals(),
