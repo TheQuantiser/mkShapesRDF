@@ -19,16 +19,12 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2022_ReReco_nAODv12_Full2022v12",
         "steps": "DATAl2loose2022v12__l2loose",
         "runs": [
-          [
-            "B",
-            "Run2022B-ReReco-v1"
-          ],
           [
             "C",
             "Run2022C-ReReco-v1"
@@ -113,7 +109,7 @@
       }
     },
     "2022EE": {
-      "l2tight_era": "Full2022EEv12",
+      "l2tight_era": "Full2022v12",
       "lumi_nuisance": {
         "name": "lumi_2022EE",
         "value": "1.014"
@@ -130,7 +126,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2022EE_Prompt_nAODv12_Full2022v12",
@@ -139,10 +135,6 @@
           [
             "E",
             "Run2022E-Prompt-v1"
-          ],
-          [
-            "F",
-            "Run2022F-Prompt-v1"
           ],
           [
             "G",
@@ -232,7 +224,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2023_Prompt_nAODv12_Full2023v12",
@@ -324,7 +316,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2023BPix_Prompt_nAODv12_Full2023BPixv12",
@@ -412,9 +404,15 @@
         "production": "Summer24_150x_nAODv15_Full2024v15",
         "steps": "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight",
         "samples": [
-
+          "ZZ",
+          "DYto2E-2Jets_MLL-10to50",
+          "DYto2E-2Jets_MLL-50",
+          "DYto2Mu-2Jets_MLL-10to50",
+          "DYto2Mu-2Jets_MLL-50",
+          "DYto2Tau-2Jets_MLL-10to50",
+          "DYto2Tau-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15",
@@ -431,13 +429,49 @@
           [
             "E",
             "Run2024E-ReReco-v1"
+          ],
+          [
+            "F",
+            "Run2024F-Prompt-v1"
+          ],
+          [
+            "G",
+            "Run2024G-Prompt-v1"
+          ],
+          [
+            "H",
+            "Run2024H-Prompt-v1"
+          ],
+          [
+            "I",
+            "Run2024I-Prompt-v2"
           ]
         ],
         "samples": [
           {
+            "dataset": "MuonEG",
+            "stream": "MuonEG",
+            "trigger": "Trigger_ElMu"
+          },
+          {
             "dataset": "Muon0",
             "stream": "Muon",
             "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)"
+          },
+          {
+            "dataset": "Muon1",
+            "stream": "Muon",
+            "trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)"
+          },
+          {
+            "dataset": "EGamma0",
+            "stream": "EGamma",
+            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
+          },
+          {
+            "dataset": "EGamma1",
+            "stream": "EGamma",
+            "trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)"
           }
         ],
         "common_weight": "METFilter_DATA"
