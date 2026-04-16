@@ -5,8 +5,28 @@ _this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals(
 if _this_dir not in sys.path:
     sys.path.insert(0, _this_dir)
 
-from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
-from zzcr_year import load_selected_year
+if "load_selected_year" not in globals():
+    _candidates = [
+        globals().get("ZZCR_CONFIG_DIR"),
+        globals().get("folder"),
+        os.getcwd(),
+        os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None,
+    ]
+    _zzcr_config_dir = None
+    for _cand in _candidates:
+        if not _cand:
+            continue
+        _cand_abs = os.path.abspath(_cand)
+        if os.path.exists(os.path.join(_cand_abs, "zzcr_year.py")):
+            _zzcr_config_dir = _cand_abs
+            break
+    if _zzcr_config_dir is None:
+        _zzcr_config_dir = os.path.abspath(os.getcwd())
+    exec(
+        open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
+        globals(),
+        globals(),
+    )
 
 aliases = {}
 
@@ -15,20 +35,27 @@ if "PAIR_ID_CONFIG" not in globals() or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in g
 
 
 ZZCR_YEAR, _selected_year, _ = load_selected_year()
-_L2TIGHT_ERA = _selected_year["l2tight_era"]
 
 # Ordered pT thresholds for the four leptons in Z0+X (lead -> 4th).
 FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
 
-def _l2tight_leading2_expr(era):
-    ele_wps = list(ElectronWP[era]["TightObjWP"].keys())
-    mu_wps = list(MuonWP[era]["TightObjWP"].keys())
+def _l2tight_leading2_expr(ele_wp, mu_wp):
+    # IMPORTANT:
+    # Do not OR over every possible TightObjWP from LeptonSel_cfg here.
+    # Different ntuple campaigns expose different Lepton_isTight* branches,
+    # and referencing a missing branch causes RDF JIT compilation to fail.
+    # We therefore use only the year-configured WPs (same source of truth used
+    # by Z0_idx/X_idx selection) so the expression references columns expected
+    # to exist for the selected campaign.
+    lead0_terms = [
+        f"Alt(Lepton_isTightElectron_{ele_wp}, 0, 0) > 0.5",
+        f"Alt(Lepton_isTightMuon_{mu_wp}, 0, 0) > 0.5",
+    ]
 
-    lead0_terms = [f"Alt(Lepton_isTightElectron_{wp}, 0, 0) > 0.5" for wp in ele_wps]
-    lead0_terms += [f"Alt(Lepton_isTightMuon_{wp}, 0, 0) > 0.5" for wp in mu_wps]
-
-    lead1_terms = [f"Alt(Lepton_isTightElectron_{wp}, 1, 0) > 0.5" for wp in ele_wps]
-    lead1_terms += [f"Alt(Lepton_isTightMuon_{wp}, 1, 0) > 0.5" for wp in mu_wps]
+    lead1_terms = [
+        f"Alt(Lepton_isTightElectron_{ele_wp}, 1, 0) > 0.5",
+        f"Alt(Lepton_isTightMuon_{mu_wp}, 1, 0) > 0.5",
+    ]
 
     return (
         "(nLepton > 1)"
@@ -44,7 +71,12 @@ def _data_samples(samples_dict):
 
 DATA_SAMPLES = _data_samples(globals().get("samples", {}))
 
-aliases["L2TightLeading2"] = {"expr": _l2tight_leading2_expr(_L2TIGHT_ERA)}
+aliases["L2TightLeading2"] = {
+    "expr": _l2tight_leading2_expr(
+        PAIR_ID_CONFIG["eleWP"],
+        PAIR_ID_CONFIG["muWP"],
+    )
+}
 
 configurations = (
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + "/"
