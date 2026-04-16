@@ -32,6 +32,7 @@ From `zzcr_year_config.json`, ZZ_CR uses:
 - DATA reco and steps
 - Explicit MC sample list
 - Explicit DATA sample list (`dataset`, `stream`, `trigger`)
+- `mc.samples` and `data.samples` may be empty lists when intentionally running a partial/staged configuration
 - Optional per-sample DATA run override (`runs`) when a dataset exists only in a subset of eras
   (must be a duplicate-free subset of year-level `data.runs`)
 - Data run tags
@@ -104,7 +105,7 @@ This keeps the lepton-ID and b-tag veto settings coherent across eras and avoids
 - Only non-`_OLD` campaigns are used.
 - 2024 DATA includes non-`_OLD` ReReco/prompt eras configured in JSON (`C/D/E/F/G/H/I`).
 - For years where only prompt-era datasets are available in repository inputs (notably `2022EE`, `2023`, `2023BPix`), those prompt entries are retained.
-- Year configuration is validated at load time (required keys, non-empty sample lists, and required DATA sample fields).
+- Year configuration is validated at load time (required keys, list-typed sample lists that may be empty, duplicate-free year-level run tags, and required DATA sample fields when DATA samples are provided).
 
 ## Execution
 

@@ -42,13 +42,16 @@ _L2TIGHT_ERA = _selected_year["l2tight_era"]
 FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
 
 def _l2tight_leading2_expr(era):
-    # Keep this in sync with mkShapesRDF.processor.modules.L2TightSelection:
-    # the leading two leptons must each pass at least one TightObjWP
-    # (electron OR muon), where the available WPs come from LeptonSel_cfg.
-    # This guarantees data (built from ...__l2loose) and MC (...__l2tight)
-    # are aligned on the same logical tight-ID requirement in this analysis.
+    # Mirror mkShapesRDF.processor.modules.L2TightSelection logic exactly:
+    # each of the leading two leptons must pass at least one TightObjWP
+    # among all electron and muon TightObjWP definitions for the chosen era.
+    if era not in ElectronWP or era not in MuonWP:
+        raise KeyError(f"Unknown l2tight era '{era}' in LeptonSel_cfg")
+
     ele_wps = list(ElectronWP[era]["TightObjWP"].keys())
     mu_wps = list(MuonWP[era]["TightObjWP"].keys())
+    if not ele_wps and not mu_wps:
+        raise ValueError(f"No TightObjWP entries configured for era '{era}'")
 
     lead0_terms = [f"Alt(Lepton_isTightElectron_{wp}, 0, 0) > 0.5" for wp in ele_wps]
     lead0_terms += [f"Alt(Lepton_isTightMuon_{wp}, 0, 0) > 0.5" for wp in mu_wps]
