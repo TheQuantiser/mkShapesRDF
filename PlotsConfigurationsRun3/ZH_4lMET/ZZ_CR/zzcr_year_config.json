@@ -26,10 +26,6 @@
         "steps": "DATAl2loose2022v12__l2loose",
         "runs": [
           [
-            "B",
-            "Run2022B-ReReco-v1"
-          ],
-          [
             "C",
             "Run2022C-ReReco-v1"
           ],
@@ -139,10 +135,6 @@
           [
             "E",
             "Run2022E-Prompt-v1"
-          ],
-          [
-            "F",
-            "Run2022F-Prompt-v1"
           ],
           [
             "G",
