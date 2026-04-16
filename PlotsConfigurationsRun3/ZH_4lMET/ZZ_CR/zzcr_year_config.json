@@ -19,7 +19,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2022_ReReco_nAODv12_Full2022v12",
@@ -130,7 +130,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2022EE_Prompt_nAODv12_Full2022v12",
@@ -232,7 +232,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2023_Prompt_nAODv12_Full2023v12",
@@ -324,7 +324,7 @@
           "DYto2L-2Jets_MLL-10to50",
           "DYto2L-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2023BPix_Prompt_nAODv12_Full2023BPixv12",
@@ -420,7 +420,7 @@
           "DYto2Tau-2Jets_MLL-10to50",
           "DYto2Tau-2Jets_MLL-50"
         ],
-        "common_weight": "XSWeight*METFilter_Common*SFweight"
+        "common_weight": "XSWeight*METFilter_Common"
       },
       "data": {
         "reco": "Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15",
@@ -487,16 +487,16 @@
       "lumi_fb": 109.82,
       "storage": {
         "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
-        "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
+        "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "mc_tree_base_dir_by_sample": {
-          "DYto2E-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2E-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Mu-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Mu-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Tau-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "DYto2Tau-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano",
-          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano"
+          "DYto2E-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2E-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Mu-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Mu-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Tau-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2Tau-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
         },
         "data_tree_base_dir_by_sample": {
           "EGamma0": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
@@ -512,7 +512,7 @@
         }
       },
       "lepton_ids": {
-        "electron_wp": "cutBased_LooseID_tthMVA_Run3",
+        "electron_wp": "mvaWinter22V2Iso_WP90_tthMVA_Run3",
         "muon_wp": "cut_TightID_pfIsoTight_HWW_tthmva_67",
         "z0_min_pass": 2,
         "x_min_pass": 2,
