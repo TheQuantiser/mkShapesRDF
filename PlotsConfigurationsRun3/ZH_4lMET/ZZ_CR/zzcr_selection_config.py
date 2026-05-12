@@ -2,6 +2,7 @@
 
 import os
 
+# https://github.com/TheQuantiser/mkShapesRDF/blob/682e4abbb2cb14e9d42482d0b90723ec64520b81/mkShapesRDF/processor/data/TrigMaker_cfg.py#L1082
 
 if "load_selected_year" not in globals():
     _candidates = [

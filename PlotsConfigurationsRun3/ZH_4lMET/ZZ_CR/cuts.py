@@ -1,5 +1,7 @@
 cuts = {}
 
+# https://github.com/TheQuantiser/mkShapesRDF/blob/682e4abbb2cb14e9d42482d0b90723ec64520b81/mkShapesRDF/processor/data/TrigMaker_cfg.py#L1082
+
 preselections = ""
 preselections += "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl)"
 preselections += " && nLepton >= 2"
