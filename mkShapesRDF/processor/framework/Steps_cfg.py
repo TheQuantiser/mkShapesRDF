@@ -839,10 +839,10 @@ Steps = {
             "lepFiller_tthMVA",
             "lepSel",
             "jetIDMaker",
-            "jetSelMaskFilter",
+            "JES_modules_reduced_DATA",
+            "jetSelMask",
+            "leptonScale_data",
             "l2Kin",
-            "l3Kin",
-            "l4Kin",
             "trigData",
             "formulasDATA",
             "fakeSel",
@@ -2146,7 +2146,16 @@ Steps = {
         "declare": "DressedLeptons = lambda : DressedLeptonProducer(0.3)",
         "module": "DressedLeptons()",
     },
-    
+   
+    "NuNuSolution": {
+        "isChain": False,
+        "do4MC": True,
+        "do4Data": True,
+        "import": "mkShapesRDF.processor.modules.NuNuSolutionProducer",
+        "declare": 'NuNuSolution = lambda : NuNuSolutionProducer(era="RPLME_CMSSW")',
+        "module": "NuNuSolution()",
+    },
+
     "baseW": {
         "isChain": False,
         "do4MC": True,
