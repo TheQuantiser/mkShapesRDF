@@ -53,7 +53,15 @@ def load_selected_year(config_filename="zzcr_year_config.json", env_var="ZZCR_YE
 
 
 def _validate_year_cfg(year_key, year_cfg):
-    required_top = ("mc", "data", "btag", "l2tight_era", "lumi_nuisance", "lepton_ids")
+    required_top = (
+        "mc",
+        "data",
+        "trigger_paths",
+        "btag",
+        "l2tight_era",
+        "lumi_nuisance",
+        "lepton_ids",
+    )
     for key in required_top:
         if key not in year_cfg:
             raise ValueError(f"Year '{year_key}' is missing required key '{key}'.")
@@ -99,6 +107,44 @@ def _validate_year_cfg(year_key, year_cfg):
                 raise ValueError(
                     f"Year '{year_key}' data.samples[{i}].runs contains unknown run tags: {unknown_runs}"
                 )
+
+    trigger_paths_cfg = year_cfg["trigger_paths"]
+    if not isinstance(trigger_paths_cfg, dict) or not trigger_paths_cfg:
+        raise ValueError(
+            f"Year '{year_key}' trigger_paths must be a non-empty dictionary."
+        )
+
+    for trigger_flag, trigger_cfg in trigger_paths_cfg.items():
+        if not isinstance(trigger_flag, str) or not trigger_flag.startswith("Trigger_"):
+            raise ValueError(
+                f"Year '{year_key}' trigger_paths keys must be Trigger_* strings. Got: {trigger_flag!r}"
+            )
+        if not isinstance(trigger_cfg, dict):
+            raise ValueError(
+                f"Year '{year_key}' trigger_paths.{trigger_flag} must be a dictionary."
+            )
+        for key in ("family", "paths"):
+            if key not in trigger_cfg:
+                raise ValueError(
+                    f"Year '{year_key}' trigger_paths.{trigger_flag} is missing '{key}'."
+                )
+        if not isinstance(trigger_cfg["family"], str) or not trigger_cfg["family"].strip():
+            raise ValueError(
+                f"Year '{year_key}' trigger_paths.{trigger_flag}.family must be a string."
+            )
+        paths = trigger_cfg["paths"]
+        if (
+            not isinstance(paths, list)
+            or not paths
+            or not all(isinstance(path, str) and path.startswith("HLT_") for path in paths)
+        ):
+            raise ValueError(
+                f"Year '{year_key}' trigger_paths.{trigger_flag}.paths must be a non-empty list of HLT_* strings."
+            )
+        if len(paths) != len(set(paths)):
+            raise ValueError(
+                f"Year '{year_key}' trigger_paths.{trigger_flag}.paths contains duplicates."
+            )
 
     lepton_id_cfg = year_cfg["lepton_ids"]
     required_lepton_id_keys = (
@@ -180,6 +226,31 @@ def resolve_data_run_tags(year_cfg):
                 f"Got: {run_item!r}"
             )
     return run_tags
+
+
+def resolve_trigger_path_branches(year_cfg):
+    """Return the ordered list of concrete HLT path branches configured for a year."""
+    branches = []
+    seen = set()
+    for trigger_cfg in (year_cfg.get("trigger_paths", {}) or {}).values():
+        for path in trigger_cfg.get("paths", []) or []:
+            if path in seen:
+                continue
+            seen.add(path)
+            branches.append(path)
+    return branches
+
+
+def iter_trigger_path_entries(year_cfg):
+    """Yield dictionaries describing each configured aggregate trigger/path pair."""
+    for aggregate, trigger_cfg in (year_cfg.get("trigger_paths", {}) or {}).items():
+        for path in trigger_cfg.get("paths", []) or []:
+            yield {
+                "aggregate": aggregate,
+                "family": trigger_cfg.get("family", ""),
+                "description": trigger_cfg.get("description", ""),
+                "path": path,
+            }
 
 
 def resolve_tree_base_dir(year_cfg, sample_kind, sample_name=None, stream_name=None):

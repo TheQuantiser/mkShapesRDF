@@ -33,8 +33,14 @@ if (
     "PAIR_ID_CONFIG" not in globals()
     or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals()
     or "LEPTON_PAIR_COMBINATIONS" not in globals()
+    or "trigger_path_branches" not in globals()
 ):
-    from zzcr_selection_config import LEPTON_PAIR_COMBINATIONS, LEPTON_PAIR_INDEX_EXPRESSIONS, PAIR_ID_CONFIG
+    from zzcr_selection_config import (
+        LEPTON_PAIR_COMBINATIONS,
+        LEPTON_PAIR_INDEX_EXPRESSIONS,
+        PAIR_ID_CONFIG,
+        trigger_path_branches,
+    )
 
 variables = {}
 
@@ -45,6 +51,10 @@ BASE_EVENT_BRANCHES = [
     "Trigger_dblMu",
     "Trigger_sngEl",
     "Trigger_dblEl",
+    # Concrete HLT path branches backing the aggregate Trigger_* flags above.
+    # The list is year-configured in zzcr_year_config.json so final ROOT trees
+    # retain exactly the paths used by the selected Run-3 trigger menu.
+    *trigger_path_branches(),
 
     "nCleanJet",
     "Z0_mass",

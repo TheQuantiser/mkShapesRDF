@@ -59,3 +59,31 @@ LEPTON_PAIR_COMBINATIONS = [
     ("lZ2", "lX2"),
     ("lX1", "lX2"),
 ]
+
+# Trigger-path config for concrete HLT branches corresponding to each aggregate
+# Trigger_* flag used in samples.py/cuts.py.  These branches are persisted by
+# variables.py so downstream plotting notebooks can split by actual HLT path.
+TRIGGER_PATH_CONFIG = _selected_year.get("trigger_paths", {})
+
+
+def trigger_path_branches():
+    branches = []
+    seen = set()
+    for trigger_cfg in TRIGGER_PATH_CONFIG.values():
+        for path in trigger_cfg.get("paths", []) or []:
+            if path in seen:
+                continue
+            seen.add(path)
+            branches.append(path)
+    return branches
+
+
+def trigger_path_entries():
+    for aggregate, trigger_cfg in TRIGGER_PATH_CONFIG.items():
+        for path in trigger_cfg.get("paths", []) or []:
+            yield {
+                "aggregate": aggregate,
+                "family": trigger_cfg.get("family", ""),
+                "description": trigger_cfg.get("description", ""),
+                "path": path,
+            }
