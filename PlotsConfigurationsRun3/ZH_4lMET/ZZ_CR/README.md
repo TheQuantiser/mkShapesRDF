@@ -43,6 +43,7 @@ From `zzcr_year_config.json`, ZZ_CR uses:
 - Integrated luminosity (`lumi_fb`) used by `configuration.py` and `plot.py`
 - Storage path policy (`storage`) for default/per-kind/per-sample EOS trees
 - Lepton-pair ID policy (`lepton_ids`) for electron/muon WP and pair-level pass thresholds
+- Concrete trigger-path policy (`trigger_paths`) mapping each aggregate `Trigger_*` flag to its HLT branches
 
 ## Per-sample EOS base directory configuration
 
@@ -99,6 +100,16 @@ The ZZ_CR year JSON is now the source of truth for these IDs:
 
 `zzcr_selection_config.py` reads `lepton_ids` from the selected year instead of hard-coding WPs.
 This keeps the lepton-ID and b-tag veto settings coherent across eras and avoids hidden constants in Python/C++.
+
+## Trigger paths in JSON
+
+The aggregate trigger flags used by `samples.py` and `cuts.py` are now expanded in
+`zzcr_year_config.json` under `trigger_paths`.  Each entry maps one aggregate
+`Trigger_*` branch to the trigger family and the concrete `HLT_*` path branches
+that make up that OR.  `variables.py` persists those HLT path branches in the
+postprocessed output tree, and inspection notebooks should read the same JSON
+block rather than hard-code trigger menus.
+
 
 ## Run-3 policy in this config
 
