@@ -143,9 +143,47 @@ TIGHT_OBJECT_CONFIG = {
     },
 }
 
+
+# LeptonMaker builds a pt-sorted merged Lepton collection and records
+# Lepton_electronIdx / Lepton_muonIdx as back-references to the original
+# Electron/Muon collections; pair indices (lZ1/lZ2/lX1/lX2) index this merged
+# Lepton list, so quality observables must be dereferenced through those maps.
+LEPTON_QUALITY_BRANCH_MAP = {
+    "convVeto": {"ele": "Electron_convVeto", "mu": None, "default": "0"},
+    "dxy": {"ele": "Electron_dxy", "mu": "Muon_dxy", "default": "-999.f"},
+    "dz": {"ele": "Electron_dz", "mu": "Muon_dz", "default": "-999.f"},
+    "eInvMinusPInv": {"ele": "Electron_eInvMinusPInv", "mu": None, "default": "-999.f"},
+    "hoe": {"ele": "Electron_hoe", "mu": None, "default": "-999.f"},
+    "jetPtRelv2": {"ele": "Electron_jetPtRelv2", "mu": "Muon_jetPtRelv2", "default": "-999.f"},
+    "jetRelIso": {"ele": "Electron_jetRelIso", "mu": "Muon_jetRelIso", "default": "-999.f"},
+    "lostHits": {"ele": "Electron_lostHits", "mu": None, "default": "-999"},
+    "mvaIso_WP90": {"ele": "Electron_mvaIso_WP90", "mu": None, "default": "0"},
+    "pfIsoId": {"ele": None, "mu": "Muon_pfIsoId", "default": "0"},
+    "pfRelIso03_all": {"ele": "Electron_pfRelIso03_all", "mu": "Muon_pfRelIso03_all", "default": "-999.f"},
+    "pfRelIso04_all": {"ele": "Electron_pfRelIso04_all", "mu": "Muon_pfRelIso04_all", "default": "-999.f"},
+    "promptMVA": {"ele": "Electron_promptMVA", "mu": "Muon_promptMVA", "default": "-999.f"},
+    "sieie": {"ele": "Electron_sieie", "mu": None, "default": "-999.f"},
+    "sip3d": {"ele": "Electron_sip3d", "mu": "Muon_sip3d", "default": "-999.f"},
+    "tightId": {"ele": None, "mu": "Muon_tightId", "default": "0"},
+}
+
 for lep_label, lep_idx in pair_leptons:
     for suffix, source in LEPTON_BRANCH_RECIPES.items():
         tree_branches[f"{lep_label}_{suffix}"] = f"Alt({source}, {lep_idx}, -999)"
+
+
+    lep_pdgid_expr = f"abs(Alt(Lepton_pdgId, {lep_idx}, 0))"
+    lep_ele_idx_expr = f"Alt(Lepton_electronIdx, {lep_idx}, -1)"
+    lep_mu_idx_expr = f"Alt(Lepton_muonIdx, {lep_idx}, -1)"
+    for suffix, cfg in LEPTON_QUALITY_BRANCH_MAP.items():
+        ele_src = cfg["ele"]
+        mu_src = cfg["mu"]
+        default = cfg["default"]
+        ele_expr = f"Alt({ele_src}, {lep_ele_idx_expr}, {default})" if ele_src else default
+        mu_expr = f"Alt({mu_src}, {lep_mu_idx_expr}, {default})" if mu_src else default
+        tree_branches[f"{lep_label}_{suffix}"] = (
+            f"({lep_pdgid_expr} == 11) ? ({ele_expr}) : (({lep_pdgid_expr} == 13) ? ({mu_expr}) : {default})"
+        )
 
     for trig_suffix in (
         "trigObj_pt",
