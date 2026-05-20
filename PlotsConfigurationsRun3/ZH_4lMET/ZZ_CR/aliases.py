@@ -258,6 +258,43 @@ aliases["X_isMM"] = {"expr": "ZH4lMETZZCR::pairFlavor(Lepton_pdgId, X_idx) == 13
 aliases["X_isSF"] = {"expr": "X_isEE || X_isMM"}
 aliases["X_isDF"] = {"expr": "!X_isEE && !X_isMM"}
 
+
+LEPTON_QUALITY_BRANCH_MAP = {
+    "convVeto": {"ele": "Electron_convVeto", "mu": None, "default": "0"},
+    "dxy": {"ele": "Electron_dxy", "mu": "Muon_dxy", "default": "-999.f"},
+    "dz": {"ele": "Electron_dz", "mu": "Muon_dz", "default": "-999.f"},
+    "eInvMinusPInv": {"ele": "Electron_eInvMinusPInv", "mu": None, "default": "-999.f"},
+    "hoe": {"ele": "Electron_hoe", "mu": None, "default": "-999.f"},
+    "jetPtRelv2": {"ele": "Electron_jetPtRelv2", "mu": "Muon_jetPtRelv2", "default": "-999.f"},
+    "jetRelIso": {"ele": "Electron_jetRelIso", "mu": "Muon_jetRelIso", "default": "-999.f"},
+    "lostHits": {"ele": "Electron_lostHits", "mu": None, "default": "-999"},
+    "mvaIso_WP90": {"ele": "Electron_mvaIso_WP90", "mu": None, "default": "0"},
+    "pfIsoId": {"ele": None, "mu": "Muon_pfIsoId", "default": "0"},
+    "pfRelIso03_all": {"ele": "Electron_pfRelIso03_all", "mu": "Muon_pfRelIso03_all", "default": "-999.f"},
+    "pfRelIso04_all": {"ele": "Electron_pfRelIso04_all", "mu": "Muon_pfRelIso04_all", "default": "-999.f"},
+    "promptMVA": {"ele": "Electron_promptMVA", "mu": "Muon_promptMVA", "default": "-999.f"},
+    "sieie": {"ele": "Electron_sieie", "mu": None, "default": "-999.f"},
+    "sip3d": {"ele": "Electron_sip3d", "mu": "Muon_sip3d", "default": "-999.f"},
+    "tightId": {"ele": None, "mu": "Muon_tightId", "default": "0"},
+}
+
+for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
+    abs_pdg_expr = f"abs(Alt(Lepton_pdgId, {lep_idx}, 0))"
+    ele_idx_expr = f"Alt(Lepton_electronIdx, {lep_idx}, -1)"
+    mu_idx_expr = f"Alt(Lepton_muonIdx, {lep_idx}, -1)"
+    for suffix, cfg in LEPTON_QUALITY_BRANCH_MAP.items():
+        ele_src = cfg["ele"]
+        mu_src = cfg["mu"]
+        default = cfg["default"]
+        ele_expr = f"Alt({ele_src}, {ele_idx_expr}, {default})" if ele_src else default
+        mu_expr = f"Alt({mu_src}, {mu_idx_expr}, {default})" if mu_src else default
+        aliases[f"{lep_name}_{suffix}"] = {
+            "expr": (
+                f"({abs_pdg_expr} == 11) ? ({ele_expr}) : "
+                f"(({abs_pdg_expr} == 13) ? ({mu_expr}) : {default})"
+            )
+        }
+
 # DeepFlavB veto WP configurable by ZZCR_YEAR.
 btag_veto_algo = _selected_year["btag"]["algo"]
 btag_veto_WP = _selected_year["btag"]["veto_wp"]
