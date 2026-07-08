@@ -28,18 +28,18 @@ Samples['GluGluZH_Hto2Wto2L2Nu_M125'] = {
 }
 
 # WH - HWW
-#Samples['HWplusJ_HToWWTo2L2Nu_WToLNu_M125'] = {
-#    'nanoAOD' : ''
-#}
-#Samples['HWplusJ_HToWWTo2L2Nu_WTo2Q_M125'] = {
-#    'nanoAOD' : ''
-#}
-#Samples['HWminusJ_HToWWTo2L2Nu_WToLNu_M125'] = {
-#    'nanoAOD' : ''
-#}
-#Samples['HWminusJ_HToWWTo2L2Nu_WTo2Q_M125'] = {
-#    'nanoAOD' : ''
-#}
+Samples['HWplusJ_HToWWTo2L2Nu_WToLNu_M125'] = {
+    'nanoAOD' : '/WplusH_WtoLNu_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-jhugen-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2/NANOAODSIM'
+}
+Samples['HWplusJ_HToWWTo2L2Nu_WTo2Q_M125'] = {
+    'nanoAOD' : '/WplusH_Wto2Q_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-jhugen-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2/NANOAODSIM'
+}
+Samples['HWminusJ_HToWWTo2L2Nu_WToLNu_M125'] = {
+    'nanoAOD' : '/WminusH_WtoLNu_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-jhugen-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2/NANOAODSIM'
+}
+Samples['HWminusJ_HToWWTo2L2Nu_WTo2Q_M125'] = {
+    'nanoAOD' : '/WminusH_Wto2Q_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-jhugen-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2/NANOAODSIM'
+}
 
 # TTH - NoBB
 Samples['ttHToNonbb_M125'] = {
