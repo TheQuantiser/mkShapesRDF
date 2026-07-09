@@ -59,16 +59,16 @@ class TauScaleFactors(Module):
 
             using namespace ROOT::VecOps;
 
-            std::vector<double> doTauMET(RVecF orig_pt, RVecF new_pt, RVecF tau_phi, double met_pt, double met_phi) {{
-                double metx = met_pt * cos(met_phi);
-                double mety = met_pt * sin(met_phi);
+            std::vector<float> doTauMET(RVecF orig_pt, RVecF new_pt, RVecF tau_phi, float met_pt, float met_phi) {{
+                float metx = met_pt * cos(met_phi);
+                float mety = met_pt * sin(met_phi);
                 for (unsigned i = 0; i < new_pt.size(); i++) {{
-                double dpt = new_pt[i] - orig_pt[i];
+                float dpt = new_pt[i] - orig_pt[i];
                 metx -= dpt * cos(tau_phi[i]);
                 mety -= dpt * sin(tau_phi[i]);
                 }}
-                double new_met_pt = sqrt(metx*metx + mety*mety);
-                double new_met_phi = atan2(mety, metx);
+                float new_met_pt = sqrt(metx*metx + mety*mety);
+                float new_met_phi = atan2(mety, metx);
                 return {{new_met_pt, new_met_phi}};
             }}
             std::cout << "doTauMET done" << std::endl;
@@ -93,10 +93,10 @@ class TauScaleFactors(Module):
                 RVecF SF(eta.size(), 1.0);
                 for (unsigned i = 0; i < eta.size(); i++) {{
                 int gm = (int)gen[i];
-                if (gm != 0 && gm != 1 && gm != 3) continue;
-                int decay = (int)dm[i];
+                if (gm != 1 && gm != 3) continue;
+                int decay = ((int)dm[i] == 2) ? 1 : (int)dm[i];
                 if (decay != 0 && decay != 1 && decay != 10 && decay != 11) continue;
-                if (pt[i] <= 20 || fabs(eta[i]) >= 2.5 || fabs(dz[i]) >= 0.2 || decay == 5 || decay == 6) continue;
+                if (pt[i] <= 20 || fabs(eta[i]) >= 2.3 || fabs(dz[i]) >= 0.2 || decay == 5 || decay == 6) continue;
                 SF[i] = tau_sfvse->evaluate({{(double)eta[i], decay, gm, "VVLoose", "nom"}});
                 }}
                 return SF;
@@ -106,9 +106,9 @@ class TauScaleFactors(Module):
                 RVecF SF(eta.size(), 1.0);
                 for (unsigned i = 0; i < eta.size(); i++) {{
                 int gm = (int)gen[i];
-                if (gm != 0 && gm != 2 && gm != 4) continue;
-                int decay = (int)dm[i];
-                if (pt[i] <= 20 || fabs(eta[i]) >= 2.5 || fabs(dz[i]) >= 0.2 || decay == 5 || decay == 6) continue;
+                if (gm != 2 && gm != 4) continue;
+                int decay = ((int)dm[i] == 2) ? 1 : (int)dm[i];
+                if (pt[i] <= 20 || fabs(eta[i]) >= 2.3 || fabs(dz[i]) >= 0.2 || decay == 5 || decay == 6) continue;
                 if (std::string("{self.era}") == "Full2024v15") {{
                     SF[i] = tau_sfvsmu->evaluate({{(double)eta[i], gm, "Medium", "VVLoose", "Medium", "nom"}});
                 }}
@@ -123,9 +123,9 @@ class TauScaleFactors(Module):
                 RVecF SF(pt.size(), 1.0);
                 for (unsigned i = 0; i < pt.size(); i++) {{
                 int gm = (int)gen[i];
-                if (gm != 0 && gm != 1 && gm != 2 && gm != 3 && gm != 4 && gm != 5 && gm != 6) continue;
-                int decay = (int)dm[i];
-                if (pt[i] <= 20 || fabs(eta[i]) >= 2.5 || fabs(dz[i]) >= 0.2 || decay == 5 || decay == 6) continue;
+                if (gm != 5) continue;
+                int decay = ((int)dm[i] == 2) ? 1 : (int)dm[i];
+                if (pt[i] <= 20 || fabs(eta[i]) >= 2.3 || fabs(dz[i]) >= 0.2 || decay == 5 || decay == 6) continue;
                 if (std::string("{self.era}") == "Full2024v15") {{
                     if (decay != 0 && decay != 1 && decay != 10 && decay != 11) continue;
                     SF[i] = tau_sfvsjet->evaluate({{ (double)pt[i], decay, gm, "Medium", "VVLoose", "nom", "dm"}});

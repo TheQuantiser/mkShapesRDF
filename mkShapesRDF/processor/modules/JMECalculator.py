@@ -176,7 +176,7 @@ class JMECalculator(Module):
                 jerTag = self.JER_era
                 ROOT.gROOT.ProcessLine(f"JetVariationsCalculator myJetVariationsCalculator = JetVariationsCalculator::create(\"{jsonFile}\", \"{jetAlgo}\", \"{jecTag}\", \"{jecLevel}\", {jesUnc}, {addHEM}, \"{jerTag}\", \"{jsonFileSmearingTool}\", \"{smearingTool}\", false, true, {maxDR}, {maxDPT});")
             else:
-                ROOT.gROOT.ProcessLine(f"JetVariationsCalculator myJetVariationsCalculator = JetVariationsCalculator::create(\"{jsonFile}\", \"{jetAlgo}\", \"{jecTag}\", \"{jecLevel}\", std::vector<std::string>{{}}, {addHEM}, \"\", \"\", \"\", false, true, {maxDR}, {maxDPT});")
+                ROOT.gROOT.ProcessLine(f"JetVariationsCalculator myJetVariationsCalculator = JetVariationsCalculator::create(\"{jsonFile}\", \"{jetAlgo}\", \"{jecTag}\", \"{jecLevel}\", {jesUnc}, {addHEM}, \"\", \"\", \"\", false, true, {maxDR}, {maxDPT});")
             calc = getattr(ROOT, "myJetVariationsCalculator")
             jesSources = calc.available()
             jesSources = calc.available()[1:][::2]
@@ -241,7 +241,8 @@ class JMECalculator(Module):
                     df = df.Redefine(f"{JetColl}_jetIdx", f"{JetColl}_sorting")
                 else:
                     df = df.Redefine(f"{JetColl}_pt", "jetVars.pt(0)")
-                    df = df.Redefine(f"{JetColl}_mass", "jetVars.mass(0)")  
+                    df = df.Redefine(f"{JetColl}_mass", "jetVars.mass(0)")
+                    df = df.Define(f"tmp_{JetColl}_jetIdx", f"{JetColl}_jetIdx") 
             else:
                 df = df.Redefine(f"{JetColl}_sorting", f"Range({JetColl}_pt.size())")
 
@@ -260,10 +261,17 @@ class JMECalculator(Module):
                             f"tmp_{JetColl}_pt__JES_{source}_{tag}",
                             variation_pt,
                         )
-                        df = df.Define(
-                            f"tmp_{JetColl}_pt__JES_{source}_{tag}_sorting",
-                            f"ROOT::VecOps::Reverse(ROOT::VecOps::Argsort(tmp_{JetColl}_pt__JES_{source}_{tag}))",
-                        )
+                        if 'TTTo2L2Nu_10k_nano' not in self.sampleName:
+                            df = df.Define(
+                                f"tmp_{JetColl}_pt__JES_{source}_{tag}_sorting",
+                                f"ROOT::VecOps::Reverse(ROOT::VecOps::Argsort(tmp_{JetColl}_pt__JES_{source}_{tag}))",
+                            )
+                        else:
+                            df = df.Define(
+                                f"tmp_{JetColl}_pt__JES_{source}_{tag}_sorting",
+                                f"Range({JetColl}_pt.size())",
+                            )
+
                         variations_pt.append(
                             f"Take(tmp_{JetColl}_pt__JES_{source}_{tag}, tmp_{JetColl}_pt__JES_{source}_{tag}_sorting)"
                         )
@@ -369,7 +377,7 @@ class JMECalculator(Module):
                     isT1smearedMET  = "true"
                     ROOT.gROOT.ProcessLine(f"Type1METVariationsCalculator my{MET}VarCalc = Type1METVariationsCalculator::create(\"{jsonFile}\", \"{jetAlgo}\", \"{jecTag}\", \"{jecLevel}\", \"{L1JecTag}\", {unclEnThr}, {emEnFracThr}, {jesUnc}, {addHEM}, {isT1smearedMET}, {isXYCorrected}, \"{met_xy_json}\", \"{met_xy_era}\", {is_mc}, \"{jerTag}\", \"{jsonFileSmearingTool}\", \"{smearingTool}\", false, true, {maxDR}, {maxDPT});")
                 else:
-                    ROOT.gROOT.ProcessLine(f"Type1METVariationsCalculator my{MET}VarCalc = Type1METVariationsCalculator::create(\"{jsonFile}\", \"{jetAlgo}\", \"{jecTag}\", \"{jecLevel}\", \"{L1JecTag}\", {unclEnThr}, {emEnFracThr}, std::vector<std::string>{{}}, {addHEM}, {isT1smearedMET}, {isXYCorrected}, \"{met_xy_json}\", \"{met_xy_era}\", {is_mc}, \"\", \"\", \"\", false, true, {maxDR}, {maxDPT});")
+                    ROOT.gROOT.ProcessLine(f"Type1METVariationsCalculator my{MET}VarCalc = Type1METVariationsCalculator::create(\"{jsonFile}\", \"{jetAlgo}\", \"{jecTag}\", \"{jecLevel}\", \"{L1JecTag}\", {unclEnThr}, {emEnFracThr}, {jesUnc}, {addHEM}, {isT1smearedMET}, {isXYCorrected}, \"{met_xy_json}\", \"{met_xy_era}\", {is_mc}, \"\", \"\", \"\", false, true, {maxDR}, {maxDPT});")
                 calcMET = getattr(ROOT, f"my{MET}VarCalc")
                 METSources = calcMET.available()
                 METSources = calcMET.available()[1:][::2]
