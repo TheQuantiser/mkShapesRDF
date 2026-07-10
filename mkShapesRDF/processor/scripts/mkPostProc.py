@@ -26,9 +26,9 @@ elif "lxplus" in uname: site = 'cern'
 eosDir = Sites[site]["eosDir"]
 
 #: defaultRedirector is the redirector used to access files if the option ``--useRedirector 1`` is used, user might want to change it -> edit ``mkPostProc.py``
-defaultRedirector = "root://cms-xrd-global.cern.ch/"
-# defaultRedirector = "root://xrootd-cms.infn.it/"
-
+#defaultRedirector = "root://cms-xrd-global.cern.ch/"
+#defaultRedirector = "root://xrootd-cms.infn.it/"
+defaultRedirector = "root://cmsxrootd.fnal.gov/"
 
 def defaultParser():
     parser = argparse.ArgumentParser(add_help=False)
@@ -60,7 +60,16 @@ def defaultParser():
 
     return parser
 
-
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+        
 def operationMode0Parser(parser=None):
     if parser is None:
         parser = argparse.ArgumentParser(add_help=False)
@@ -87,7 +96,7 @@ def operationMode0Parser(parser=None):
     parser0.add_argument(
         "-iL",
         "--isLatino",
-        type=bool,
+        type=str2bool,
         help="If the files in input follow the latino naming convention",
         required=False,
         default=True,
@@ -148,7 +157,7 @@ def operationMode1Parser(parser=None):
         "-r",
         "--resubmit",
         type=int,
-        choices=[0, 1],
+        choices=[0, 1, 2],
         help="0 do not resubmit, 1 resubmit",
         required=False,
         default=0,
@@ -250,11 +259,22 @@ def main():
         run locally
         No TTree was created for
         Warning in <Snapshot>: A lazy Snapshot action was booked but never triggered.
-        TClass::Init:0: RuntimeWarning: no dictionary for class edm::Hash<1> is available                                                                                                                   
-        TClass::Init:0: RuntimeWarning: no dictionary for class edm::ProcessHistory is available                                                                                                            
-        TClass::Init:0: RuntimeWarning: no dictionary for class edm::ProcessConfiguration is available                                                                                                      
-        TClass::Init:0: RuntimeWarning: no dictionary for class edm::ParameterSetBlob is available                                                                                                          
-        TClass::Init:0: RuntimeWarning: no dictionary for class pair<edm::Hash<1>,edm::ParameterSetBlob> is available         
+        TClass::Init:0: RuntimeWarning: no dictionary for class edm::Hash<1> is available
+        TClass::Init:0: RuntimeWarning: no dictionary for class edm::ProcessHistory is available
+        TClass::Init:0: RuntimeWarning: no dictionary for class edm::ProcessConfiguration is available
+        TClass::Init:0: RuntimeWarning: no dictionary for class edm::ParameterSetBlob is available
+        TClass::Init:0: RuntimeWarning: no dictionary for class pair<edm::Hash<1>,edm::ParameterSetBlob> is available
+        ECompressionAlgorithm
+        R__DEPRECATED
+        expanded from here
+        <scratch space>
+        std::is_same
+        Info in <ACLiC>
+        RConfig.hxx 
+        define _R__JOIN3_ 
+        define _NAME3_
+        Info in <hadd>
+        ^
         """
         normalErrs = normalErrs.split("\n")
         normalErrs = list(map(lambda k: k.strip(" ").strip("\t"), normalErrs))
@@ -285,9 +305,9 @@ def main():
                 print("\n\n")
                 toResubmit.append(err)
         toResubmit = list(map(lambda k: "".join(k.split("/")[-2]), toResubmit))
-        print(toResubmit)
+        notFinished = list(map(lambda k: "".join(k.split("/")[-1]), notFinished))
         if len(toResubmit) > 0:
-            print("\n\nShould resubmit the following files\n")
+            print("\n\nShould resubmit due to error the following files\n")
             print(
                 "queue 1 Folder in "
                 + " ".join(list(map(lambda k: k.split("/")[-1], toResubmit)))
@@ -307,6 +327,28 @@ def main():
                     f"cd {folder}; condor_submit submit.jdl", shell=True
                 )
                 proc.wait()
+        if len(notFinished) > 0:
+            print("\n\nStill running files\n")
+            print(
+                "queue 1 Folder in "
+                + " ".join(list(map(lambda k: k.split("/")[-1], notFinished)))
+            )
+            if resubmit == 2:
+                with open(f"{folder}/submit.jdl") as file:
+                    txt = file.read()
+
+                lines = txt.split("\n")
+                line = list(filter(lambda k: k.startswith("queue"), lines))[0]
+                lines[lines.index(line)] = (
+                    f'queue 1 Folder in {", ".join(notFinished)}\n '
+                )
+                with open(f"{folder}/submit.jdl", "w") as file:
+                    file.write("\n".join(lines))
+                proc = subprocess.Popen(
+                    f"cd {folder}; condor_submit submit.jdl", shell=True
+                )
+                proc.wait()
+
 
     else:
         print("Invalid operation mode")

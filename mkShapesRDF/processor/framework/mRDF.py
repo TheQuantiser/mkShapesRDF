@@ -477,31 +477,51 @@ class mRDF:
             nIterations = max(ceil(df.Count().GetValue() / chunksize), 1)
             outFile = uproot.recreate(fileName, compression=uproot.LZMA(9))
             branches = columns.copy()
-            print(branches)
+
+            # Protection against cases in which we have a last chunk with too few events, since this may create instabilities and crashes
+            print(f"I have {df.Count().GetValue()} events, meaning that I will need {nIterations} chunks of {chunksize} events")
+            events_in_last_chunk = df.Count().GetValue() - (nIterations-1)*chunksize
+            print(f"I have {events_in_last_chunk} events in last chunk")
+            while events_in_last_chunk < 1000:
+                if df.Count().GetValue() < 1000: break
+                print(f"I want at least 1000 events in the last chunk. I'll increase the chunk size by 1000 events.")
+                chunksize += 1000
+                nIterations = max(ceil(df.Count().GetValue() / chunksize), 1)
+                events_in_last_chunk = df.Count().GetValue() - (nIterations-1)*chunksize
+                print(f"I have now {nIterations} chunks of {chunksize} events. This leaves {events_in_last_chunk} events in the last chunk.")
+            
             #####
             ##### Temporal fix / remove branches with type: string -> incompatbility with awkward/uproot
+            if "TTTo2L2Nu_10k_nano" in fileName:
+                branches = [b for b in branches if not b.startswith("BeamSpot_")]
             if "BeamSpot_type" in branches:
                 branches.remove("BeamSpot_type")
             if "Photon_seediEtaOriX" in branches:
                 branches.remove("Photon_seediEtaOriX")
             if "Electron_seediEtaOriX" in branches:
                 branches.remove("Electron_seediEtaOriX")
+            if "nisLoose" in branches:
+                branches.remove("nisLoose")
             _branches = branches.copy()
-            CollectionsToZip = ['CleanJet','WH3l_dphilmet','WH3l_mtlmet','MET','Jet','PuppiMET','Lepton_tightMuon','Lepton_tightElectron','Lepton_isTightElectron','Lepton_isTightMuon','Lepton',
+
+            CollectionsToZip = ['CleanJet','WH3l_dphilmet','WH3l_mtlmet','PFMET','Jet','PuppiMET','Lepton_tightMuon','Lepton_tightElectron','Lepton_isTightElectron','Lepton_isTightMuon','Lepton',
                                 'Muon','Electron','Photon','Gen','LHE','HLT','L1','Tau','IsoTrack','GenPart','LHEPart','TrigObj','LepCut2l','LepCut3l','LepCut4l','NeutrinoGen','SubJet',
                                 'ChsMET','LeptonGen','FatJet','LepSF2l','LepSF3l','LepSF4l','PhotonGen','DressedLepton','GenDressedLepton','SubGenJetAK8','LowPtElectron','VetoLepton',
-                                'BeamSpot','LHEWeight','GenIsolatedPhoton','RawMET','TkMET','CorrT1METJet','boostedTau','newJet','GenJet','TriggerEffWeight','TriggerSFWeight',
+                                'BeamSpot','LHEWeight','GenIsolatedPhoton','RawPFMET','TkMET','CorrT1METJet','boostedTau','newJet','GenJet','TriggerEffWeight','TriggerSFWeight',
                                 'GenJetAK8','Flag','puWeight','Pileup','GenProton','HTXS', 'GenVtx','Generator','Trigger','GenVisTau','RawPuppiMET','SoftActivityJet',
-                                'CaloMET','Rho','FsrPhoton','DeepMETResponseTune','PV','SV','GenMET','DeepMETResolutionTune','gen','OtherPV']
+                                'CaloMET','Rho','FsrPhoton','DeepMETResponseTune','PV','SV','GenMET','DeepMETResolutionTune','gen','OtherPV','TrackGenJetAK4','FatJetPFCand','PFCand','Proton_multiRP','PPSLocalTrack','Proton_singleRP','TauProd']
 
             zips = {}            
             for zipName in CollectionsToZip:
                 zipBranches = list(filter(lambda k: k.startswith(zipName + '_'), branches))
+                if len(zipBranches) == 0: # Names might change over NanoAOD versions
+                    continue
                 zips[zipName] = zipBranches
                 branches = list(set(branches).difference(zipBranches))
 
             for i in range(nIterations):
-                _df = df.Range( i * chunksize, (i+1) * chunksize)
+                print(f"Chunk: {i}")
+                _df = df.Range( i * chunksize, (i+1) * chunksize)                
                 events = ak.from_rdataframe(_df, _branches)
                 def getBranch(events, branch):
                     if 'float64' in str(events[branch].type):
@@ -530,8 +550,6 @@ class mRDF:
                         dtypes = {}
                         for branch in _events.fields:
                             dtypes[branch] = _events[branch].type
-                        # print(dtypes)
-                        # print('Creating ttree')
                         outFile.mktree(treeName, dtypes)
                         continue
                     else:
