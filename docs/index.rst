@@ -14,6 +14,7 @@
    :caption: Contents:
 
    getting_started
+   condor_remote_io
    shapes/index
    processor/index
    lib/index

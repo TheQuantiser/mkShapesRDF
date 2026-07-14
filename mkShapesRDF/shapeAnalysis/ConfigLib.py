@@ -18,7 +18,18 @@ class ConfigLib:
             else:
                 exec(f"from {i[0]} import {i[1]}", globs, globs)
         for f in filesToExec:
-            exec(open(f).read(), globs, globs)
+            path = os.path.abspath(f)
+            previous_file = globs.get("__file__")
+            try:
+                globs["__file__"] = path
+                with open(path) as stream:
+                    source = stream.read()
+                exec(compile(source, path, "exec"), globs, globs)
+            finally:
+                if previous_file is None:
+                    globs.pop("__file__", None)
+                else:
+                    globs["__file__"] = previous_file
 
     @staticmethod
     def createConfigDict(varsToKeep, objects):
@@ -65,11 +76,14 @@ class ConfigLib:
             with open(filepath + ".json", "w") as file:
                 json.dump(config, file, indent=2)
         else:
-            import cloudpickle
+            try:
+                import cloudpickle as pickle_module
+            except ImportError:
+                import pickle as pickle_module
             import zlib
 
             with open(filepath + ".pkl", "wb") as file:
-                file.write(zlib.compress(cloudpickle.dumps(config)))
+                file.write(zlib.compress(pickle_module.dumps(config)))
 
     @staticmethod
     def dumpConfig(varsToKeep, objects, filepath):
@@ -125,12 +139,15 @@ class ConfigLib:
 
     @staticmethod
     def loadPickle(filePath, globs):
-        import cloudpickle
+        try:
+            import cloudpickle as pickle_module
+        except ImportError:
+            import pickle as pickle_module
         import zlib
 
         global d
         with open(filePath, "rb") as file:
-            d = cloudpickle.loads(zlib.decompress(file.read()))
+            d = pickle_module.loads(zlib.decompress(file.read()))
         # ConfigLib.loadDict(globs['d'], globs)
         ConfigLib.loadDict(d, globs)
         # exec('d = d', globs)

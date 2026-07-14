@@ -1,16 +1,39 @@
+# Editor backup and temporary files
 #*
 .#
 \#*#
-**.root
+**~
+
+# Python-generated files and environments
 **__py*
 *.egg*
 myenv*
-examples/*/*_cc*
-examples/*/*/
-**~
-mkShapesRDF/processor/condor/*
-mkShapesRDF/processor/data/jsonpog*
-start.sh
+
+# Build, documentation, and system files
 *build*
 *html*
 .DS*
+
+# ROOT files
+*.root
+
+# Local scripts and analysis output
+start.sh
+codex_analysis
+
+# Example build output
+examples/*/*_cc*
+examples/*/*/
+
+# mkShapesRDF generated data
+mkShapesRDF/processor/condor/*
+mkShapesRDF/processor/data/jsonpog*
+
+# Generated runtime packages
+**/mkshapesrdf_runtime.tgz
+
+# Generated plot-configuration output
+PlotsConfigurationsRun3/**/rootFiles/
+PlotsConfigurationsRun3/**/configs/
+PlotsConfigurationsRun3/**/condor/
+PlotsConfigurationsRun3/**/jobs/

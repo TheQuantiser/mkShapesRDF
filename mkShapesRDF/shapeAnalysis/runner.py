@@ -3,6 +3,11 @@ import sys
 import ROOT
 from array import array
 from mkShapesRDF.lib.parse_cpp import ParseCpp
+from mkShapesRDF.lib.remote_io import (
+    RemoteIOError,
+    StageInManager,
+    resolve_remote_io_config,
+)
 from mkShapesRDF.shapeAnalysis.histo_utils import postPlot
 
 ROOT.gROOT.SetBatch(True)
@@ -11,6 +16,20 @@ ROOT.TH1.SetDefaultSumw2(True)
 
 class RunAnalysis:
     r"""Class athat craeates ``dfs`` and runs the analysiss"""
+
+    @staticmethod
+    def _summarize_resolved_inputs(files, preview_each_side=2):
+        """Bound resolved-input logs while retaining count and endpoint provenance."""
+        files = list(files)
+        if len(files) <= 2 * preview_each_side:
+            preview = files
+        else:
+            preview = [
+                *files[:preview_each_side],
+                f"... {len(files) - 2 * preview_each_side} omitted ...",
+                *files[-preview_each_side:],
+            ]
+        return f"count={len(files)}, preview={preview}"
 
     @staticmethod
     def splitSamples(samples, useFilesPerJob=True):
@@ -121,6 +140,39 @@ class RunAnalysis:
         return tnom
 
     @staticmethod
+    def prepareInputFiles(files, friends, remote_io_settings=None):
+        settings = resolve_remote_io_config(remote_io_settings)
+        manager = StageInManager(settings)
+        prepared_files = manager.prepare_files(files)
+        prepared_friends = [manager.prepare_files(friend) for friend in friends]
+        return prepared_files, prepared_friends, manager
+
+    @staticmethod
+    def prepareDataFrame(files, friends, remote_io_settings=None, limit=-1):
+        """Stage/resolve inputs and construct ROOT objects with failure cleanup."""
+        manager = None
+        try:
+            files, friends, manager = RunAnalysis.prepareInputFiles(
+                files, friends, remote_io_settings
+            )
+            tnom = RunAnalysis.getTTreeNomAndFriends(files, friends)
+            df = ROOT.RDataFrame(tnom)
+            if limit != -1:
+                df = df.Range(limit)
+            column_names = list(map(lambda item: str(item), df.GetColumnNames()))
+            return files, manager, tnom, df, column_names
+        except Exception as exc:
+            if manager is not None:
+                try:
+                    manager.cleanup(success=False)
+                except Exception as cleanup_exc:
+                    raise RemoteIOError(
+                        f"Input construction failed: {exc}; cleanup also failed: "
+                        f"{cleanup_exc}"
+                    ) from exc
+            raise
+
+    @staticmethod
     def getNuisanceFiles(nuisance, files):
         """Searches in the provided nuisance folder for the files with the same name of the nominal files
 
@@ -155,6 +207,7 @@ class RunAnalysis:
         lumi,
         limit=-1,
         outputFileMap="output.root",
+        remote_io_settings=None,
     ):
         r"""
         Stores arguments in the class attributes and creates all the RDataFrame objects
@@ -206,6 +259,8 @@ class RunAnalysis:
         self.lumi = lumi
         self.limit = limit
         self.outputFileMap = outputFileMap
+        self.remote_io_settings = resolve_remote_io_config(remote_io_settings)
+        self.stage_in_managers = []
         self.remappedVariables = {}
 
         self.dfs = {}
@@ -275,14 +330,32 @@ class RunAnalysis:
                             friendsFiles += RunAnalysis.getNuisanceFiles(
                                 nuisance, files
                             )
-            tnom = RunAnalysis.getTTreeNomAndFriends(files, friendsFiles)
-
-            if limit != -1:
-                df = ROOT.RDataFrame(tnom)
-                df = df.Range(limit)
-            else:
-                # ROOT.EnableImplicitMT()
-                df = ROOT.RDataFrame(tnom)
+            try:
+                (
+                    files,
+                    stage_in_manager,
+                    tnom,
+                    df,
+                    column_names,
+                ) = RunAnalysis.prepareDataFrame(
+                    files, friendsFiles, self.remote_io_settings, limit
+                )
+            except Exception as exc:
+                cleanup_errors = []
+                for manager in self.stage_in_managers:
+                    try:
+                        manager.cleanup(success=False)
+                    except Exception as cleanup_exc:
+                        cleanup_errors.append(str(cleanup_exc))
+                if cleanup_errors:
+                    raise RemoteIOError(
+                        f"Input construction failed: {exc}; prior input cleanup also "
+                        f"failed: {'; '.join(cleanup_errors)}"
+                    ) from exc
+                raise
+            summary = RunAnalysis._summarize_resolved_inputs(files)
+            print(f"Resolved analysis inputs for {sampleName}_{sample[3]}: {summary}")
+            self.stage_in_managers.append(stage_in_manager)
             if sampleName not in self.dfs.keys():
                 self.dfs[sample[0]] = {}
             self.dfs[sampleName][sample[3]] = {
@@ -290,9 +363,7 @@ class RunAnalysis:
                 "ttree": tnom,
                 "usedVariables": list(usedVariables),
             }
-            self.dfs[sampleName][sample[3]]["columnNames"] = list(
-                map(lambda k: str(k), df.GetColumnNames())
-            )
+            self.dfs[sampleName][sample[3]]["columnNames"] = column_names
 
         self.definedAliases = {}
 
@@ -1228,6 +1299,22 @@ class RunAnalysis:
                         mergedHistos[hname].Write()
         f.Close()
 
+    def _release_input_handles(self):
+        """Release ROOT graphs and TChains before deleting staged input files."""
+        for sample_data in getattr(self, "dfs", {}).values():
+            for index_data in sample_data.values():
+                chain = index_data.get("ttree")
+                if chain is not None and hasattr(chain, "Reset"):
+                    chain.Reset()
+                index_data["df"] = None
+                index_data["ttree"] = None
+        if hasattr(self, "results"):
+            self.results.clear()
+        self.dfs.clear()
+        import gc
+
+        gc.collect()
+
     def run(self):
         """
         Runs the analysis:
@@ -1245,85 +1332,119 @@ class RunAnalysis:
         loads ``variables``, creates the results dict, splits the samples, creates the cuts/var histos, runs the dataframes
         and saves results.
         """
-        # load all aliases needed before nuisances of type suffix
-        self.loadAliases()
-        self.loadSystematicsSuffix()
+        success = False
+        try:
+            # load all aliases needed before nuisances of type suffix
+            self.loadAliases()
+            self.loadSystematicsSuffix()
 
-        # load alias weight needed before nuisances of type weight
-        self.loadAliasWeight()
-        self.splitSubsamples()
-        print("splitted samples")
+            # load alias weight needed before nuisances of type weight
+            self.loadAliasWeight()
+            self.splitSubsamples()
+            print("splitted samples")
 
-        self.loadSystematicsReweights()
-        self.loadSystematicsReweightsEnvelopeRMS()
+            self.loadSystematicsReweights()
+            self.loadSystematicsReweightsEnvelopeRMS()
 
-        # load all aliases remaining
-        self.loadAliases(True)
+            # load all aliases remaining
+            self.loadAliases(True)
 
-        # apply preselections
-        for sampleName in self.dfs.keys():
-            for index in self.dfs[sampleName].keys():
-                self.dfs[sampleName][index]["df"] = self.dfs[sampleName][index][
-                    "df"
-                ].Filter("(" + self.preselections + ") && abs(weight) > 0.0")
-                # ].Filter("(" + self.preselections + ")")
+            # apply preselections
+            for sampleName in self.dfs.keys():
+                for index in self.dfs[sampleName].keys():
+                    self.dfs[sampleName][index]["df"] = self.dfs[sampleName][index][
+                        "df"
+                    ].Filter("(" + self.preselections + ") && abs(weight) > 0.0")
+                    # ].Filter("(" + self.preselections + ")")
 
-        self.loadVariables()
-        self.loadBranches()
-        print("loaded all variables")
-        self.createResults()
-        print("created empty results dict")
-        self.create_cuts_vars()
-        print("created cuts")
+            self.loadVariables()
+            self.loadBranches()
+            print("loaded all variables")
+            self.createResults()
+            print("created empty results dict")
+            self.create_cuts_vars()
+            print("created cuts")
 
-        """
-        # FIXME RunGraphs can't handle results of VaraitionsFor, ask Vincenzo about it
+            """
+            # FIXME RunGraphs can't handle results of VaraitionsFor, ask Vincenzo about it
 
-        # collect all the dataframes and run them
-        dfs = []
-        for cut in self.cuts.keys():
-            for var in self.variables.keys():
-                for sampleName in self.dfs.keys():
-                    for index in self.dfs[sampleName].keys():
-                        # dfs.append(self.results[cut][var][sampleName][index])
-                        dfs.extend(
-                            list(self.results[cut][var][sampleName][index].values()))
-        ROOT.RDF.RunGraphs(dfs)
-        """
+            # collect all the dataframes and run them
+            dfs = []
+            for cut in self.cuts.keys():
+                for var in self.variables.keys():
+                    for sampleName in self.dfs.keys():
+                        for index in self.dfs[sampleName].keys():
+                            # dfs.append(self.results[cut][var][sampleName][index])
+                            dfs.extend(
+                                list(self.results[cut][var][sampleName][index].values()))
+            ROOT.RDF.RunGraphs(dfs)
+            """
 
-        counts = []
-        # register number of events in each df
-        for sampleName in self.dfs.keys():
-            for index in self.dfs[sampleName].keys():
-                counts.append(self.dfs[sampleName][index]["df"].Count())
+            counts = []
+            # register number of events in each df
+            for sampleName in self.dfs.keys():
+                for index in self.dfs[sampleName].keys():
+                    counts.append(self.dfs[sampleName][index]["df"].Count())
 
-        snapshots = []
-        for cut in self.cuts.keys():
-            for var in self.variables.keys():
-                if (
-                    len(self.results[cut].get(var, [])) == 0
-                    or "tree" not in self.variables[var].keys()
-                ):
-                    # no snapshots for this combination of cut variable
-                    continue
+            snapshots = []
+            for cut in self.cuts.keys():
+                for var in self.variables.keys():
+                    if (
+                        len(self.results[cut].get(var, [])) == 0
+                        or "tree" not in self.variables[var].keys()
+                    ):
+                        # no snapshots for this combination of cut variable
+                        continue
 
-                for sampleName in self.dfs.keys():
-                    for index in self.dfs[sampleName].keys():
-                        # dfs.append(self.results[cut][var][sampleName][index])
-                        snapshots.append(self.results[cut][var][sampleName][index])
+                    for sampleName in self.dfs.keys():
+                        for index in self.dfs[sampleName].keys():
+                            # dfs.append(self.results[cut][var][sampleName][index])
+                            snapshots.append(self.results[cut][var][sampleName][index])
 
-        if len(snapshots) != 0:
-            ROOT.RDF.RunGraphs(snapshots)
+            if len(snapshots) != 0:
+                ROOT.RDF.RunGraphs(snapshots)
 
-        for count in counts:
-            print("Number of events passing preselections:", count.GetValue())
+            for count in counts:
+                print("Number of events passing preselections:", count.GetValue())
 
-        self.convertResults()
-        self.saveResults()
+            self.convertResults()
+            self.saveResults()
+            success = True
+        finally:
+            active_error = sys.exc_info()[1]
+            if "counts" in locals():
+                counts.clear()
+            if "snapshots" in locals():
+                snapshots.clear()
+            self._release_input_handles()
+            cleanup_errors = []
+            for manager in self.stage_in_managers:
+                try:
+                    manager.cleanup(success)
+                except Exception as cleanup_exc:
+                    cleanup_errors.append(str(cleanup_exc))
+            if cleanup_errors:
+                message = "Stage-in cleanup failed: " + "; ".join(cleanup_errors)
+                if active_error is not None:
+                    raise RemoteIOError(
+                        f"Analysis failed: {active_error}; {message}"
+                    ) from active_error
+                raise RemoteIOError(message)
 
 
 if __name__ == "__main__":
     ROOT.gInterpreter.Declare('#include "headers.hh"')
     exec(open("script.py").read())
-    runner = RunAnalysis(samples, aliases, variables, cuts, nuisances, lumi)
+    remoteIO = globals().get("remoteIO", None)
+    limitEvents = globals().get("limitEvents", -1)
+    runner = RunAnalysis(
+        samples,
+        aliases,
+        variables,
+        cuts,
+        nuisances,
+        lumi,
+        limit=limitEvents,
+        remote_io_settings=remoteIO,
+    )
     runner.run()

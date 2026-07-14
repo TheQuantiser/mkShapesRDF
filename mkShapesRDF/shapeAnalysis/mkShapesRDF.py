@@ -19,6 +19,15 @@ import subprocess
 import ROOT
 from copy import deepcopy
 from mkShapesRDF.shapeAnalysis.histo_utils import postProcessNuisances
+from mkShapesRDF.lib.remote_io import (
+    DEFAULT_REMOTE_IO_CONFIG,
+    EXISTING_OUTPUT_POLICIES,
+    INPUT_ACCESS_MODES,
+    STAGE_IN_CLEANUP_POLICIES,
+    build_remote_uri,
+    resolve_remote_io_config,
+    stage_out,
+)
 
 ROOT.gROOT.SetBatch(True)
 
@@ -34,7 +43,7 @@ def defaultParser():
         "--compile",
         type=int,
         choices=[0, 1],
-        help="0 compile configuration and save JSON, 1 load compiled configuration",
+        help="1 compile configuration and save JSON/pickle, 0 load a compiled configuration",
         required=False,
         default=0,
     )
@@ -92,6 +101,12 @@ def defaultParser():
     parser.add_argument(
         "-f", "--folder", help="Path to folder", required=False, default="."
     )
+    parser.add_argument(
+        "--output-folder",
+        dest="outputFolderOverride",
+        help="Override the configured output folder without editing analysis source",
+        default=None,
+    )
 
     parser.add_argument(
         "-configs",
@@ -142,7 +157,106 @@ def defaultParser():
         required=False,
         default="workday",
     )
+    parser.add_argument(
+        "--input-access-mode",
+        dest="inputAccessMode",
+        choices=INPUT_ACCESS_MODES,
+        default=None,
+    )
+    parser.add_argument("--xrd-read-endpoint", dest="xrdReadEndpoint", default=None)
+    parser.add_argument(
+        "--xrd-discovery-endpoint", dest="xrdDiscoveryEndpoint", default=None
+    )
+    parser.add_argument("--xrd-write-endpoint", dest="xrdWriteEndpoint", default=None)
+    parser.add_argument("--stage-in-scratch", dest="stageInScratch", default=None)
+    parser.add_argument(
+        "--stage-in-cleanup",
+        dest="stageInCleanup",
+        choices=STAGE_IN_CLEANUP_POLICIES,
+        default=None,
+    )
+    parser.add_argument(
+        "--preserve-stage-in-on-failure",
+        dest="preserveStageInOnFailure",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+    )
+    parser.add_argument(
+        "--existing-output-policy",
+        dest="existingOutputPolicy",
+        choices=EXISTING_OUTPUT_POLICIES,
+        default=None,
+    )
+    parser.add_argument(
+        "--remote-command-timeout",
+        dest="remoteCommandTimeout",
+        type=float,
+        default=None,
+    )
+    parser.add_argument(
+        "--remote-transfer-retries",
+        dest="remoteTransferRetries",
+        type=int,
+        default=None,
+    )
+    parser.add_argument(
+        "--condor-runtime-package",
+        dest="condorRuntimePackage",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Build a scratch-only runtime package for generic Condor mode",
+    )
+    parser.add_argument(
+        "--runtime-include",
+        dest="condorRuntimeIncludes",
+        action="append",
+        default=None,
+        help="Additional file/directory needed by a packaged configuration; repeatable",
+    )
+    parser.add_argument(
+        "--use-x509-proxy",
+        dest="useX509Proxy",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Transfer the active VOMS proxy separately from the runtime package",
+    )
     return parser
+
+
+def resolve_cli_remote_io(args, config_dict):
+    cli_values = {
+        "inputAccessMode": args.inputAccessMode,
+        "xrdReadEndpoint": args.xrdReadEndpoint,
+        "xrdDiscoveryEndpoint": args.xrdDiscoveryEndpoint,
+        "xrdWriteEndpoint": args.xrdWriteEndpoint,
+        "stageInScratch": args.stageInScratch,
+        "stageInCleanup": args.stageInCleanup,
+        "preserveStageInOnFailure": args.preserveStageInOnFailure,
+        "existingOutputPolicy": args.existingOutputPolicy,
+        "remoteCommandTimeout": args.remoteCommandTimeout,
+        "remoteTransferRetries": args.remoteTransferRetries,
+    }
+    config_values = dict(config_dict.get("remoteIO") or {})
+    for key in DEFAULT_REMOTE_IO_CONFIG:
+        if config_dict.get(key) is not None:
+            config_values[key] = config_dict[key]
+    return resolve_remote_io_config(config_values, cli_values)
+
+
+def validate_config_execution_mode(config_dict, do_batch):
+    """Fail before runner/JIT work when a config requires another topology."""
+    required = config_dict.get("requiredExecutionMode")
+    if not required:
+        return
+    actual = "batch" if int(do_batch) == 1 else "local"
+    if required == actual:
+        return
+    remediation = config_dict.get("executionModeRemediation")
+    detail = f" {remediation}" if remediation else ""
+    raise RuntimeError(
+        f"This configuration requires {required} execution, but {actual} execution "
+        f"was requested.{detail}"
+    )
 
 
 def main():
@@ -180,6 +294,13 @@ def main():
       operationMode = 2
       print ("hadd histograms")
 
+    mkShapesRDFExecutionMode = (
+        ("batch" if doBatch == 1 else "local")
+        if operationMode == 0
+        else "management"
+    )
+    globals()["mkShapesRDFExecutionMode"] = mkShapesRDFExecutionMode
+
 
 
 
@@ -188,7 +309,10 @@ def main():
     global outputFolder
 
     folder = os.path.abspath(args.folder)
-    configsFolder = os.path.abspath(args.folder + "/" + args.configsFolder)
+    configs_path = Path(args.configsFolder).expanduser()
+    if not configs_path.is_absolute():
+        configs_path = Path(folder) / configs_path
+    configsFolder = str(configs_path.resolve())
     configFile = args.configFile
     resubmit = int(args.resubmit)
 
@@ -206,8 +330,39 @@ def main():
         # variables before execution of files
         configVars1 = dict(list(globals().items()) + list(locals().items()))
 
-        ConfigLib.loadConfig(["configuration.py"], globals())
-        ConfigLib.loadConfig(filesToExec, globals(), imports)
+        old_cwd = os.getcwd()
+        sys.path.insert(0, folder)
+        try:
+            os.chdir(folder)
+            ConfigLib.loadConfig(["configuration.py"], globals())
+            pre_config = {"remoteIO": globals().get("remoteIO", {})}
+            for _key in DEFAULT_REMOTE_IO_CONFIG:
+                if _key in globals():
+                    pre_config[_key] = globals()[_key]
+            pre_remote_io = resolve_cli_remote_io(args, pre_config)
+            globals()["remoteIO"] = pre_remote_io
+            for _key, _value in pre_remote_io.items():
+                globals()[_key] = _value
+            from mkShapesRDF.lib.search_files import SearchFiles
+
+            discovery_override = None
+            read_override = None
+            if (
+                args.xrdDiscoveryEndpoint is not None
+                or pre_remote_io["inputAccessMode"] != "as-configured"
+            ):
+                discovery_override = pre_remote_io.get("xrdDiscoveryEndpoint")
+                read_override = pre_remote_io.get("xrdReadEndpoint")
+            SearchFiles.configure_remote_endpoints(
+                discovery_override, read_override
+            )
+            ConfigLib.loadConfig(filesToExec, globals(), imports)
+        finally:
+            os.chdir(old_cwd)
+            try:
+                sys.path.remove(folder)
+            except ValueError:
+                pass
 
         globals()["varsToKeep"].insert(0, "folder")
 
@@ -244,6 +399,9 @@ def main():
         else:
             d = ConfigLib.loadLatestPickle(configsFolder, globals())
 
+    if operationMode == 0:
+        validate_config_execution_mode(d, doBatch)
+
     samples = globals()["samples"]
     aliases = globals()["aliases"]
     variables = globals()["variables"]
@@ -253,13 +411,54 @@ def main():
     print(samples.keys())
     print(d.keys())
 
+    remoteIO = resolve_cli_remote_io(args, d)
+    globals()["remoteIO"] = remoteIO
+    d["remoteIO"] = remoteIO
+    for _key, _value in remoteIO.items():
+        globals()[_key] = _value
+        d[_key] = _value
+    for _key in remoteIO:
+        if _key not in batchVars:
+            batchVars.append(_key)
+    if "remoteIO" not in batchVars:
+        batchVars.append("remoteIO")
+
+    if args.outputFolderOverride is not None:
+        outputFolder = args.outputFolderOverride
+        globals()["outputFolder"] = outputFolder
+        d["outputFolder"] = outputFolder
+    for _name in ("condorRuntimePackage", "condorRuntimeIncludes", "useX509Proxy"):
+        _value = getattr(args, _name)
+        if _value is not None:
+            globals()[_name] = _value
+            d[_name] = _value
+
     print("\n\n", batchVars, "\n\n")
 
-    batchFolder = f"{folder}/{batchFolder}"
+    batch_path = Path(batchFolder).expanduser()
+    if not batch_path.is_absolute():
+        batch_path = Path(folder) / batch_path
+    batchFolder = str(batch_path.resolve())
 
-    if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
-        Path(f"{outputFolder}").mkdir(parents=True, exist_ok=True)
-        outputPath = os.path.abspath(f"{outputFolder}")
+    remoteOutputDestination = None
+    if str(outputFolder).startswith("root://") or (
+        str(outputFolder).startswith("/store/") and remoteIO.get("xrdWriteEndpoint")
+    ):
+        outputPath = (
+            str(outputFolder).rstrip("/")
+            if str(outputFolder).startswith("root://")
+            else build_remote_uri(remoteIO["xrdWriteEndpoint"], outputFolder)
+        )
+        if doBatch == 1:
+            outputFileMap = "output.root"
+        else:
+            localRemoteOutputPath = Path(f"{folder}/{localJobDir}/rootFiles")
+            localRemoteOutputPath.mkdir(parents=True, exist_ok=True)
+            outputFileMap = f"{localRemoteOutputPath}/{outputFile}"
+            remoteOutputDestination = f"{outputPath}/{outputFile}"
+    elif Path(outputFolder).expanduser().is_absolute():
+        Path(outputFolder).expanduser().mkdir(parents=True, exist_ok=True)
+        outputPath = str(Path(outputFolder).expanduser().resolve())
         outputFileMap = f"{outputPath}/{outputFile}"
     else: 
         Path(f"{folder}/{outputFolder}").mkdir(parents=True, exist_ok=True)
@@ -272,6 +471,10 @@ def main():
         sys.exit()
 
     limit = int(args.limitEvents)
+    d["limitEvents"] = limit
+    globals()["limitEvents"] = limit
+    if "limitEvents" not in batchVars:
+        batchVars.append("limitEvents")
 
     # PROCESSING
     runnerFile = globals()["runnerFile"]
@@ -333,12 +536,15 @@ def main():
                 lumi,
                 limit,
                 outputFileMap,
+                remoteIO,
             )
             runner.run()
             cuts = cuts["cuts"]
             postProcessNuisances(
                 outputFileMap, samples, aliases, variables, cuts, nuisances
             )
+            if remoteOutputDestination:
+                stage_out(outputFileMap, remoteOutputDestination, remoteIO)
 
     elif operationMode == 1:
         errs = glob.glob("{}/{}/*/err.txt".format(batchFolder, tag))

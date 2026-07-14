@@ -2,6 +2,15 @@ import fnmatch
 import subprocess
 import glob
 import sys
+from mkShapesRDF.lib.remote_io import (
+    ExternalCommandRunner,
+    RemoteCommandError,
+    RemoteIOError,
+    is_root_url,
+    mounted_eos_to_lfn,
+    normalize_endpoint,
+    split_root_uri,
+)
 
 
 class SearchFiles:
@@ -9,12 +18,28 @@ class SearchFiles:
     Class to search for files in a folder or DAS
     """
 
-    def __init__(self):
+    _discovery_endpoint_override = None
+    _read_endpoint_override = None
+
+    @classmethod
+    def configure_remote_endpoints(cls, discovery_endpoint=None, read_endpoint=None):
+        """Set process-local explicit CLI overrides used during config loading."""
+        cls._discovery_endpoint_override = discovery_endpoint
+        cls._read_endpoint_override = read_endpoint
+
+    def __init__(self, command_runner=None, timeout=120):
         # cache result of `glob.glob(folder)` and `xrdfs redirector ls folder`
         self.cached_list_of_files = {}
+        self.command_runner = command_runner or ExternalCommandRunner(timeout, 0)
 
     def searchFiles(
-        self, folder, process, redirector="root://eoscms.cern.ch/", isLatino=True
+        self,
+        folder,
+        process,
+        redirector="root://eoscms.cern.ch/",
+        isLatino=True,
+        read_redirector=None,
+        missing_ok=False,
     ):
         r"""Search for files in a folder. If redirector is specified, it will use xrdfs to query the redirector.
 
@@ -39,25 +64,74 @@ class SearchFiles:
             `list of str`
                 list of files found including the redirector
         """
+        if self._discovery_endpoint_override is not None:
+            redirector = self._discovery_endpoint_override
+        if self._read_endpoint_override is not None:
+            read_redirector = self._read_endpoint_override
+        remote_discovery = redirector != ""
+        if remote_discovery:
+            redirector = normalize_endpoint(redirector)
+            if not redirector or not redirector.startswith("root://"):
+                raise RemoteIOError(
+                    f"Malformed XRootD discovery endpoint for sample '{process}': "
+                    f"{redirector!r}"
+                )
+            read_redirector = normalize_endpoint(read_redirector or redirector)
+            if not read_redirector or not read_redirector.startswith("root://"):
+                raise RemoteIOError(
+                    f"Malformed XRootD read endpoint for sample '{process}': "
+                    f"{read_redirector!r}"
+                )
+            if is_root_url(folder):
+                _, folder = split_root_uri(folder)
+            folder = mounted_eos_to_lfn(folder)
+
         if not folder.endswith("/"):
             folder += "/"
 
         listOfFiles = []
-        if len(self.cached_list_of_files.get(folder, [])) == 0:
+        cache_key = (folder, redirector if remote_discovery else "")
+        if cache_key not in self.cached_list_of_files or (
+            not remote_discovery and not self.cached_list_of_files[cache_key]
+        ):
             print("Need to query for files for folder", folder)
-            if redirector != "":
+            if remote_discovery:
                 print("with redirector", redirector)
-                proc = subprocess.Popen(
-                    f"xrdfs {redirector} ls {folder}",
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                )
-                listOfFiles = proc.communicate()[0].decode("utf-8").split("\n")
+                try:
+                    result = self.command_runner.run(
+                        ["xrdfs", redirector, "ls", folder],
+                        "discovery-list",
+                        {
+                            "redirector": redirector,
+                            "folder": folder,
+                            "sample": process,
+                        },
+                    )
+                except RemoteCommandError as exc:
+                    detail = f"{exc.result.stdout}\n{exc.result.stderr}".lower()
+                    if missing_ok and "no such file" in detail:
+                        return []
+                    raise RemoteIOError(
+                        "Remote discovery failed for "
+                        f"sample='{process}', folder='{folder}', "
+                        f"endpoint='{redirector}', operation='xrdfs ls': "
+                        f"{exc.result.stderr.strip() or exc.result.stdout.strip()}"
+                    ) from exc
+                listOfFiles = result.stdout.split("\n")
+                normalized_files = []
+                for item in listOfFiles:
+                    item = item.strip()
+                    if not item:
+                        continue
+                    if is_root_url(item):
+                        _, item = split_root_uri(item)
+                    normalized_files.append(mounted_eos_to_lfn(item))
+                listOfFiles = normalized_files
             else:
                 listOfFiles = glob.glob(folder + "*")
-            self.cached_list_of_files[folder] = listOfFiles
+            self.cached_list_of_files[cache_key] = listOfFiles
         else:
-            listOfFiles = self.cached_list_of_files[folder]
+            listOfFiles = self.cached_list_of_files[cache_key]
 
         if isLatino:
             process = "nanoLatino_" + process + "__part*.root"
@@ -76,8 +150,13 @@ class SearchFiles:
         else:
             files = sorted(files)
 
-        if redirector != "":
-            files = list(map(lambda k: redirector + k, files))
+        if remote_discovery:
+            files = [
+                item
+                if is_root_url(item)
+                else f"{read_redirector}/{item.lstrip('/') if not item.startswith('/') else item}"
+                for item in files
+            ]
 
         return files
 
@@ -108,7 +187,7 @@ class SearchFiles:
         """
 
         files = []
-        if (len(self.cached_list_of_files.get(process, []))) == 0:
+        if (len(self.cached_list_of_files.get(("das", process), []))) == 0:
             procString = f'dasgoclient --query="file dataset={process}'
             if instance != "":
                 procString += " instance=" + instance
@@ -131,7 +210,7 @@ class SearchFiles:
                 print(err)
                 sys.exit()
         else:
-            files = self.cached_list_of_files[process]
+            files = self.cached_list_of_files[("das", process)]
 
         files = list(map(lambda k: redirector + k, files))
         return files
