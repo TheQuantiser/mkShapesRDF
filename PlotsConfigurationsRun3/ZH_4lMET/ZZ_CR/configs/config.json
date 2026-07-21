@@ -1,12 +1,12 @@
 {
-  "folder": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR",
-  "ZZCR_SELECTED_EXECUTION_PROFILE": "local_xrootd",
-  "ZZCR_PROFILE_DESCRIPTION": "Local output with direct CERN XRootD input.",
-  "ZZCR_SITE_PRESET": "fnal_lpc_packaged",
-  "ZZCR_OUTPUT_MODE": "local",
-  "ZZCR_CONFIG_INCLUDE_BASE": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF",
+  "folder": "/afs/cern.ch/work/m/mwadud/private/2026_ZH_4l2nu/devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR",
+  "ZZCR_SELECTED_EXECUTION_PROFILE": "shared_xrootd_eos_production",
+  "ZZCR_PROFILE_DESCRIPTION": "Shared-checkout Condor, CERN XRootD input, production EOS stage-out.",
+  "ZZCR_SITE_PRESET": "lxplus",
+  "ZZCR_OUTPUT_MODE": "production-remote",
+  "ZZCR_CONFIG_INCLUDE_BASE": "/afs/cern.ch/work/m/mwadud/private/2026_ZH_4l2nu/devel/mkShapesRDF",
   "useEOSUserOutput": false,
-  "useX509Proxy": false,
+  "useX509Proxy": true,
   "xrdRedirector": "eoscms.cern.ch",
   "xrdReadEndpoint": "root://eoscms.cern.ch",
   "xrdDiscoveryEndpoint": "root://eoscms.cern.ch",
@@ -29,10 +29,10 @@
   "condorRuntimeIncludes": [],
   "requiredExecutionMode": null,
   "executionModeRemediation": "For a safe FNAL login-node run, select ZZCR_EXECUTION_PROFILE=local_xrootd and ZZCR_OUTPUT_MODE=local, then recompile with -c 1.",
-  "testOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET_ZZCR_2024_20260714_040813/rootFile",
-  "productionOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/fnal_lpc_packaged/rootFile",
-  "zzcrRemoteOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET_ZZCR_2024_20260714_040813/rootFile",
-  "eosUserOutputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET_ZZCR_2024_20260714_040813/rootFile",
+  "testOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET_ZZCR_2024_20260721_183245/rootFile",
+  "productionOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
+  "zzcrRemoteOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
+  "eosUserOutputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
   "jdlconfigfile": "",
   "batchVars": [
     "samples",
@@ -61,12 +61,12 @@
     "xrdReadEndpoint",
     "xrdDiscoveryEndpoint"
   ],
-  "outputFolder": "jobs/ZH_4lMET_ZZCR_2024_20260714_040813/rootFiles",
-  "batchFolder": "jobs/ZH_4lMET_ZZCR_2024_20260714_040813/condor",
-  "configsFolder": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configs",
-  "outputFile": "mkShapes__ZH_4lMET_ZZCR_2024_20260714_040813.root",
+  "outputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
+  "batchFolder": "jobs/ZH_4lMET_ZZCR_2024_20260721_183245/condor",
+  "configsFolder": "/afs/cern.ch/work/m/mwadud/private/2026_ZH_4l2nu/devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configs",
+  "outputFile": "mkShapes__ZH_4lMET_ZZCR_2024_20260721_183245.root",
   "runnerFile": "default",
-  "tag": "ZH_4lMET_ZZCR_2024_20260714_040813",
+  "tag": "ZH_4lMET_ZZCR_2024_20260721_183245",
   "samples": {
     "ZZ": {
       "name": [
@@ -19444,7 +19444,7 @@
     },
     "Z0_idx": {
       "linesToAdd": [
-        "#include \"/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF//PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc\""
+        "#include \"/afs/cern.ch/work/m/mwadud/private/2026_ZH_4l2nu/devel/mkShapesRDF//PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc\""
       ],
       "expr": "ZH4lMETZZCR::bestZ0IdxWithID(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3, Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67, 2, 10.0, 10.0)"
     },
@@ -19453,9 +19453,18 @@
     },
     "Lepton_trigIdx_tnp": {
       "linesToAdd": [
-        "#include \"/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF//PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc\""
+        "#include \"/afs/cern.ch/work/m/mwadud/private/2026_ZH_4l2nu/devel/mkShapesRDF//PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/zh4lmet_zzcr_helpers.cc\""
       ],
       "expr": "ZH4lMETZZCR::createTrigIndexTnP(Lepton_eta, Lepton_phi, Lepton_pdgId, TrigObj_eta, TrigObj_phi, TrigObj_id, 0.1)"
+    },
+    "Lepton_trigDR_tnp": {
+      "expr": "ZH4lMETZZCR::createTrigMatchDRTnP(Lepton_eta, Lepton_phi, Lepton_pdgId, TrigObj_eta, TrigObj_phi, TrigObj_id, 0.1)"
+    },
+    "Lepton_trigMatchCount_tnp": {
+      "expr": "ZH4lMETZZCR::countTrigMatchesTnP(Lepton_eta, Lepton_phi, Lepton_pdgId, TrigObj_eta, TrigObj_phi, TrigObj_id, 0.1)"
+    },
+    "Lepton_trigMatchState_tnp": {
+      "expr": "ZH4lMETZZCR::createTrigMatchStateTnP(Lepton_pdgId, Lepton_trigIdx_tnp, Lepton_trigMatchCount_tnp)"
     },
     "PassesZZCR4lOrderedPt": {
       "expr": "ZH4lMETZZCR::passesOrderedPtThresholdsFromPairs(Lepton_pt, Z0_idx, X_idx, 25.0, 15.0, 10.0, 10.0)"
@@ -19598,77 +19607,566 @@
     "dR_lX1_lX2": {
       "expr": "ZH4lMETZZCR::deltaR(zzcr_lX1_eta, zzcr_lX1_phi, zzcr_lX2_eta, zzcr_lX2_phi)"
     },
+    "lZ1_trigObj_idx": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigIdx_tnp, static_cast<int>(Alt(Z0_idx, 0, -1)), -1)"
+    },
+    "lZ1_trigObj_dR": {
+      "expr": "Alt(Lepton_trigDR_tnp, Alt(Z0_idx, 0, -1), -999.f)"
+    },
+    "lZ1_trigObj_nMatches": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchCount_tnp, static_cast<int>(Alt(Z0_idx, 0, -1)), 0)"
+    },
+    "lZ1_trigObj_matchState": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchState_tnp, static_cast<int>(Alt(Z0_idx, 0, -1)), -1)"
+    },
     "lZ1_trigObj_pt": {
-      "expr": "Alt(TrigObj_pt, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 0, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_pt, lZ1_trigObj_idx, -999.f)"
     },
     "lZ1_trigObj_eta": {
-      "expr": "Alt(TrigObj_eta, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 0, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_eta, lZ1_trigObj_idx, -999.f)"
     },
     "lZ1_trigObj_phi": {
-      "expr": "Alt(TrigObj_phi, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 0, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_phi, lZ1_trigObj_idx, -999.f)"
     },
     "lZ1_trigObj_pdgId": {
-      "expr": "Alt(TrigObj_id, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 0, -1), -1), -999)"
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lZ1_trigObj_idx, -999)"
+    },
+    "lZ1_trigObj_id": {
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lZ1_trigObj_idx, -999)"
     },
     "lZ1_trigObj_filterBits": {
-      "expr": "Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 0, -1), -1), 0)"
+      "expr": "ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL)"
+    },
+    "lZ1_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 0))"
+    },
+    "lZ1_trigObj_bit_ele_1eWPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 1))"
+    },
+    "lZ1_trigObj_bit_ele_1eWPLoose": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 2))"
+    },
+    "lZ1_trigObj_bit_ele_DoubleEleLeg1": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 4))"
+    },
+    "lZ1_trigObj_bit_ele_DoubleEleLeg2": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 5))"
+    },
+    "lZ1_trigObj_bit_ele_DoubleEle": {
+      "expr": "lZ1_trigObj_bit_ele_DoubleEleLeg1 || lZ1_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lZ1_trigObj_bit_ele_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 6))"
+    },
+    "lZ1_trigObj_bit_ele_Ele30WPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 18))"
+    },
+    "lZ1_trigObj_bit_mu_TrkIsoVVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 0))"
+    },
+    "lZ1_trigObj_bit_mu_Iso": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 1))"
+    },
+    "lZ1_trigObj_bit_mu_SingleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 3))"
+    },
+    "lZ1_trigObj_bit_mu_DoubleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 4))"
+    },
+    "lZ1_trigObj_bit_mu_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 5))"
+    },
+    "lZ1_trigObj_match_SingleMu": {
+      "expr": "lZ1_trigObj_bit_mu_SingleMu"
+    },
+    "lZ1_trigObj_fired_SingleMu": {
+      "expr": "(Trigger_sngMu) && (lZ1_trigObj_bit_mu_SingleMu)"
+    },
+    "lZ1_trigObj_match_DoubleMu": {
+      "expr": "lZ1_trigObj_bit_mu_DoubleMu"
+    },
+    "lZ1_trigObj_fired_DoubleMu": {
+      "expr": "(Trigger_dblMu) && (lZ1_trigObj_bit_mu_DoubleMu)"
+    },
+    "lZ1_trigObj_match_SingleEle": {
+      "expr": "lZ1_trigObj_bit_ele_Ele30WPTight"
+    },
+    "lZ1_trigObj_fired_SingleEle": {
+      "expr": "(Trigger_sngEl) && (lZ1_trigObj_bit_ele_Ele30WPTight)"
+    },
+    "lZ1_trigObj_match_DoubleEle": {
+      "expr": "lZ1_trigObj_bit_ele_DoubleEle"
+    },
+    "lZ1_trigObj_fired_DoubleEle": {
+      "expr": "(Trigger_dblEl) && (lZ1_trigObj_bit_ele_DoubleEle)"
+    },
+    "lZ1_trigObj_match_EleMu": {
+      "expr": "(lZ1_trigObj_bit_ele_EleMu || lZ1_trigObj_bit_mu_EleMu)"
+    },
+    "lZ1_trigObj_fired_EleMu": {
+      "expr": "(Trigger_ElMu) && ((lZ1_trigObj_bit_ele_EleMu || lZ1_trigObj_bit_mu_EleMu))"
+    },
+    "lZ1_trigObj_leg_IsoMu24": {
+      "expr": "(HLT_IsoMu24) && lZ1_trigObj_match_SingleMu"
+    },
+    "lZ1_trigObj_leg_Mu17_Mu8": {
+      "expr": "(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) && lZ1_trigObj_match_DoubleMu"
+    },
+    "lZ1_trigObj_leg_Ele23_Ele12": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ1_trigObj_match_DoubleEle"
+    },
+    "lZ1_trigObj_leg_Ele23_Ele12_leg1": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ1_trigObj_bit_ele_DoubleEleLeg1"
+    },
+    "lZ1_trigObj_leg_Ele23_Ele12_leg2": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ1_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lZ1_trigObj_leg_Ele30": {
+      "expr": "(HLT_Ele30_WPTight_Gsf) && lZ1_trigObj_match_SingleEle"
+    },
+    "lZ1_trigObj_leg_Mu23_Ele12": {
+      "expr": "(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ1_trigObj_match_EleMu"
+    },
+    "lZ1_trigObj_leg_Mu12_Ele23": {
+      "expr": "(HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lZ1_trigObj_match_EleMu"
+    },
+    "lZ1_trigObj_leg_Mu8_Ele23": {
+      "expr": "(HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lZ1_trigObj_match_EleMu"
     },
     "lZ1_trigObj_bits4l": {
-      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0), Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 0, -1), -1), 0))"
+      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 0, -1)), 0), ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ1_trigObj_idx, 0ULL), 15)"
+    },
+    "lZ2_trigObj_idx": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigIdx_tnp, static_cast<int>(Alt(Z0_idx, 1, -1)), -1)"
+    },
+    "lZ2_trigObj_dR": {
+      "expr": "Alt(Lepton_trigDR_tnp, Alt(Z0_idx, 1, -1), -999.f)"
+    },
+    "lZ2_trigObj_nMatches": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchCount_tnp, static_cast<int>(Alt(Z0_idx, 1, -1)), 0)"
+    },
+    "lZ2_trigObj_matchState": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchState_tnp, static_cast<int>(Alt(Z0_idx, 1, -1)), -1)"
     },
     "lZ2_trigObj_pt": {
-      "expr": "Alt(TrigObj_pt, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 1, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_pt, lZ2_trigObj_idx, -999.f)"
     },
     "lZ2_trigObj_eta": {
-      "expr": "Alt(TrigObj_eta, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 1, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_eta, lZ2_trigObj_idx, -999.f)"
     },
     "lZ2_trigObj_phi": {
-      "expr": "Alt(TrigObj_phi, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 1, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_phi, lZ2_trigObj_idx, -999.f)"
     },
     "lZ2_trigObj_pdgId": {
-      "expr": "Alt(TrigObj_id, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 1, -1), -1), -999)"
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lZ2_trigObj_idx, -999)"
+    },
+    "lZ2_trigObj_id": {
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lZ2_trigObj_idx, -999)"
     },
     "lZ2_trigObj_filterBits": {
-      "expr": "Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 1, -1), -1), 0)"
+      "expr": "ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL)"
+    },
+    "lZ2_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 0))"
+    },
+    "lZ2_trigObj_bit_ele_1eWPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 1))"
+    },
+    "lZ2_trigObj_bit_ele_1eWPLoose": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 2))"
+    },
+    "lZ2_trigObj_bit_ele_DoubleEleLeg1": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 4))"
+    },
+    "lZ2_trigObj_bit_ele_DoubleEleLeg2": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 5))"
+    },
+    "lZ2_trigObj_bit_ele_DoubleEle": {
+      "expr": "lZ2_trigObj_bit_ele_DoubleEleLeg1 || lZ2_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lZ2_trigObj_bit_ele_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 6))"
+    },
+    "lZ2_trigObj_bit_ele_Ele30WPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 18))"
+    },
+    "lZ2_trigObj_bit_mu_TrkIsoVVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 0))"
+    },
+    "lZ2_trigObj_bit_mu_Iso": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 1))"
+    },
+    "lZ2_trigObj_bit_mu_SingleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 3))"
+    },
+    "lZ2_trigObj_bit_mu_DoubleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 4))"
+    },
+    "lZ2_trigObj_bit_mu_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 5))"
+    },
+    "lZ2_trigObj_match_SingleMu": {
+      "expr": "lZ2_trigObj_bit_mu_SingleMu"
+    },
+    "lZ2_trigObj_fired_SingleMu": {
+      "expr": "(Trigger_sngMu) && (lZ2_trigObj_bit_mu_SingleMu)"
+    },
+    "lZ2_trigObj_match_DoubleMu": {
+      "expr": "lZ2_trigObj_bit_mu_DoubleMu"
+    },
+    "lZ2_trigObj_fired_DoubleMu": {
+      "expr": "(Trigger_dblMu) && (lZ2_trigObj_bit_mu_DoubleMu)"
+    },
+    "lZ2_trigObj_match_SingleEle": {
+      "expr": "lZ2_trigObj_bit_ele_Ele30WPTight"
+    },
+    "lZ2_trigObj_fired_SingleEle": {
+      "expr": "(Trigger_sngEl) && (lZ2_trigObj_bit_ele_Ele30WPTight)"
+    },
+    "lZ2_trigObj_match_DoubleEle": {
+      "expr": "lZ2_trigObj_bit_ele_DoubleEle"
+    },
+    "lZ2_trigObj_fired_DoubleEle": {
+      "expr": "(Trigger_dblEl) && (lZ2_trigObj_bit_ele_DoubleEle)"
+    },
+    "lZ2_trigObj_match_EleMu": {
+      "expr": "(lZ2_trigObj_bit_ele_EleMu || lZ2_trigObj_bit_mu_EleMu)"
+    },
+    "lZ2_trigObj_fired_EleMu": {
+      "expr": "(Trigger_ElMu) && ((lZ2_trigObj_bit_ele_EleMu || lZ2_trigObj_bit_mu_EleMu))"
+    },
+    "lZ2_trigObj_leg_IsoMu24": {
+      "expr": "(HLT_IsoMu24) && lZ2_trigObj_match_SingleMu"
+    },
+    "lZ2_trigObj_leg_Mu17_Mu8": {
+      "expr": "(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) && lZ2_trigObj_match_DoubleMu"
+    },
+    "lZ2_trigObj_leg_Ele23_Ele12": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ2_trigObj_match_DoubleEle"
+    },
+    "lZ2_trigObj_leg_Ele23_Ele12_leg1": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ2_trigObj_bit_ele_DoubleEleLeg1"
+    },
+    "lZ2_trigObj_leg_Ele23_Ele12_leg2": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ2_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lZ2_trigObj_leg_Ele30": {
+      "expr": "(HLT_Ele30_WPTight_Gsf) && lZ2_trigObj_match_SingleEle"
+    },
+    "lZ2_trigObj_leg_Mu23_Ele12": {
+      "expr": "(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) && lZ2_trigObj_match_EleMu"
+    },
+    "lZ2_trigObj_leg_Mu12_Ele23": {
+      "expr": "(HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lZ2_trigObj_match_EleMu"
+    },
+    "lZ2_trigObj_leg_Mu8_Ele23": {
+      "expr": "(HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lZ2_trigObj_match_EleMu"
     },
     "lZ2_trigObj_bits4l": {
-      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0), Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(Z0_idx, 1, -1), -1), 0))"
+      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(Z0_idx, 1, -1)), 0), ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lZ2_trigObj_idx, 0ULL), 15)"
+    },
+    "lX1_trigObj_idx": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigIdx_tnp, static_cast<int>(Alt(X_idx, 0, -1)), -1)"
+    },
+    "lX1_trigObj_dR": {
+      "expr": "Alt(Lepton_trigDR_tnp, Alt(X_idx, 0, -1), -999.f)"
+    },
+    "lX1_trigObj_nMatches": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchCount_tnp, static_cast<int>(Alt(X_idx, 0, -1)), 0)"
+    },
+    "lX1_trigObj_matchState": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchState_tnp, static_cast<int>(Alt(X_idx, 0, -1)), -1)"
     },
     "lX1_trigObj_pt": {
-      "expr": "Alt(TrigObj_pt, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 0, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_pt, lX1_trigObj_idx, -999.f)"
     },
     "lX1_trigObj_eta": {
-      "expr": "Alt(TrigObj_eta, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 0, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_eta, lX1_trigObj_idx, -999.f)"
     },
     "lX1_trigObj_phi": {
-      "expr": "Alt(TrigObj_phi, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 0, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_phi, lX1_trigObj_idx, -999.f)"
     },
     "lX1_trigObj_pdgId": {
-      "expr": "Alt(TrigObj_id, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 0, -1), -1), -999)"
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lX1_trigObj_idx, -999)"
+    },
+    "lX1_trigObj_id": {
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lX1_trigObj_idx, -999)"
     },
     "lX1_trigObj_filterBits": {
-      "expr": "Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 0, -1), -1), 0)"
+      "expr": "ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL)"
+    },
+    "lX1_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 0))"
+    },
+    "lX1_trigObj_bit_ele_1eWPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 1))"
+    },
+    "lX1_trigObj_bit_ele_1eWPLoose": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 2))"
+    },
+    "lX1_trigObj_bit_ele_DoubleEleLeg1": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 4))"
+    },
+    "lX1_trigObj_bit_ele_DoubleEleLeg2": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 5))"
+    },
+    "lX1_trigObj_bit_ele_DoubleEle": {
+      "expr": "lX1_trigObj_bit_ele_DoubleEleLeg1 || lX1_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lX1_trigObj_bit_ele_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 6))"
+    },
+    "lX1_trigObj_bit_ele_Ele30WPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 18))"
+    },
+    "lX1_trigObj_bit_mu_TrkIsoVVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 0))"
+    },
+    "lX1_trigObj_bit_mu_Iso": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 1))"
+    },
+    "lX1_trigObj_bit_mu_SingleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 3))"
+    },
+    "lX1_trigObj_bit_mu_DoubleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 4))"
+    },
+    "lX1_trigObj_bit_mu_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 5))"
+    },
+    "lX1_trigObj_match_SingleMu": {
+      "expr": "lX1_trigObj_bit_mu_SingleMu"
+    },
+    "lX1_trigObj_fired_SingleMu": {
+      "expr": "(Trigger_sngMu) && (lX1_trigObj_bit_mu_SingleMu)"
+    },
+    "lX1_trigObj_match_DoubleMu": {
+      "expr": "lX1_trigObj_bit_mu_DoubleMu"
+    },
+    "lX1_trigObj_fired_DoubleMu": {
+      "expr": "(Trigger_dblMu) && (lX1_trigObj_bit_mu_DoubleMu)"
+    },
+    "lX1_trigObj_match_SingleEle": {
+      "expr": "lX1_trigObj_bit_ele_Ele30WPTight"
+    },
+    "lX1_trigObj_fired_SingleEle": {
+      "expr": "(Trigger_sngEl) && (lX1_trigObj_bit_ele_Ele30WPTight)"
+    },
+    "lX1_trigObj_match_DoubleEle": {
+      "expr": "lX1_trigObj_bit_ele_DoubleEle"
+    },
+    "lX1_trigObj_fired_DoubleEle": {
+      "expr": "(Trigger_dblEl) && (lX1_trigObj_bit_ele_DoubleEle)"
+    },
+    "lX1_trigObj_match_EleMu": {
+      "expr": "(lX1_trigObj_bit_ele_EleMu || lX1_trigObj_bit_mu_EleMu)"
+    },
+    "lX1_trigObj_fired_EleMu": {
+      "expr": "(Trigger_ElMu) && ((lX1_trigObj_bit_ele_EleMu || lX1_trigObj_bit_mu_EleMu))"
+    },
+    "lX1_trigObj_leg_IsoMu24": {
+      "expr": "(HLT_IsoMu24) && lX1_trigObj_match_SingleMu"
+    },
+    "lX1_trigObj_leg_Mu17_Mu8": {
+      "expr": "(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) && lX1_trigObj_match_DoubleMu"
+    },
+    "lX1_trigObj_leg_Ele23_Ele12": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lX1_trigObj_match_DoubleEle"
+    },
+    "lX1_trigObj_leg_Ele23_Ele12_leg1": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lX1_trigObj_bit_ele_DoubleEleLeg1"
+    },
+    "lX1_trigObj_leg_Ele23_Ele12_leg2": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lX1_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lX1_trigObj_leg_Ele30": {
+      "expr": "(HLT_Ele30_WPTight_Gsf) && lX1_trigObj_match_SingleEle"
+    },
+    "lX1_trigObj_leg_Mu23_Ele12": {
+      "expr": "(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) && lX1_trigObj_match_EleMu"
+    },
+    "lX1_trigObj_leg_Mu12_Ele23": {
+      "expr": "(HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lX1_trigObj_match_EleMu"
+    },
+    "lX1_trigObj_leg_Mu8_Ele23": {
+      "expr": "(HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lX1_trigObj_match_EleMu"
     },
     "lX1_trigObj_bits4l": {
-      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0), Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 0, -1), -1), 0))"
+      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 0, -1)), 0), ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX1_trigObj_idx, 0ULL), 15)"
+    },
+    "lX2_trigObj_idx": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigIdx_tnp, static_cast<int>(Alt(X_idx, 1, -1)), -1)"
+    },
+    "lX2_trigObj_dR": {
+      "expr": "Alt(Lepton_trigDR_tnp, Alt(X_idx, 1, -1), -999.f)"
+    },
+    "lX2_trigObj_nMatches": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchCount_tnp, static_cast<int>(Alt(X_idx, 1, -1)), 0)"
+    },
+    "lX2_trigObj_matchState": {
+      "expr": "ZH4lMETZZCR::valueAtInt(Lepton_trigMatchState_tnp, static_cast<int>(Alt(X_idx, 1, -1)), -1)"
     },
     "lX2_trigObj_pt": {
-      "expr": "Alt(TrigObj_pt, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 1, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_pt, lX2_trigObj_idx, -999.f)"
     },
     "lX2_trigObj_eta": {
-      "expr": "Alt(TrigObj_eta, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 1, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_eta, lX2_trigObj_idx, -999.f)"
     },
     "lX2_trigObj_phi": {
-      "expr": "Alt(TrigObj_phi, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 1, -1), -1), -999.f)"
+      "expr": "ZH4lMETZZCR::valueAtFloat(TrigObj_phi, lX2_trigObj_idx, -999.f)"
     },
     "lX2_trigObj_pdgId": {
-      "expr": "Alt(TrigObj_id, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 1, -1), -1), -999)"
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lX2_trigObj_idx, -999)"
+    },
+    "lX2_trigObj_id": {
+      "expr": "ZH4lMETZZCR::valueAtInt(TrigObj_id, lX2_trigObj_idx, -999)"
     },
     "lX2_trigObj_filterBits": {
-      "expr": "Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 1, -1), -1), 0)"
+      "expr": "ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL)"
+    },
+    "lX2_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 0))"
+    },
+    "lX2_trigObj_bit_ele_1eWPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 1))"
+    },
+    "lX2_trigObj_bit_ele_1eWPLoose": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 2))"
+    },
+    "lX2_trigObj_bit_ele_DoubleEleLeg1": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 4))"
+    },
+    "lX2_trigObj_bit_ele_DoubleEleLeg2": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 5))"
+    },
+    "lX2_trigObj_bit_ele_DoubleEle": {
+      "expr": "lX2_trigObj_bit_ele_DoubleEleLeg1 || lX2_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lX2_trigObj_bit_ele_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 6))"
+    },
+    "lX2_trigObj_bit_ele_Ele30WPTight": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 11) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 18))"
+    },
+    "lX2_trigObj_bit_mu_TrkIsoVVL": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 0))"
+    },
+    "lX2_trigObj_bit_mu_Iso": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 1))"
+    },
+    "lX2_trigObj_bit_mu_SingleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 3))"
+    },
+    "lX2_trigObj_bit_mu_DoubleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 4))"
+    },
+    "lX2_trigObj_bit_mu_EleMu": {
+      "expr": "((abs(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0))) == 13) && (ZH4lMETZZCR::trigObjHasFilterBit(ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 5))"
+    },
+    "lX2_trigObj_match_SingleMu": {
+      "expr": "lX2_trigObj_bit_mu_SingleMu"
+    },
+    "lX2_trigObj_fired_SingleMu": {
+      "expr": "(Trigger_sngMu) && (lX2_trigObj_bit_mu_SingleMu)"
+    },
+    "lX2_trigObj_match_DoubleMu": {
+      "expr": "lX2_trigObj_bit_mu_DoubleMu"
+    },
+    "lX2_trigObj_fired_DoubleMu": {
+      "expr": "(Trigger_dblMu) && (lX2_trigObj_bit_mu_DoubleMu)"
+    },
+    "lX2_trigObj_match_SingleEle": {
+      "expr": "lX2_trigObj_bit_ele_Ele30WPTight"
+    },
+    "lX2_trigObj_fired_SingleEle": {
+      "expr": "(Trigger_sngEl) && (lX2_trigObj_bit_ele_Ele30WPTight)"
+    },
+    "lX2_trigObj_match_DoubleEle": {
+      "expr": "lX2_trigObj_bit_ele_DoubleEle"
+    },
+    "lX2_trigObj_fired_DoubleEle": {
+      "expr": "(Trigger_dblEl) && (lX2_trigObj_bit_ele_DoubleEle)"
+    },
+    "lX2_trigObj_match_EleMu": {
+      "expr": "(lX2_trigObj_bit_ele_EleMu || lX2_trigObj_bit_mu_EleMu)"
+    },
+    "lX2_trigObj_fired_EleMu": {
+      "expr": "(Trigger_ElMu) && ((lX2_trigObj_bit_ele_EleMu || lX2_trigObj_bit_mu_EleMu))"
+    },
+    "lX2_trigObj_leg_IsoMu24": {
+      "expr": "(HLT_IsoMu24) && lX2_trigObj_match_SingleMu"
+    },
+    "lX2_trigObj_leg_Mu17_Mu8": {
+      "expr": "(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8) && lX2_trigObj_match_DoubleMu"
+    },
+    "lX2_trigObj_leg_Ele23_Ele12": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lX2_trigObj_match_DoubleEle"
+    },
+    "lX2_trigObj_leg_Ele23_Ele12_leg1": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lX2_trigObj_bit_ele_DoubleEleLeg1"
+    },
+    "lX2_trigObj_leg_Ele23_Ele12_leg2": {
+      "expr": "(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) && lX2_trigObj_bit_ele_DoubleEleLeg2"
+    },
+    "lX2_trigObj_leg_Ele30": {
+      "expr": "(HLT_Ele30_WPTight_Gsf) && lX2_trigObj_match_SingleEle"
+    },
+    "lX2_trigObj_leg_Mu23_Ele12": {
+      "expr": "(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) && lX2_trigObj_match_EleMu"
+    },
+    "lX2_trigObj_leg_Mu12_Ele23": {
+      "expr": "(HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lX2_trigObj_match_EleMu"
+    },
+    "lX2_trigObj_leg_Mu8_Ele23": {
+      "expr": "(HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ) && lX2_trigObj_match_EleMu"
     },
     "lX2_trigObj_bits4l": {
-      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0), Alt(TrigObj_filterBits, Alt(Lepton_trigIdx_tnp, Alt(X_idx, 1, -1), -1), 0))"
+      "expr": "ZH4lMETZZCR::pack4lTrigObjBits(ZH4lMETZZCR::valueAtInt(Lepton_pdgId, static_cast<int>(Alt(X_idx, 1, -1)), 0), ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, lX2_trigObj_idx, 0ULL), 15)"
+    },
+    "ZZCR_dataStreamPriority": {
+      "expr": "ZH4lMETZZCR::dataStreamPriorityCategory(Trigger_ElMu, Trigger_sngMu, Trigger_dblMu, Trigger_sngEl, Trigger_dblEl)"
+    },
+    "ZZCR_triggerFamilyPriority": {
+      "expr": "ZH4lMETZZCR::triggerFamilyPriorityCategory(Trigger_ElMu, Trigger_sngMu, Trigger_dblMu, Trigger_sngEl, Trigger_dblEl)"
+    },
+    "ZZCR_nFiredTriggerFamilies": {
+      "expr": "ZH4lMETZZCR::countFiredTriggerFamilies(Trigger_ElMu, Trigger_sngMu, Trigger_dblMu, Trigger_sngEl, Trigger_dblEl)"
+    },
+    "ZZCR_hltPathPriority": {
+      "expr": "ZH4lMETZZCR::hltPathPriorityCategory(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL, HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8, HLT_IsoMu24, HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL, HLT_Ele30_WPTight_Gsf)"
+    },
+    "ZZCR_nFiredHLTPaths": {
+      "expr": "ZH4lMETZZCR::countFiredHLTPaths(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL, HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8, HLT_IsoMu24, HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL, HLT_Ele30_WPTight_Gsf)"
+    },
+    "ZZCR_streamPriority_MuonEG": {
+      "expr": "ZZCR_dataStreamPriority == 1"
+    },
+    "ZZCR_streamPriority_Muon": {
+      "expr": "ZZCR_dataStreamPriority == 2"
+    },
+    "ZZCR_streamPriority_EGamma": {
+      "expr": "ZZCR_dataStreamPriority == 3"
+    },
+    "ZZCR_hasValidZ0": {
+      "expr": "(Alt(Z0_idx, 0, -1) >= 0) && (Alt(Z0_idx, 1, -1) >= 0)"
+    },
+    "ZZCR_hasValidX": {
+      "expr": "(Alt(X_idx, 0, -1) >= 0) && (Alt(X_idx, 1, -1) >= 0)"
+    },
+    "ZZCR_dyLike2lBaseline": {
+      "expr": "((Trigger_ElMu) || (Trigger_sngMu) || (Trigger_dblMu) || (Trigger_sngEl) || (Trigger_dblEl)) && nLepton >= 2 && ZZCR_hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 10. && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10."
+    },
+    "ZZCR_zzLike4lIncremental": {
+      "expr": "ZZCR_dyLike2lBaseline && ZZCR_hasValidX && PassesZZCR4lOrderedPt && m4l > 0. && ZH4lMETZZCR::sumLeptonChargeFromPairs(Lepton_pdgId, Z0_idx, X_idx) == 0"
+    },
+    "ZZCR_Z0_trigMatchState": {
+      "expr": "ZH4lMETZZCR::combineTrigMatchState2(Alt(Z0_idx, 0, -1), Alt(Z0_idx, 1, -1), lZ1_trigObj_matchState, lZ2_trigObj_matchState)"
+    },
+    "ZZCR_X_trigMatchState": {
+      "expr": "ZH4lMETZZCR::combineTrigMatchState2(Alt(X_idx, 0, -1), Alt(X_idx, 1, -1), lX1_trigObj_matchState, lX2_trigObj_matchState)"
+    },
+    "ZZCR_4l_trigMatchState": {
+      "expr": "ZH4lMETZZCR::combineTrigMatchState4(Alt(Z0_idx, 0, -1), Alt(Z0_idx, 1, -1), Alt(X_idx, 0, -1), Alt(X_idx, 1, -1), lZ1_trigObj_matchState, lZ2_trigObj_matchState, lX1_trigObj_matchState, lX2_trigObj_matchState)"
     },
     "recoil_ux": {
       "expr": "ZH4lMETZZCR::recoilUx(pT4l, phi4l, PuppiMET_pt, PuppiMET_phi)"
@@ -20015,13 +20513,6 @@
         "Trigger_dblMu": "Trigger_dblMu",
         "Trigger_sngEl": "Trigger_sngEl",
         "Trigger_dblEl": "Trigger_dblEl",
-        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
-        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
-        "HLT_IsoMu24": "HLT_IsoMu24",
-        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
-        "HLT_Ele30_WPTight_Gsf": "HLT_Ele30_WPTight_Gsf",
         "nCleanJet": "nCleanJet",
         "Z0_mass": "Z0_mass",
         "Z0_pt": "Z0_pt",
@@ -20075,10 +20566,34 @@
         "Z0_isMM": "Z0_isMM",
         "X_isEE": "X_isEE",
         "X_isMM": "X_isMM",
+        "X_isSF": "X_isSF",
+        "X_isDF": "X_isDF",
         "GenMET_pt": "GenMET_pt",
         "GenMET_phi": "GenMET_phi",
         "bVeto": "bVeto",
         "PassesZZCR4lOrderedPt": "PassesZZCR4lOrderedPt",
+        "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+        "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+        "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+        "HLT_IsoMu24": "HLT_IsoMu24",
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+        "HLT_Ele30_WPTight_Gsf": "HLT_Ele30_WPTight_Gsf",
+        "ZZCR_dataStreamPriority": "ZZCR_dataStreamPriority",
+        "ZZCR_triggerFamilyPriority": "ZZCR_triggerFamilyPriority",
+        "ZZCR_nFiredTriggerFamilies": "ZZCR_nFiredTriggerFamilies",
+        "ZZCR_hltPathPriority": "ZZCR_hltPathPriority",
+        "ZZCR_nFiredHLTPaths": "ZZCR_nFiredHLTPaths",
+        "ZZCR_streamPriority_MuonEG": "ZZCR_streamPriority_MuonEG",
+        "ZZCR_streamPriority_Muon": "ZZCR_streamPriority_Muon",
+        "ZZCR_streamPriority_EGamma": "ZZCR_streamPriority_EGamma",
+        "ZZCR_hasValidZ0": "ZZCR_hasValidZ0",
+        "ZZCR_hasValidX": "ZZCR_hasValidX",
+        "ZZCR_dyLike2lBaseline": "ZZCR_dyLike2lBaseline",
+        "ZZCR_zzLike4lIncremental": "ZZCR_zzLike4lIncremental",
+        "ZZCR_Z0_trigMatchState": "ZZCR_Z0_trigMatchState",
+        "ZZCR_X_trigMatchState": "ZZCR_X_trigMatchState",
+        "ZZCR_4l_trigMatchState": "ZZCR_4l_trigMatchState",
         "lZ1_pt": "Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999)",
         "lZ1_eta": "Alt(Lepton_eta, Alt(Z0_idx, 0, -1), -999)",
         "lZ1_phi": "Alt(Lepton_phi, Alt(Z0_idx, 0, -1), -999)",
@@ -20104,12 +20619,49 @@
         "lZ1_sieie": "(abs(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0)) == 11) ? (Alt(Electron_sieie, Alt(Lepton_electronIdx, Alt(Z0_idx, 0, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0)) == 13) ? (-999.f) : -999.f)",
         "lZ1_sip3d": "(abs(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0)) == 11) ? (Alt(Electron_sip3d, Alt(Lepton_electronIdx, Alt(Z0_idx, 0, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0)) == 13) ? (Alt(Muon_sip3d, Alt(Lepton_muonIdx, Alt(Z0_idx, 0, -1), -1), -999.f)) : -999.f)",
         "lZ1_tightId": "(abs(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0)) == 11) ? (0) : ((abs(Alt(Lepton_pdgId, Alt(Z0_idx, 0, -1), 0)) == 13) ? (Alt(Muon_tightId, Alt(Lepton_muonIdx, Alt(Z0_idx, 0, -1), -1), 0)) : 0)",
+        "lZ1_trigObj_idx": "lZ1_trigObj_idx",
+        "lZ1_trigObj_dR": "lZ1_trigObj_dR",
+        "lZ1_trigObj_nMatches": "lZ1_trigObj_nMatches",
+        "lZ1_trigObj_matchState": "lZ1_trigObj_matchState",
         "lZ1_trigObj_pt": "lZ1_trigObj_pt",
         "lZ1_trigObj_eta": "lZ1_trigObj_eta",
         "lZ1_trigObj_phi": "lZ1_trigObj_phi",
         "lZ1_trigObj_pdgId": "lZ1_trigObj_pdgId",
+        "lZ1_trigObj_id": "lZ1_trigObj_id",
         "lZ1_trigObj_filterBits": "lZ1_trigObj_filterBits",
         "lZ1_trigObj_bits4l": "lZ1_trigObj_bits4l",
+        "lZ1_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": "lZ1_trigObj_bit_ele_CaloIdLTrackIdLIsoVL",
+        "lZ1_trigObj_bit_ele_1eWPTight": "lZ1_trigObj_bit_ele_1eWPTight",
+        "lZ1_trigObj_bit_ele_1eWPLoose": "lZ1_trigObj_bit_ele_1eWPLoose",
+        "lZ1_trigObj_bit_ele_DoubleEle": "lZ1_trigObj_bit_ele_DoubleEle",
+        "lZ1_trigObj_bit_ele_DoubleEleLeg1": "lZ1_trigObj_bit_ele_DoubleEleLeg1",
+        "lZ1_trigObj_bit_ele_DoubleEleLeg2": "lZ1_trigObj_bit_ele_DoubleEleLeg2",
+        "lZ1_trigObj_bit_ele_EleMu": "lZ1_trigObj_bit_ele_EleMu",
+        "lZ1_trigObj_bit_ele_Ele30WPTight": "lZ1_trigObj_bit_ele_Ele30WPTight",
+        "lZ1_trigObj_bit_mu_TrkIsoVVL": "lZ1_trigObj_bit_mu_TrkIsoVVL",
+        "lZ1_trigObj_bit_mu_Iso": "lZ1_trigObj_bit_mu_Iso",
+        "lZ1_trigObj_bit_mu_SingleMu": "lZ1_trigObj_bit_mu_SingleMu",
+        "lZ1_trigObj_bit_mu_DoubleMu": "lZ1_trigObj_bit_mu_DoubleMu",
+        "lZ1_trigObj_bit_mu_EleMu": "lZ1_trigObj_bit_mu_EleMu",
+        "lZ1_trigObj_match_SingleMu": "lZ1_trigObj_match_SingleMu",
+        "lZ1_trigObj_match_DoubleMu": "lZ1_trigObj_match_DoubleMu",
+        "lZ1_trigObj_match_SingleEle": "lZ1_trigObj_match_SingleEle",
+        "lZ1_trigObj_match_DoubleEle": "lZ1_trigObj_match_DoubleEle",
+        "lZ1_trigObj_match_EleMu": "lZ1_trigObj_match_EleMu",
+        "lZ1_trigObj_fired_SingleMu": "lZ1_trigObj_fired_SingleMu",
+        "lZ1_trigObj_fired_DoubleMu": "lZ1_trigObj_fired_DoubleMu",
+        "lZ1_trigObj_fired_SingleEle": "lZ1_trigObj_fired_SingleEle",
+        "lZ1_trigObj_fired_DoubleEle": "lZ1_trigObj_fired_DoubleEle",
+        "lZ1_trigObj_fired_EleMu": "lZ1_trigObj_fired_EleMu",
+        "lZ1_trigObj_leg_IsoMu24": "lZ1_trigObj_leg_IsoMu24",
+        "lZ1_trigObj_leg_Mu17_Mu8": "lZ1_trigObj_leg_Mu17_Mu8",
+        "lZ1_trigObj_leg_Ele23_Ele12": "lZ1_trigObj_leg_Ele23_Ele12",
+        "lZ1_trigObj_leg_Ele23_Ele12_leg1": "lZ1_trigObj_leg_Ele23_Ele12_leg1",
+        "lZ1_trigObj_leg_Ele23_Ele12_leg2": "lZ1_trigObj_leg_Ele23_Ele12_leg2",
+        "lZ1_trigObj_leg_Ele30": "lZ1_trigObj_leg_Ele30",
+        "lZ1_trigObj_leg_Mu23_Ele12": "lZ1_trigObj_leg_Mu23_Ele12",
+        "lZ1_trigObj_leg_Mu12_Ele23": "lZ1_trigObj_leg_Mu12_Ele23",
+        "lZ1_trigObj_leg_Mu8_Ele23": "lZ1_trigObj_leg_Mu8_Ele23",
         "lZ1_isTightElectron_wp90iso": "Alt(Lepton_isTightElectron_wp90iso, Alt(Z0_idx, 0, -1), -999)",
         "lZ1_isTightElectron_testrecipes": "Alt(Lepton_isTightElectron_testrecipes, Alt(Z0_idx, 0, -1), -999)",
         "lZ1_isTightElectron_mvaWinter22V2Iso_WP90": "Alt(Lepton_isTightElectron_mvaWinter22V2Iso_WP90, Alt(Z0_idx, 0, -1), -999)",
@@ -20148,12 +20700,49 @@
         "lZ2_sieie": "(abs(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0)) == 11) ? (Alt(Electron_sieie, Alt(Lepton_electronIdx, Alt(Z0_idx, 1, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0)) == 13) ? (-999.f) : -999.f)",
         "lZ2_sip3d": "(abs(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0)) == 11) ? (Alt(Electron_sip3d, Alt(Lepton_electronIdx, Alt(Z0_idx, 1, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0)) == 13) ? (Alt(Muon_sip3d, Alt(Lepton_muonIdx, Alt(Z0_idx, 1, -1), -1), -999.f)) : -999.f)",
         "lZ2_tightId": "(abs(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0)) == 11) ? (0) : ((abs(Alt(Lepton_pdgId, Alt(Z0_idx, 1, -1), 0)) == 13) ? (Alt(Muon_tightId, Alt(Lepton_muonIdx, Alt(Z0_idx, 1, -1), -1), 0)) : 0)",
+        "lZ2_trigObj_idx": "lZ2_trigObj_idx",
+        "lZ2_trigObj_dR": "lZ2_trigObj_dR",
+        "lZ2_trigObj_nMatches": "lZ2_trigObj_nMatches",
+        "lZ2_trigObj_matchState": "lZ2_trigObj_matchState",
         "lZ2_trigObj_pt": "lZ2_trigObj_pt",
         "lZ2_trigObj_eta": "lZ2_trigObj_eta",
         "lZ2_trigObj_phi": "lZ2_trigObj_phi",
         "lZ2_trigObj_pdgId": "lZ2_trigObj_pdgId",
+        "lZ2_trigObj_id": "lZ2_trigObj_id",
         "lZ2_trigObj_filterBits": "lZ2_trigObj_filterBits",
         "lZ2_trigObj_bits4l": "lZ2_trigObj_bits4l",
+        "lZ2_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": "lZ2_trigObj_bit_ele_CaloIdLTrackIdLIsoVL",
+        "lZ2_trigObj_bit_ele_1eWPTight": "lZ2_trigObj_bit_ele_1eWPTight",
+        "lZ2_trigObj_bit_ele_1eWPLoose": "lZ2_trigObj_bit_ele_1eWPLoose",
+        "lZ2_trigObj_bit_ele_DoubleEle": "lZ2_trigObj_bit_ele_DoubleEle",
+        "lZ2_trigObj_bit_ele_DoubleEleLeg1": "lZ2_trigObj_bit_ele_DoubleEleLeg1",
+        "lZ2_trigObj_bit_ele_DoubleEleLeg2": "lZ2_trigObj_bit_ele_DoubleEleLeg2",
+        "lZ2_trigObj_bit_ele_EleMu": "lZ2_trigObj_bit_ele_EleMu",
+        "lZ2_trigObj_bit_ele_Ele30WPTight": "lZ2_trigObj_bit_ele_Ele30WPTight",
+        "lZ2_trigObj_bit_mu_TrkIsoVVL": "lZ2_trigObj_bit_mu_TrkIsoVVL",
+        "lZ2_trigObj_bit_mu_Iso": "lZ2_trigObj_bit_mu_Iso",
+        "lZ2_trigObj_bit_mu_SingleMu": "lZ2_trigObj_bit_mu_SingleMu",
+        "lZ2_trigObj_bit_mu_DoubleMu": "lZ2_trigObj_bit_mu_DoubleMu",
+        "lZ2_trigObj_bit_mu_EleMu": "lZ2_trigObj_bit_mu_EleMu",
+        "lZ2_trigObj_match_SingleMu": "lZ2_trigObj_match_SingleMu",
+        "lZ2_trigObj_match_DoubleMu": "lZ2_trigObj_match_DoubleMu",
+        "lZ2_trigObj_match_SingleEle": "lZ2_trigObj_match_SingleEle",
+        "lZ2_trigObj_match_DoubleEle": "lZ2_trigObj_match_DoubleEle",
+        "lZ2_trigObj_match_EleMu": "lZ2_trigObj_match_EleMu",
+        "lZ2_trigObj_fired_SingleMu": "lZ2_trigObj_fired_SingleMu",
+        "lZ2_trigObj_fired_DoubleMu": "lZ2_trigObj_fired_DoubleMu",
+        "lZ2_trigObj_fired_SingleEle": "lZ2_trigObj_fired_SingleEle",
+        "lZ2_trigObj_fired_DoubleEle": "lZ2_trigObj_fired_DoubleEle",
+        "lZ2_trigObj_fired_EleMu": "lZ2_trigObj_fired_EleMu",
+        "lZ2_trigObj_leg_IsoMu24": "lZ2_trigObj_leg_IsoMu24",
+        "lZ2_trigObj_leg_Mu17_Mu8": "lZ2_trigObj_leg_Mu17_Mu8",
+        "lZ2_trigObj_leg_Ele23_Ele12": "lZ2_trigObj_leg_Ele23_Ele12",
+        "lZ2_trigObj_leg_Ele23_Ele12_leg1": "lZ2_trigObj_leg_Ele23_Ele12_leg1",
+        "lZ2_trigObj_leg_Ele23_Ele12_leg2": "lZ2_trigObj_leg_Ele23_Ele12_leg2",
+        "lZ2_trigObj_leg_Ele30": "lZ2_trigObj_leg_Ele30",
+        "lZ2_trigObj_leg_Mu23_Ele12": "lZ2_trigObj_leg_Mu23_Ele12",
+        "lZ2_trigObj_leg_Mu12_Ele23": "lZ2_trigObj_leg_Mu12_Ele23",
+        "lZ2_trigObj_leg_Mu8_Ele23": "lZ2_trigObj_leg_Mu8_Ele23",
         "lZ2_isTightElectron_wp90iso": "Alt(Lepton_isTightElectron_wp90iso, Alt(Z0_idx, 1, -1), -999)",
         "lZ2_isTightElectron_testrecipes": "Alt(Lepton_isTightElectron_testrecipes, Alt(Z0_idx, 1, -1), -999)",
         "lZ2_isTightElectron_mvaWinter22V2Iso_WP90": "Alt(Lepton_isTightElectron_mvaWinter22V2Iso_WP90, Alt(Z0_idx, 1, -1), -999)",
@@ -20192,12 +20781,49 @@
         "lX1_sieie": "(abs(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0)) == 11) ? (Alt(Electron_sieie, Alt(Lepton_electronIdx, Alt(X_idx, 0, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0)) == 13) ? (-999.f) : -999.f)",
         "lX1_sip3d": "(abs(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0)) == 11) ? (Alt(Electron_sip3d, Alt(Lepton_electronIdx, Alt(X_idx, 0, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0)) == 13) ? (Alt(Muon_sip3d, Alt(Lepton_muonIdx, Alt(X_idx, 0, -1), -1), -999.f)) : -999.f)",
         "lX1_tightId": "(abs(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0)) == 11) ? (0) : ((abs(Alt(Lepton_pdgId, Alt(X_idx, 0, -1), 0)) == 13) ? (Alt(Muon_tightId, Alt(Lepton_muonIdx, Alt(X_idx, 0, -1), -1), 0)) : 0)",
+        "lX1_trigObj_idx": "lX1_trigObj_idx",
+        "lX1_trigObj_dR": "lX1_trigObj_dR",
+        "lX1_trigObj_nMatches": "lX1_trigObj_nMatches",
+        "lX1_trigObj_matchState": "lX1_trigObj_matchState",
         "lX1_trigObj_pt": "lX1_trigObj_pt",
         "lX1_trigObj_eta": "lX1_trigObj_eta",
         "lX1_trigObj_phi": "lX1_trigObj_phi",
         "lX1_trigObj_pdgId": "lX1_trigObj_pdgId",
+        "lX1_trigObj_id": "lX1_trigObj_id",
         "lX1_trigObj_filterBits": "lX1_trigObj_filterBits",
         "lX1_trigObj_bits4l": "lX1_trigObj_bits4l",
+        "lX1_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": "lX1_trigObj_bit_ele_CaloIdLTrackIdLIsoVL",
+        "lX1_trigObj_bit_ele_1eWPTight": "lX1_trigObj_bit_ele_1eWPTight",
+        "lX1_trigObj_bit_ele_1eWPLoose": "lX1_trigObj_bit_ele_1eWPLoose",
+        "lX1_trigObj_bit_ele_DoubleEle": "lX1_trigObj_bit_ele_DoubleEle",
+        "lX1_trigObj_bit_ele_DoubleEleLeg1": "lX1_trigObj_bit_ele_DoubleEleLeg1",
+        "lX1_trigObj_bit_ele_DoubleEleLeg2": "lX1_trigObj_bit_ele_DoubleEleLeg2",
+        "lX1_trigObj_bit_ele_EleMu": "lX1_trigObj_bit_ele_EleMu",
+        "lX1_trigObj_bit_ele_Ele30WPTight": "lX1_trigObj_bit_ele_Ele30WPTight",
+        "lX1_trigObj_bit_mu_TrkIsoVVL": "lX1_trigObj_bit_mu_TrkIsoVVL",
+        "lX1_trigObj_bit_mu_Iso": "lX1_trigObj_bit_mu_Iso",
+        "lX1_trigObj_bit_mu_SingleMu": "lX1_trigObj_bit_mu_SingleMu",
+        "lX1_trigObj_bit_mu_DoubleMu": "lX1_trigObj_bit_mu_DoubleMu",
+        "lX1_trigObj_bit_mu_EleMu": "lX1_trigObj_bit_mu_EleMu",
+        "lX1_trigObj_match_SingleMu": "lX1_trigObj_match_SingleMu",
+        "lX1_trigObj_match_DoubleMu": "lX1_trigObj_match_DoubleMu",
+        "lX1_trigObj_match_SingleEle": "lX1_trigObj_match_SingleEle",
+        "lX1_trigObj_match_DoubleEle": "lX1_trigObj_match_DoubleEle",
+        "lX1_trigObj_match_EleMu": "lX1_trigObj_match_EleMu",
+        "lX1_trigObj_fired_SingleMu": "lX1_trigObj_fired_SingleMu",
+        "lX1_trigObj_fired_DoubleMu": "lX1_trigObj_fired_DoubleMu",
+        "lX1_trigObj_fired_SingleEle": "lX1_trigObj_fired_SingleEle",
+        "lX1_trigObj_fired_DoubleEle": "lX1_trigObj_fired_DoubleEle",
+        "lX1_trigObj_fired_EleMu": "lX1_trigObj_fired_EleMu",
+        "lX1_trigObj_leg_IsoMu24": "lX1_trigObj_leg_IsoMu24",
+        "lX1_trigObj_leg_Mu17_Mu8": "lX1_trigObj_leg_Mu17_Mu8",
+        "lX1_trigObj_leg_Ele23_Ele12": "lX1_trigObj_leg_Ele23_Ele12",
+        "lX1_trigObj_leg_Ele23_Ele12_leg1": "lX1_trigObj_leg_Ele23_Ele12_leg1",
+        "lX1_trigObj_leg_Ele23_Ele12_leg2": "lX1_trigObj_leg_Ele23_Ele12_leg2",
+        "lX1_trigObj_leg_Ele30": "lX1_trigObj_leg_Ele30",
+        "lX1_trigObj_leg_Mu23_Ele12": "lX1_trigObj_leg_Mu23_Ele12",
+        "lX1_trigObj_leg_Mu12_Ele23": "lX1_trigObj_leg_Mu12_Ele23",
+        "lX1_trigObj_leg_Mu8_Ele23": "lX1_trigObj_leg_Mu8_Ele23",
         "lX1_isTightElectron_wp90iso": "Alt(Lepton_isTightElectron_wp90iso, Alt(X_idx, 0, -1), -999)",
         "lX1_isTightElectron_testrecipes": "Alt(Lepton_isTightElectron_testrecipes, Alt(X_idx, 0, -1), -999)",
         "lX1_isTightElectron_mvaWinter22V2Iso_WP90": "Alt(Lepton_isTightElectron_mvaWinter22V2Iso_WP90, Alt(X_idx, 0, -1), -999)",
@@ -20236,12 +20862,49 @@
         "lX2_sieie": "(abs(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0)) == 11) ? (Alt(Electron_sieie, Alt(Lepton_electronIdx, Alt(X_idx, 1, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0)) == 13) ? (-999.f) : -999.f)",
         "lX2_sip3d": "(abs(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0)) == 11) ? (Alt(Electron_sip3d, Alt(Lepton_electronIdx, Alt(X_idx, 1, -1), -1), -999.f)) : ((abs(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0)) == 13) ? (Alt(Muon_sip3d, Alt(Lepton_muonIdx, Alt(X_idx, 1, -1), -1), -999.f)) : -999.f)",
         "lX2_tightId": "(abs(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0)) == 11) ? (0) : ((abs(Alt(Lepton_pdgId, Alt(X_idx, 1, -1), 0)) == 13) ? (Alt(Muon_tightId, Alt(Lepton_muonIdx, Alt(X_idx, 1, -1), -1), 0)) : 0)",
+        "lX2_trigObj_idx": "lX2_trigObj_idx",
+        "lX2_trigObj_dR": "lX2_trigObj_dR",
+        "lX2_trigObj_nMatches": "lX2_trigObj_nMatches",
+        "lX2_trigObj_matchState": "lX2_trigObj_matchState",
         "lX2_trigObj_pt": "lX2_trigObj_pt",
         "lX2_trigObj_eta": "lX2_trigObj_eta",
         "lX2_trigObj_phi": "lX2_trigObj_phi",
         "lX2_trigObj_pdgId": "lX2_trigObj_pdgId",
+        "lX2_trigObj_id": "lX2_trigObj_id",
         "lX2_trigObj_filterBits": "lX2_trigObj_filterBits",
         "lX2_trigObj_bits4l": "lX2_trigObj_bits4l",
+        "lX2_trigObj_bit_ele_CaloIdLTrackIdLIsoVL": "lX2_trigObj_bit_ele_CaloIdLTrackIdLIsoVL",
+        "lX2_trigObj_bit_ele_1eWPTight": "lX2_trigObj_bit_ele_1eWPTight",
+        "lX2_trigObj_bit_ele_1eWPLoose": "lX2_trigObj_bit_ele_1eWPLoose",
+        "lX2_trigObj_bit_ele_DoubleEle": "lX2_trigObj_bit_ele_DoubleEle",
+        "lX2_trigObj_bit_ele_DoubleEleLeg1": "lX2_trigObj_bit_ele_DoubleEleLeg1",
+        "lX2_trigObj_bit_ele_DoubleEleLeg2": "lX2_trigObj_bit_ele_DoubleEleLeg2",
+        "lX2_trigObj_bit_ele_EleMu": "lX2_trigObj_bit_ele_EleMu",
+        "lX2_trigObj_bit_ele_Ele30WPTight": "lX2_trigObj_bit_ele_Ele30WPTight",
+        "lX2_trigObj_bit_mu_TrkIsoVVL": "lX2_trigObj_bit_mu_TrkIsoVVL",
+        "lX2_trigObj_bit_mu_Iso": "lX2_trigObj_bit_mu_Iso",
+        "lX2_trigObj_bit_mu_SingleMu": "lX2_trigObj_bit_mu_SingleMu",
+        "lX2_trigObj_bit_mu_DoubleMu": "lX2_trigObj_bit_mu_DoubleMu",
+        "lX2_trigObj_bit_mu_EleMu": "lX2_trigObj_bit_mu_EleMu",
+        "lX2_trigObj_match_SingleMu": "lX2_trigObj_match_SingleMu",
+        "lX2_trigObj_match_DoubleMu": "lX2_trigObj_match_DoubleMu",
+        "lX2_trigObj_match_SingleEle": "lX2_trigObj_match_SingleEle",
+        "lX2_trigObj_match_DoubleEle": "lX2_trigObj_match_DoubleEle",
+        "lX2_trigObj_match_EleMu": "lX2_trigObj_match_EleMu",
+        "lX2_trigObj_fired_SingleMu": "lX2_trigObj_fired_SingleMu",
+        "lX2_trigObj_fired_DoubleMu": "lX2_trigObj_fired_DoubleMu",
+        "lX2_trigObj_fired_SingleEle": "lX2_trigObj_fired_SingleEle",
+        "lX2_trigObj_fired_DoubleEle": "lX2_trigObj_fired_DoubleEle",
+        "lX2_trigObj_fired_EleMu": "lX2_trigObj_fired_EleMu",
+        "lX2_trigObj_leg_IsoMu24": "lX2_trigObj_leg_IsoMu24",
+        "lX2_trigObj_leg_Mu17_Mu8": "lX2_trigObj_leg_Mu17_Mu8",
+        "lX2_trigObj_leg_Ele23_Ele12": "lX2_trigObj_leg_Ele23_Ele12",
+        "lX2_trigObj_leg_Ele23_Ele12_leg1": "lX2_trigObj_leg_Ele23_Ele12_leg1",
+        "lX2_trigObj_leg_Ele23_Ele12_leg2": "lX2_trigObj_leg_Ele23_Ele12_leg2",
+        "lX2_trigObj_leg_Ele30": "lX2_trigObj_leg_Ele30",
+        "lX2_trigObj_leg_Mu23_Ele12": "lX2_trigObj_leg_Mu23_Ele12",
+        "lX2_trigObj_leg_Mu12_Ele23": "lX2_trigObj_leg_Mu12_Ele23",
+        "lX2_trigObj_leg_Mu8_Ele23": "lX2_trigObj_leg_Mu8_Ele23",
         "lX2_isTightElectron_wp90iso": "Alt(Lepton_isTightElectron_wp90iso, Alt(X_idx, 1, -1), -999)",
         "lX2_isTightElectron_testrecipes": "Alt(Lepton_isTightElectron_testrecipes, Alt(X_idx, 1, -1), -999)",
         "lX2_isTightElectron_mvaWinter22V2Iso_WP90": "Alt(Lepton_isTightElectron_mvaWinter22V2Iso_WP90, Alt(X_idx, 1, -1), -999)",
@@ -20415,5 +21078,5 @@
     }
   },
   "lumi": 109.82,
-  "plotPath": "jobs/ZH_4lMET_ZZCR_2024_20260714_040813/plots"
+  "plotPath": "jobs/ZH_4lMET_ZZCR_2024_20260721_183245/plots"
 }

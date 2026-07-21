@@ -30,16 +30,34 @@ if "load_selected_year" not in globals():
 
 aliases = {}
 
-if "PAIR_ID_CONFIG" not in globals() or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals():
-    from zzcr_selection_config import LEPTON_PAIR_COMBINATIONS, LEPTON_PAIR_INDEX_EXPRESSIONS, PAIR_ID_CONFIG
+if (
+    "PAIR_ID_CONFIG" not in globals()
+    or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals()
+    or "TRIGGER_PATH_PRIORITY" not in globals()
+):
+    from zzcr_selection_config import (
+        EVENT_TRIGGER_DIAGNOSTIC_BRANCHES,
+        LEPTON_PAIR_COMBINATIONS,
+        LEPTON_PAIR_INDEX_EXPRESSIONS,
+        PAIR_ID_CONFIG,
+        TRIGGER_AGGREGATE_FLAGS,
+        TRIGGER_PATH_PRIORITY,
+        TRIGOBJ_DECODED_BIT_SUFFIXES,
+        TRIGOBJ_DIAGNOSTIC_SUFFIXES,
+        TRIGOBJ_FAMILY_SUFFIXES,
+        TRIGOBJ_PATH_LEG_SUFFIXES,
+        trigobj_nanoaod_version,
+    )
 from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
 
 
 ZZCR_YEAR, _selected_year, _ = load_selected_year()
 _L2TIGHT_ERA = _selected_year["l2tight_era"]
+ZZCR_TRIGOBJ_NANOAOD_VERSION = trigobj_nanoaod_version(_selected_year)
 
 # Ordered pT thresholds for the four leptons in Z0+X (lead -> 4th).
 FOUR_LEPTON_PT_MINS = (25.0, 15.0, 10.0, 10.0)
+TRIGOBJ_MATCH_DR = 0.1
 
 def _pinned_event_branches():
     pinned = [
@@ -194,7 +212,30 @@ aliases["Lepton_trigIdx_tnp"] = {
         # so trigger studies and TnP are numerically aligned.
         "ZH4lMETZZCR::createTrigIndexTnP("
         "Lepton_eta, Lepton_phi, Lepton_pdgId, "
-        "TrigObj_eta, TrigObj_phi, TrigObj_id, 0.1)"
+        f"TrigObj_eta, TrigObj_phi, TrigObj_id, {TRIGOBJ_MATCH_DR})"
+    ),
+}
+
+aliases["Lepton_trigDR_tnp"] = {
+    "expr": (
+        "ZH4lMETZZCR::createTrigMatchDRTnP("
+        "Lepton_eta, Lepton_phi, Lepton_pdgId, "
+        f"TrigObj_eta, TrigObj_phi, TrigObj_id, {TRIGOBJ_MATCH_DR})"
+    ),
+}
+
+aliases["Lepton_trigMatchCount_tnp"] = {
+    "expr": (
+        "ZH4lMETZZCR::countTrigMatchesTnP("
+        "Lepton_eta, Lepton_phi, Lepton_pdgId, "
+        f"TrigObj_eta, TrigObj_phi, TrigObj_id, {TRIGOBJ_MATCH_DR})"
+    ),
+}
+
+aliases["Lepton_trigMatchState_tnp"] = {
+    "expr": (
+        "ZH4lMETZZCR::createTrigMatchStateTnP("
+        "Lepton_pdgId, Lepton_trigIdx_tnp, Lepton_trigMatchCount_tnp)"
     ),
 }
 
@@ -296,27 +337,260 @@ for lep_a, lep_b in LEPTON_PAIR_COMBINATIONS:
         ),
     }
 
+TRIGOBJ_FILTER_BITS_DEFAULT = "0ULL"
+
+
+def _has_filter_bit_expr(filter_bits_expr, bit_index):
+    if bit_index is None:
+        return "false"
+    return f"ZH4lMETZZCR::trigObjHasFilterBit({filter_bits_expr}, {bit_index})"
+
+
+def _flavor_bit_expr(abs_pdg_expr, filter_bits_expr, flavor_pdg_id, bit_index):
+    return f"(({abs_pdg_expr}) == {flavor_pdg_id}) && ({_has_filter_bit_expr(filter_bits_expr, bit_index)})"
+
+
+def _trigger_or_false(branch):
+    return _branch_or_default(branch, "false")
+
+
+_hlt_expr_by_label = {
+    label: _trigger_or_false(path) for path, label in TRIGGER_PATH_PRIORITY
+}
+
 for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
-    trig_idx_expr = f"Alt(Lepton_trigIdx_tnp, {lep_idx}, -1)"
-    trigobj_sources = {
-        "pt": ("TrigObj_pt", "-999.f"),
-        "eta": ("TrigObj_eta", "-999.f"),
-        "phi": ("TrigObj_phi", "-999.f"),
-        "pdgId": ("TrigObj_id", "-999"),
-        "filterBits": ("TrigObj_filterBits", "0"),
+    lep_idx_expr = f"static_cast<int>({lep_idx})"
+    trig_idx_expr = f"ZH4lMETZZCR::valueAtInt(Lepton_trigIdx_tnp, {lep_idx_expr}, -1)"
+    trig_bits_expr = (
+        f"ZH4lMETZZCR::valueAtULL(TrigObj_filterBits, {lep_name}_trigObj_idx, "
+        f"{TRIGOBJ_FILTER_BITS_DEFAULT})"
+    )
+    lep_pdgid_expr = f"ZH4lMETZZCR::valueAtInt(Lepton_pdgId, {lep_idx_expr}, 0)"
+    abs_pdg_expr = f"abs({lep_pdgid_expr})"
+
+    aliases[f"{lep_name}_trigObj_idx"] = {"expr": trig_idx_expr}
+    aliases[f"{lep_name}_trigObj_dR"] = {
+        "expr": f"Alt(Lepton_trigDR_tnp, {lep_idx}, -999.f)",
     }
-    for suffix, (source, default) in trigobj_sources.items():
-        aliases[f"{lep_name}_trigObj_{suffix}"] = {
-            "expr": f"Alt({source}, {trig_idx_expr}, {default})",
+    aliases[f"{lep_name}_trigObj_nMatches"] = {
+        "expr": f"ZH4lMETZZCR::valueAtInt(Lepton_trigMatchCount_tnp, {lep_idx_expr}, 0)",
+    }
+    aliases[f"{lep_name}_trigObj_matchState"] = {
+        "expr": f"ZH4lMETZZCR::valueAtInt(Lepton_trigMatchState_tnp, {lep_idx_expr}, -1)",
+    }
+
+    trigobj_sources = {
+        "pt": f"ZH4lMETZZCR::valueAtFloat(TrigObj_pt, {lep_name}_trigObj_idx, -999.f)",
+        "eta": f"ZH4lMETZZCR::valueAtFloat(TrigObj_eta, {lep_name}_trigObj_idx, -999.f)",
+        "phi": f"ZH4lMETZZCR::valueAtFloat(TrigObj_phi, {lep_name}_trigObj_idx, -999.f)",
+        "pdgId": f"ZH4lMETZZCR::valueAtInt(TrigObj_id, {lep_name}_trigObj_idx, -999)",
+        "id": f"ZH4lMETZZCR::valueAtInt(TrigObj_id, {lep_name}_trigObj_idx, -999)",
+        "filterBits": trig_bits_expr,
+    }
+    for suffix, expr in trigobj_sources.items():
+        aliases[f"{lep_name}_trigObj_{suffix}"] = {"expr": expr}
+
+    aliases[f"{lep_name}_trigObj_bit_ele_CaloIdLTrackIdLIsoVL"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 0),
+    }
+    aliases[f"{lep_name}_trigObj_bit_ele_1eWPTight"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 1),
+    }
+    aliases[f"{lep_name}_trigObj_bit_ele_1eWPLoose"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 2),
+    }
+
+    aliases[f"{lep_name}_trigObj_bit_ele_DoubleEleLeg1"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 4),
+    }
+    aliases[f"{lep_name}_trigObj_bit_ele_DoubleEleLeg2"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 5),
+    }
+    aliases[f"{lep_name}_trigObj_bit_ele_DoubleEle"] = {
+        "expr": (
+            f"{lep_name}_trigObj_bit_ele_DoubleEleLeg1 || "
+            f"{lep_name}_trigObj_bit_ele_DoubleEleLeg2"
+        ),
+    }
+    aliases[f"{lep_name}_trigObj_bit_ele_EleMu"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 6),
+    }
+    aliases[f"{lep_name}_trigObj_bit_ele_Ele30WPTight"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 11, 18),
+    }
+    single_ele_match_expr = f"{lep_name}_trigObj_bit_ele_Ele30WPTight"
+
+    aliases[f"{lep_name}_trigObj_bit_mu_TrkIsoVVL"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 13, 0),
+    }
+    aliases[f"{lep_name}_trigObj_bit_mu_Iso"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 13, 1),
+    }
+    aliases[f"{lep_name}_trigObj_bit_mu_SingleMu"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 13, 3),
+    }
+    aliases[f"{lep_name}_trigObj_bit_mu_DoubleMu"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 13, 4),
+    }
+    aliases[f"{lep_name}_trigObj_bit_mu_EleMu"] = {
+        "expr": _flavor_bit_expr(abs_pdg_expr, trig_bits_expr, 13, 5),
+    }
+
+    family_match_exprs = {
+        "SingleMu": f"{lep_name}_trigObj_bit_mu_SingleMu",
+        "DoubleMu": f"{lep_name}_trigObj_bit_mu_DoubleMu",
+        "SingleEle": single_ele_match_expr,
+        "DoubleEle": f"{lep_name}_trigObj_bit_ele_DoubleEle",
+        "EleMu": (
+            f"({lep_name}_trigObj_bit_ele_EleMu || "
+            f"{lep_name}_trigObj_bit_mu_EleMu)"
+        ),
+    }
+    family_trigger_flags = {
+        "SingleMu": "Trigger_sngMu",
+        "DoubleMu": "Trigger_dblMu",
+        "SingleEle": "Trigger_sngEl",
+        "DoubleEle": "Trigger_dblEl",
+        "EleMu": "Trigger_ElMu",
+    }
+
+    for family, match_expr in family_match_exprs.items():
+        aliases[f"{lep_name}_trigObj_match_{family}"] = {"expr": match_expr}
+        aliases[f"{lep_name}_trigObj_fired_{family}"] = {
+            "expr": f"({_trigger_or_false(family_trigger_flags[family])}) && ({match_expr})"
         }
+
+    aliases[f"{lep_name}_trigObj_leg_IsoMu24"] = {
+        "expr": f"({_hlt_expr_by_label['IsoMu24']}) && {lep_name}_trigObj_match_SingleMu",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Mu17_Mu8"] = {
+        "expr": f"({_hlt_expr_by_label['Mu17_Mu8']}) && {lep_name}_trigObj_match_DoubleMu",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Ele23_Ele12"] = {
+        "expr": f"({_hlt_expr_by_label['Ele23_Ele12']}) && {lep_name}_trigObj_match_DoubleEle",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Ele23_Ele12_leg1"] = {
+        "expr": f"({_hlt_expr_by_label['Ele23_Ele12']}) && {lep_name}_trigObj_bit_ele_DoubleEleLeg1",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Ele23_Ele12_leg2"] = {
+        "expr": f"({_hlt_expr_by_label['Ele23_Ele12']}) && {lep_name}_trigObj_bit_ele_DoubleEleLeg2",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Ele30"] = {
+        "expr": f"({_hlt_expr_by_label['Ele30']}) && {lep_name}_trigObj_match_SingleEle",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Mu23_Ele12"] = {
+        "expr": f"({_hlt_expr_by_label['Mu23_Ele12']}) && {lep_name}_trigObj_match_EleMu",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Mu12_Ele23"] = {
+        "expr": f"({_hlt_expr_by_label['Mu12_Ele23']}) && {lep_name}_trigObj_match_EleMu",
+    }
+    aliases[f"{lep_name}_trigObj_leg_Mu8_Ele23"] = {
+        "expr": f"({_hlt_expr_by_label['Mu8_Ele23']}) && {lep_name}_trigObj_match_EleMu",
+    }
 
     aliases[f"{lep_name}_trigObj_bits4l"] = {
         "expr": (
             "ZH4lMETZZCR::pack4lTrigObjBits("
-            f"Alt(Lepton_pdgId, {lep_idx}, 0), "
-            f"Alt(TrigObj_filterBits, {trig_idx_expr}, 0))"
+            f"{lep_pdgid_expr}, "
+            f"{trig_bits_expr}, {ZZCR_TRIGOBJ_NANOAOD_VERSION})"
         ),
     }
+
+_trigger_exprs = {flag: _trigger_or_false(flag) for flag in TRIGGER_AGGREGATE_FLAGS}
+_hlt_priority_exprs = [
+    _trigger_or_false(path) for path, _label in TRIGGER_PATH_PRIORITY
+]
+
+aliases["ZZCR_dataStreamPriority"] = {
+    "expr": (
+        "ZH4lMETZZCR::dataStreamPriorityCategory("
+        f"{_trigger_exprs['Trigger_ElMu']}, "
+        f"{_trigger_exprs['Trigger_sngMu']}, "
+        f"{_trigger_exprs['Trigger_dblMu']}, "
+        f"{_trigger_exprs['Trigger_sngEl']}, "
+        f"{_trigger_exprs['Trigger_dblEl']})"
+    ),
+}
+
+aliases["ZZCR_triggerFamilyPriority"] = {
+    "expr": (
+        "ZH4lMETZZCR::triggerFamilyPriorityCategory("
+        f"{_trigger_exprs['Trigger_ElMu']}, "
+        f"{_trigger_exprs['Trigger_sngMu']}, "
+        f"{_trigger_exprs['Trigger_dblMu']}, "
+        f"{_trigger_exprs['Trigger_sngEl']}, "
+        f"{_trigger_exprs['Trigger_dblEl']})"
+    ),
+}
+
+aliases["ZZCR_nFiredTriggerFamilies"] = {
+    "expr": (
+        "ZH4lMETZZCR::countFiredTriggerFamilies("
+        f"{_trigger_exprs['Trigger_ElMu']}, "
+        f"{_trigger_exprs['Trigger_sngMu']}, "
+        f"{_trigger_exprs['Trigger_dblMu']}, "
+        f"{_trigger_exprs['Trigger_sngEl']}, "
+        f"{_trigger_exprs['Trigger_dblEl']})"
+    ),
+}
+
+aliases["ZZCR_hltPathPriority"] = {
+    "expr": "ZH4lMETZZCR::hltPathPriorityCategory(" + ", ".join(_hlt_priority_exprs) + ")",
+}
+
+aliases["ZZCR_nFiredHLTPaths"] = {
+    "expr": "ZH4lMETZZCR::countFiredHLTPaths(" + ", ".join(_hlt_priority_exprs) + ")",
+}
+
+aliases["ZZCR_streamPriority_MuonEG"] = {"expr": "ZZCR_dataStreamPriority == 1"}
+aliases["ZZCR_streamPriority_Muon"] = {"expr": "ZZCR_dataStreamPriority == 2"}
+aliases["ZZCR_streamPriority_EGamma"] = {"expr": "ZZCR_dataStreamPriority == 3"}
+aliases["ZZCR_hasValidZ0"] = {
+    "expr": "(Alt(Z0_idx, 0, -1) >= 0) && (Alt(Z0_idx, 1, -1) >= 0)",
+}
+aliases["ZZCR_hasValidX"] = {
+    "expr": "(Alt(X_idx, 0, -1) >= 0) && (Alt(X_idx, 1, -1) >= 0)",
+}
+aliases["ZZCR_dyLike2lBaseline"] = {
+    "expr": (
+        "("
+        + " || ".join(f"({_trigger_exprs[flag]})" for flag in TRIGGER_AGGREGATE_FLAGS)
+        + ") && nLepton >= 2 && ZZCR_hasValidZ0 && "
+        "Z0_mass > 30. && "
+        "Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 10. && "
+        "Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10."
+    ),
+}
+aliases["ZZCR_zzLike4lIncremental"] = {
+    "expr": (
+        "ZZCR_dyLike2lBaseline && ZZCR_hasValidX && "
+        "PassesZZCR4lOrderedPt && m4l > 0. && "
+        "ZH4lMETZZCR::sumLeptonChargeFromPairs(Lepton_pdgId, Z0_idx, X_idx) == 0"
+    ),
+}
+aliases["ZZCR_Z0_trigMatchState"] = {
+    "expr": (
+        "ZH4lMETZZCR::combineTrigMatchState2("
+        "Alt(Z0_idx, 0, -1), Alt(Z0_idx, 1, -1), "
+        "lZ1_trigObj_matchState, lZ2_trigObj_matchState)"
+    ),
+}
+aliases["ZZCR_X_trigMatchState"] = {
+    "expr": (
+        "ZH4lMETZZCR::combineTrigMatchState2("
+        "Alt(X_idx, 0, -1), Alt(X_idx, 1, -1), "
+        "lX1_trigObj_matchState, lX2_trigObj_matchState)"
+    ),
+}
+aliases["ZZCR_4l_trigMatchState"] = {
+    "expr": (
+        "ZH4lMETZZCR::combineTrigMatchState4("
+        "Alt(Z0_idx, 0, -1), Alt(Z0_idx, 1, -1), "
+        "Alt(X_idx, 0, -1), Alt(X_idx, 1, -1), "
+        "lZ1_trigObj_matchState, lZ2_trigObj_matchState, "
+        "lX1_trigObj_matchState, lX2_trigObj_matchState)"
+    ),
+}
 
 aliases["recoil_ux"] = {
     "expr": "ZH4lMETZZCR::recoilUx(pT4l, phi4l, PuppiMET_pt, PuppiMET_phi)"

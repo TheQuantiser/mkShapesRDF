@@ -194,6 +194,21 @@ ZZCR_OUTPUT_MODE=test-remote \
 mkShapesRDF -c 1 -o 0 -b 1 -dR 1 -f . -l 1
 ```
 
+## NanoAOD Trigger-Object Schema
+
+The trigger-audit aliases assume the NanoAODv15 `TrigObj_filterBits` layout for
+all supported ZZ_CR year profiles.  This is intentionally independent of
+`l2tight_era`: older 2022-2023 profile strings and input campaign names may
+still contain `v12`, but they no longer select the legacy NanoAODv12
+trigger-object bit map.
+
+The v15 assumption controls the decoded per-lepton trigger-object branches:
+double-electron leg bits use electron bits 4 and 5, the electron leg of
+electron-muon triggers uses bit 6, and the single-electron object match uses
+the explicit `Ele30_WPTight_Gsf` bit 18 rather than the broad WPTight bit.
+`TRIGGER_AUDIT.md` records the CMSSW/NanoAOD evidence and the postprocessing
+branches saved for this diagnostic tree.
+
 ## Year JSON Parameters
 
 Edit `zzcr_year_config.json` when physics inputs change. Do not hard-code these
@@ -254,14 +269,18 @@ xrootd write endpoint.
 Lightweight syntax and unit checks:
 
 ```bash
-python3 -m py_compile \
+source start.sh
+
+python -m py_compile \
   mkShapesRDF/lib/remote_io.py \
   mkShapesRDF/shapeAnalysis/BatchSubmission.py \
   mkShapesRDF/shapeAnalysis/mkShapesRDF.py \
   PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/*.py \
   tests/test_remote_io_unittest.py
 
-python3 -m unittest tests.test_remote_io_unittest -v
+python -m unittest tests.test_remote_io_unittest -v
+
+python -m pytest tests/test_zzcr_configuration_profiles.py -q
 ```
 
 The 2026-07-12 bounded matrix passed with two pinned ZZ inputs, CERN xrootd

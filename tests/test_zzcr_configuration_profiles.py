@@ -8,8 +8,12 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ZZCR_DIR = REPO_ROOT / "PlotsConfigurationsRun3" / "ZH_4lMET" / "ZZ_CR"
 CONFIGURATION = ZZCR_DIR / "configuration.py"
+SELECTION_CONFIG = ZZCR_DIR / "zzcr_selection_config.py"
+ALIASES = ZZCR_DIR / "aliases.py"
+SUPPORTED_ZZCR_YEARS = ("2022", "2022EE", "2023", "2023BPix", "2024")
 
 ZZCR_ENV_KEYS = (
+    "ZZCR_YEAR",
     "ZZCR_EXECUTION_PROFILE",
     "ZZCR_SITE_PRESET",
     "ZZCR_OUTPUT_MODE",
@@ -192,3 +196,47 @@ def test_packaged_profile_accepts_batch_and_local_profile_accepts_local(
         execution_mode="local",
     )
     assert local["requiredExecutionMode"] is None
+
+
+def _load_selection_config(monkeypatch, year):
+    monkeypatch.setenv("ZZCR_YEAR", year)
+    return runpy.run_path(
+        str(SELECTION_CONFIG), init_globals={"ZZCR_CONFIG_DIR": str(ZZCR_DIR)}
+    )
+
+
+@pytest.mark.parametrize("year", SUPPORTED_ZZCR_YEARS)
+def test_zzcr_trigger_object_schema_defaults_to_nanoaod_v15(monkeypatch, year):
+    data = _load_selection_config(monkeypatch, year)
+
+    assert data["DEFAULT_TRIGOBJ_NANOAOD_VERSION"] == 15
+    assert data["trigobj_nanoaod_version"]() == 15
+    assert data["trigobj_nanoaod_version"]({"l2tight_era": "Full2022v12"}) == 15
+
+
+def test_zzcr_rejects_legacy_trigger_object_schema_override(monkeypatch):
+    data = _load_selection_config(monkeypatch, "2024")
+
+    with pytest.raises(ValueError, match="assumes NanoAODv15"):
+        data["trigobj_nanoaod_version"]({"trigobj_nanoaod_version": 12})
+
+
+@pytest.mark.parametrize("year", SUPPORTED_ZZCR_YEARS)
+def test_zzcr_trigger_object_aliases_use_v15_bits(monkeypatch, year):
+    monkeypatch.setenv("ZZCR_YEAR", year)
+    data = runpy.run_path(
+        str(ALIASES),
+        init_globals={"ZZCR_CONFIG_DIR": str(ZZCR_DIR), "samples": {}},
+    )
+    aliases = data["aliases"]
+
+    assert data["ZZCR_TRIGOBJ_NANOAOD_VERSION"] == 15
+    assert ", 4)" in aliases["lZ1_trigObj_bit_ele_DoubleEleLeg1"]["expr"]
+    assert ", 5)" in aliases["lZ1_trigObj_bit_ele_DoubleEleLeg2"]["expr"]
+    assert ", 6)" in aliases["lZ1_trigObj_bit_ele_EleMu"]["expr"]
+    assert ", 18)" in aliases["lZ1_trigObj_bit_ele_Ele30WPTight"]["expr"]
+    assert (
+        aliases["lZ1_trigObj_match_SingleEle"]["expr"]
+        == "lZ1_trigObj_bit_ele_Ele30WPTight"
+    )
+    assert aliases["lZ1_trigObj_bits4l"]["expr"].endswith(", 15)")

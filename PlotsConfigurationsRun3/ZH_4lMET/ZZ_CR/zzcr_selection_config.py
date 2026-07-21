@@ -65,6 +65,125 @@ LEPTON_PAIR_COMBINATIONS = [
 # variables.py so downstream plotting notebooks can split by actual HLT path.
 TRIGGER_PATH_CONFIG = _selected_year.get("trigger_paths", {})
 
+TRIGGER_AGGREGATE_FLAGS = [
+    "Trigger_ElMu",
+    "Trigger_sngMu",
+    "Trigger_dblMu",
+    "Trigger_sngEl",
+    "Trigger_dblEl",
+]
+
+TRIGGER_PATH_PRIORITY = [
+    ("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL", "Mu23_Ele12"),
+    ("HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", "Mu12_Ele23"),
+    ("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", "Mu8_Ele23"),
+    ("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8", "Mu17_Mu8"),
+    ("HLT_IsoMu24", "IsoMu24"),
+    ("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL", "Ele23_Ele12"),
+    ("HLT_Ele30_WPTight_Gsf", "Ele30"),
+]
+
+TRIGGER_PATH_LABELS = dict(TRIGGER_PATH_PRIORITY)
+
+TRIGOBJ_BASE_SUFFIXES = [
+    "trigObj_idx",
+    "trigObj_dR",
+    "trigObj_nMatches",
+    "trigObj_matchState",
+    "trigObj_pt",
+    "trigObj_eta",
+    "trigObj_phi",
+    "trigObj_pdgId",
+    "trigObj_id",
+    "trigObj_filterBits",
+    "trigObj_bits4l",
+]
+
+TRIGOBJ_DECODED_BIT_SUFFIXES = [
+    "trigObj_bit_ele_CaloIdLTrackIdLIsoVL",
+    "trigObj_bit_ele_1eWPTight",
+    "trigObj_bit_ele_1eWPLoose",
+    "trigObj_bit_ele_DoubleEle",
+    "trigObj_bit_ele_DoubleEleLeg1",
+    "trigObj_bit_ele_DoubleEleLeg2",
+    "trigObj_bit_ele_EleMu",
+    "trigObj_bit_ele_Ele30WPTight",
+    "trigObj_bit_mu_TrkIsoVVL",
+    "trigObj_bit_mu_Iso",
+    "trigObj_bit_mu_SingleMu",
+    "trigObj_bit_mu_DoubleMu",
+    "trigObj_bit_mu_EleMu",
+]
+
+TRIGOBJ_FAMILY_SUFFIXES = [
+    "trigObj_match_SingleMu",
+    "trigObj_match_DoubleMu",
+    "trigObj_match_SingleEle",
+    "trigObj_match_DoubleEle",
+    "trigObj_match_EleMu",
+    "trigObj_fired_SingleMu",
+    "trigObj_fired_DoubleMu",
+    "trigObj_fired_SingleEle",
+    "trigObj_fired_DoubleEle",
+    "trigObj_fired_EleMu",
+]
+
+TRIGOBJ_PATH_LEG_SUFFIXES = [
+    "trigObj_leg_IsoMu24",
+    "trigObj_leg_Mu17_Mu8",
+    "trigObj_leg_Ele23_Ele12",
+    "trigObj_leg_Ele23_Ele12_leg1",
+    "trigObj_leg_Ele23_Ele12_leg2",
+    "trigObj_leg_Ele30",
+    "trigObj_leg_Mu23_Ele12",
+    "trigObj_leg_Mu12_Ele23",
+    "trigObj_leg_Mu8_Ele23",
+]
+
+TRIGOBJ_DIAGNOSTIC_SUFFIXES = (
+    TRIGOBJ_BASE_SUFFIXES
+    + TRIGOBJ_DECODED_BIT_SUFFIXES
+    + TRIGOBJ_FAMILY_SUFFIXES
+    + TRIGOBJ_PATH_LEG_SUFFIXES
+)
+
+EVENT_TRIGGER_DIAGNOSTIC_BRANCHES = [
+    "ZZCR_dataStreamPriority",
+    "ZZCR_triggerFamilyPriority",
+    "ZZCR_nFiredTriggerFamilies",
+    "ZZCR_hltPathPriority",
+    "ZZCR_nFiredHLTPaths",
+    "ZZCR_streamPriority_MuonEG",
+    "ZZCR_streamPriority_Muon",
+    "ZZCR_streamPriority_EGamma",
+    "ZZCR_hasValidZ0",
+    "ZZCR_hasValidX",
+    "ZZCR_dyLike2lBaseline",
+    "ZZCR_zzLike4lIncremental",
+    "ZZCR_Z0_trigMatchState",
+    "ZZCR_X_trigMatchState",
+    "ZZCR_4l_trigMatchState",
+]
+
+DEFAULT_TRIGOBJ_NANOAOD_VERSION = 15
+
+
+def trigobj_nanoaod_version(year_cfg=None):
+    """Return the NanoAOD trigger-object schema version assumed by ZZ_CR."""
+    cfg = year_cfg or _selected_year
+    version = cfg.get("trigobj_nanoaod_version", DEFAULT_TRIGOBJ_NANOAOD_VERSION)
+    try:
+        version = int(version)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(
+            f"Invalid trigobj_nanoaod_version={version!r}; expected an integer."
+        ) from exc
+    if version < 15:
+        raise ValueError(
+            f"Unsupported trigobj_nanoaod_version={version}; ZZ_CR assumes NanoAODv15 or newer."
+        )
+    return version
+
 
 def trigger_path_branches():
     branches = []

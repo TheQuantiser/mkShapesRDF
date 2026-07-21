@@ -34,11 +34,15 @@ if (
     or "LEPTON_PAIR_INDEX_EXPRESSIONS" not in globals()
     or "LEPTON_PAIR_COMBINATIONS" not in globals()
     or "trigger_path_branches" not in globals()
+    or "TRIGOBJ_DIAGNOSTIC_SUFFIXES" not in globals()
 ):
     from zzcr_selection_config import (
+        EVENT_TRIGGER_DIAGNOSTIC_BRANCHES,
         LEPTON_PAIR_COMBINATIONS,
         LEPTON_PAIR_INDEX_EXPRESSIONS,
         PAIR_ID_CONFIG,
+        TRIGGER_AGGREGATE_FLAGS,
+        TRIGOBJ_DIAGNOSTIC_SUFFIXES,
         trigger_path_branches,
     )
 
@@ -46,15 +50,7 @@ variables = {}
 
 BASE_EVENT_BRANCHES = [
 
-    "Trigger_ElMu",
-    "Trigger_sngMu",
-    "Trigger_dblMu",
-    "Trigger_sngEl",
-    "Trigger_dblEl",
-    # Concrete HLT path branches backing the aggregate Trigger_* flags above.
-    # The list is year-configured in zzcr_year_config.json so final ROOT trees
-    # retain exactly the paths used by the selected Run-3 trigger menu.
-    *trigger_path_branches(),
+    *TRIGGER_AGGREGATE_FLAGS,
 
     "nCleanJet",
     "Z0_mass",
@@ -103,6 +99,8 @@ BASE_EVENT_BRANCHES += [
     "Z0_isMM",
     "X_isEE",
     "X_isMM",
+    "X_isSF",
+    "X_isDF",
     "GenMET_pt",
     "GenMET_phi",
     "bVeto",
@@ -164,6 +162,17 @@ def _has_branch(branch):
 
 def _existing_branch(branch):
     return branch if _has_branch(branch) else None
+
+
+# Persist configured concrete HLT paths.  During pinned-file validation, missing
+# paths become false booleans instead of invalid self-definitions.
+for trigger_path_branch in trigger_path_branches():
+    tree_branches[trigger_path_branch] = (
+        trigger_path_branch if _has_branch(trigger_path_branch) else "false"
+    )
+
+for event_diag_branch in EVENT_TRIGGER_DIAGNOSTIC_BRANCHES:
+    tree_branches[event_diag_branch] = event_diag_branch
 
 LEPTON_BRANCH_RECIPES = {
     "pt": "Lepton_pt",
@@ -253,14 +262,7 @@ for lep_label, lep_idx in pair_leptons:
             f"({lep_pdgid_expr} == 11) ? ({ele_expr}) : (({lep_pdgid_expr} == 13) ? ({mu_expr}) : {default})"
         )
 
-    for trig_suffix in (
-        "trigObj_pt",
-        "trigObj_eta",
-        "trigObj_phi",
-        "trigObj_pdgId",
-        "trigObj_filterBits",
-        "trigObj_bits4l",
-    ):
+    for trig_suffix in TRIGOBJ_DIAGNOSTIC_SUFFIXES:
         tree_branches[f"{lep_label}_{trig_suffix}"] = f"{lep_label}_{trig_suffix}"
 
     for obj_name, obj_cfg in TIGHT_OBJECT_CONFIG.items():

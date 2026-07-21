@@ -22,13 +22,37 @@ ROOT::VecOps::RVec<float> emptyFloatVec() {
   return ROOT::VecOps::RVec<float>();
 }
 
+template <typename T>
+float valueAtFloat(const ROOT::VecOps::RVec<T> &values, int idx, float defaultValue) {
+  if (idx < 0 || static_cast<size_t>(idx) >= values.size())
+    return defaultValue;
+  return static_cast<float>(values[idx]);
+}
+
+template <typename T>
+int valueAtInt(const ROOT::VecOps::RVec<T> &values, int idx, int defaultValue) {
+  if (idx < 0 || static_cast<size_t>(idx) >= values.size())
+    return defaultValue;
+  return static_cast<int>(values[idx]);
+}
+
+template <typename T>
+unsigned long long valueAtULL(const ROOT::VecOps::RVec<T> &values,
+                              int idx,
+                              unsigned long long defaultValue) {
+  if (idx < 0 || static_cast<size_t>(idx) >= values.size())
+    return defaultValue;
+  return static_cast<unsigned long long>(values[idx]);
+}
+
+template <typename TrigObjIdT>
 ROOT::VecOps::RVec<int> createTrigIndexTnP(
     const ROOT::VecOps::RVec<float> &leptonEta,
     const ROOT::VecOps::RVec<float> &leptonPhi,
     const ROOT::VecOps::RVec<int> &leptonPdgId,
     const ROOT::VecOps::RVec<float> &trigObjEta,
     const ROOT::VecOps::RVec<float> &trigObjPhi,
-    const ROOT::VecOps::RVec<int> &trigObjId,
+    const ROOT::VecOps::RVec<TrigObjIdT> &trigObjId,
     float minDR = 0.1f) {
   // TnP-style nearest matching with flavor guard and robust bounds.
   const size_t nLepton = std::min({leptonEta.size(), leptonPhi.size(), leptonPdgId.size()});
@@ -41,7 +65,7 @@ ROOT::VecOps::RVec<int> createTrigIndexTnP(
     if (recoAbsPdgId != 11 && recoAbsPdgId != 13)
       continue;
     for (size_t iTr = 0; iTr < nTrigObj; ++iTr) {
-      if (recoAbsPdgId != std::abs(trigObjId[iTr]))
+      if (recoAbsPdgId != std::abs(static_cast<int>(trigObjId[iTr])))
         continue;
       const float deta = leptonEta[iLep] - trigObjEta[iTr];
       const float dphi = ROOT::VecOps::DeltaPhi(leptonPhi[iLep], trigObjPhi[iTr]);
@@ -55,36 +79,260 @@ ROOT::VecOps::RVec<int> createTrigIndexTnP(
   return leptonTrigIdx;
 }
 
-unsigned int pack4lTrigObjBits(int leptonPdgId, unsigned long long trigObjFilterBits) {
-  // Compact mask from NanoAOD v15 trigger-object docs/qualityBits.
+template <typename TrigObjIdT>
+ROOT::VecOps::RVec<float> createTrigMatchDRTnP(
+    const ROOT::VecOps::RVec<float> &leptonEta,
+    const ROOT::VecOps::RVec<float> &leptonPhi,
+    const ROOT::VecOps::RVec<int> &leptonPdgId,
+    const ROOT::VecOps::RVec<float> &trigObjEta,
+    const ROOT::VecOps::RVec<float> &trigObjPhi,
+    const ROOT::VecOps::RVec<TrigObjIdT> &trigObjId,
+    float minDR = 0.1f) {
+  const size_t nLepton = std::min({leptonEta.size(), leptonPhi.size(), leptonPdgId.size()});
+  const size_t nTrigObj = std::min({trigObjEta.size(), trigObjPhi.size(), trigObjId.size()});
+  ROOT::VecOps::RVec<float> bestDRs(leptonPdgId.size(), -999.0f);
+  for (size_t iLep = 0; iLep < nLepton; ++iLep) {
+    float bestDR = minDR;
+    const int recoAbsPdgId = std::abs(leptonPdgId[iLep]);
+    if (recoAbsPdgId != 11 && recoAbsPdgId != 13)
+      continue;
+    for (size_t iTr = 0; iTr < nTrigObj; ++iTr) {
+      if (recoAbsPdgId != std::abs(static_cast<int>(trigObjId[iTr])))
+        continue;
+      const float deta = leptonEta[iLep] - trigObjEta[iTr];
+      const float dphi = ROOT::VecOps::DeltaPhi(leptonPhi[iLep], trigObjPhi[iTr]);
+      const float dR = std::sqrt(deta * deta + dphi * dphi);
+      if (dR < bestDR) {
+        bestDR = dR;
+        bestDRs[iLep] = dR;
+      }
+    }
+  }
+  return bestDRs;
+}
+
+template <typename TrigObjIdT>
+ROOT::VecOps::RVec<int> countTrigMatchesTnP(
+    const ROOT::VecOps::RVec<float> &leptonEta,
+    const ROOT::VecOps::RVec<float> &leptonPhi,
+    const ROOT::VecOps::RVec<int> &leptonPdgId,
+    const ROOT::VecOps::RVec<float> &trigObjEta,
+    const ROOT::VecOps::RVec<float> &trigObjPhi,
+    const ROOT::VecOps::RVec<TrigObjIdT> &trigObjId,
+    float minDR = 0.1f) {
+  const size_t nLepton = std::min({leptonEta.size(), leptonPhi.size(), leptonPdgId.size()});
+  const size_t nTrigObj = std::min({trigObjEta.size(), trigObjPhi.size(), trigObjId.size()});
+  ROOT::VecOps::RVec<int> counts(leptonPdgId.size(), 0);
+  for (size_t iLep = 0; iLep < nLepton; ++iLep) {
+    const int recoAbsPdgId = std::abs(leptonPdgId[iLep]);
+    if (recoAbsPdgId != 11 && recoAbsPdgId != 13)
+      continue;
+    for (size_t iTr = 0; iTr < nTrigObj; ++iTr) {
+      if (recoAbsPdgId != std::abs(static_cast<int>(trigObjId[iTr])))
+        continue;
+      const float deta = leptonEta[iLep] - trigObjEta[iTr];
+      const float dphi = ROOT::VecOps::DeltaPhi(leptonPhi[iLep], trigObjPhi[iTr]);
+      const float dR = std::sqrt(deta * deta + dphi * dphi);
+      if (dR < minDR)
+        ++counts[iLep];
+    }
+  }
+  return counts;
+}
+
+ROOT::VecOps::RVec<int> createTrigMatchStateTnP(
+    const ROOT::VecOps::RVec<int> &leptonPdgId,
+    const ROOT::VecOps::RVec<int> &trigIdx,
+    const ROOT::VecOps::RVec<int> &matchCount) {
+  const size_t n = std::min({leptonPdgId.size(), trigIdx.size(), matchCount.size()});
+  ROOT::VecOps::RVec<int> state(leptonPdgId.size(), -1);
+  for (size_t i = 0; i < n; ++i) {
+    const int absPdgId = std::abs(leptonPdgId[i]);
+    if (absPdgId != 11 && absPdgId != 13) {
+      state[i] = -1;
+    } else if (matchCount[i] <= 0 || trigIdx[i] < 0) {
+      state[i] = 0;
+    } else if (matchCount[i] == 1) {
+      state[i] = 1;
+    } else {
+      state[i] = 2;
+    }
+  }
+  return state;
+}
+
+bool trigObjHasFilterBit(unsigned long long trigObjFilterBits, int bitIdx) {
+  if (bitIdx < 0)
+    return false;
+  return ((trigObjFilterBits >> bitIdx) & 0x1ULL) != 0ULL;
+}
+
+unsigned int pack4lTrigObjBits(int leptonPdgId,
+                               unsigned long long trigObjFilterBits,
+                               int nanoAODVersion) {
+  // Compact diagnostic mask; explicit booleans are saved separately.
   const int absPdgId = std::abs(leptonPdgId);
-  auto hasBit = [&](int bitIdx) -> bool {
-    return ((trigObjFilterBits >> bitIdx) & 0x1ULL) != 0ULL;
-  };
+  auto hasBit = [&](int bitIdx) -> bool { return trigObjHasFilterBit(trigObjFilterBits, bitIdx); };
+  const bool isV15 = nanoAODVersion >= 15;
 
   unsigned int packed = 0u;
   if (absPdgId == 11) {
-    // e: [0]=1e-1mu(bit6), [1]=2e leg1(bit4), [2]=2e leg2(bit5), [3]=Ele30(bit18)
-    if (hasBit(6))
+    const bool eEleMu = hasBit(isV15 ? 6 : 5);
+    const bool eDoubleEle = isV15 ? (hasBit(4) || hasBit(5)) : hasBit(4);
+    const bool eDoubleEleLeg1 = isV15 && hasBit(4);
+    const bool eDoubleEleLeg2 = isV15 && hasBit(5);
+    const bool eSingleEle = isV15 ? hasBit(18) : hasBit(1);
+    const bool eWPTight = hasBit(1);
+    const bool eEle30 = isV15 && hasBit(18);
+    // e: [0]=EleMu, [1]=DoubleEle, [2]=DoubleEleLeg1,
+    //    [3]=DoubleEleLeg2, [4]=SingleEle family, [5]=Ele30 exact,
+    //    [6]=1e WPTight broad bit.
+    if (eEleMu)
       packed |= (1u << 0);
-    if (hasBit(4))
+    if (eDoubleEle)
       packed |= (1u << 1);
-    if (hasBit(5))
+    if (eDoubleEleLeg1)
       packed |= (1u << 2);
-    if (hasBit(18))
+    if (eDoubleEleLeg2)
       packed |= (1u << 3);
+    if (eSingleEle)
+      packed |= (1u << 4);
+    if (eEle30)
+      packed |= (1u << 5);
+    if (eWPTight)
+      packed |= (1u << 6);
   } else if (absPdgId == 13) {
-    // mu: [0]=1mu(bit3), [1]=Iso(bit1), [2]=2mu(bit4), [3]=1mu-1e(bit5)
-    if (hasBit(3))
-      packed |= (1u << 0);
-    if (hasBit(1))
-      packed |= (1u << 1);
-    if (hasBit(4))
-      packed |= (1u << 2);
+    // mu: [0]=EleMu, [1]=DoubleMu, [2]=SingleMu, [3]=Iso, [4]=TrkIsoVVL.
     if (hasBit(5))
+      packed |= (1u << 0);
+    if (hasBit(4))
+      packed |= (1u << 1);
+    if (hasBit(3))
+      packed |= (1u << 2);
+    if (hasBit(1))
       packed |= (1u << 3);
+    if (hasBit(0))
+      packed |= (1u << 4);
   }
   return packed;
+}
+
+unsigned int pack4lTrigObjBits(int leptonPdgId, unsigned long long trigObjFilterBits) {
+  return pack4lTrigObjBits(leptonPdgId, trigObjFilterBits, 15);
+}
+
+int dataStreamPriorityCategory(bool triggerElMu,
+                               bool triggerSingleMu,
+                               bool triggerDoubleMu,
+                               bool triggerSingleEle,
+                               bool triggerDoubleEle) {
+  if (triggerElMu)
+    return 1;
+  if (triggerSingleMu || triggerDoubleMu)
+    return 2;
+  if (triggerSingleEle || triggerDoubleEle)
+    return 3;
+  return 0;
+}
+
+int triggerFamilyPriorityCategory(bool triggerElMu,
+                                  bool triggerSingleMu,
+                                  bool triggerDoubleMu,
+                                  bool triggerSingleEle,
+                                  bool triggerDoubleEle) {
+  if (triggerElMu)
+    return 1;
+  if (triggerSingleMu)
+    return 2;
+  if (triggerDoubleMu)
+    return 3;
+  if (triggerSingleEle)
+    return 4;
+  if (triggerDoubleEle)
+    return 5;
+  return 0;
+}
+
+int countFiredTriggerFamilies(bool triggerElMu,
+                              bool triggerSingleMu,
+                              bool triggerDoubleMu,
+                              bool triggerSingleEle,
+                              bool triggerDoubleEle) {
+  return static_cast<int>(triggerElMu) + static_cast<int>(triggerSingleMu) +
+         static_cast<int>(triggerDoubleMu) + static_cast<int>(triggerSingleEle) +
+         static_cast<int>(triggerDoubleEle);
+}
+
+int hltPathPriorityCategory(bool mu23Ele12,
+                            bool mu12Ele23,
+                            bool mu8Ele23,
+                            bool mu17Mu8,
+                            bool isoMu24,
+                            bool ele23Ele12,
+                            bool ele30) {
+  if (mu23Ele12)
+    return 1;
+  if (mu12Ele23)
+    return 2;
+  if (mu8Ele23)
+    return 3;
+  if (mu17Mu8)
+    return 4;
+  if (isoMu24)
+    return 5;
+  if (ele23Ele12)
+    return 6;
+  if (ele30)
+    return 7;
+  return 0;
+}
+
+int countFiredHLTPaths(bool mu23Ele12,
+                       bool mu12Ele23,
+                       bool mu8Ele23,
+                       bool mu17Mu8,
+                       bool isoMu24,
+                       bool ele23Ele12,
+                       bool ele30) {
+  return static_cast<int>(mu23Ele12) + static_cast<int>(mu12Ele23) +
+         static_cast<int>(mu8Ele23) + static_cast<int>(mu17Mu8) +
+         static_cast<int>(isoMu24) + static_cast<int>(ele23Ele12) +
+         static_cast<int>(ele30);
+}
+
+int combineTrigMatchState2(int idx0, int idx1, int state0, int state1) {
+  if (idx0 < 0 || idx1 < 0 || state0 < 0 || state1 < 0)
+    return -1;
+  if (state0 == 2 || state1 == 2)
+    return 3;
+  const int nMatched = static_cast<int>(state0 == 1) + static_cast<int>(state1 == 1);
+  if (nMatched == 2)
+    return 2;
+  if (nMatched == 1)
+    return 1;
+  return 0;
+}
+
+int combineTrigMatchState4(int idx0,
+                           int idx1,
+                           int idx2,
+                           int idx3,
+                           int state0,
+                           int state1,
+                           int state2,
+                           int state3) {
+  if (idx0 < 0 || idx1 < 0 || idx2 < 0 || idx3 < 0 ||
+      state0 < 0 || state1 < 0 || state2 < 0 || state3 < 0)
+    return -1;
+  if (state0 == 2 || state1 == 2 || state2 == 2 || state3 == 2)
+    return 3;
+  const int nMatched = static_cast<int>(state0 == 1) + static_cast<int>(state1 == 1) +
+                       static_cast<int>(state2 == 1) + static_cast<int>(state3 == 1);
+  if (nMatched == 4)
+    return 2;
+  if (nMatched > 0)
+    return 1;
+  return 0;
 }
 
 bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float> &cleanJetPt,

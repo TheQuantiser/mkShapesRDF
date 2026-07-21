@@ -24,3 +24,39 @@ cuts["zz_cr"] = {
         "ALL": "(Z0_mass > 30.) && (lZ1_pt > 10.) && (lZ2_pt > 10.)",
     },
 }
+
+# DY-like trigger audit template:
+# cuts["dy_like_2l_trigger_audit"] = {
+#     "expr": (
+#         "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl)"
+#         " && nLepton >= 2"
+#         " && ZZCR_hasValidZ0"
+#         " && Z0_mass > 30."
+#         " && lZ1_pt > 10."
+#         " && lZ2_pt > 10."
+#     ),
+#     "categories": {
+#         "MuonEG": "ZZCR_streamPriority_MuonEG",
+#         "Muon": "ZZCR_streamPriority_Muon",
+#         "EGamma": "ZZCR_streamPriority_EGamma",
+#     },
+# }
+#
+# Incremental ZZ-like trigger audit template:
+# cuts["zz_like_4l_trigger_audit"] = {
+#     "expr": (
+#         "ZZCR_dyLike2lBaseline"
+#         " && ZZCR_hasValidX"
+#         " && (X_isSF || X_isDF)"
+#         " && PassesZZCR4lOrderedPt"
+#         " && m4l > 0."
+#         " && sumLeptonCharge == 0"
+#         " && bVeto"
+#     ),
+#     "categories": {
+#         "X_SF": "X_isSF",
+#         "X_DF": "X_isDF",
+#         "MET_0_50": "PuppiMET_pt < 50.",
+#         "MET_50_plus": "PuppiMET_pt >= 50.",
+#     },
+# }
