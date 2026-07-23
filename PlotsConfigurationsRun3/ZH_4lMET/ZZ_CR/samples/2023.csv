@@ -1,0 +1,92 @@
+Before running:,voms-proxy-init --voms cms -valid 192:0
+
+Destination:,/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/<production>/<step>
+Command:,mkPostProc -o 0 -p <production> -s <step> -T <sample>
+Check jobs status:,mkPostProc -1
+
+To get writing permissions:,chmod g+w /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer23_130x_nAODv12_Full2023v12/
+,chmod g+w /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer23_130x_nAODv12_Full2023v12/*
+
+,chmod g+w /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2023_Prompt_nAODv12_Full2023v12/
+,chmod g+w /eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2023_Prompt_nAODv12_Full2023v12/*
+
+Sample,Status,Responsible,Command,Test one script
+DATA l2 loose,DATA l2 loose
+All DATA,Done,Nicolò,mkPostProc -o 0 -p Run2023_Prompt_nAODv12_Full2023v12 -s DATAl2loose2023v12__l2loose
+MC l2 tight,MC l2 tight
+DYto2L-2Jets_MLL-10to50																				,Done,Nicolò,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYto2L-2Jets_MLL-10to50                                                                                                                                                                
+DYto2L-2Jets_MLL-50,running,Mohammad,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYto2L-2Jets_MLL-50,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/DYto2L-2Jets_MLL-50__part0/script.py
+TTToSemiLeptonic,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTToSemiLeptonic
+TTTo4Q,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTTo4Q
+TTTo2L2Nu,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T  TTTo2L2Nu,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/TTTo2L2Nu__part0/script.py
+ST_t-channel_top,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ST_t-channel_top
+ST_t-channel_antitop,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ST_t-channel_antitop
+ST_s-channel_plus,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ST_s-channel_plus
+ST_s-channel_minus,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ST_s-channel_minus
+ST_tW_top,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T  ST_tW_top,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/ST_tW_top__part0/script.py
+ST_tW_antitop,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ST_tW_antitop
+TWminusto2L2Nu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TWminusto2L2Nu,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/TWminusto2L2Nu__part0/script.py
+TbarWplusto2L2Nu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TbarWplusto2L2Nu,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/TbarWplusto2L2Nu__part0/script.py
+TTNuNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTNuNu
+TTLL_MLL-4to50,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTLL_MLL-4to50
+TTLL_MLL-50,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTLL_MLL-50
+TTZ-ZtoQQ,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTZ-ZtoQQ
+TTWJetsToLNu (now TTLNu),Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTLNu
+TTHtoNon2B,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTHtoNon2B
+TTHto2B,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTHto2B
+TTG_PTG-10to100,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTG_PTG-10to100
+TTG_PTG-100to200,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTG_PTG-100to200
+TTG_PTG-200,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTG_PTG-200
+TZQB-ZTo2L,Done,Víctor,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TZQB-ZTo2L
+TTTT,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T TTTT
+THW,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T THW
+THQ,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T THQ
+WWTo2L2Nu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WWTo2L2Nu,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/WWTo2L2Nu__part0/script.py
+GluGluHToWWTo2L2Nu_M125,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGluHToWWTo2L2Nu_M125,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/GluGluHToWWTo2L2Nu_M125__part0/script.py
+VBFHToWWTo2L2Nu_M125,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T VBFHToWWTo2L2Nu_M125,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/VBFHToWWTo2L2Nu_M125__part0/script.py
+WZ,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WZ
+WZTo3LNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WZTo3LNu,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/WZTo3LNu__part0/script.py
+ZZ,Done,Mohammad,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ZZ
+WWW,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WWW
+WWZ,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WWZ
+WZZ,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WZZ
+ZZZ,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T ZZZ
+GluGlutoContintoWWtoENuENu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoENuENu
+GluGlutoContintoWWtoENuMuNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoENuMuNu
+GluGlutoContintoWWtoENuTauNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoENuTauNu
+GluGlutoContintoWWtoMuNuENu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoMuNuENu
+GluGlutoContintoWWtoMuNuMuNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoMuNuMuNu
+GluGlutoContintoWWtoMuNuTauNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoMuNuTauNu
+GluGlutoContintoWWtoTauNuENu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoTauNuENu
+GluGlutoContintoWWtoTauNuMuNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoTauNuMuNu
+GluGlutoContintoWWtoTauNuTauNu,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T GluGlutoContintoWWtoTauNuTauNu
+WGtoLNuG-1J,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WGtoLNuG-1J
+WGtoLNuG-1J_PTG10to100,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WGtoLNuG-1J_PTG10to100
+WGtoLNuG-1J_PTG100to200,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WGtoLNuG-1J_PTG100to200
+WGtoLNuG-1J_PTG200to400,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WGtoLNuG-1J_PTG200to400
+WGtoLNuG-1J_PTG400to600,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WGtoLNuG-1J_PTG400to600
+WGtoLNuG-1J_PTG600,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T WGtoLNuG-1J_PTG600
+DYto2Tau-2Jets_MLL-50_0J,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYto2Tau-2Jets_MLL-50_0J
+DYto2Tau-2Jets_MLL-50_1J,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYto2Tau-2Jets_MLL-50_1J
+DYto2Tau-2Jets_MLL-50_2J,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYto2Tau-2Jets_MLL-50_2J
+DYGto2LG-1Jets_MLL-4to50_PTG-10to100,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-4to50_PTG-10to100
+DYGto2LG-1Jets_MLL-4to50_PTG-100to200,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-4to50_PTG-100to200
+DYGto2LG-1Jets_MLL-4to50_PTG-200,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-4to50_PTG-200
+DYGto2LG-1Jets_MLL-50_PTG-10to100,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-50_PTG-10to100
+DYGto2LG-1Jets_MLL-50_PTG-100to200,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-50_PTG-100to200
+DYGto2LG-1Jets_MLL-50_PTG-200to400,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-50_PTG-200to400
+DYGto2LG-1Jets_MLL-50_PTG-400to600,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-50_PTG-400to600
+DYGto2LG-1Jets_MLL-50_PTG-600,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight -T DYGto2LG-1Jets_MLL-50_PTG-600
+MC l1 loose fake Sel,MC l1 loose fake Sel
+DYto2L-2Jets_MLL-50,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl1loose2023v12__MCCorr2023v12JetScaling__fakeSel -T DYto2L-2Jets_MLL-50,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl1loose2023v12__MCCorr2023v12JetScaling__fakeSel/DYto2L-2Jets_MLL-50__part0/script.py
+WToLNu-2Jets,Done,Alessandro,mkPostProc -o 0 -p Summer23_130x_nAODv12_Full2023v12 -s MCl1loose2023v12__MCCorr2023v12JetScaling__fakeSel -T WToLNu-2Jets,python mkShapesRDF/processor/condor/Summer23_130x_nAODv12_Full2023v12/MCl1loose2023v12__MCCorr2023v12JetScaling__fakeSel/WToLNu-2Jets__part0/script.py
+DATA l1 loose fake Sel,DATA l1 loose fakeW
+All DATA,Done,Nicolo,mkPostProc -o 0 -p Run2023_Prompt_nAODv12_Full2023v12 -s DATAl1loose2023v12__fakeSel
+
+
+
+
+
+
+DATA l2 tight,DATA l2 tight
+All DATA,WAIT BEFORE LAUNCHING,,mkPostProc -o 0 -p Run2023_Prompt_nAODv12_Full2023v12 -s DATAl2loose2023v12__l2tight ,python mkShapesRDF/processor/condor/Run2023_Prompt_nAODv12_Full2023v12/DATAl2loose2023v12__l2tight/Muon0_Run2023C-Prompt-v1__part0/script.py

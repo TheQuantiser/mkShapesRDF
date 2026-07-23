@@ -229,8 +229,18 @@ ZZCR_SITE_PRESET = os.environ.get(
 
 _user = os.environ.get("USER", getpass.getuser())
 _eos_user = os.environ.get("ZZCR_EOS_USER") or os.environ.get("CERN_USER") or _user
-_campaign = os.environ.get("ZZCR_TEST_CAMPAIGN", tag)
+ZZCR_OUTPUT_LEAF = tag
+ZZCR_TEST_CAMPAIGN = os.environ.get("ZZCR_TEST_CAMPAIGN", tag)
 ZZCR_OUTPUT_MODE = os.environ.get("ZZCR_OUTPUT_MODE", _profile["outputMode"])
+
+
+def _default_output_lfn(campaign):
+    base_lfn = f"/store/user/{_eos_user}/mkShapesRDF_rootfiles"
+    campaign = (campaign or "").strip("/")
+    output_leaf = ZZCR_OUTPUT_LEAF.strip("/")
+    if campaign and campaign != output_leaf:
+        return f"{base_lfn}/{campaign}/{output_leaf}"
+    return f"{base_lfn}/{output_leaf}"
 
 xrdReadEndpoint = os.environ.get(
     "ZZCR_XRD_READ_ENDPOINT", _profile.get("xrdReadEndpoint", "root://eoscms.cern.ch")
@@ -246,12 +256,14 @@ xrdRedirector = xrdReadEndpoint.replace("root://", "").strip("/")
 
 testOutputLFN = os.environ.get(
     "ZZCR_TEST_OUTPUT_LFN",
-    f"/store/user/{_eos_user}/mkShapesRDF_rootfiles/{_campaign}/rootFile",
+    _default_output_lfn(ZZCR_TEST_CAMPAIGN),
 )
-_production_campaign = _profile.get("productionCampaign", tag)
+ZZCR_PRODUCTION_CAMPAIGN = os.environ.get(
+    "ZZCR_PRODUCTION_CAMPAIGN", _profile.get("productionCampaign", tag)
+)
 productionOutputLFN = os.environ.get(
     "ZZCR_PRODUCTION_OUTPUT_LFN",
-    f"/store/user/{_eos_user}/mkShapesRDF_rootfiles/{_production_campaign}/rootFile",
+    _default_output_lfn(ZZCR_PRODUCTION_CAMPAIGN),
 )
 
 ZZCR_CONFIG_INCLUDE_BASE = _resolve_include_base(
@@ -268,6 +280,9 @@ os.environ["ZZCR_XRD_READ_ENDPOINT"] = xrdReadEndpoint
 os.environ["ZZCR_XRD_DISCOVERY_ENDPOINT"] = xrdDiscoveryEndpoint
 os.environ["ZZCR_XRD_WRITE_ENDPOINT"] = xrdWriteEndpoint
 os.environ["ZZCR_CONFIG_INCLUDE_BASE"] = ZZCR_CONFIG_INCLUDE_BASE
+os.environ["ZZCR_OUTPUT_LEAF"] = ZZCR_OUTPUT_LEAF
+os.environ["ZZCR_TEST_CAMPAIGN"] = ZZCR_TEST_CAMPAIGN
+os.environ["ZZCR_PRODUCTION_CAMPAIGN"] = ZZCR_PRODUCTION_CAMPAIGN
 
 remoteIO = {
     "inputAccessMode": os.environ["ZZCR_INPUT_ACCESS_MODE"],
@@ -338,7 +353,7 @@ localJobDir = os.path.join("jobs", tag)
 outputFolder = (
     eosUserOutputFolder
     if ZZCR_OUTPUT_MODE in ("test-remote", "production-remote")
-    else os.path.join(localJobDir, "rootFiles")
+    else os.path.join(localJobDir, ZZCR_OUTPUT_LEAF)
 )
 if ZZCR_OUTPUT_MODE in ("test-remote", "production-remote"):
     useX509Proxy = True
@@ -410,6 +425,9 @@ varsToKeep = [
     "executionModeRemediation",
     "testOutputLFN",
     "productionOutputLFN",
+    "ZZCR_OUTPUT_LEAF",
+    "ZZCR_TEST_CAMPAIGN",
+    "ZZCR_PRODUCTION_CAMPAIGN",
     "zzcrRemoteOutputLFN",
     "eosUserOutputFolder",
     "jdlconfigfile",

@@ -452,7 +452,10 @@ def main():
         if doBatch == 1:
             outputFileMap = "output.root"
         else:
-            localRemoteOutputPath = Path(f"{folder}/{localJobDir}/rootFiles")
+            remote_output_leaf = (
+                str(outputPath).rstrip("/").rsplit("/", 1)[-1] or "rootFiles"
+            )
+            localRemoteOutputPath = Path(folder) / localJobDir / remote_output_leaf
             localRemoteOutputPath.mkdir(parents=True, exist_ok=True)
             outputFileMap = f"{localRemoteOutputPath}/{outputFile}"
             remoteOutputDestination = f"{outputPath}/{outputFile}"
@@ -698,57 +701,25 @@ def main():
         _samples = RunAnalysis.splitSamples(samples)
         print(len(_samples))
         outputFileTrunc = ".".join(outputFile.split(".")[:-1])
-        if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
-            filesToMerge = list(
-                map(
-                    lambda k: f"{outputFolder}/{outputFileTrunc}__ALL__{k[0]}_{str(k[3])}.root",
-                    _samples,
-                )
+        mergeInputPath = str(outputPath).rstrip("/")
+        filesToMerge = list(
+            map(
+                lambda k: f"{mergeInputPath}/{outputFileTrunc}__ALL__{k[0]}_{str(k[3])}.root",
+                _samples,
             )
-            print("\n\nMerging files\n\n")
-            print("\n\n", filesToMerge, "\n\n")
-        
-            print(f"Hadding files into {outputFolder}/{outputFile}")
-        else:
-            filesToMerge = list(
-                map(
-                    lambda k: f"{folder}/{outputFolder}/{outputFileTrunc}__ALL__{k[0]}_{str(k[3])}.root",
-                    _samples,
-                )
-            )
-            print("\n\nMerging files\n\n")
-            print("\n\n", filesToMerge, "\n\n")
-            
-            print(f"Hadding files into {folder}/{outputFolder}/{outputFile}")
-        #filesToMerge = list(
-        #    map(
-        #        lambda k: f"{folder}/{outputFolder}/{outputFileTrunc}__ALL__{k[0]}_{str(k[3])}.root",
-        #        _samples,
-        #    )
-        #)
-        #print("\n\nMerging files\n\n")
-        #print("\n\n", filesToMerge, "\n\n")
+        )
+        print("\n\nMerging files\n\n")
+        print("\n\n", filesToMerge, "\n\n")
 
-        #print(f"Hadding files into {outputFileMap}")
-        for fileToMerge in filesToMerge:
-            os.system(f"echo {fileToMerge} >> filesToMerge_{outputFile}.txt")
-        #process = subprocess.Popen(
-        #    f"hadd2 -j 10 {outputFileMap} @filesToMerge_{outputFile}.txt; \
-        #    rm filesToMerge_{outputFile}.txt",
-        #    shell=True,
-        #)
-        if "/eos/user" in outputFolder or "/ceph/" in outputFolder:
-            process = subprocess.Popen(
-                f'hadd2 -j 10 {outputFolder}/{outputFile} @filesToMerge_{outputFile}.txt; \
-                rm filesToMerge_{outputFile}.txt',
-                shell=True,
-            )
-        else:
-            process = subprocess.Popen(
-                f'hadd2 -j 10 {folder}/{outputFolder}/{outputFile} @filesToMerge_{outputFile}.txt; \
-                rm filesToMerge_{outputFile}.txt',
-                shell=True,
-            )
+        print(f"Hadding files into {outputFileMap}")
+        with open(f"filesToMerge_{outputFile}.txt", "w") as filesToMergeHandle:
+            for fileToMerge in filesToMerge:
+                filesToMergeHandle.write(f"{fileToMerge}\n")
+        process = subprocess.Popen(
+            f'hadd2 -j 10 {outputFileMap} @filesToMerge_{outputFile}.txt; \
+            rm filesToMerge_{outputFile}.txt',
+            shell=True,
+        )
 
         process.communicate()
 
@@ -759,6 +730,8 @@ def main():
             postProcessNuisances(
                 outputFileMap, samples, aliases, variables, cuts, nuisances
             )
+            if remoteOutputDestination:
+                stage_out(outputFileMap, remoteOutputDestination, remoteIO)
         else:
             print("mkShapesRDF: Hadd failed!", file=sys.stderr)
             sys.exit(1)

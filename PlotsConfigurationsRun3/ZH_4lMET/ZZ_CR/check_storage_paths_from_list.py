@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Validate ZZ_CR storage paths against cmshww_HWWNano_file_list_22to25.txt.
+Validate ZZ_CR storage paths against 2026_07_21_cmshww_HWWNano_file_list_22to25.txt.
 
 Matching rule (MC):
   1) ignore any line containing "_OLD"
@@ -15,19 +15,24 @@ Matching rule (DATA):
        - .../<data.reco>/<data.steps>/...
 
 This script reports FOUND/NOT FOUND for:
-  - MC samples (non-2024, as originally requested)
+  - MC samples (all configured years)
   - DATA samples per run-tag/era (all configured years)
 """
 
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+from typing import Optional
 
 
 ROOT = Path(__file__).resolve().parent
 CFG = ROOT / "zzcr_year_config.json"
-FILE_LIST = ROOT / "cmshww_HWWNano_file_list_22to25.txt"
+FILE_LIST = ROOT / os.environ.get(
+    "ZZCR_STORAGE_FILE_LIST",
+    "2026_07_21_cmshww_HWWNano_file_list_22to25.txt",
+)
 
 
 def _load_json(path: Path) -> dict:
@@ -58,8 +63,41 @@ def _resolve_data_run_tags(year_cfg: dict) -> list[str]:
     return tags
 
 
-def _match_any(paths: list[str], token: str) -> bool:
-    return any(token in path for path in paths)
+def _resolve_tree_base_dir(
+    year_cfg: dict,
+    sample_kind: str,
+    sample_name: Optional[str] = None,
+    stream_name: Optional[str] = None,
+) -> str:
+    storage_cfg = year_cfg.get("storage", {})
+    default_dir = storage_cfg.get(
+        "default_tree_base_dir",
+        "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+    )
+    kind_default = storage_cfg.get(f"{sample_kind}_tree_base_dir", default_dir)
+
+    if sample_kind == "mc":
+        sample_overrides = storage_cfg.get("mc_tree_base_dir_by_sample", {})
+        return sample_overrides.get(sample_name, kind_default)
+
+    sample_overrides = storage_cfg.get("data_tree_base_dir_by_sample", {})
+    if sample_name in sample_overrides:
+        return sample_overrides[sample_name]
+
+    stream_overrides = storage_cfg.get("data_tree_base_dir_by_stream", {})
+    if stream_name in stream_overrides:
+        return stream_overrides[stream_name]
+
+    return kind_default
+
+
+def _match_in_dir(paths: list[str], directory: str, filename_prefix: str) -> list[str]:
+    prefix = directory.rstrip("/") + "/"
+    return [
+        path
+        for path in paths
+        if path.startswith(prefix) and path[len(prefix) :].startswith(filename_prefix)
+    ]
 
 
 def main() -> int:
@@ -74,9 +112,6 @@ def main() -> int:
     any_missing = False
 
     for year, year_cfg in years.items():
-        if year == "2024":
-            continue
-
         mc = year_cfg["mc"]
         production = mc["production"]
         steps = mc["steps"]
@@ -87,13 +122,11 @@ def main() -> int:
         print(f"  steps      = {steps}")
 
         for sample_name in sample_names:
-            token_prod_step = f"/{production}/{steps}/"
-            token_sample = f"nanoLatino_{sample_name}__part"
-            matches = [
-                path
-                for path in files
-                if token_prod_step in path and token_sample in path
-            ]
+            tree_base = _resolve_tree_base_dir(
+                year_cfg, "mc", sample_name=sample_name
+            )
+            directory = "/".join([tree_base, production, steps])
+            matches = _match_in_dir(files, directory, f"nanoLatino_{sample_name}__part")
             bases = sorted({_tree_base(path) for path in matches})
             if matches:
                 print(
@@ -108,7 +141,7 @@ def main() -> int:
         print("Result: one or more samples are NOT FOUND.")
         return 2
 
-    print("Result (MC): all non-2024 configured MC samples are FOUND in the file list.\n")
+    print("Result (MC): all configured MC samples are FOUND in the file list.\n")
 
     # DATA validation for all configured years and run tags (eras).
     for year, year_cfg in years.items():
@@ -124,21 +157,26 @@ def main() -> int:
         for sample in data["samples"]:
             dataset = sample["dataset"]
             stream = sample["stream"]
+            tree_base = _resolve_tree_base_dir(
+                year_cfg,
+                "data",
+                sample_name=dataset,
+                stream_name=stream,
+            )
             sample_run_tags = sample.get("runs", year_run_tags)
             missing_run_tags = []
 
             for run_tag in sample_run_tags:
                 filename_token = f"nanoLatino_{dataset}_{run_tag}__part"
-                by_stream_token = f"/{reco}_{stream}/{steps}/"
-                legacy_token = f"/{reco}/{steps}/"
+                directories = [
+                    "/".join([tree_base, f"{reco}_{stream}", steps]),
+                    "/".join([tree_base, reco, steps]),
+                ]
 
-                found = False
-                if _match_any(
-                    files, by_stream_token + filename_token
-                ) or _match_any(files, legacy_token + filename_token):
-                    found = True
-
-                if not found:
+                if not any(
+                    _match_in_dir(files, directory, filename_token)
+                    for directory in directories
+                ):
                     missing_run_tags.append(run_tag)
 
             if missing_run_tags:

@@ -100,7 +100,8 @@ operator decision and must be generated without `ZZCR_PINNED_*` variables.
 - `ZZCR_XRD_WRITE_ENDPOINT`: FNAL LPC EOS endpoint, default `root://cmseos.fnal.gov`.
 - `ZZCR_OUTPUT_MODE`: profile-dependent; production profiles use `production-remote`, test profiles use `test-remote`, local profiles use `local`.
 - `ZZCR_EOS_USER`: CERN/CMS username for `/store/user/<name>/...`. Set it explicitly on LPC if your FNAL username differs.
-- `ZZCR_PRODUCTION_OUTPUT_LFN`: default `/store/user/${ZZCR_EOS_USER}/mkShapesRDF_rootfiles/fnal_lpc_packaged/rootFile`.
+- `ZZCR_PRODUCTION_CAMPAIGN`: production campaign directory before the tag leaf, default `fnal_lpc_packaged`.
+- `ZZCR_PRODUCTION_OUTPUT_LFN`: default `/store/user/${ZZCR_EOS_USER}/mkShapesRDF_rootfiles/fnal_lpc_packaged/<tag>`.
 - `ZZCR_CONDOR_RUNTIME_PACKAGE`: profile default `1`; the generated JDL transfers `mkshapesrdf_runtime.tgz`.
 - `ZZCR_CONDOR_RUNTIME_SETUP`: profile default sources the LCG 109 EL9 view from CVMFS.
 - `ZZCR_CONFIG_INCLUDE_BASE`: packaged-profile default `runtime`, so compiled C++ macro includes point at the extracted package in worker scratch. Packaged profiles require batch execution; local profiles resolve the same macro from the checkout.
@@ -118,7 +119,7 @@ than silently producing an empty production sample.
 FNAL EOS remote writes must use the LPC xrootd endpoint and an LFN:
 
 ```text
-root://cmseos.fnal.gov//store/user/<cern-username>/mkShapesRDF_rootfiles/fnal_lpc_packaged/rootFile
+root://cmseos.fnal.gov//store/user/<cern-username>/mkShapesRDF_rootfiles/fnal_lpc_packaged/<tag>
 ```
 
 Do not use local checkout paths, `/afs/...`, `/uscms_data/...`, `/eos/cms/...`, or `/eos/uscms/...` as Condor worker dependencies. The package is the code dependency; xrootd is the input/output dependency.
@@ -127,8 +128,8 @@ Package archives must exclude `codex_analysis`, `myenv`, `.git`, caches, generat
 
 For `ZZCR_OUTPUT_MODE=local`, packaged jobs rename the final ROOT file in worker
 scratch to a collision-free name containing the logical job ID. HTCondor
-returns and remaps that file into the deterministic submit-side `rootFiles`
-directory. The worker does not copy to the submit checkout. For
+returns and remaps that file into the deterministic submit-side tag-named
+output directory. The worker does not copy to the submit checkout. For
 `test-remote`/`production-remote`, framework `stage_out` writes an explicit
 `/store/...` LFN through `root://cmseos.fnal.gov`; mounted EOS paths and
 interactive-node aliases are invalid worker targets.

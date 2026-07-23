@@ -123,7 +123,11 @@
         "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
-        "mc_tree_base_dir_by_sample": {},
+        "mc_tree_base_dir_by_sample": {
+          "DYto2L-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2L-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
+        },
         "data_tree_base_dir_by_sample": {
           "EGamma": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
@@ -265,7 +269,11 @@
         "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
-        "mc_tree_base_dir_by_sample": {},
+        "mc_tree_base_dir_by_sample": {
+          "DYto2L-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2L-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
+        },
         "data_tree_base_dir_by_sample": {
           "EGamma": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "Muon": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
@@ -394,7 +402,11 @@
         "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
-        "mc_tree_base_dir_by_sample": {},
+        "mc_tree_base_dir_by_sample": {
+          "DYto2L-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2L-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
+        },
         "data_tree_base_dir_by_sample": {
           "EGamma0": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "EGamma1": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
@@ -525,7 +537,11 @@
         "default_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "mc_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
         "data_tree_base_dir": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
-        "mc_tree_base_dir_by_sample": {},
+        "mc_tree_base_dir_by_sample": {
+          "DYto2L-2Jets_MLL-10to50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "DYto2L-2Jets_MLL-50": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
+          "ZZ": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
+        },
         "data_tree_base_dir_by_sample": {
           "EGamma0": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",
           "EGamma1": "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano",

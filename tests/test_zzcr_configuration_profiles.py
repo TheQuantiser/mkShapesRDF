@@ -27,6 +27,7 @@ ZZCR_ENV_KEYS = (
     "ZZCR_EXISTING_OUTPUT_POLICY",
     "ZZCR_REMOTE_COMMAND_TIMEOUT",
     "ZZCR_REMOTE_TRANSFER_RETRIES",
+    "ZZCR_OUTPUT_LEAF",
     "ZZCR_CONDOR_RUNTIME_PACKAGE",
     "ZZCR_CONDOR_RUNTIME_PACKAGE_NAME",
     "ZZCR_CONDOR_RUNTIME_SETUP",
@@ -34,6 +35,7 @@ ZZCR_ENV_KEYS = (
     "ZZCR_USE_X509_PROXY",
     "ZZCR_CONFIG_INCLUDE_BASE",
     "ZZCR_TEST_CAMPAIGN",
+    "ZZCR_PRODUCTION_CAMPAIGN",
     "ZZCR_TEST_OUTPUT_LFN",
     "ZZCR_PRODUCTION_OUTPUT_LFN",
     "ZZCR_EOS_USER",
@@ -104,10 +106,50 @@ def test_zzcr_execution_profiles_resolve_core_contract(
     else:
         assert data["ZZCR_CONFIG_INCLUDE_BASE"] == str(REPO_ROOT)
 
+    assert data["ZZCR_OUTPUT_LEAF"] == data["tag"]
     if output_mode == "local":
         assert not data["outputFolder"].startswith("root://")
+        assert data["outputFolder"] == os.path.join(
+            "jobs", data["tag"], data["tag"]
+        )
     else:
         assert data["outputFolder"].startswith("root://cmseos.fnal.gov//store/user/")
+        assert data["outputFolder"].endswith(f"/{data['tag']}")
+        assert "/rootFile" not in data["outputFolder"]
+
+
+@pytest.mark.parametrize(
+    "profile,campaign",
+    [
+        ("shared_xrootd_eos_production", "lxplus"),
+        ("packaged_xrootd_eos_production", "fnal_lpc_packaged"),
+        ("packaged_stagein_eos_production", "fnal_lpc_packaged_stagein"),
+    ],
+)
+def test_zzcr_production_remote_defaults_keep_campaign_and_tag_leaf(
+    monkeypatch, tmp_path, profile, campaign
+):
+    data = _load_profile(monkeypatch, tmp_path, profile)
+
+    assert data["ZZCR_OUTPUT_MODE"] == "production-remote"
+    assert data["ZZCR_PRODUCTION_CAMPAIGN"] == campaign
+    assert data["productionOutputLFN"].endswith(f"/{campaign}/{data['tag']}")
+    assert data["outputFolder"].endswith(f"/{campaign}/{data['tag']}")
+    assert "/rootFile" not in data["productionOutputLFN"]
+
+
+def test_zzcr_production_campaign_override_keeps_tag_leaf(monkeypatch, tmp_path):
+    data = _load_profile(
+        monkeypatch,
+        tmp_path,
+        "shared_xrootd_eos_production",
+        {"ZZCR_PRODUCTION_CAMPAIGN": "custom_campaign"},
+    )
+
+    assert data["ZZCR_PRODUCTION_CAMPAIGN"] == "custom_campaign"
+    assert data["productionOutputLFN"].endswith(
+        f"/custom_campaign/{data['tag']}"
+    )
 
 
 def test_zzcr_environment_overrides_profile_values(monkeypatch, tmp_path):

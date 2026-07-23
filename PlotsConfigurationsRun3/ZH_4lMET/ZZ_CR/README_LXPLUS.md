@@ -64,7 +64,8 @@ submission. Its `transfer_input_files` line must contain the copied proxy under
 - `ZZCR_XRD_WRITE_ENDPOINT`: FNAL LPC EOS endpoint, default `root://cmseos.fnal.gov`.
 - `ZZCR_OUTPUT_MODE`: profile default `production-remote`, meaning framework stage-out writes to FNAL EOS.
 - `ZZCR_EOS_USER`: CERN/CMS username used in `/store/user/<name>/...`; set this explicitly if it differs from `$USER`.
-- `ZZCR_PRODUCTION_OUTPUT_LFN`: output LFN under FNAL EOS, default `/store/user/${ZZCR_EOS_USER}/mkShapesRDF_rootfiles/lxplus/rootFile`.
+- `ZZCR_PRODUCTION_CAMPAIGN`: production campaign directory before the tag leaf, default `lxplus`.
+- `ZZCR_PRODUCTION_OUTPUT_LFN`: output LFN under FNAL EOS, default `/store/user/${ZZCR_EOS_USER}/mkShapesRDF_rootfiles/lxplus/<tag>`.
 - `ZZCR_CONDOR_RUNTIME_PACKAGE`: profile default `0`; LXPLUS mode uses the visible checkout and `STARTPATH`.
 - `ZZCR_CONFIG_INCLUDE_BASE`: profile default is the repository root, so the
   compiled C++ helper include points at the checked-out macro.
@@ -75,7 +76,7 @@ submission. Its `transfer_input_files` line must contain the copied proxy under
 Use FNAL EOS LFNs, not CERN mount paths, for remote writes. Correct:
 
 ```text
-root://cmseos.fnal.gov//store/user/<cern-username>/mkShapesRDF_rootfiles/lxplus/rootFile
+root://cmseos.fnal.gov//store/user/<cern-username>/mkShapesRDF_rootfiles/lxplus/<tag>
 ```
 
 Do not configure FNAL output as `/eos/cms/...` or `/eos/uscms/...`; the framework remote stage-out expects a `/store/...` LFN plus `root://cmseos.fnal.gov`.

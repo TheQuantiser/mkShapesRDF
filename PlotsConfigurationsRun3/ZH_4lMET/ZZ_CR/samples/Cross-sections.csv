@@ -1,0 +1,43 @@
+Source:,https://cms-generators.docs.cern.ch/about-cross-sections/higher-order-calculation/matrix-diboson-xsec-13p6tev/#list-of-processes
+Final state,pp -> e- μ+ vμ ̄ve,pp -> e- e+ μ-  ̄vμ,pp -> e- e+ e- ̄ve,pp -> e- e+ μ+ vμ,pp -> e- e+ e+ ve,pp -> e- e+ e+ e-,pp -> e- ve a,pp -> e+ ve a
+Accuracy
+σ(nNNLO_QCDxNLO_EW),1558.9,238.5,236.6,347.4,345.9,163.3
+σ(nNNLO_QCD),,,,,,,75.5,98.6
+σ(NLO_gg),149.7
+
+W BR source:,https://pdg.lbl.gov/2024/listings/rpp2024-list-w-boson.pdf
+Z BR source:,https://pdg.lbl.gov/2018/listings/rpp2018-list-z-boson.pdf
+
+Branching ratios,W -> μ vμ,W -> e ve,WW -> e μ vμ ve,W -> l v,W -> τ vτ,Z -> ee,Z -> μμ,Z -> ττ,ZW -> ee ev,ZW -> ee μv,ZW -> ll lv,Z -> ll,WZ -> lv qq,Z -> qq,Z -> vv,W -> qq
+,0.1078,0.1071,0.01154538,0.1086,0.1138,0.033632,0.033662,0.033696,0.0036019872,0.0036255296,0.0036552588,0.033658,0.227770038,0.69911,0.2,0.6741
+
+
+Process,XS,From UL comparison,Remarks
+WW,122.057481,,We assume pp -> e- μ+ vμ ̄ve is the only final state contributing to WW
+WWTo2L2Nu,12.95586944
+ggWW,6.483112726
+GluGlutoContintoWWtoENuENu,0.07436396104
+GluGlutoContintoWWtoENuMuNu,0.07485
+GluGlutoContintoWWtoENuTauNu,0.07901604824
+GluGlutoContintoWWtoMuNuENu,0.07485
+GluGlutoContintoWWtoMuNuMuNu,0.07533921569
+GluGlutoContintoWWtoMuNuTauNu,0.079532493
+GluGlutoContintoWWtoTauNuENu,0.07901604824
+GluGlutoContintoWWtoTauNuMuNu,0.079532493
+GluGlutoContintoWWtoTauNuTauNu,0.08395916237
+
+WZ,160.6661824,,We assume (pp -> e- e+ e- ̄ve) + (pp -> e- e+ e+ ve) = pp -> WZ -> ee ev
+WZ,161.6039764,,We assume (pp -> e- e+ μ-  ̄vμ) + (pp -> e- e+ μ+ vμ) = pp -> WZ -> ee μv
+
+WZTo3LNu,5.316339212,,Using pp -> WZ -> ee μv
+WZTo3LNu,5.320033969,,Using pp -> WZ -> ee ev
+WZ,161.7162882,53.90542939,where is the additional factor 3 coming from?
+WZToLNu2Q,12.2780417,6.13902085,where is the additional factor 2 coming from?
+WZTo2L2Q,3.669739269
+
+ZZ,144.3712764,16.04125293,where is the additional factor 9 coming from?
+ZZTo2L2Nu,0.6480024534
+ZZTo2L2Q,2.265124976
+
+
+WG,522.3

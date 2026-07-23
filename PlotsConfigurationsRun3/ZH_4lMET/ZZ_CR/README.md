@@ -79,7 +79,7 @@ Supported profiles are:
 
 | Profile | Contract |
 | --- | --- |
-| `local` | Local/as-configured input and local output under `jobs/<tag>/rootFiles`; no Condor package. |
+| `local` | Local/as-configured input and local output under `jobs/<tag>/<tag>`; no Condor package. |
 | `local_xrootd` | Local output with direct CERN XRootD input; no Condor package. |
 | `local_stagein` | Local output with input staged to task-owned scratch; no Condor package. |
 | `shared_xrootd_local` | Shared-checkout Condor, CERN XRootD input, Condor-returned local output. |
@@ -126,8 +126,9 @@ Set these as environment variables before running `mkShapesRDF`.
 | `ZZCR_OUTPUT_MODE` | profile-dependent | Chooses `local`, `test-remote`, or `production-remote` output. | Overriding a profile's output policy. |
 | `ZZCR_EOS_USER` | `$CERN_USER` or `$USER` | Username used in `/store/user/<user>/...` defaults. | Your shell username is not your CMS EOS username. |
 | `ZZCR_TEST_CAMPAIGN` | current `tag` | Names the test-output campaign. | Grouping repeated test submissions. |
+| `ZZCR_PRODUCTION_CAMPAIGN` | profile-dependent site/campaign label | Names the production-output campaign before the tag leaf. | Grouping production by site or campaign while keeping each run tag-separated. |
 | `ZZCR_TEST_OUTPUT_LFN` | current code default test LFN | Remote LFN for `test-remote`. | Always set explicitly for test remote output. |
-| `ZZCR_PRODUCTION_OUTPUT_LFN` | profile-dependent under `/store/user/<user>/mkShapesRDF_rootfiles/.../rootFile` | Remote LFN for `production-remote`. | Any production or site-preset run. |
+| `ZZCR_PRODUCTION_OUTPUT_LFN` | profile-dependent under `/store/user/<user>/mkShapesRDF_rootfiles/.../<tag>` | Remote LFN for `production-remote`. | Any production or site-preset run. |
 | `ZZCR_USE_X509_PROXY` | profile-dependent; forced on for remote output | Transfers the active proxy into Condor worker scratch. | Needed for authenticated XRootD read/write or packaged mode. |
 
 `ZZCR_TEST_OUTPUT_LFN` and `ZZCR_PRODUCTION_OUTPUT_LFN` must be LFNs beginning
@@ -257,7 +258,7 @@ Add `runs` only when that dataset exists for a subset of the year-level
 Use remote LFNs with xrootd endpoints:
 
 ```text
-root://cmseos.fnal.gov//store/user/<user>/mkShapesRDF_rootfiles/<campaign>/rootFile
+root://cmseos.fnal.gov//store/user/<user>/mkShapesRDF_rootfiles/<campaign>/<tag>
 ```
 
 Do not use `/afs/...`, `/uscms_data/...`, `/eos/cms/...`, or `/eos/uscms/...` as
