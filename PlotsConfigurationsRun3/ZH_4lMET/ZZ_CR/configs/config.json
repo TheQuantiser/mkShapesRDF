@@ -29,10 +29,13 @@
   "condorRuntimeIncludes": [],
   "requiredExecutionMode": null,
   "executionModeRemediation": "For a safe FNAL login-node run, select ZZCR_EXECUTION_PROFILE=local_xrootd and ZZCR_OUTPUT_MODE=local, then recompile with -c 1.",
-  "testOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET_ZZCR_2024_20260721_183245/rootFile",
-  "productionOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
-  "zzcrRemoteOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
-  "eosUserOutputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
+  "testOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/ZH_4lMET_ZZCR_2024_20260723_202944",
+  "productionOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/lxplus/ZH_4lMET_ZZCR_2024_20260723_202944",
+  "ZZCR_OUTPUT_LEAF": "ZH_4lMET_ZZCR_2024_20260723_202944",
+  "ZZCR_TEST_CAMPAIGN": "ZH_4lMET_ZZCR_2024_20260723_202944",
+  "ZZCR_PRODUCTION_CAMPAIGN": "lxplus",
+  "zzcrRemoteOutputLFN": "/store/user/mwadud/mkShapesRDF_rootfiles/lxplus/ZH_4lMET_ZZCR_2024_20260723_202944",
+  "eosUserOutputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/lxplus/ZH_4lMET_ZZCR_2024_20260723_202944",
   "jdlconfigfile": "",
   "batchVars": [
     "samples",
@@ -61,12 +64,12 @@
     "xrdReadEndpoint",
     "xrdDiscoveryEndpoint"
   ],
-  "outputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/lxplus/rootFile",
-  "batchFolder": "jobs/ZH_4lMET_ZZCR_2024_20260721_183245/condor",
+  "outputFolder": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/lxplus/ZH_4lMET_ZZCR_2024_20260723_202944",
+  "batchFolder": "jobs/ZH_4lMET_ZZCR_2024_20260723_202944/condor",
   "configsFolder": "/afs/cern.ch/work/m/mwadud/private/2026_ZH_4l2nu/devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configs",
-  "outputFile": "mkShapes__ZH_4lMET_ZZCR_2024_20260721_183245.root",
+  "outputFile": "mkShapes__ZH_4lMET_ZZCR_2024_20260723_202944.root",
   "runnerFile": "default",
-  "tag": "ZH_4lMET_ZZCR_2024_20260721_183245",
+  "tag": "ZH_4lMET_ZZCR_2024_20260723_202944",
   "samples": {
     "ZZ": {
       "name": [
@@ -21078,5 +21081,5 @@
     }
   },
   "lumi": 109.82,
-  "plotPath": "jobs/ZH_4lMET_ZZCR_2024_20260721_183245/plots"
+  "plotPath": "jobs/ZH_4lMET_ZZCR_2024_20260723_202944/plots"
 }
