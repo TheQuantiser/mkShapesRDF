@@ -1,0 +1,3492 @@
+{
+  "bounded_zero_policy": "A zero count is occupancy evidence only and was not treated as logical impossibility.",
+  "candidates": {
+    "DY_ALL": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 1633,
+        "2022_ZZ": 596,
+        "2023BPix_ZZ": 4393,
+        "2023_ZZ": 4399,
+        "2024_MuonEG_DATA": 208,
+        "2024_ZH": 213,
+        "2024_ZZ": 4672
+      },
+      "data_count": 208,
+      "data_fraction_of_parent": 1.0,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 15906,
+      "mc_fraction_of_parent": 1.0,
+      "partition_family": "DY:inclusive",
+      "physics_region": "DY",
+      "reason": "Reference projection for the complete physics region",
+      "view_type": "inclusive"
+    },
+    "DY_STREAM_EGAMMA": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 611,
+        "2022_ZZ": 239,
+        "2023BPix_ZZ": 1568,
+        "2023_ZZ": 1577,
+        "2024_MuonEG_DATA": 35,
+        "2024_ZH": 42,
+        "2024_ZZ": 1716
+      },
+      "data_count": 35,
+      "data_fraction_of_parent": 0.16826923076923078,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 5753,
+      "mc_fraction_of_parent": 0.36168741355463346,
+      "partition_family": "DY:data_stream_priority",
+      "physics_region": "DY",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "DY_STREAM_EGAMMA_ZEE": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 611,
+        "2022_ZZ": 239,
+        "2023BPix_ZZ": 1568,
+        "2023_ZZ": 1577,
+        "2024_MuonEG_DATA": 35,
+        "2024_ZH": 42,
+        "2024_ZZ": 1716
+      },
+      "data_count": 35,
+      "data_fraction_of_parent": 0.16826923076923078,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 5753,
+      "mc_fraction_of_parent": 0.36168741355463346,
+      "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+      "physics_region": "DY",
+      "reason": "DY trigger/dataset-stream closure within selected Z flavor",
+      "view_type": "stream_flavor"
+    },
+    "DY_STREAM_EGAMMA_ZMM": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": 0.0,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 0,
+      "mc_fraction_of_parent": 0.0,
+      "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+      "physics_region": "DY",
+      "reason": "DY trigger/dataset-stream closure within selected Z flavor",
+      "view_type": "stream_flavor"
+    },
+    "DY_STREAM_MUON": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 966,
+        "2022_ZZ": 329,
+        "2023BPix_ZZ": 2661,
+        "2023_ZZ": 2649,
+        "2024_MuonEG_DATA": 115,
+        "2024_ZH": 81,
+        "2024_ZZ": 2787
+      },
+      "data_count": 115,
+      "data_fraction_of_parent": 0.5528846153846154,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 9473,
+      "mc_fraction_of_parent": 0.5955614233622533,
+      "partition_family": "DY:data_stream_priority",
+      "physics_region": "DY",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "DY_STREAM_MUONEG": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 56,
+        "2022_ZZ": 28,
+        "2023BPix_ZZ": 164,
+        "2023_ZZ": 173,
+        "2024_MuonEG_DATA": 58,
+        "2024_ZH": 90,
+        "2024_ZZ": 169
+      },
+      "data_count": 58,
+      "data_fraction_of_parent": 0.27884615384615385,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 680,
+      "mc_fraction_of_parent": 0.04275116308311329,
+      "partition_family": "DY:data_stream_priority",
+      "physics_region": "DY",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "DY_STREAM_MUONEG_ZEE": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 24,
+        "2022_ZZ": 8,
+        "2023BPix_ZZ": 61,
+        "2023_ZZ": 58,
+        "2024_MuonEG_DATA": 9,
+        "2024_ZH": 33,
+        "2024_ZZ": 70
+      },
+      "data_count": 9,
+      "data_fraction_of_parent": 0.04326923076923077,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 254,
+      "mc_fraction_of_parent": 0.015968816798692317,
+      "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+      "physics_region": "DY",
+      "reason": "DY trigger/dataset-stream closure within selected Z flavor",
+      "view_type": "stream_flavor"
+    },
+    "DY_STREAM_MUONEG_ZMM": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 32,
+        "2022_ZZ": 20,
+        "2023BPix_ZZ": 103,
+        "2023_ZZ": 115,
+        "2024_MuonEG_DATA": 49,
+        "2024_ZH": 57,
+        "2024_ZZ": 99
+      },
+      "data_count": 49,
+      "data_fraction_of_parent": 0.23557692307692307,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 426,
+      "mc_fraction_of_parent": 0.026782346284420975,
+      "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+      "physics_region": "DY",
+      "reason": "DY trigger/dataset-stream closure within selected Z flavor",
+      "view_type": "stream_flavor"
+    },
+    "DY_STREAM_MUON_ZEE": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": 0.0,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 0,
+      "mc_fraction_of_parent": 0.0,
+      "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+      "physics_region": "DY",
+      "reason": "DY trigger/dataset-stream closure within selected Z flavor",
+      "view_type": "stream_flavor"
+    },
+    "DY_STREAM_MUON_ZMM": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 966,
+        "2022_ZZ": 329,
+        "2023BPix_ZZ": 2661,
+        "2023_ZZ": 2649,
+        "2024_MuonEG_DATA": 115,
+        "2024_ZH": 81,
+        "2024_ZZ": 2787
+      },
+      "data_count": 115,
+      "data_fraction_of_parent": 0.5528846153846154,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 9473,
+      "mc_fraction_of_parent": 0.5955614233622533,
+      "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+      "physics_region": "DY",
+      "reason": "DY trigger/dataset-stream closure within selected Z flavor",
+      "view_type": "stream_flavor"
+    },
+    "DY_ZEE": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 635,
+        "2022_ZZ": 247,
+        "2023BPix_ZZ": 1629,
+        "2023_ZZ": 1635,
+        "2024_MuonEG_DATA": 44,
+        "2024_ZH": 75,
+        "2024_ZZ": 1786
+      },
+      "data_count": 44,
+      "data_fraction_of_parent": 0.21153846153846154,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 6007,
+      "mc_fraction_of_parent": 0.3776562303533258,
+      "partition_family": "DY:selected_flavor_topology",
+      "physics_region": "DY",
+      "reason": "Selected-pair flavor/topology closure",
+      "view_type": "flavor"
+    },
+    "DY_ZMM": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 998,
+        "2022_ZZ": 349,
+        "2023BPix_ZZ": 2764,
+        "2023_ZZ": 2764,
+        "2024_MuonEG_DATA": 164,
+        "2024_ZH": 138,
+        "2024_ZZ": 2886
+      },
+      "data_count": 164,
+      "data_fraction_of_parent": 0.7884615384615384,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": []
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 9899,
+      "mc_fraction_of_parent": 0.6223437696466743,
+      "partition_family": "DY:selected_flavor_topology",
+      "physics_region": "DY",
+      "reason": "Selected-pair flavor/topology closure",
+      "view_type": "flavor"
+    },
+    "SR_1E3MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 10,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 10,
+      "mc_fraction_of_parent": 0.47619047619047616,
+      "partition_family": "SR:selected_4l_topology",
+      "physics_region": "SR",
+      "reason": "Exclusive selected-Z0/X four-lepton topology partition",
+      "view_type": "flavor"
+    },
+    "SR_2E2MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 2,
+        "2023_ZZ": 1,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 1,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 4,
+      "mc_fraction_of_parent": 0.19047619047619047,
+      "partition_family": "SR:selected_4l_topology",
+      "physics_region": "SR",
+      "reason": "Exclusive selected-Z0/X four-lepton topology partition",
+      "view_type": "flavor"
+    },
+    "SR_3E1MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 2,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 2,
+      "mc_fraction_of_parent": 0.09523809523809523,
+      "partition_family": "SR:selected_4l_topology",
+      "physics_region": "SR",
+      "reason": "Exclusive selected-Z0/X four-lepton topology partition",
+      "view_type": "flavor"
+    },
+    "SR_4E": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 1,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 1,
+      "mc_fraction_of_parent": 0.047619047619047616,
+      "partition_family": "SR:selected_4l_topology",
+      "physics_region": "SR",
+      "reason": "Exclusive selected-Z0/X four-lepton topology partition",
+      "view_type": "flavor"
+    },
+    "SR_4MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 1,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 3,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 4,
+      "mc_fraction_of_parent": 0.19047619047619047,
+      "partition_family": "SR:selected_4l_topology",
+      "physics_region": "SR",
+      "reason": "Exclusive selected-Z0/X four-lepton topology partition",
+      "view_type": "flavor"
+    },
+    "SR_ALL": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 3,
+        "2023_ZZ": 1,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 17,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 21,
+      "mc_fraction_of_parent": 1.0,
+      "partition_family": "SR:inclusive",
+      "physics_region": "SR",
+      "reason": "Reference projection for the complete physics region",
+      "view_type": "inclusive"
+    },
+    "SR_STREAM_EGAMMA": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 2,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 2,
+      "mc_fraction_of_parent": 0.09523809523809523,
+      "partition_family": "SR:data_stream_priority",
+      "physics_region": "SR",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "SR_STREAM_EGAMMA_XDF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 1,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-detailed-only",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 1,
+      "mc_fraction_of_parent": 0.047619047619047616,
+      "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Detailed stream acceptance comparison for XSF and XDF signal branches",
+      "view_type": "stream_flavor"
+    },
+    "SR_STREAM_EGAMMA_XSF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 1,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-detailed-only",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 1,
+      "mc_fraction_of_parent": 0.047619047619047616,
+      "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Detailed stream acceptance comparison for XSF and XDF signal branches",
+      "view_type": "stream_flavor"
+    },
+    "SR_STREAM_MUON": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 1,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 3,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 4,
+      "mc_fraction_of_parent": 0.19047619047619047,
+      "partition_family": "SR:data_stream_priority",
+      "physics_region": "SR",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "SR_STREAM_MUONEG": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 2,
+        "2023_ZZ": 1,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 12,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 15,
+      "mc_fraction_of_parent": 0.7142857142857143,
+      "partition_family": "SR:data_stream_priority",
+      "physics_region": "SR",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "SR_STREAM_MUONEG_XDF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 11,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-detailed-only",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 11,
+      "mc_fraction_of_parent": 0.5238095238095238,
+      "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Detailed stream acceptance comparison for XSF and XDF signal branches",
+      "view_type": "stream_flavor"
+    },
+    "SR_STREAM_MUONEG_XSF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 2,
+        "2023_ZZ": 1,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 1,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-detailed-only",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 4,
+      "mc_fraction_of_parent": 0.19047619047619047,
+      "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Detailed stream acceptance comparison for XSF and XDF signal branches",
+      "view_type": "stream_flavor"
+    },
+    "SR_STREAM_MUON_XDF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-detailed-only",
+      "era_dependence": {
+        "nonzero_eras": [],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 0,
+      "mc_fraction_of_parent": 0.0,
+      "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Detailed stream acceptance comparison for XSF and XDF signal branches",
+      "view_type": "stream_flavor"
+    },
+    "SR_STREAM_MUON_XSF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 1,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 3,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-detailed-only",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 4,
+      "mc_fraction_of_parent": 0.19047619047619047,
+      "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Detailed stream acceptance comparison for XSF and XDF signal branches",
+      "view_type": "stream_flavor"
+    },
+    "SR_XDF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 12,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 12,
+      "mc_fraction_of_parent": 0.5714285714285714,
+      "partition_family": "SR:selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Separate same- and different-flavor selected X pairs",
+      "view_type": "flavor"
+    },
+    "SR_XSF": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 3,
+        "2023_ZZ": 1,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 5,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 9,
+      "mc_fraction_of_parent": 0.42857142857142855,
+      "partition_family": "SR:selected_x_flavor",
+      "physics_region": "SR",
+      "reason": "Separate same- and different-flavor selected X pairs",
+      "view_type": "flavor"
+    },
+    "ZZCR_2E2MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 11,
+        "2022_ZZ": 3,
+        "2023BPix_ZZ": 25,
+        "2023_ZZ": 22,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 15
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 76,
+      "mc_fraction_of_parent": 0.4523809523809524,
+      "partition_family": "ZZCR:selected_flavor_topology",
+      "physics_region": "ZZCR",
+      "reason": "Selected-pair flavor/topology closure",
+      "view_type": "flavor"
+    },
+    "ZZCR_4E": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 2,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 8,
+        "2023_ZZ": 8,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 7
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 25,
+      "mc_fraction_of_parent": 0.1488095238095238,
+      "partition_family": "ZZCR:selected_flavor_topology",
+      "physics_region": "ZZCR",
+      "reason": "Selected-pair flavor/topology closure",
+      "view_type": "flavor"
+    },
+    "ZZCR_4MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 6,
+        "2022_ZZ": 2,
+        "2023BPix_ZZ": 20,
+        "2023_ZZ": 14,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 25
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 67,
+      "mc_fraction_of_parent": 0.39880952380952384,
+      "partition_family": "ZZCR:selected_flavor_topology",
+      "physics_region": "ZZCR",
+      "reason": "Selected-pair flavor/topology closure",
+      "view_type": "flavor"
+    },
+    "ZZCR_ALL": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 19,
+        "2022_ZZ": 5,
+        "2023BPix_ZZ": 53,
+        "2023_ZZ": 44,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 47
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 168,
+      "mc_fraction_of_parent": 1.0,
+      "partition_family": "ZZCR:inclusive",
+      "physics_region": "ZZCR",
+      "reason": "Reference projection for the complete physics region",
+      "view_type": "inclusive"
+    },
+    "ZZCR_STREAM_EGAMMA": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 2,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 8,
+        "2023_ZZ": 8,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 7
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 25,
+      "mc_fraction_of_parent": 0.1488095238095238,
+      "partition_family": "ZZCR:data_stream_priority",
+      "physics_region": "ZZCR",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "ZZCR_STREAM_EGAMMA_2E2MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 0,
+      "mc_fraction_of_parent": 0.0,
+      "partition_family": "ZZCR:curated_stream_x_topology",
+      "physics_region": "ZZCR",
+      "reason": "Curated expected-stream and mixed-topology closure check",
+      "view_type": "stream_flavor"
+    },
+    "ZZCR_STREAM_EGAMMA_4E": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 2,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 8,
+        "2023_ZZ": 8,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 7
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 25,
+      "mc_fraction_of_parent": 0.1488095238095238,
+      "partition_family": "ZZCR:curated_stream_x_topology",
+      "physics_region": "ZZCR",
+      "reason": "Curated expected-stream and mixed-topology closure check",
+      "view_type": "stream_flavor"
+    },
+    "ZZCR_STREAM_MUON": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 6,
+        "2022_ZZ": 2,
+        "2023BPix_ZZ": 20,
+        "2023_ZZ": 14,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 25
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 67,
+      "mc_fraction_of_parent": 0.39880952380952384,
+      "partition_family": "ZZCR:data_stream_priority",
+      "physics_region": "ZZCR",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "ZZCR_STREAM_MUONEG": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 11,
+        "2022_ZZ": 3,
+        "2023BPix_ZZ": 25,
+        "2023_ZZ": 22,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 15
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 76,
+      "mc_fraction_of_parent": 0.4523809523809524,
+      "partition_family": "ZZCR:data_stream_priority",
+      "physics_region": "ZZCR",
+      "reason": "Exclusive DATA-stream-priority acceptance closure",
+      "view_type": "stream"
+    },
+    "ZZCR_STREAM_MUONEG_2E2MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 11,
+        "2022_ZZ": 3,
+        "2023BPix_ZZ": 25,
+        "2023_ZZ": 22,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 15
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 76,
+      "mc_fraction_of_parent": 0.4523809523809524,
+      "partition_family": "ZZCR:curated_stream_x_topology",
+      "physics_region": "ZZCR",
+      "reason": "Curated expected-stream and mixed-topology closure check",
+      "view_type": "stream_flavor"
+    },
+    "ZZCR_STREAM_MUON_2E2MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 0,
+        "2022_ZZ": 0,
+        "2023BPix_ZZ": 0,
+        "2023_ZZ": 0,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 0
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [],
+        "zero_in_bounded_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 0,
+      "mc_fraction_of_parent": 0.0,
+      "partition_family": "ZZCR:curated_stream_x_topology",
+      "physics_region": "ZZCR",
+      "reason": "Curated expected-stream and mixed-topology closure check",
+      "view_type": "stream_flavor"
+    },
+    "ZZCR_STREAM_MUON_4MU": {
+      "counts_by_sample": {
+        "2022EE_ZZ": 6,
+        "2022_ZZ": 2,
+        "2023BPix_ZZ": 20,
+        "2023_ZZ": 14,
+        "2024_MuonEG_DATA": 0,
+        "2024_ZH": 0,
+        "2024_ZZ": 25
+      },
+      "data_count": 0,
+      "data_fraction_of_parent": null,
+      "decision": "keep-standard",
+      "era_dependence": {
+        "nonzero_eras": [
+          "2022",
+          "2022EE",
+          "2023",
+          "2023BPix",
+          "2024"
+        ],
+        "zero_in_bounded_eras": [
+          "2024"
+        ]
+      },
+      "logical_status": "logically possible; algebraically defined from selected objects and exclusive priority aliases",
+      "mc_count": 67,
+      "mc_fraction_of_parent": 0.39880952380952384,
+      "partition_family": "ZZCR:curated_stream_x_topology",
+      "physics_region": "ZZCR",
+      "reason": "Curated expected-stream and mixed-topology closure check",
+      "view_type": "stream_flavor"
+    }
+  },
+  "method": "CERN NanoAOD staged to task-owned FNAL scratch; dependency-sliced selection aliases; Filter/Count only; no histogram or correction-weight booking",
+  "omitted_combinations": {
+    "SR_stream_topology_cartesian": "omit from standard and detailed: 15 leaves duplicate stream and topology marginals without a demonstrated commissioning need",
+    "ZZCR_full_stream_topology_cartesian": [
+      "ZZCR_STREAM_MUONEG_4E",
+      "ZZCR_STREAM_MUON_4E",
+      "ZZCR_STREAM_MUONEG_4MU",
+      "ZZCR_STREAM_EGAMMA_4MU"
+    ],
+    "decision": "omit: pure-flavor final states are represented only in their expected primary stream; anomalous raw-trigger behavior remains visible through inclusive stream/topology marginals"
+  },
+  "recorded_utc": "2026-08-09T18:27:15.124294+00:00",
+  "samples": [
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 596,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 239,
+          "fraction_of_parent": 0.401006711409396,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 239,
+          "fraction_of_parent": 0.401006711409396,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 329,
+          "fraction_of_parent": 0.552013422818792,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 28,
+          "fraction_of_parent": 0.04697986577181208,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 8,
+          "fraction_of_parent": 0.013422818791946308,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 20,
+          "fraction_of_parent": 0.03355704697986577,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 329,
+          "fraction_of_parent": 0.552013422818792,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 247,
+          "fraction_of_parent": 0.41442953020134227,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 349,
+          "fraction_of_parent": 0.5855704697986577,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 3,
+          "fraction_of_parent": 0.6,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 2,
+          "fraction_of_parent": 0.4,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 5,
+          "fraction_of_parent": 1.0,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 2,
+          "fraction_of_parent": 0.4,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 3,
+          "fraction_of_parent": 0.6,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 3,
+          "fraction_of_parent": 0.6,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 2,
+          "fraction_of_parent": 0.4,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 1312,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight/nanoLatino_ZZ__part0.root"
+      ],
+      "kind": "MC",
+      "label": "2022_ZZ",
+      "parent_counts": {
+        "DY": 596,
+        "SR": 0,
+        "ZZCR": 5
+      },
+      "tree_entries": 1312,
+      "year": "2022"
+    },
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 1633,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 611,
+          "fraction_of_parent": 0.3741579914268218,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 611,
+          "fraction_of_parent": 0.3741579914268218,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 966,
+          "fraction_of_parent": 0.5915492957746479,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 56,
+          "fraction_of_parent": 0.034292712798530314,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 24,
+          "fraction_of_parent": 0.014696876913655848,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 32,
+          "fraction_of_parent": 0.019595835884874464,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 966,
+          "fraction_of_parent": 0.5915492957746479,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 635,
+          "fraction_of_parent": 0.38885486834047767,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 998,
+          "fraction_of_parent": 0.6111451316595223,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 11,
+          "fraction_of_parent": 0.5789473684210527,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 2,
+          "fraction_of_parent": 0.10526315789473684,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 6,
+          "fraction_of_parent": 0.3157894736842105,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 19,
+          "fraction_of_parent": 1.0,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 2,
+          "fraction_of_parent": 0.10526315789473684,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 2,
+          "fraction_of_parent": 0.10526315789473684,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 6,
+          "fraction_of_parent": 0.3157894736842105,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 11,
+          "fraction_of_parent": 0.5789473684210527,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 11,
+          "fraction_of_parent": 0.5789473684210527,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 6,
+          "fraction_of_parent": 0.3157894736842105,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 3504,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22EE_130x_nAODv12_Full2022v12/MCl2loose2022EEv12__MCCorr2022EEv12JetScaling__l2tight/nanoLatino_ZZ__part0.root"
+      ],
+      "kind": "MC",
+      "label": "2022EE_ZZ",
+      "parent_counts": {
+        "DY": 1633,
+        "SR": 0,
+        "ZZCR": 19
+      },
+      "tree_entries": 3504,
+      "year": "2022EE"
+    },
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 4399,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 1577,
+          "fraction_of_parent": 0.3584905660377358,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 1577,
+          "fraction_of_parent": 0.3584905660377358,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 2649,
+          "fraction_of_parent": 0.6021823141623096,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 173,
+          "fraction_of_parent": 0.039327119799954534,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 58,
+          "fraction_of_parent": 0.013184814730620595,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 115,
+          "fraction_of_parent": 0.02614230506933394,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 2649,
+          "fraction_of_parent": 0.6021823141623096,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 1635,
+          "fraction_of_parent": 0.37167538076835643,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 2764,
+          "fraction_of_parent": 0.6283246192316435,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 1,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 1,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 1,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 1,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 1,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 22,
+          "fraction_of_parent": 0.5,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 8,
+          "fraction_of_parent": 0.18181818181818182,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 14,
+          "fraction_of_parent": 0.3181818181818182,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 44,
+          "fraction_of_parent": 1.0,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 8,
+          "fraction_of_parent": 0.18181818181818182,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 8,
+          "fraction_of_parent": 0.18181818181818182,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 14,
+          "fraction_of_parent": 0.3181818181818182,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 22,
+          "fraction_of_parent": 0.5,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 22,
+          "fraction_of_parent": 0.5,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 14,
+          "fraction_of_parent": 0.3181818181818182,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 10000,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer23_130x_nAODv12_Full2023v12/MCl2loose2023v12__MCCorr2023v12JetScaling__l2tight/nanoLatino_ZZ__part0.root"
+      ],
+      "kind": "MC",
+      "label": "2023_ZZ",
+      "parent_counts": {
+        "DY": 4399,
+        "SR": 1,
+        "ZZCR": 44
+      },
+      "tree_entries": 21187,
+      "year": "2023"
+    },
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 4393,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 1568,
+          "fraction_of_parent": 0.35693148190302754,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 1568,
+          "fraction_of_parent": 0.35693148190302754,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 2661,
+          "fraction_of_parent": 0.6057363988162987,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 164,
+          "fraction_of_parent": 0.0373321192806738,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 61,
+          "fraction_of_parent": 0.013885727293421352,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 103,
+          "fraction_of_parent": 0.023446391987252447,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 2661,
+          "fraction_of_parent": 0.6057363988162987,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 1629,
+          "fraction_of_parent": 0.3708172091964489,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 2764,
+          "fraction_of_parent": 0.6291827908035511,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 2,
+          "fraction_of_parent": 0.6666666666666666,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 1,
+          "fraction_of_parent": 0.3333333333333333,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 3,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 1,
+          "fraction_of_parent": 0.3333333333333333,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 2,
+          "fraction_of_parent": 0.6666666666666666,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 2,
+          "fraction_of_parent": 0.6666666666666666,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 1,
+          "fraction_of_parent": 0.3333333333333333,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 3,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 25,
+          "fraction_of_parent": 0.4716981132075472,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 8,
+          "fraction_of_parent": 0.1509433962264151,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 20,
+          "fraction_of_parent": 0.37735849056603776,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 53,
+          "fraction_of_parent": 1.0,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 8,
+          "fraction_of_parent": 0.1509433962264151,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 8,
+          "fraction_of_parent": 0.1509433962264151,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 20,
+          "fraction_of_parent": 0.37735849056603776,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 25,
+          "fraction_of_parent": 0.4716981132075472,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 25,
+          "fraction_of_parent": 0.4716981132075472,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 20,
+          "fraction_of_parent": 0.37735849056603776,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 10000,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer23BPix_130x_nAODv12_Full2023BPixv12/MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight/nanoLatino_ZZ__part0.root"
+      ],
+      "kind": "MC",
+      "label": "2023BPix_ZZ",
+      "parent_counts": {
+        "DY": 4393,
+        "SR": 3,
+        "ZZCR": 53
+      },
+      "tree_entries": 21687,
+      "year": "2023BPix"
+    },
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 4672,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 1716,
+          "fraction_of_parent": 0.3672945205479452,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 1716,
+          "fraction_of_parent": 0.3672945205479452,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 2787,
+          "fraction_of_parent": 0.5965325342465754,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 169,
+          "fraction_of_parent": 0.03617294520547945,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 70,
+          "fraction_of_parent": 0.014982876712328766,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 99,
+          "fraction_of_parent": 0.021190068493150686,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 2787,
+          "fraction_of_parent": 0.5965325342465754,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 1786,
+          "fraction_of_parent": 0.382277397260274,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 2886,
+          "fraction_of_parent": 0.617722602739726,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 15,
+          "fraction_of_parent": 0.3191489361702128,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 7,
+          "fraction_of_parent": 0.14893617021276595,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 25,
+          "fraction_of_parent": 0.5319148936170213,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 47,
+          "fraction_of_parent": 1.0,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 7,
+          "fraction_of_parent": 0.14893617021276595,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 7,
+          "fraction_of_parent": 0.14893617021276595,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 25,
+          "fraction_of_parent": 0.5319148936170213,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 15,
+          "fraction_of_parent": 0.3191489361702128,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 15,
+          "fraction_of_parent": 0.3191489361702128,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 25,
+          "fraction_of_parent": 0.5319148936170213,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 10000,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_ZZ__part0.root"
+      ],
+      "kind": "MC",
+      "label": "2024_ZZ",
+      "parent_counts": {
+        "DY": 4672,
+        "SR": 0,
+        "ZZCR": 47
+      },
+      "tree_entries": 12465,
+      "year": "2024"
+    },
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 213,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 42,
+          "fraction_of_parent": 0.19718309859154928,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 42,
+          "fraction_of_parent": 0.19718309859154928,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 81,
+          "fraction_of_parent": 0.38028169014084506,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 90,
+          "fraction_of_parent": 0.4225352112676056,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 33,
+          "fraction_of_parent": 0.15492957746478872,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 57,
+          "fraction_of_parent": 0.2676056338028169,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 81,
+          "fraction_of_parent": 0.38028169014084506,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 75,
+          "fraction_of_parent": 0.352112676056338,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 138,
+          "fraction_of_parent": 0.647887323943662,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 10,
+          "fraction_of_parent": 0.5882352941176471,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 1,
+          "fraction_of_parent": 0.058823529411764705,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 2,
+          "fraction_of_parent": 0.11764705882352941,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 1,
+          "fraction_of_parent": 0.058823529411764705,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 3,
+          "fraction_of_parent": 0.17647058823529413,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 17,
+          "fraction_of_parent": 1.0,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 2,
+          "fraction_of_parent": 0.11764705882352941,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 1,
+          "fraction_of_parent": 0.058823529411764705,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 1,
+          "fraction_of_parent": 0.058823529411764705,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 3,
+          "fraction_of_parent": 0.17647058823529413,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 12,
+          "fraction_of_parent": 0.7058823529411765,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 11,
+          "fraction_of_parent": 0.6470588235294118,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 1,
+          "fraction_of_parent": 0.058823529411764705,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 3,
+          "fraction_of_parent": 0.17647058823529413,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 12,
+          "fraction_of_parent": 0.7058823529411765,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 5,
+          "fraction_of_parent": 0.29411764705882354,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 560,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_ZH_Zto2L_Hto2Wto2L2Nu_M125__part0.root"
+      ],
+      "kind": "MC",
+      "label": "2024_ZH",
+      "parent_counts": {
+        "DY": 213,
+        "SR": 17,
+        "ZZCR": 0
+      },
+      "tree_entries": 560,
+      "year": "2024"
+    },
+    {
+      "categories": {
+        "DY_ALL": {
+          "count": 208,
+          "fraction_of_parent": 1.0,
+          "partition_family": "DY:inclusive",
+          "physics_region": "DY",
+          "view_type": "inclusive"
+        },
+        "DY_STREAM_EGAMMA": {
+          "count": 35,
+          "fraction_of_parent": 0.16826923076923078,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_EGAMMA_ZEE": {
+          "count": 35,
+          "fraction_of_parent": 0.16826923076923078,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_EGAMMA_ZMM": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON": {
+          "count": 115,
+          "fraction_of_parent": 0.5528846153846154,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG": {
+          "count": 58,
+          "fraction_of_parent": 0.27884615384615385,
+          "partition_family": "DY:data_stream_priority",
+          "physics_region": "DY",
+          "view_type": "stream"
+        },
+        "DY_STREAM_MUONEG_ZEE": {
+          "count": 9,
+          "fraction_of_parent": 0.04326923076923077,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUONEG_ZMM": {
+          "count": 49,
+          "fraction_of_parent": 0.23557692307692307,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZEE": {
+          "count": 0,
+          "fraction_of_parent": 0.0,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_STREAM_MUON_ZMM": {
+          "count": 115,
+          "fraction_of_parent": 0.5528846153846154,
+          "partition_family": "DY:data_stream_priority_x_selected_z_flavor",
+          "physics_region": "DY",
+          "view_type": "stream_flavor"
+        },
+        "DY_ZEE": {
+          "count": 44,
+          "fraction_of_parent": 0.21153846153846154,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "DY_ZMM": {
+          "count": 164,
+          "fraction_of_parent": 0.7884615384615384,
+          "partition_family": "DY:selected_flavor_topology",
+          "physics_region": "DY",
+          "view_type": "flavor"
+        },
+        "SR_1E3MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_3E1MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_4l_topology",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_ALL": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:inclusive",
+          "physics_region": "SR",
+          "view_type": "inclusive"
+        },
+        "SR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_EGAMMA_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_EGAMMA_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority",
+          "physics_region": "SR",
+          "view_type": "stream"
+        },
+        "SR_STREAM_MUONEG_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUONEG_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_STREAM_MUON_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:data_stream_priority_x_selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "stream_flavor"
+        },
+        "SR_XDF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "SR_XSF": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "SR:selected_x_flavor",
+          "physics_region": "SR",
+          "view_type": "flavor"
+        },
+        "ZZCR_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:selected_flavor_topology",
+          "physics_region": "ZZCR",
+          "view_type": "flavor"
+        },
+        "ZZCR_ALL": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:inclusive",
+          "physics_region": "ZZCR",
+          "view_type": "inclusive"
+        },
+        "ZZCR_STREAM_EGAMMA": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_EGAMMA_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_EGAMMA_4E": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:data_stream_priority",
+          "physics_region": "ZZCR",
+          "view_type": "stream"
+        },
+        "ZZCR_STREAM_MUONEG_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_2E2MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        },
+        "ZZCR_STREAM_MUON_4MU": {
+          "count": 0,
+          "fraction_of_parent": null,
+          "partition_family": "ZZCR:curated_stream_x_topology",
+          "physics_region": "ZZCR",
+          "view_type": "stream_flavor"
+        }
+      },
+      "dependency_sliced_alias_count": 25,
+      "events_examined": 10000,
+      "inputs": [
+        "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG/DATAl2loose2024v15__l2loose/nanoLatino_MuonEG_Run2024C-ReReco-v1__part0.root"
+      ],
+      "kind": "DATA",
+      "label": "2024_MuonEG_DATA",
+      "parent_counts": {
+        "DY": 208,
+        "SR": 0,
+        "ZZCR": 0
+      },
+      "tree_entries": 39823,
+      "year": "2024"
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "detailed_candidates": 41,
+    "eras": [
+      "2022",
+      "2022EE",
+      "2023",
+      "2023BPix",
+      "2024"
+    ],
+    "standard_candidates": 35,
+    "v12_mc_samples": 4,
+    "v15_data_samples": 1,
+    "v15_mc_samples": 2
+  }
+}

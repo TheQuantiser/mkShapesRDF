@@ -68,10 +68,13 @@ if ANALYSIS_PASS == "ALL" and ENABLE_SYSTEMATICS:
 # skim configuration, not in this production and plotting contract.
 HISTOGRAMS = True
 os.environ["HISTOGRAMS"] = "1"
-CATEGORY_PROFILE = os.environ.get("CATEGORY_PROFILE", "minimal").strip().lower()
-if CATEGORY_PROFILE not in ("minimal", "flavor", "stream", "trigger", "debug"):
+CATEGORY_PROFILE = os.environ.get("CATEGORY_PROFILE", "standard").strip().lower()
+if CATEGORY_PROFILE not in (
+    "minimal", "standard", "flavor", "stream", "trigger", "detailed", "debug"
+):
     raise ValueError(
-        "CATEGORY_PROFILE must be minimal, flavor, stream, trigger, or debug; "
+        "CATEGORY_PROFILE must be minimal, standard, flavor, stream, trigger, "
+        "detailed, or debug; "
         f"received {CATEGORY_PROFILE!r}"
     )
 HISTOGRAM_PROFILE = os.environ.get(

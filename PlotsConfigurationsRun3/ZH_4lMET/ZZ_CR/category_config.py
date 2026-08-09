@@ -140,27 +140,157 @@ STREAM_SPLITS = OrderedDict(
         ("STREAM_EGAMMA", ("streamPriority_EGamma", "EGamma stream")),
     )
 )
-TRIGGER_SPLITS = OrderedDict(
+
+# Unlike the raw Trigger_* flags, these categories are an exclusive priority
+# partition.  This prevents multi-trigger events from being counted in more
+# than one member of the trigger diagnostic family.
+TRIGGER_PRIORITY_SPLITS = OrderedDict(
     (
-        ("TRG_ELMU", ("Trigger_ElMu", "e#mu trigger family")),
-        ("TRG_SINGLEMU", ("Trigger_sngMu", "single-#mu trigger family")),
-        ("TRG_DOUBLEMU", ("Trigger_dblMu", "double-#mu trigger family")),
-        ("TRG_SINGLEEL", ("Trigger_sngEl", "single-e trigger family")),
-        ("TRG_DOUBLEEL", ("Trigger_dblEl", "double-e trigger family")),
+        ("TRGPRIO_ELMU", ("triggerFamilyPriority == 1", "e#mu priority")),
+        ("TRGPRIO_SINGLEMU", ("triggerFamilyPriority == 2", "single-#mu priority")),
+        ("TRGPRIO_DOUBLEMU", ("triggerFamilyPriority == 3", "double-#mu priority")),
+        ("TRGPRIO_SINGLEEL", ("triggerFamilyPriority == 4", "single-e priority")),
+        ("TRGPRIO_DOUBLEEL", ("triggerFamilyPriority == 5", "double-e priority")),
     )
 )
-CATEGORY_PROFILES = ("minimal", "flavor", "stream", "trigger", "debug")
+
+SR_TOPOLOGY_SPLITS = OrderedDict(
+    (
+        ("4E", ("Z0_isEE && X_isEE", "4e")),
+        ("4MU", ("Z0_isMM && X_isMM", "4#mu")),
+        (
+            "2E2MU",
+            (
+                "((Z0_isEE && X_isMM) || (Z0_isMM && X_isEE))",
+                "2e2#mu",
+            ),
+        ),
+        ("3E1MU", ("Z0_isEE && X_isDF", "3e1#mu")),
+        ("1E3MU", ("Z0_isMM && X_isDF", "1e3#mu")),
+    )
+)
+
+DY_STREAM_FLAVOR_SPLITS = OrderedDict(
+    (
+        (f"{stream_id}_{flavor_id}", (f"({stream_expr}) && ({flavor_expr})", f"{stream_label}, {flavor_label}"))
+        for stream_id, (stream_expr, stream_label) in STREAM_SPLITS.items()
+        for flavor_id, (flavor_expr, flavor_label) in list(REGION_REGISTRY["DY"]["splits"].items())[1:]
+    )
+)
+
+# These five leaves test concrete ZZ stream-closure failure modes.  Pure 4e
+# and 4mu select the expected primary stream; all three priority streams are
+# retained for the mixed topology.  The other four possible 3x3 leaves are
+# deliberately absent.
+ZZCR_STREAM_TOPOLOGY_SPLITS = OrderedDict(
+    (
+        ("STREAM_EGAMMA_4E", ("streamPriority_EGamma && Z0_isEE && X_isEE", "EGamma stream, 4e")),
+        ("STREAM_MUON_4MU", ("streamPriority_Muon && Z0_isMM && X_isMM", "Muon stream, 4#mu")),
+        ("STREAM_MUONEG_2E2MU", ("streamPriority_MuonEG && ((Z0_isEE && X_isMM) || (Z0_isMM && X_isEE))", "MuonEG stream, 2e2#mu")),
+        ("STREAM_MUON_2E2MU", ("streamPriority_Muon && ((Z0_isEE && X_isMM) || (Z0_isMM && X_isEE))", "Muon stream, 2e2#mu")),
+        ("STREAM_EGAMMA_2E2MU", ("streamPriority_EGamma && ((Z0_isEE && X_isMM) || (Z0_isMM && X_isEE))", "EGamma stream, 2e2#mu")),
+    )
+)
+
+SR_STREAM_X_SPLITS = OrderedDict(
+    (
+        (f"{stream_id}_{x_id}", (f"({stream_expr}) && ({x_expr})", f"{stream_label}, {x_label}"))
+        for stream_id, (stream_expr, stream_label) in STREAM_SPLITS.items()
+        for x_id, (x_expr, x_label) in list(REGION_REGISTRY["SR"]["splits"].items())[1:]
+    )
+)
+
+CATEGORY_PROFILES = (
+    "minimal", "standard", "flavor", "stream", "trigger", "detailed", "debug"
+)
+
+
+def _split_record(split_expr, split_label, view_type, partition_family,
+                  exclusive, overlapping, purpose):
+    return {
+        "expr": split_expr,
+        "label": split_label,
+        "view_type": view_type,
+        "partition_family": partition_family,
+        "is_exclusive_within_family": bool(exclusive),
+        "is_overlapping_projection": bool(overlapping),
+        "diagnostic_purpose": purpose,
+    }
+
+
+def _add_family(out, splits, view_type, partition_family, exclusive, purpose):
+    for split_id, (expr, label) in splits.items():
+        if split_id in out:
+            continue
+        out[split_id] = _split_record(
+            expr, label, view_type, partition_family, exclusive, True, purpose
+        )
 
 
 def _profile_splits(region, profile):
     base = REGION_REGISTRY[region]["splits"]
-    out = OrderedDict((("ALL", base["ALL"]),))
-    if profile in ("flavor", "debug"):
-        out.update((key, value) for key, value in base.items() if key != "ALL")
-    if profile in ("stream", "debug"):
-        out.update(STREAM_SPLITS)
+    out = OrderedDict(
+        (
+            (
+                "ALL",
+                _split_record(
+                    base["ALL"][0], base["ALL"][1], "inclusive",
+                    f"{region}:inclusive", False, True,
+                    "Reference projection for the complete physics region",
+                ),
+            ),
+        )
+    )
+
+    use_flavor = profile in ("standard", "flavor", "detailed", "debug")
+    use_stream = profile in ("standard", "stream", "detailed", "debug")
+    if use_flavor:
+        if region == "SR":
+            _add_family(
+                out, OrderedDict(list(base.items())[1:]), "flavor",
+                "SR:selected_x_flavor", True,
+                "Separate same- and different-flavor selected X pairs",
+            )
+            _add_family(
+                out, SR_TOPOLOGY_SPLITS, "flavor", "SR:selected_4l_topology",
+                True, "Exclusive selected-Z0/X four-lepton topology partition",
+            )
+        else:
+            _add_family(
+                out, OrderedDict(list(base.items())[1:]), "flavor",
+                f"{region}:selected_flavor_topology", True,
+                "Selected-pair flavor/topology closure",
+            )
+    if use_stream:
+        _add_family(
+            out, STREAM_SPLITS, "stream", f"{region}:data_stream_priority",
+            True, "Exclusive DATA-stream-priority acceptance closure",
+        )
+    if profile in ("standard", "detailed", "debug"):
+        if region == "DY":
+            _add_family(
+                out, DY_STREAM_FLAVOR_SPLITS, "stream_flavor",
+                "DY:data_stream_priority_x_selected_z_flavor", True,
+                "DY trigger/dataset-stream closure within selected Z flavor",
+            )
+        elif region == "ZZCR":
+            _add_family(
+                out, ZZCR_STREAM_TOPOLOGY_SPLITS, "stream_flavor",
+                "ZZCR:curated_stream_x_topology", True,
+                "Curated expected-stream and mixed-topology closure check",
+            )
+    if profile in ("detailed", "debug") and region == "SR":
+        _add_family(
+            out, SR_STREAM_X_SPLITS, "stream_flavor",
+            "SR:data_stream_priority_x_selected_x_flavor", True,
+            "Detailed stream acceptance comparison for XSF and XDF signal branches",
+        )
     if profile in ("trigger", "debug"):
-        out.update(TRIGGER_SPLITS)
+        _add_family(
+            out, TRIGGER_PRIORITY_SPLITS, "trigger",
+            f"{region}:trigger_family_priority", True,
+            "Exclusive trigger-family-priority acceptance diagnostic",
+        )
     return out
 
 
@@ -170,7 +300,7 @@ def build_categories(analysis_pass_name=None, profile=None):
     profile = str(
         profile
         or globals().get("CATEGORY_PROFILE")
-        or os.environ.get("CATEGORY_PROFILE", "minimal")
+        or os.environ.get("CATEGORY_PROFILE", "standard")
     ).strip().lower()
     if profile not in CATEGORY_PROFILES:
         raise ValueError(
@@ -194,7 +324,9 @@ def build_categories(analysis_pass_name=None, profile=None):
             "categories": OrderedDict(),
             "weights": {"*": runner_factor},
         }
-        for split_id, (split_expr, split_label) in splits.items():
+        for split_id, split in splits.items():
+            split_expr = split["expr"]
+            split_label = split["label"]
             category_id = f"{region}_{split_id}"
             if category_id in seen:
                 raise RuntimeError(f"Duplicate final category {category_id!r}")
@@ -223,9 +355,27 @@ def build_categories(analysis_pass_name=None, profile=None):
                     registry["recommended_variable_groups"]
                 ),
                 "category_profile": profile,
+                "view_type": split["view_type"],
+                "partition_family": split["partition_family"],
+                "is_exclusive_within_family": split["is_exclusive_within_family"],
+                "is_overlapping_projection": split["is_overlapping_projection"],
+                "diagnostic_purpose": split["diagnostic_purpose"],
             }
 
-    max_categories = int(os.environ.get("MAX_CATEGORIES", "30"))
+    profile_category_budgets = {
+        "minimal": 6,
+        "standard": 40,
+        "flavor": 20,
+        "stream": 15,
+        "trigger": 20,
+        "detailed": 50,
+        # The curated debug union deliberately crosses the ordinary limit and
+        # therefore requires ALLOW_LARGE_PLAN=1.
+        "debug": 50,
+    }
+    max_categories = int(
+        os.environ.get("MAX_CATEGORIES", profile_category_budgets[profile])
+    )
     if len(metadata) > max_categories and not _env_bool("ALLOW_LARGE_PLAN"):
         raise RuntimeError(
             f"Category plan has {len(metadata)} categories, above MAX_CATEGORIES="

@@ -62,3 +62,17 @@ def test_contract_divergence_is_detected(load_state):
         assert "Z0_mass: fold diverges" in str(exc)
     else:
         raise AssertionError("divergent contract unexpectedly validated")
+
+
+def test_category_view_metadata_flows_into_contract(load_state):
+    state = load_state(category="standard")
+    contract = _contract_from_state(state)
+    item = contract["categories"]["ZZCR_STREAM_EGAMMA_4E"]
+    assert item["view_type"] == "stream_flavor"
+    assert item["partition_family"] == "ZZCR:curated_stream_x_topology"
+    assert item["is_exclusive_within_family"] is True
+    assert item["is_overlapping_projection"] is True
+    assert item["diagnostic_purpose"]
+    assert item["active_variables"] == state["CATEGORY_VARIABLES"][
+        "ZZCR_STREAM_EGAMMA_4E"
+    ]

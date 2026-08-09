@@ -1,0 +1,172 @@
+{
+  "detailed": {
+    "action_reduction_factor": 25.203444564047363,
+    "actions_by_region": {
+      "DY": 204,
+      "SR": 432,
+      "ZZCR": 293
+    },
+    "actions_by_view_type": {
+      "flavor": 348,
+      "inclusive": 125,
+      "stream": 201,
+      "stream_flavor": 255
+    },
+    "active_variable_count": 53,
+    "categories_by_region": {
+      "DY": 12,
+      "SR": 17,
+      "ZZCR": 12
+    },
+    "categories_by_view_type": {
+      "flavor": 12,
+      "inclusive": 3,
+      "stream": 9,
+      "stream_flavor": 17
+    },
+    "category_variable_histogram_actions": 929,
+    "expected_linear_plot_count": 929,
+    "expected_log_plot_count": 929,
+    "expected_total_plot_count": 1858,
+    "final_category_count": 41
+  },
+  "flavor": {
+    "action_reduction_factor": 49.501057082452434,
+    "actions_by_region": {
+      "DY": 63,
+      "SR": 267,
+      "ZZCR": 143
+    },
+    "actions_by_view_type": {
+      "flavor": 348,
+      "inclusive": 125
+    },
+    "active_variable_count": 53,
+    "categories_by_region": {
+      "DY": 3,
+      "SR": 8,
+      "ZZCR": 4
+    },
+    "categories_by_view_type": {
+      "flavor": 12,
+      "inclusive": 3
+    },
+    "category_variable_histogram_actions": 473,
+    "expected_linear_plot_count": 473,
+    "expected_log_plot_count": 473,
+    "expected_total_plot_count": 946,
+    "final_category_count": 15
+  },
+  "minimal": {
+    "action_reduction_factor": 187.312,
+    "actions_by_region": {
+      "DY": 25,
+      "SR": 50,
+      "ZZCR": 50
+    },
+    "actions_by_view_type": {
+      "inclusive": 125
+    },
+    "active_variable_count": 53,
+    "categories_by_region": {
+      "DY": 1,
+      "SR": 1,
+      "ZZCR": 1
+    },
+    "categories_by_view_type": {
+      "inclusive": 3
+    },
+    "category_variable_histogram_actions": 125,
+    "expected_linear_plot_count": 125,
+    "expected_log_plot_count": 125,
+    "expected_total_plot_count": 250,
+    "final_category_count": 3
+  },
+  "old_to_standard_action_reduction_factor": 27.907032181168056,
+  "standard": {
+    "action_reduction_factor": 27.907032181168056,
+    "actions_by_region": {
+      "DY": 204,
+      "SR": 342,
+      "ZZCR": 293
+    },
+    "actions_by_view_type": {
+      "flavor": 348,
+      "inclusive": 125,
+      "stream": 201,
+      "stream_flavor": 165
+    },
+    "active_variable_count": 53,
+    "categories_by_region": {
+      "DY": 12,
+      "SR": 11,
+      "ZZCR": 12
+    },
+    "categories_by_view_type": {
+      "flavor": 12,
+      "inclusive": 3,
+      "stream": 9,
+      "stream_flavor": 11
+    },
+    "category_variable_histogram_actions": 839,
+    "expected_linear_plot_count": 839,
+    "expected_log_plot_count": 839,
+    "expected_total_plot_count": 1678,
+    "final_category_count": 35
+  },
+  "standard_to_minimal_action_ratio": 6.712,
+  "stream": {
+    "action_reduction_factor": 71.82208588957056,
+    "actions_by_region": {
+      "DY": 76,
+      "SR": 125,
+      "ZZCR": 125
+    },
+    "actions_by_view_type": {
+      "inclusive": 125,
+      "stream": 201
+    },
+    "active_variable_count": 53,
+    "categories_by_region": {
+      "DY": 4,
+      "SR": 4,
+      "ZZCR": 4
+    },
+    "categories_by_view_type": {
+      "inclusive": 3,
+      "stream": 9
+    },
+    "category_variable_histogram_actions": 326,
+    "expected_linear_plot_count": 326,
+    "expected_log_plot_count": 326,
+    "expected_total_plot_count": 652,
+    "final_category_count": 12
+  },
+  "trigger": {
+    "action_reduction_factor": 50.9,
+    "actions_by_region": {
+      "DY": 110,
+      "SR": 175,
+      "ZZCR": 175
+    },
+    "actions_by_view_type": {
+      "inclusive": 125,
+      "trigger": 335
+    },
+    "active_variable_count": 53,
+    "categories_by_region": {
+      "DY": 6,
+      "SR": 6,
+      "ZZCR": 6
+    },
+    "categories_by_view_type": {
+      "inclusive": 3,
+      "trigger": 15
+    },
+    "category_variable_histogram_actions": 460,
+    "expected_linear_plot_count": 460,
+    "expected_log_plot_count": 460,
+    "expected_total_plot_count": 920,
+    "final_category_count": 18
+  }
+}

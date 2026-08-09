@@ -27,6 +27,77 @@ FOURL_ANALYSIS = COMMON_ANALYSIS + (
     "CleanJet_pt_0", "CleanJet_eta_0", "CleanJet_pt_1", "CleanJet_eta_1",
 )
 
+# Analysis activation is a policy over physics meaning, not category names.
+# Inclusive projections preserve the original 25/50-observable sets; cheaper
+# diagnostic views retain only the observables needed for their stated use.
+DY_FLAVOR = (
+    "Z0_mass", "Z0_pt", "Z0_eta", "Z0_phi", "PuppiMET_pt",
+    "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta", "nPV", "rho",
+    "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "SelectedLeptonSF_Z", "puWeight",
+)
+DY_STREAM = (
+    "Z0_mass", "Z0_pt", "PuppiMET_pt",
+    "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta", "nPV", "rho",
+    "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "SelectedLeptonSF_Z", "puWeight",
+)
+DY_STREAM_FLAVOR = (
+    "Z0_mass", "Z0_pt", "PuppiMET_pt",
+    "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta", "nPV", "rho",
+    "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
+    "TriggerSF_event", "SelectedLeptonSF_Z", "puWeight",
+)
+FOURL_FLAVOR = (
+    "Z0_mass", "X_mass", "m4l", "pT4l", "PuppiMET_pt", "Z0_pt", "X_pt",
+    "lZ1_pt", "lZ2_pt", "lX1_pt", "lX2_pt",
+    "lZ1_eta", "lZ2_eta", "lX1_eta", "lX2_eta",
+    "nCleanJet", "HT", "physicalBtagVeto",
+    "CleanJet_pt_0", "CleanJet_eta_0", "CleanJet_pt_1", "CleanJet_eta_1",
+    "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
+)
+FOURL_STREAM = (
+    "Z0_mass", "X_mass", "m4l", "Z0_pt", "X_pt", "PuppiMET_pt",
+    "lZ1_pt", "lZ2_pt", "lX1_pt", "lX2_pt",
+    "lZ1_eta", "lZ2_eta", "lX1_eta", "lX2_eta", "nPV", "rho",
+    "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
+)
+FOURL_STREAM_FLAVOR = (
+    "Z0_mass", "X_mass", "m4l", "PuppiMET_pt",
+    "lZ1_pt", "lZ2_pt", "lX1_pt", "lX2_pt",
+    "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
+    "TriggerSF_event", "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
+)
+
+VIEW_VARIABLE_POLICIES = {
+    ("DY", "inclusive"): DY_ANALYSIS,
+    ("DY", "flavor"): DY_FLAVOR,
+    ("DY", "stream"): DY_STREAM,
+    ("DY", "stream_flavor"): DY_STREAM_FLAVOR,
+    ("DY", "trigger"): DY_STREAM,
+    ("FOURL", "inclusive"): FOURL_ANALYSIS,
+    ("FOURL", "flavor"): FOURL_FLAVOR,
+    ("FOURL", "stream"): FOURL_STREAM,
+    ("FOURL", "stream_flavor"): FOURL_STREAM_FLAVOR,
+    ("FOURL", "trigger"): FOURL_STREAM,
+    ("ZZCR", "inclusive"): FOURL_ANALYSIS,
+    ("ZZCR", "flavor"): FOURL_FLAVOR,
+    ("ZZCR", "stream"): FOURL_STREAM,
+    ("ZZCR", "stream_flavor"): FOURL_STREAM_FLAVOR,
+    ("ZZCR", "trigger"): FOURL_STREAM,
+    ("SR", "inclusive"): FOURL_ANALYSIS,
+    ("SR", "flavor"): FOURL_FLAVOR,
+    ("SR", "stream"): FOURL_STREAM,
+    ("SR", "stream_flavor"): FOURL_STREAM_FLAVOR,
+    ("SR", "trigger"): FOURL_STREAM,
+}
+
 PROFILE_NAMES = ("analysis", "trigger", "objects", "weights", "quality", "all")
 
 
@@ -124,6 +195,14 @@ def materialize_histograms(raw_variables, binning_contract, category_metadata, p
         ]
     selected = [name for name in selected if name not in exclude]
 
+    policy_names = {
+        category_id: set(
+            VIEW_VARIABLE_POLICIES[
+                (category["physics_region"], category["view_type"])
+            ]
+        )
+        for category_id, category in category_metadata.items()
+    }
     category_variables = {category_id: [] for category_id in category_metadata}
     active = {}
     for name in selected:
@@ -132,6 +211,12 @@ def materialize_histograms(raw_variables, binning_contract, category_metadata, p
             category_id
             for category_id, category in category_metadata.items()
             if category["physics_region"] in definition["recommended_regions"]
+            and (
+                bool(include)
+                or profile == "all"
+                or name in policy_names[category_id]
+                or (profile != "analysis" and profile in definition["tags"])
+            )
         ]
         if not allowed:
             continue
@@ -140,7 +225,21 @@ def materialize_histograms(raw_variables, binning_contract, category_metadata, p
         for category_id in allowed:
             category_variables[category_id].append(name)
 
-    max_actions = int(os.environ.get("MAX_HISTOGRAM_ACTIONS", "1000"))
+    category_profile = next(iter(category_metadata.values()))["category_profile"]
+    profile_action_budgets = {
+        "minimal": 200,
+        "standard": 1000,
+        "flavor": 700,
+        "stream": 500,
+        "trigger": 700,
+        "detailed": 1200,
+        "debug": 1200,
+    }
+    max_actions = int(
+        os.environ.get(
+            "MAX_HISTOGRAM_ACTIONS", profile_action_budgets[category_profile]
+        )
+    )
     action_count = sum(map(len, category_variables.values()))
     allow_large = os.environ.get("ALLOW_LARGE_PLAN", "0").lower() in (
         "1", "true", "yes", "on"

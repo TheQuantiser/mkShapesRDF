@@ -49,20 +49,30 @@ weights are regression oracles, not the nominal correction.
 
 ## Declarative category model
 
-`category_config.py` is authoritative. The default `minimal` profile is:
+`category_config.py` is authoritative. The recommended/default `standard`
+profile is a declared set of diagnostic projections, not a Cartesian product:
 
 ```text
-DY_ALL
-ZZCR_ALL
-SR_ALL
+DY:   1 inclusive + 2 Z flavors + 3 streams + 6 stream-by-Z-flavor
+ZZCR: 1 inclusive + 3 topologies + 3 streams + 5 curated intersections
+SR:   1 inclusive + 2 X flavors + 5 topologies + 3 streams
 ```
 
-The `flavor` profile adds `DY_ZEE`, `DY_ZMM`, `ZZCR_4E`, `ZZCR_4MU`,
-`ZZCR_2E2MU`, `SR_XSF`, and `SR_XDF`. ZZCR has no impossible XDF category.
-The bounded `stream`, `trigger`, and `debug` profiles add diagnostics without
-an implicit stream-by-flavor Cartesian product. Trigger family/path and DATA
-stream priorities are ordinary default variables, so routine production does
-not multiply every kinematic histogram by those axes.
+This gives 35 categories. `minimal` preserves exactly `DY_ALL`, `ZZCR_ALL`,
+and `SR_ALL`. `flavor`, `stream`, and `trigger` isolate their named use cases;
+the trigger views filter on the exclusive `triggerFamilyPriority`, never on
+overlapping raw trigger bits. `detailed` adds only six SR
+stream-by-`XSF`/`XDF` views. `debug` is the curated detailed/trigger union and
+requires `ALLOW_LARGE_PLAN=1`. ZZCR has no impossible XDF category.
+
+The selected-object SR topology map is `4E=ZEE+XEE`, `4MU=ZMM+XMM`,
+`2E2MU=(ZEE+XMM)|(ZMM+XEE)`, `3E1MU=ZEE+XDF`, and
+`1E3MU=ZMM+XDF`. Tests prove these five leaves exclusive and exhaustive, and
+prove all DY/ZZCR partition/intersection identities.
+
+Every category has controlled `view_type`, `partition_family`, within-family
+exclusivity, cross-family overlap, and diagnostic-purpose fields. The contract
+copies those fields directly, so downstream code never needs to parse IDs.
 
 Each category's metadata is generated from the same registry that materializes
 `cuts.py`. It contains its parent and split expressions, full preselection and
@@ -73,20 +83,24 @@ variables/binning/nuisances, profiles, year, and git state.
 
 The persistent registry in `histogram_config.py` holds every supported
 expression, title, binning, fold, tag, role, and applicability definition.
-Activation is separate. For the 2024 `minimal + analysis` default there are
-509 registry entries, 53 active variables, and only 125 actual
-category-variable actions:
+Activation is separate and resolved declaratively from
+`(physics_region, view_type)`. For 2024 `standard + analysis` there are 509
+registry entries, 53 active variables, and 839 actual category-variable
+actions:
 
-| Category | Booked variables |
-| --- | ---: |
-| `DY_ALL` | 25 |
-| `ZZCR_ALL` | 50 |
-| `SR_ALL` | 50 |
+| View | DY | ZZCR/SR |
+| --- | ---: | ---: |
+| inclusive | 25 | 50 |
+| flavor/topology | 19 | 31 |
+| stream/trigger priority | 17 | 25 |
+| stream-flavor | 15 | 15 |
 
-The previous graph had 46 categories by 509 variables, or 23,414 actions; the
-default is reduced by a factor of 187.312. The local runner books only the
-approved pairs and its conversion/save/merge paths support the resulting
-non-rectangular dictionary. Missing pairs are absent, not empty histograms.
+Minimal remains 125 actions. Standard is 6.712 times that basic plan and
+27.907 times smaller than the previous 23,414-action graph. `flavor`,
+`stream`, `trigger`, and `detailed` use 473, 326, 460, and 929 actions. The
+local runner books only approved pairs and its conversion/save/merge paths
+support the resulting non-rectangular dictionary. Missing pairs are absent,
+not empty histograms. Definition hashes and binning never depend on view.
 
 ## Nominal weights
 

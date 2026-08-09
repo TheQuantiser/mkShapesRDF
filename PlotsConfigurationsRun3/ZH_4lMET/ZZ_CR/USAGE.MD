@@ -8,16 +8,17 @@ The normal contract is:
 
 ```text
 ANALYSIS_PASS=ALL
-CATEGORY_PROFILE=minimal
+CATEGORY_PROFILE=standard
 HISTOGRAM_PROFILE=analysis
 ENABLE_SYSTEMATICS=0
 HISTOGRAMS=1
 ```
 
-This resolves three categories (`DY_ALL`, `ZZCR_ALL`, and `SR_ALL`), 53 active
-variables, and 125 category-variable actions. The persistent registry keeps
-all supported definitions and binning even when variables are inactive.
-ZZ_CR is histogram-only.
+This resolves 35 bounded projections, 53 active registry variables, and 839
+category-variable actions. `minimal` remains the fastest three-category,
+125-action basic production. The persistent registry keeps all supported
+definitions and binning even when variables are inactive. ZZ_CR is
+histogram-only.
 
 ## Plan and profiles
 
@@ -27,14 +28,31 @@ Inspect the graph without discovering input files:
 cd PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR
 python inspect_plan.py --year 2024 \
   --analysis-pass ALL \
-  --category-profile minimal \
+  --category-profile standard \
   --histogram-profile analysis
 ```
 
-Category profiles are `minimal`, `flavor`, `stream`, `trigger`, and `debug`.
-`flavor` adds `DY_ZEE`, `DY_ZMM`, `ZZCR_4E`, `ZZCR_4MU`, `ZZCR_2E2MU`,
-`SR_XSF`, and `SR_XDF`. Stream and trigger profiles add bounded diagnostic
-splits; they do not create stream-by-flavor Cartesian products.
+Add `--write-profile-comparison` to regenerate
+`development/category_profile_comparison.json`. The plan reports category and
+action breakdowns by region and `view_type`, variables per category, and the
+expected linear/log plot counts.
+
+Category profiles are:
+
+- `minimal`: three rich inclusive projections; fastest basic production;
+- `standard`: recommended DATA/MC commissioning projections (35/839);
+- `flavor`: inclusive plus selected-pair flavor/topology partitions (15/473);
+- `stream`: inclusive plus exclusive stream-priority marginals (12/326);
+- `trigger`: inclusive plus exclusive `triggerFamilyPriority` views (18/460);
+- `detailed`: standard plus six SR stream-by-X-flavor views (41/929);
+- `debug`: the curated detailed/trigger union (56/1,264), requiring
+  `ALLOW_LARGE_PLAN=1`.
+
+The standard profile contains the full DY stream-by-Z-flavor closure matrix,
+five curated ZZCR stream-by-topology intersections, and no SR stream cross.
+It never generates an automatic Cartesian product. Each category carries
+first-class view, partition, exclusivity, overlap, and diagnostic-purpose
+metadata into `analysis_contract.json`.
 
 Histogram profiles are `analysis`, `trigger`, `objects`, `weights`, `quality`,
 and `all`. Exact overrides select existing registry entries:
@@ -47,7 +65,22 @@ export VARIABLE_EXCLUDE=PuppiMET_pt
 An include never creates or changes a definition. Re-enabling a variable later
 restores the same expression, fold, and binning. `MAX_CATEGORIES` and
 `MAX_HISTOGRAM_ACTIONS` are fail-closed safety budgets;
-`ALLOW_LARGE_PLAN=1` is the explicit debug override.
+`ALLOW_LARGE_PLAN=1` is the explicit debug override. Normal category/action
+budgets are profile-aware: standard fails above 40 categories or 1,000
+actions, and detailed fails above 50 categories or 1,200 actions.
+
+Run the selection-only occupancy tool on a bounded staged input with:
+
+```bash
+python inspect_category_occupancy.py \
+  --year 2024 --kind MC --label 2024_ZZ \
+  --events 10000 --input root://eoscms.cern.ch//store/.../nanoLatino_ZZ__part0.root \
+  --output occupancy_2024_ZZ.json
+```
+
+It dependency-slices the normal aliases and books only `Filter/Count` actions.
+The combined five-era evidence and keep/omit decisions are in
+`development/category_occupancy.json` and `development/CATEGORY_DESIGN.md`.
 
 ## Weight and b-tag contract
 
@@ -90,7 +123,7 @@ source start.sh
 
 export YEAR=2024
 export ANALYSIS_PASS=ALL
-export CATEGORY_PROFILE=minimal
+export CATEGORY_PROFILE=standard
 export HISTOGRAM_PROFILE=analysis
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
@@ -127,7 +160,7 @@ source PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/fnal_lpc_packaged_env.sh
 
 export YEAR=2024
 export ANALYSIS_PASS=ALL
-export CATEGORY_PROFILE=minimal
+export CATEGORY_PROFILE=standard
 export HISTOGRAM_PROFILE=analysis
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
@@ -198,9 +231,12 @@ root://cmseos.fnal.gov//store/user/<user>/mkShapesRDF_rootfiles/
   <campaign>/<tag>/
 ```
 
-A minimal-analysis MC split contains 25 variable directories under `DY_ALL`
-and 50 each under `ZZCR_ALL` and `SR_ALL`. For example, `DY_ALL/X_mass` must
-not exist, while `ZZCR_ALL/X_mass` and `SR_ALL/X_mass` must exist.
+A standard-analysis split contains 25 variable directories under `DY_ALL`, 50
+under each four-lepton inclusive, 19/31 under flavor views, 17/25 under stream
+views, and 15 under curated intersections. For example,
+`DY_STREAM_MUON_ZEE/X_mass` must not exist, while
+`ZZCR_STREAM_EGAMMA_4E/X_mass` must exist. Minimal outputs retain their
+original 25/50/50 directory contract.
 
 ## Exact analysis contract
 

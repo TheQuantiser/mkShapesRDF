@@ -1,0 +1,216 @@
+{
+  "comparison_to_minimal": {
+    "absolute_peak_increase_mb": 81,
+    "interpretation": "Memory grew 14.3% while booked actions grew 6.712x; output growth is approximately proportional to sparse action count and remains sub-MB per 100-event split.",
+    "minimal_output_bytes_approx_range": [
+      76995,
+      98957
+    ],
+    "minimal_peak_memory_mb": 566,
+    "peak_ratio": 1.1431095406360423,
+    "standard_output_bytes_range": [
+      509871,
+      637210
+    ],
+    "standard_peak_memory_mb": 647,
+    "standard_to_minimal_action_ratio": 6.712
+  },
+  "compiled_contracts": {
+    "2022_ZZ": {
+      "action_count": 839,
+      "campaign": "FNAL_ZZCR_STANDARD_PILOT_2022_ZZ",
+      "category_count": 35,
+      "contract_sha256": "d3e0c3b63b3efdc975a6d8b73777060de5be16687e79e77b71fc418a7e4d7f6a",
+      "git_dirty": true,
+      "git_sha": "0de38da3c3977ae2030e4ee7d95e6d8edc24e0ee",
+      "remote_output_lfn": "/store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_STANDARD_PILOT_2022_ZZ/FourLepton_2022_ALL_standard_analysis_HIST_NOMINAL_20260809_182958",
+      "tag": "FourLepton_2022_ALL_standard_analysis_HIST_NOMINAL_20260809_182958"
+    },
+    "2024_DATA": {
+      "action_count": 839,
+      "campaign": "FNAL_ZZCR_STANDARD_PILOT_2024_DATA",
+      "category_count": 35,
+      "contract_sha256": "6bfe5ed7c745d4ea4a9409c434a4c29a1aae0e527a39acb426ac7065f2d4c486",
+      "git_dirty": true,
+      "git_sha": "0de38da3c3977ae2030e4ee7d95e6d8edc24e0ee",
+      "remote_output_lfn": "/store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_STANDARD_PILOT_2024_DATA/FourLepton_2024_ALL_standard_analysis_HIST_NOMINAL_20260809_183021",
+      "tag": "FourLepton_2024_ALL_standard_analysis_HIST_NOMINAL_20260809_183021"
+    },
+    "2024_ZH": {
+      "action_count": 839,
+      "campaign": "FNAL_ZZCR_STANDARD_PILOT_2024_ZH",
+      "category_count": 35,
+      "contract_sha256": "c856eca10c34a2a7cc768c8799b42f1a513ecdd1384cd499664fa6b59c3f7846",
+      "git_dirty": true,
+      "git_sha": "0de38da3c3977ae2030e4ee7d95e6d8edc24e0ee",
+      "remote_output_lfn": "/store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_STANDARD_PILOT_2024_ZH/FourLepton_2024_ALL_standard_analysis_HIST_NOMINAL_20260809_182933",
+      "tag": "FourLepton_2024_ALL_standard_analysis_HIST_NOMINAL_20260809_182933"
+    },
+    "2024_ZZ": {
+      "action_count": 839,
+      "campaign": "FNAL_ZZCR_STANDARD_PILOT_2024_ZZ",
+      "category_count": 35,
+      "contract_sha256": "037d4d4884cb96133488a27008a199ec6f363bdac5cf23d58a0c576858f5d1ee",
+      "git_dirty": true,
+      "git_sha": "0de38da3c3977ae2030e4ee7d95e6d8edc24e0ee",
+      "remote_output_lfn": "/store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_STANDARD_PILOT_2024_ZZ/FourLepton_2024_ALL_standard_analysis_HIST_NOMINAL_20260809_182905",
+      "tag": "FourLepton_2024_ALL_standard_analysis_HIST_NOMINAL_20260809_182905"
+    }
+  },
+  "condor_jobs": [
+    {
+      "cluster_proc": "85068324.0",
+      "disk_usage_kb": 300000,
+      "exit_code": 0,
+      "memory_usage_mb": 647,
+      "output_bytes": 522005,
+      "purpose": "2024 v15 ZZ",
+      "remote_wall_seconds": 133,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068325.0",
+      "disk_usage_kb": 250000,
+      "exit_code": 0,
+      "memory_usage_mb": 637,
+      "output_bytes": 637210,
+      "purpose": "2024 v15 ZH signal",
+      "remote_wall_seconds": 109,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068326.0",
+      "disk_usage_kb": 250000,
+      "exit_code": 0,
+      "memory_usage_mb": 627,
+      "output_bytes": 521178,
+      "purpose": "2022 v12 ZZ",
+      "remote_wall_seconds": 166,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.0",
+      "disk_usage_kb": 325000,
+      "exit_code": 0,
+      "memory_usage_mb": 616,
+      "output_bytes": 511034,
+      "purpose": "2024 v15 MuonEG DATA split 0",
+      "remote_wall_seconds": 117,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.1",
+      "disk_usage_kb": 750000,
+      "exit_code": 0,
+      "memory_usage_mb": 622,
+      "output_bytes": 509871,
+      "purpose": "2024 v15 MuonEG DATA split 1",
+      "remote_wall_seconds": 263,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.2",
+      "disk_usage_kb": 450000,
+      "exit_code": 0,
+      "memory_usage_mb": 621,
+      "output_bytes": 511688,
+      "purpose": "2024 v15 MuonEG DATA split 2",
+      "remote_wall_seconds": 144,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.3",
+      "disk_usage_kb": 425000,
+      "exit_code": 0,
+      "memory_usage_mb": 618,
+      "output_bytes": 511053,
+      "purpose": "2024 v15 MuonEG DATA split 3",
+      "remote_wall_seconds": 429,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.4",
+      "disk_usage_kb": 300000,
+      "exit_code": 0,
+      "memory_usage_mb": 617,
+      "output_bytes": 509871,
+      "purpose": "2024 v15 MuonEG DATA split 4",
+      "remote_wall_seconds": 137,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.5",
+      "disk_usage_kb": 250000,
+      "exit_code": 0,
+      "memory_usage_mb": 621,
+      "output_bytes": 509871,
+      "purpose": "2024 v15 MuonEG DATA split 5",
+      "remote_wall_seconds": 99,
+      "resident_set_size_kb": 750000
+    },
+    {
+      "cluster_proc": "85068327.6",
+      "disk_usage_kb": 250000,
+      "exit_code": 0,
+      "memory_usage_mb": 620,
+      "output_bytes": 511906,
+      "purpose": "2024 v15 MuonEG DATA split 6",
+      "remote_wall_seconds": 99,
+      "resident_set_size_kb": 750000
+    }
+  ],
+  "execution_contract": {
+    "analysis_pass": "ALL",
+    "category_profile": "standard",
+    "event_limit_per_job": 100,
+    "files_per_job": 1,
+    "histogram_profile": "analysis",
+    "histograms": true,
+    "input_access_mode": "stage-in",
+    "read_endpoint": "root://eoscms.cern.ch",
+    "request_disk_gb": 8,
+    "request_memory_mb": 2048,
+    "systematics": false,
+    "trees": false,
+    "write_endpoint": "root://cmseos.fnal.gov"
+  },
+  "recorded_utc": "2026-08-09T18:40:39.369916+00:00",
+  "result": "All ten required packaged jobs exited zero; v12/v15, DATA/ZZ/ZH, sparse ROOT structure, contract metadata, and exact region weights validated.",
+  "root_validation": {
+    "DY_STREAM_MUON_ZEE/X_mass_absent": true,
+    "ZZCR_STREAM_EGAMMA_4E/X_mass_present": true,
+    "all_open_non_zombie": true,
+    "category_variable_directories": {
+      "DY_ALL": 25,
+      "DY_STREAM_MUON_ZEE": 15,
+      "DY_ZEE": 19,
+      "SR_3E1MU": 31,
+      "SR_ALL": 50,
+      "ZZCR_4E": 31,
+      "ZZCR_ALL": 50,
+      "ZZCR_STREAM_EGAMMA_4E": 15,
+      "ZZCR_STREAM_MUON": 25
+    },
+    "files_checked": 10,
+    "top_level_category_directories": 35
+  },
+  "schedd": "lpcschedd6.fnal.gov",
+  "schema_version": 1,
+  "site": "FNAL LPC",
+  "stage_in_validation": {
+    "all_logs_map_cern_source_to_worker_scratch": true,
+    "fnal_eos_stage_out_only": true,
+    "worker_scratch_prefix": "/srv/mkShapesRDF_stagein_"
+  },
+  "weight_validation": {
+    "DY_factor": "SelectedLeptonSF_Z",
+    "ZZCR_SR_factor": "SelectedLeptonSF_ZX*BTagVetoSF",
+    "all_35_categories_match_region_policy": true,
+    "common_mc_weight_contains": [
+      "XSWeight",
+      "METFilter_Common",
+      "puWeight",
+      "TriggerSF_event"
+    ]
+  }
+}

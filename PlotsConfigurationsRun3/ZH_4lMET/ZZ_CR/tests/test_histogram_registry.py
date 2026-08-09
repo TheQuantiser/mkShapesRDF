@@ -29,3 +29,36 @@ def test_action_budget_fails_closed(load_state):
     import pytest
     with pytest.raises(RuntimeError, match="MAX_HISTOGRAM_ACTIONS"):
         load_state(MAX_HISTOGRAM_ACTIONS="10")
+
+
+def test_standard_view_aware_sparse_policy(load_state):
+    state = load_state(category="standard")
+    variables = state["CATEGORY_VARIABLES"]
+    assert sum(map(len, variables.values())) == 839
+    assert len(variables["DY_ALL"]) == 25
+    assert len(variables["ZZCR_ALL"]) == 50
+    assert len(variables["SR_ALL"]) == 50
+    assert len(variables["DY_ZEE"]) == 19
+    assert len(variables["DY_STREAM_MUON"]) == 17
+    assert len(variables["DY_STREAM_MUON_ZEE"]) == 15
+    assert len(variables["ZZCR_4E"]) == 31
+    assert len(variables["ZZCR_STREAM_MUON"]) == 25
+    assert len(variables["ZZCR_STREAM_EGAMMA_4E"]) == 15
+    assert "recoil_upar" in variables["ZZCR_ALL"]
+    assert "recoil_upar" not in variables["ZZCR_4E"]
+    assert "CleanJet_pt_0" in variables["SR_3E1MU"]
+    assert "CleanJet_pt_0" not in variables["SR_STREAM_MUON"]
+
+
+def test_profile_action_counts(load_state):
+    expected = {
+        "minimal": 125,
+        "standard": 839,
+        "flavor": 473,
+        "stream": 326,
+        "trigger": 460,
+        "detailed": 929,
+    }
+    for profile, actions in expected.items():
+        state = load_state(category=profile)
+        assert sum(map(len, state["CATEGORY_VARIABLES"].values())) == actions

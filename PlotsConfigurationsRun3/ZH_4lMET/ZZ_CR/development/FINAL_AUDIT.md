@@ -2,14 +2,43 @@
 
 Recorded on 2026-08-09 after local and FNAL Condor validation.
 
-## Result
+## Category refinement
 
-The default 2024 nominal graph is `ALL + minimal + analysis`: three final
+The later commissioning refinement preserves the original validated minimal
+contract below and makes `standard + analysis` the recommended ordinary view.
+Standard has 35 declared projections and 839 sparse actions: 12 DY, 12 ZZCR,
+and 11 SR categories. The complete profile comparison is 125 minimal, 839
+standard, 473 flavor, 326 stream, 460 trigger-priority, and 929 detailed
+actions. Debug is a curated 1,264-action union and requires an explicit large
+plan override.
+
+Variable activation now depends on `(physics_region, view_type)`. Inclusive,
+flavor, stream, and curated-intersection views use 25/50, 19/31, 17/25, and
+15/15 DY/four-lepton variables respectively. Category metadata and the
+analysis contract now expose the view, partition family, exclusivity,
+cross-family overlap, and diagnostic purpose without ID parsing.
+
+Truth-table tests mechanically prove every requested flavor/topology/stream
+partition and intersection. A selection-only occupancy study covers staged
+v12/v15 ZZ across all five eras plus 2024 ZH and DATA. A real 100-event
+standard run produced a healthy 35-directory sparse ROOT file. The updated
+focused suite passes 34 tests. Ten packaged standard jobs spanning 2024 DATA,
+ZZ, ZH, and v12 ZZ all exited zero. Their peak `MemoryUsage` was 647 MB, only
+14.3% above the prior 566 MB peak despite a 6.712x action increase. Exact
+evidence is recorded in `fnal_category_pilot_receipt.json`.
+
+No physics selection, weight, correction, sample partition, nominal one-job-
+set semantics, or FNAL stage-in/stage-out behavior changed. The original
+minimal full-production package remains immutable at commit `0de38da`.
+
+## Original minimal-production result
+
+The original full-production graph was `ALL + minimal + analysis`: three final
 categories, 53 active variables from a 509-entry immutable registry, and 125
 actual histogram actions. The previous 46-category by 509-variable rectangle
-had 23,414 actions, so the default booking reduction is 187.312x.
+had 23,414 actions, so the minimal booking reduction is 187.312x.
 
-The exact default categories are `DY_ALL`, `ZZCR_ALL`, and `SR_ALL`. The
+The exact minimal categories are `DY_ALL`, `ZZCR_ALL`, and `SR_ALL`. The
 runner applies `SelectedLeptonSF_Z` below DY and
 `SelectedLeptonSF_ZX*BTagVetoSF` below ZZCR/SR, after the common
 `XSWeight*METFilter_Common*puWeight*TriggerSF_event` MC weight. DATA has its
