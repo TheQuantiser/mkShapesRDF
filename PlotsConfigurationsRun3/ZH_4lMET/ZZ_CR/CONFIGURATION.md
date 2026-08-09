@@ -2,7 +2,7 @@
 
 This Run-3 configuration produces compact DY, ZZ-control, and ZH
 four-lepton signal-reference histograms for `2022`, `2022EE`, `2023`,
-`2023BPix`, and `2024`. `SAMPLE_PROFILE=commissioning` selects Data plus the
+`2023BPix`, and `2024`. `SAMPLE_PROFILE=commissioning` selects DATA plus the
 DY and ZZ MC plot groups for quick development. `SAMPLE_PROFILE=presentation`
 selects the complete configured prompt process model and target ZH/ggZH
 signal for presentation production.
@@ -36,8 +36,10 @@ histograms.
   `minSelectedPairMass>12 GeV`, where the minimum is evaluated over all six
   unordered pairs formed from exactly the selected Z0+X leptons. Invalid,
   duplicate, or non-finite selected inputs fail closed. This veto is not part
-  of the DY selection. The 15 GeV Z window remains independent, followed by
-  the loose physical b veto for CleanJets above 20 GeV and |eta| below 2.5.
+  of the DY selection. The value is an executable alias used by the cuts, not
+  an additional histogram action. The 15 GeV Z window remains independent,
+  followed by the loose physical b veto for CleanJets above 20 GeV and |eta|
+  below 2.5.
 - ZZCR explicitly requires `X_isSF`, 75 < m(X) < 105 GeV, and PuppiMET below
   35 GeV.
 - The XSF signal reference requires 10 < m(X) < 65 GeV, PuppiMET above
@@ -155,6 +157,11 @@ source, and active samples are recorded in `analysis_contract.json`. The
 output tag includes the profile name, so commissioning and presentation
 outputs cannot collide.
 
+For the current 2024 registry, commissioning resolves to eight logical
+outputs (six DY outputs, ZZ, and DATA), while presentation resolves to all 55
+logical outputs (54 MC plus DATA). These counts are derived checks, not a
+second hard-coded sample list.
+
 ## Reproducibility and systematics
 
 Every compile writes a self-digested `analysis_contract.json` beside the job
@@ -171,6 +178,11 @@ limitation avoids silently incorrect systematic histograms.
 Operational setup, planning, CERN shared-checkout submission, direct packaged
 FNAL XRootD reads, optional local or worker stage-in, contract inspection,
 status, and merge commands are in `USAGE.MD`.
+
+Direct CERN XRootD reads are the ordinary FNAL mode for both local validation
+(`local_xrootd`) and packaged Condor production
+(`packaged_fnal_xrootd_eos_production`). Whole-file stage-in remains an
+explicit diagnostic/fallback mode and is never selected implicitly.
 
 The site environment scripts are reset scripts. Each one unconditionally
 replaces its execution profile, I/O modes, packaging mode, include base, proxy

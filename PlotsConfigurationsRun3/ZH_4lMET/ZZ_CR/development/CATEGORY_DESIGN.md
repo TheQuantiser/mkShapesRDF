@@ -101,3 +101,22 @@ identities. The final nominal action counts are:
 Standard is 6.712 times the minimal action count but 27.907 times smaller
 than the former 23,414-action rectangle. It remains one nominal `ALL` job set
 with unchanged region-specific weight factors.
+
+## Current execution boundary
+
+Category projection and sample activation are independent axes. The default
+`commissioning` sample profile activates DATA plus the live DY and ZZ outputs;
+`presentation` activates every logical output owned by the live plot groups.
+Neither profile changes the 35-category/839-action standard histogram graph,
+and `SAMPLE_FILTER` remains a stronger exact override.
+
+The current physical ZZCR/SR parent includes
+`minSelectedPairMass > 12 GeV`, evaluated over the six unordered pairs made
+from exactly the selected Z0+X leptons. DY deliberately does not include that
+requirement. This subsequent selection update does not alter the category
+families, their algebra, or the sparse action counts documented above.
+
+Ordinary FNAL validation and packaged production read CERN inputs directly
+through XRootD. The staged files described in the occupancy evidence are
+historical bounded inputs; whole-file stage-in remains an explicit fallback,
+not the production default.

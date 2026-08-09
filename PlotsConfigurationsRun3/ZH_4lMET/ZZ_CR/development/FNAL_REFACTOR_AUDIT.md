@@ -2,6 +2,13 @@
 
 Recorded 2026-08-09 before source edits.
 
+This file intentionally records the pre-edit state and plan. It is not an
+operational runbook; use `../USAGE.MD` and `../CONFIGURATION.md` for the
+current contract. In particular, the planned stage-in default below was later
+superseded by direct CERN XRootD reads, with whole-file stage-in retained only
+as an explicit option. Later work also added commissioning/presentation sample
+profiles and the selected-four-lepton minimum-pair-mass veto for ZZCR/SR only.
+
 - Branch: `ZH_devel`
 - Starting commit: `b7d701b6bb7dbd2fd899cc53ba54c1bcbeeba7f6`
 - `origin/master`: `3d98fb4b5a01c576f9884c7b7a2f2f28a003e77c`
@@ -34,4 +41,6 @@ Planned design changes:
    dictionaries used by the executable configuration, and add an inspection
    command with fail-closed category/action budgets.
 5. Make CERN xrdcp stage-in and FNAL EOS stage-out the explicit packaged FNAL
-   default, then validate the local and bounded Condor paths.
+   default, then validate the local and bounded Condor paths. This was the
+   original plan; after the partial-transfer retry failure was understood,
+   direct XRootD became the packaged FNAL default instead.

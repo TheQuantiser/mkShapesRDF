@@ -2,6 +2,30 @@
 
 Recorded on 2026-08-09 after local and FNAL Condor validation.
 
+## Current-contract addendum
+
+This document preserves the dated minimal/category-refinement evidence below.
+The current executable contract subsequently added two independent features:
+
+- `minSelectedPairMass > 12 GeV` is evaluated over all six unordered masses
+  formed from exactly the selected Z0+X leptons and applied only to ZZCR/SR;
+  DY does not use it. Invalid selected inputs fail closed. The AN2019/238 v9
+  XSF, XDF, and ZZCR boundaries remain 65, 70, and 75--105 GeV.
+- `SAMPLE_PROFILE=commissioning` activates DATA plus live DY and ZZ outputs,
+  while `SAMPLE_PROFILE=presentation` activates every logical output owned by
+  the current plot groups. For 2024 those scopes contain 8 and 55 logical
+  outputs. Nonprompt/fake background is not included.
+
+The tag and generated contract now include the sample profile, and the
+contract records profile groups, profile inventory, actual selection source,
+and active outputs. The current focused suite passes 47 tests. A bounded
+direct-XRootD 2024 ZZ run produced a healthy 839-histogram, no-tree ROOT file
+and persisted the ZZCR/SR-only minimum-pair cut exactly. The ordinary FNAL
+production mode is packaged direct XRootD input with FNAL CMS Store stage-out;
+whole-file stage-in remains an explicit fallback. See `../CONFIGURATION.md`,
+`../USAGE.MD`, and `SELECTION_SOURCE_NOTE.md` for the live runbook and source
+mapping.
+
 ## Category refinement
 
 The later commissioning refinement preserves the original validated minimal
@@ -28,8 +52,10 @@ ZZ, ZH, and v12 ZZ all exited zero. Their peak `MemoryUsage` was 647 MB, only
 evidence is recorded in `fnal_category_pilot_receipt.json`.
 
 No physics selection, weight, correction, sample partition, nominal one-job-
-set semantics, or FNAL stage-in/stage-out behavior changed. The original
-minimal full-production package remains immutable at commit `0de38da`.
+set semantics, or FNAL stage-in/stage-out behavior changed during that
+category-only refinement. The later current-contract changes are identified
+in the addendum above. The original minimal full-production package remains
+immutable at commit `0de38da`.
 
 For future submissions, the FNAL wrapper was subsequently changed to make
 packaged direct CERN XRootD reads the default. The packaged whole-file
@@ -77,8 +103,8 @@ corrections.
 8. `plot.py` and `structure.py` consume sample/process dictionaries rather
    than hard-coded old category IDs. The sparse ROOT directories use the clean
    IDs directly.
-9. Output tags include year, analysis pass, category profile, histogram
-   profile, product, systematic mode, and UTC timestamp.
+9. Output tags now include year, analysis pass, category profile, histogram
+   profile, sample profile, product, systematic mode, and UTC timestamp.
 10. `USAGE.MD` and `CONFIGURATION.md` were rewritten; stale 46-category,
     rectangular 509-variable, local-map, CERN-only, and hard-coded 4 GB
     instructions were removed.

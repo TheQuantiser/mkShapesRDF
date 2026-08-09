@@ -44,3 +44,20 @@ common selection and is not applied to DY.
 The XSF upper edge remains `65 GeV` because Table 37 in the explicitly
 authoritative AN2019/238 v9 states `10 GeV < mX < 65 GeV`. No selection was
 changed to follow a later public source with a different edge.
+
+## Executable mapping and scope
+
+- `macros/four_lepton_helpers.cc` implements the six-pair minimum and its
+  fail-closed validation.
+- `aliases.py` exposes the result as `minSelectedPairMass`.
+- `category_config.py` uses it only in the shared physical ZZCR/SR parent;
+  the DY parent remains independent of X and of this veto.
+- `tests/test_selected_pair_mass.py` covers all-pairs-above-threshold,
+  low cross-pair, and invalid/duplicate-index cases.
+- `tests/test_categories.py` locks the DY exclusion and the 65/70/75--105 GeV
+  region boundaries.
+
+`SAMPLE_PROFILE` is orthogonal to this selection. `commissioning` activates
+DATA plus DY and ZZ for bounded development; `presentation` activates all
+logical outputs assigned by the live plot groups. Neither profile changes the
+event cuts, and neither supplies a nonprompt/fake estimate.

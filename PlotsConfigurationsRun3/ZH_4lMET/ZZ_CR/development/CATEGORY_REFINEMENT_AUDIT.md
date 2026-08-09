@@ -1,5 +1,10 @@
 # Category-refinement audit
 
+This is a dated audit of the category-only refinement. Statements below about
+unchanged physics selections and stage-in describe that historical change,
+not the complete current configuration. The current contract is summarized in
+the post-audit addendum at the end of this file and in `../CONFIGURATION.md`.
+
 ## Starting state
 
 - Audit date: 2026-08-09
@@ -102,3 +107,23 @@ normal category/action budgets and requires `ALLOW_LARGE_PLAN=1`.
    output endpoint, histogram-only rule, or nominal-only ALL rule changed.
 10. **Files outside scope?** No tracked source outside
     `PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR` was changed.
+
+## Post-audit current contract
+
+The category inventory and sparse action counts above remain current. Later
+work added two orthogonal sample profiles: `commissioning` for DATA plus DY
+and ZZ, and `presentation` for every logical process covered by the live plot
+groups. For 2024 these resolve to 8 and 55 logical outputs respectively. The
+profile name is part of the tag and its resolved scope is persisted in
+`analysis_contract.json`; nonprompt/fake background is explicitly absent.
+
+The later physics update replaced the ZZCR/SR-only `Z0_mass > 12 GeV`
+requirement with `minSelectedPairMass > 12 GeV` over all six unordered masses
+from exactly the selected Z0+X leptons. DY remains outside this veto. The XSF,
+XDF, and ZZCR mass/MET boundaries remain 65, 70, and 75--105 GeV as recorded
+in AN2019/238 v9. The current focused suite contains 47 passing tests,
+including synthetic cross-pair cases and all-era sample-profile coverage.
+
+FNAL packaged production now defaults to direct CERN XRootD reads and FNAL
+stage-out. The stage-in pilot evidence above remains valid historical
+evidence, while whole-file stage-in is now an explicit optional profile.

@@ -4,7 +4,7 @@ This configuration produces the inclusive DY validation region, physical ZZ
 control region, and ZH four-lepton signal-reference region in one nominal job
 graph. It supports `2022`, `2022EE`, `2023`, `2023BPix`, and `2024`.
 
-The normal contract is:
+The normal commissioning contract is:
 
 ```text
 ANALYSIS_PASS=ALL
@@ -20,6 +20,11 @@ category-variable actions. `minimal` remains the fastest three-category,
 125-action basic production. The persistent registry keeps all supported
 definitions and binning even when variables are inactive. ZZ_CR is
 histogram-only.
+
+For a full plotting campaign, change only the sample scope to
+`SAMPLE_PROFILE=presentation` and ensure `SAMPLE_FILTER`,
+`LIMIT_FILES_PER_SAMPLE`, and `DATA_STREAM_FILTER` are unset. The category and
+histogram graph remains the same 35-category, 839-action graph.
 
 ## Plan and profiles
 
@@ -172,8 +177,8 @@ export HISTOGRAM_PROFILE=analysis
 export SAMPLE_PROFILE=commissioning
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
-export EXECUTION_PROFILE=local_stagein
-export INPUT_ACCESS_MODE=stage-in
+export EXECUTION_PROFILE=local_xrootd
+export INPUT_ACCESS_MODE=xrootd
 export XRD_READ_ENDPOINT=root://eoscms.cern.ch
 export XRD_DISCOVERY_ENDPOINT=root://eoscms.cern.ch
 export OUTPUT_MODE=local
@@ -185,9 +190,19 @@ mkShapesRDF -c 1 -o 0 -b 0 \
   -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR -l 100
 ```
 
-This copies the CERN input with `xrdcp` into task-owned scratch, reads the
-local copy, and removes it on success. Do not use a packaged production profile
-with `-b 0`.
+This streams the bounded CERN input directly through XRootD and writes only
+the small result locally. It is the default local validation mode. Do not use
+a packaged production profile with `-b 0`.
+
+Whole-file stage-in remains available for an explicit transfer diagnostic:
+
+```bash
+export EXECUTION_PROFILE=local_stagein
+export INPUT_ACCESS_MODE=stage-in
+```
+
+That opt-in mode copies the input into task-owned scratch and removes it on
+success; it is not the ordinary validation path.
 
 ## CERN shared-checkout Condor
 
@@ -295,6 +310,19 @@ direct profile lets ROOT/XRootD perform streamed range reads. Both profiles
 keep packaged workers and FNAL EOS stage-out. Re-sourcing the FNAL wrapper
 returns the environment to direct-read packaged production.
 
+For the full all-sample 2024 plotting campaign, use:
+
+```bash
+export SAMPLE_PROFILE=presentation
+export FILES_PER_JOB=10
+export PRODUCTION_CAMPAIGN=ZH4lMET_2024_PRESENTATION
+unset SAMPLE_FILTER LIMIT_FILES_PER_SAMPLE DATA_STREAM_FILTER
+```
+
+`presentation` means every logical output resolved from the 2024
+`year_config.json` and live plot groups—currently 54 MC outputs plus DATA.
+It does not add a nonprompt/fake estimate.
+
 Create a bounded dry-run first:
 
 ```bash
@@ -305,17 +333,21 @@ mkShapesRDF -c 1 -o 0 -b 1 -dR 1 \
   -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR -l 100
 ```
 
-Inspect `jobs/<tag>/condor/<tag>/submit.jdl`, `run.sh`, the per-job
+After the dry-run command returns, inspect
+`jobs/<tag>/condor/<tag>/submit.jdl`, `run.sh`, the per-job
 `script.py`, and `mkshapesrdf_runtime.tgz`. A worker expression must not refer
 to `/uscms_data` or `/afs`; absolute paths in `transfer_input_files` are
 submit-side sources and are expected.
 
-For a pilot, submit the inspected JDL with the empirically validated memory
-request (currently 2048 MB):
+For a pilot, submit the inspected JDL with the empirically validated resource
+requests (currently 2048 MB memory and 8 GB disk):
 
 ```bash
 cd jobs/<tag>/condor/<tag>
-condor_submit -append 'request_memory = 2048MB' submit.jdl
+condor_submit -terse \
+  -append 'request_memory = 2048MB' \
+  -append 'request_disk = 8GB' \
+  submit.jdl | tee submit.receipt.txt
 ```
 
 For an ordinary submission through the application, use `--submit` after the
@@ -332,18 +364,18 @@ condor_history -name <schedd> <cluster-id> \
   -af ClusterId ProcId ExitCode RemoteWallClockTime MemoryUsage ResidentSetSize
 ```
 
-Use the exact compiled configuration, not a moving `latest` alias:
+Use the exact timestamped pickle written by the compile, not a moving `latest`
+alias. The pickle is under the configuration's `configs/` directory; the
+campaign-local `analysis_contract.json` records the immutable runtime state:
 
 ```bash
 mkShapesRDF -c 0 --check -b 1 \
   -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR \
-  -configs jobs/<tag>/configs \
-  -config jobs/<tag>/configs/config_<exact>.pkl
+  -config PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configs/config_<exact>.pkl
 
 mkShapesRDF -c 0 --histoadd -b 0 \
   -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR \
-  -configs jobs/<tag>/configs \
-  -config jobs/<tag>/configs/config_<exact>.pkl
+  -config PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configs/config_<exact>.pkl
 ```
 
 Remote split outputs live below:
