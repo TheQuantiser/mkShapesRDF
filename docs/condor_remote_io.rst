@@ -54,7 +54,7 @@ unless dry-run is selected, submits a Condor payload. ``-dR 1`` is framework
 submission dry-run: package/JDL/scripts are generated but ``condor_submit`` is
 not called. ``-l N`` limits events with ``RDataFrame.Range(N)`` after inputs
 have been discovered and prepared. It is not a file-discovery limit. Use a
-configuration's pinned-file interface, such as ``ZZCR_PINNED_FILES``, to keep
+configuration's pinned-file interface, such as ``PINNED_FILES``, to keep
 discovery and job count bounded.
 
 Unpackaged Condor
@@ -64,9 +64,9 @@ Unpackaged Condor validates the framework-generated batch payload on a shared fi
 
 For ZZ_CR, this mode is selected directly in
 ``PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configuration.py`` with
-``ZZCR_EXECUTION_PROFILE="shared_xrootd_local"``,
+``EXECUTION_PROFILE="shared_xrootd_local"``,
 ``"shared_xrootd_eos"``, or ``"shared_xrootd_eos_production"``. The
-``zzcr_lxplus_env.sh`` script is only a convenience wrapper that selects the
+``lxplus_env.sh`` script is only a convenience wrapper that selects the
 production profile and output naming defaults.
 
 Local ZZ_CR smoke tests can also be selected from ``configuration.py`` with
@@ -95,9 +95,9 @@ For ZZ_CR, packaged mode is selected directly in ``configuration.py`` with
 ``packaged_xrootd_local``, ``packaged_xrootd_eos``,
 ``packaged_xrootd_eos_production``, ``packaged_stagein_local``,
 ``packaged_stagein_eos``, or ``packaged_stagein_eos_production``. These
-profiles set ``condorRuntimePackage=True``, ``ZZCR_CONFIG_INCLUDE_BASE=runtime``,
+profiles set ``condorRuntimePackage=True``, ``CONFIG_INCLUDE_BASE=runtime``,
 the LCG 109 worker setup command, and explicit proxy transfer. The
-``zzcr_fnal_lpc_packaged_env.sh`` script is only a convenience wrapper that
+``fnal_lpc_packaged_env.sh`` script is only a convenience wrapper that
 selects the production direct-read packaged profile and output naming defaults.
 
 LPC workers do not mount submit-host ``/uscms_data`` or user-home NFS, and they
@@ -139,18 +139,18 @@ Use two pinned files, one file per job, and at most five events. For example:
 
    source start.sh
    cd PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR
-   export ZZCR_EXECUTION_PROFILE=local_xrootd
-   export ZZCR_PINNED_SAMPLE=ZZ
-   export ZZCR_PINNED_FILES_PER_JOB=1
-   export ZZCR_PINNED_FILES='root://eoscms.cern.ch//store/...part0.root'
-   export ZZCR_OUTPUT_MODE=local
+   export EXECUTION_PROFILE=local_xrootd
+   export PINNED_SAMPLE=ZZ
+   export PINNED_FILES_PER_JOB=1
+   export PINNED_FILES='root://eoscms.cern.ch//store/...part0.root'
+   export OUTPUT_MODE=local
    mkShapesRDF -c 1 -o 0 -b 0 -f . -l 5 \
      --input-access-mode xrootd \
      --xrd-discovery-endpoint root://eoscms.cern.ch \
      --xrd-read-endpoint root://eoscms.cern.ch
 
-   export ZZCR_EXECUTION_PROFILE=packaged_xrootd_local
-   export ZZCR_PINNED_FILES='root://eoscms.cern.ch//store/...part0.root,root://eoscms.cern.ch//store/...part1.root'
+   export EXECUTION_PROFILE=packaged_xrootd_local
+   export PINNED_FILES='root://eoscms.cern.ch//store/...part0.root,root://eoscms.cern.ch//store/...part1.root'
    mkShapesRDF -c 1 -o 0 -b 1 -dR 1 -f . -l 5 \
      --input-access-mode xrootd
 
@@ -171,12 +171,12 @@ For stage-in, change the last option to ``--input-access-mode stage-in`` and
 select the cleanup/preservation policy explicitly. Inspect the generated JDL,
 worker script, per-job scripts, archive manifest, proxy mode, and output remaps
 before removing ``-dR 1``. Submit only the bounded payload first. For a bounded
-FNAL EOS test, set ``ZZCR_OUTPUT_MODE=test-remote``, an explicit campaign-owned
-``ZZCR_TEST_OUTPUT_LFN=/store/user/<user>/mkShapesRDF_zzcr_tests/<unique-campaign>/...``, and
-``ZZCR_XRD_WRITE_ENDPOINT=root://cmseos.fnal.gov``.
+FNAL EOS test, set ``OUTPUT_MODE=test-remote``, an explicit campaign-owned
+``TEST_OUTPUT_LFN=/store/user/<user>/mkShapesRDF_four_lepton_tests/<unique-campaign>/...``, and
+``XRD_WRITE_ENDPOINT=root://cmseos.fnal.gov``.
 
 The packaged profiles are batch-only and set
-``ZZCR_CONFIG_INCLUDE_BASE=runtime`` for Condor workers. Interactive ``-b 0``
+``CONFIG_INCLUDE_BASE=runtime`` for Condor workers. Interactive ``-b 0``
 with a packaged profile fails during configuration with a precise remediation,
 before input discovery, ROOT JIT, or output creation. Use ``local_xrootd`` or
 ``local_stagein`` for login-node tests; do not override the include token of a
@@ -202,7 +202,10 @@ For normal framework or ZZ_CR edits, start with lightweight checks:
 
    python3 -m unittest tests.test_remote_io_unittest -v
 
-For ZZ_CR remote-I/O changes, an optional bounded dry-run can use ``ZZCR_PINNED_FILES`` with one or more comma/newline separated inputs and ``-dR 1`` to inspect generated Condor payloads without submitting a full production campaign.
+For four-lepton remote-I/O changes, an optional bounded dry-run can use
+``PINNED_FILES`` with one or more comma/newline separated inputs and ``-dR 1``
+to inspect generated Condor payloads without submitting a full production
+campaign.
 
 The 2026-07-12 bounded LXPLUS-to-FNAL two-input matrix passed for pinned ZZ inputs with non-identical optional branch schemas. The configuration now uses branch-aware fallbacks for optional pinned-input branches. That result certifies the bounded test matrix; it does not certify full production scale.
 

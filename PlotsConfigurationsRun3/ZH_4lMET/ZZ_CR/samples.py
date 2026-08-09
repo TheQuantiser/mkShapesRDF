@@ -5,31 +5,34 @@ _this_dir = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals(
 if _this_dir not in sys.path:
     sys.path.insert(0, _this_dir)
 
+from mkShapesRDF.lib.remote_io import resolve_input_uri
 from mkShapesRDF.lib.search_files import SearchFiles
 
 if (
     "load_selected_year" not in globals()
     or "resolve_data_run_tags" not in globals()
+    or "resolve_overlap_model" not in globals()
+    or "source_normalization" not in globals()
     or "resolve_tree_base_dir" not in globals()
 ):
     _candidates = [
-        globals().get("ZZCR_CONFIG_DIR"),
+        globals().get("CONFIG_DIR"),
         globals().get("folder"),
         os.getcwd(),
         os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None,
     ]
-    _zzcr_config_dir = None
+    _config_dir = None
     for _cand in _candidates:
         if not _cand:
             continue
         _cand_abs = os.path.abspath(_cand)
-        if os.path.exists(os.path.join(_cand_abs, "zzcr_year.py")):
-            _zzcr_config_dir = _cand_abs
+        if os.path.exists(os.path.join(_cand_abs, "year_config.py")):
+            _config_dir = _cand_abs
             break
-    if _zzcr_config_dir is None:
-        _zzcr_config_dir = os.path.abspath(os.getcwd())
+    if _config_dir is None:
+        _config_dir = os.path.abspath(os.getcwd())
     exec(
-        open(os.path.join(_zzcr_config_dir, "zzcr_year.py")).read(),
+        open(os.path.join(_config_dir, "year_config.py")).read(),
         globals(),
         globals(),
     )
@@ -49,36 +52,89 @@ readRedirector = (
 )
 if _remote_discovery_enabled and not redirector:
     raise RuntimeError(
-        "ZZ_CR remote discovery requested but xrdDiscoveryEndpoint is missing"
+        "Four-lepton remote discovery requested but xrdDiscoveryEndpoint is missing"
     )
 if _remote_discovery_enabled and not readRedirector:
-    raise RuntimeError("ZZ_CR remote discovery requested but xrdReadEndpoint is missing")
+    raise RuntimeError(
+        "Four-lepton remote discovery requested but xrdReadEndpoint is missing"
+    )
 useXROOTD = _remote_discovery_enabled
 
-limitFiles = -1
+limitFiles = int(os.environ.get("LIMIT_FILES_PER_SAMPLE", "-1"))
+filesPerJob = int(os.environ.get("FILES_PER_JOB", "10"))
+if filesPerJob < 1:
+    raise RuntimeError("FILES_PER_JOB must be a positive integer")
 
 samples = {}
 
-_env_pinned_files = [
-    item.strip()
-    for item in os.environ.get("ZZCR_PINNED_FILES", "").replace("\n", ",").split(",")
-    if item.strip()
-]
-pinnedFiles = list(globals().get("pinnedFiles") or _env_pinned_files)
-
-ZZCR_YEAR, _selected_year, _ = load_selected_year()
+YEAR, _selected_year, _full_config = load_selected_year()
+_resolved_overlap = resolve_overlap_model(_selected_year, _full_config)
 mcProduction = _selected_year["mc"]["production"]
 mcSteps = _selected_year["mc"]["steps"]
 dataReco = _selected_year["data"]["reco"]
 dataSteps = _selected_year["data"]["steps"]
 
-if pinnedFiles:
-    _pinned_sample = os.environ.get("ZZCR_PINNED_SAMPLE", "ZZ")
-    samples[_pinned_sample] = {
-        "name": [(_pinned_sample, pinnedFiles)],
-        "weight": _selected_year["mc"].get("common_weight", "XSWeight"),
-        "FilesPerJob": int(os.environ.get("ZZCR_PINNED_FILES_PER_JOB", "1")),
+
+if "WEIGHT_MODE" in os.environ or "WEIGHT_MODE" in globals():
+    raise RuntimeError(
+        "WEIGHT_MODE is forbidden: ANALYSIS_PASS derives the only legal "
+        "selected-object and b-tag weight contract"
+    )
+
+if "analysis_pass" not in globals():
+    from selection_config import analysis_pass
+
+_PASS = analysis_pass(globals().get("ANALYSIS_PASS") or os.environ.get("ANALYSIS_PASS"))
+ANALYSIS_PASS = _PASS["name"]
+
+
+def _selected_correction_weight():
+    """Return the correction for the explicit selected-object pass.
+
+    Ordinary passes declare either the selected Z object (``Z``) or the
+    selected Z+X objects (``ZX``).  The nominal ``ALL`` pass leaves the
+    selected-object and b-veto factors to the configuration-local runner,
+    which applies ``cut_weights`` after each region filter.
+    """
+    if _PASS.get("cut_weights"):
+        return "puWeight*TriggerSF_event"
+    pair = _PASS["selected_lepton_sf"]
+    factors = f"puWeight*SelectedLeptonSF_{pair}*TriggerSF_event"
+    if _PASS["btag_sf"]:
+        factors += "*BTagVetoSF"
+    return factors
+
+
+_known_samples = set(_resolved_overlap["output_names"]) | {"DATA"}
+
+# DY+ZZ plotting production: all other MC plot groups are intentionally
+# disabled at registration time. DATA remains enabled. An explicit
+# SAMPLE_FILTER still overrides this default for targeted follow-up runs.
+_dy_zz_mc = {
+    sample_name
+    for group_name in ("DY", "ZZ")
+    for sample_name in _full_config["plot_groups"][group_name]["samples"]
+    if sample_name in _known_samples
+}
+if "SAMPLE_FILTER" in os.environ:
+    _sample_filter = {
+        item.strip()
+        for item in os.environ["SAMPLE_FILTER"].split(",")
+        if item.strip()
     }
+else:
+    _sample_filter = _dy_zz_mc | {"DATA"}
+
+_unknown_filtered = sorted(_sample_filter - _known_samples)
+if _unknown_filtered:
+    raise RuntimeError(
+        f"SAMPLE_FILTER contains output processes absent in YEAR={YEAR}: "
+        f"{_unknown_filtered}"
+    )
+
+
+def _sample_enabled(sample_name):
+    return not _sample_filter or sample_name in _sample_filter
 
 
 def _with_redirector(tree_base_dir):
@@ -92,6 +148,16 @@ def makeMCDirectory(sample_name, var=""):
     if var == "":
         return "/".join([_treeBaseDir, mcProduction, mcSteps])
     return "/".join([_treeBaseDir, mcProduction, mcSteps + "__" + var])
+
+
+def makeMCFriendDirectory(var):
+    """Return a worker-readable friend directory for a suffix variation."""
+    path = makeMCDirectory("", var)
+    if not _remote_discovery_enabled:
+        return path
+    # Use the core URI resolver so mounted /eos/cms/store and logical /store
+    # paths acquire the required double slash after the XRootD host.
+    return resolve_input_uri(path, _remote_io)
 
 
 def makeDataDirectory(dataset_name, stream_tag):
@@ -188,23 +254,57 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
 
-if not pinnedFiles:
-    mcCommonWeight = _selected_year["mc"].get("common_weight", "XSWeight")
-    for mc_sample in _selected_year["mc"]["samples"]:
-        mcDirectory = makeMCDirectory(mc_sample)
-        files = nanoGetSampleFiles(mcDirectory, mc_sample)
-        samples[mc_sample] = {"name": files, "weight": mcCommonWeight, "FilesPerJob": 10}
+mcCommonWeight = _selected_year["mc"].get("common_weight", "XSWeight")
+for mc_sample in _resolved_overlap["passthrough_sources"]:
+    if not _sample_enabled(mc_sample):
+        continue
+    mcDirectory = makeMCDirectory(mc_sample)
+    files = nanoGetSampleFiles(mcDirectory, mc_sample)
+    _source_norm = source_normalization(mc_sample, _selected_year, _full_config)
+    if _source_norm != 1.0:
+        files = [(files[0][0], files[0][1], f"({_source_norm:.16g})")]
+    samples[mc_sample] = {
+        "name": files,
+        "weight": mcCommonWeight + "*" + _selected_correction_weight(),
+        "FilesPerJob": filesPerJob,
+    }
+
+for _process_name, _process_cfg in _resolved_overlap["processes"].items():
+    if not _sample_enabled(_process_name):
+        continue
+    _components = []
+    for _component in _process_cfg["components"]:
+        _source_alias = _component["source_alias"]
+        _files = nanoGetSampleFiles(
+            makeMCDirectory(_source_alias), _source_alias
+        )[0][1]
+        _source_norm = source_normalization(
+            _source_alias, _selected_year, _full_config
+        )
+        _components.append(
+            (
+                _source_alias,
+                _files,
+                f"({_component['weight']})*({_source_norm:.16g})",
+            )
+        )
+    samples[_process_name] = {
+        "name": _components,
+        "weight": mcCommonWeight + "*" + _selected_correction_weight(),
+        "FilesPerJob": filesPerJob,
+    }
 
 
-    DataRunTags = resolve_data_run_tags(_selected_year)
-    DataSamples = _selected_year["data"]["samples"]
+DataRunTags = resolve_data_run_tags(_selected_year)
+DataSamples = _selected_year["data"]["samples"]
 
+if _sample_enabled("DATA"):
     samples["DATA"] = {
         "name": [],
         "weight": _selected_year["data"].get("common_weight", "METFilter_DATA"),
         "weights": [],
         "isData": ["all"],
-        "FilesPerJob": 10,
+        "FilesPerJob": filesPerJob,
     }
 
     for data_sample in DataSamples:
@@ -213,6 +313,117 @@ if not pinnedFiles:
         sample_run_tags = list(dict.fromkeys(data_sample.get("runs", DataRunTags)))
         for run_tag in sample_run_tags:
             dataDirectories = makeDataDirectory(dataset, stream_tag)
-            files = nanoGetSampleFilesWithFallback(dataDirectories, dataset + "_" + run_tag)
+            files = nanoGetSampleFilesWithFallback(
+                dataDirectories, dataset + "_" + run_tag
+            )
             samples["DATA"]["name"].extend(files)
-            addSampleWeight(samples, "DATA", dataset + "_" + run_tag, data_sample["trigger"])
+            addSampleWeight(
+                samples, "DATA", dataset + "_" + run_tag, data_sample["trigger"]
+            )
+
+
+def _env_enabled(name, default=True):
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() not in ("0", "false", "no", "off")
+
+
+# Per-sample input contract used to book heterogeneous theory vectors safely.
+# Only one representative real file per physical source/output split is
+# opened here.  The bounded matrix executes every resulting logical output;
+# the full production is the stage that reads every booked input file.
+AVAILABLE_BRANCHES_BY_SAMPLE = {}
+THEORY_VECTOR_LENGTHS_BY_SAMPLE = {}
+SYSTEMATIC_INPUT_DETAILS_BY_SAMPLE = {}
+if _env_enabled(
+    "INSPECT_SYSTEMATIC_BRANCHES",
+    _env_enabled("ENABLE_SYSTEMATICS", True),
+):
+    try:
+        import ROOT
+    except ImportError:
+        ROOT = None
+    if ROOT is not None:
+        for _sample_name, _sample_cfg in samples.items():
+            if _sample_name == "DATA" or not _sample_cfg.get("name"):
+                continue
+            _component_branches = []
+            _component_lengths = []
+            _details = []
+            for _component in _sample_cfg["name"]:
+                _source_alias, _files = _component[0], _component[1]
+                if not _files:
+                    continue
+                _source = _files[0]
+                _fobj = ROOT.TFile.Open(_source)
+                if not _fobj or _fobj.IsZombie():
+                    raise RuntimeError(
+                        f"Cannot open representative systematic-contract file {_source}"
+                    )
+                _tree = _fobj.Get("Events")
+                if not _tree:
+                    _fobj.Close()
+                    raise RuntimeError(f"Missing Events tree in {_source}")
+                _branches = {
+                    str(branch.GetName()) for branch in _tree.GetListOfBranches()
+                }
+                _lengths = {}
+                _entries = min(int(_tree.GetEntries()), 100)
+                for _count_branch in (
+                    "nPSWeight",
+                    "nLHEScaleWeight",
+                    "nLHEPdfWeight",
+                ):
+                    if _count_branch not in _branches:
+                        continue
+                    _values = []
+                    for _entry in range(_entries):
+                        _tree.GetEntry(_entry)
+                        _values.append(int(getattr(_tree, _count_branch)))
+                    if _values:
+                        _lengths[_count_branch] = {
+                            "min": min(_values),
+                            "max": max(_values),
+                            "entries_scanned": len(_values),
+                        }
+                _component_branches.append(_branches)
+                _component_lengths.append(_lengths)
+                _details.append(
+                    {
+                        "source_alias": _source_alias,
+                        "representative_file": _source,
+                        "branches": _branches,
+                        "theory_lengths": _lengths,
+                    }
+                )
+                _fobj.Close()
+            if not _component_branches:
+                continue
+            _common_branches = set(_component_branches[0])
+            for _branches in _component_branches[1:]:
+                _common_branches &= _branches
+            AVAILABLE_BRANCHES_BY_SAMPLE[_sample_name] = _common_branches
+            _combined_lengths = {}
+            for _count_branch in (
+                "nPSWeight",
+                "nLHEScaleWeight",
+                "nLHEPdfWeight",
+            ):
+                _records = [
+                    lengths[_count_branch]
+                    for lengths in _component_lengths
+                    if _count_branch in lengths
+                ]
+                if len(_records) != len(_component_lengths):
+                    continue
+                _combined_lengths[_count_branch] = {
+                    "min": min(record["min"] for record in _records),
+                    "max": max(record["max"] for record in _records),
+                    "entries_scanned": sum(
+                        record["entries_scanned"] for record in _records
+                    ),
+                    "components_scanned": len(_records),
+                }
+            THEORY_VECTOR_LENGTHS_BY_SAMPLE[_sample_name] = _combined_lengths
+            SYSTEMATIC_INPUT_DETAILS_BY_SAMPLE[_sample_name] = _details

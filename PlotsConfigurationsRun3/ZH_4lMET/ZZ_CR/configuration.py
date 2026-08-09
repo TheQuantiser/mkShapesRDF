@@ -1,14 +1,25 @@
-"""
-ZH(H->WW) -> 4l + MET ZZ control region configuration.
-"""
+"""Four-lepton control and reference selections for Run-3 production."""
 
 import os
 import getpass
 from datetime import datetime, timezone
 
-def _resolve_zzcr_config_dir():
+
+def _early_env_bool(name, default=False):
+    value = os.environ.get(name)
+    if value is None:
+        return bool(default)
+    normalized = value.strip().lower()
+    if normalized in ("1", "true", "yes", "on"):
+        return True
+    if normalized in ("0", "false", "no", "off"):
+        return False
+    raise ValueError(f"{name} must be a boolean 0/1 value; received {value!r}")
+
+
+def _resolve_config_dir():
     candidates = [
-        globals().get("ZZCR_CONFIG_DIR"),
+        globals().get("CONFIG_DIR"),
         globals().get("folder"),
         os.getcwd(),
         os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else None,
@@ -17,27 +28,60 @@ def _resolve_zzcr_config_dir():
         if not cand:
             continue
         cand_abs = os.path.abspath(cand)
-        if os.path.exists(os.path.join(cand_abs, "zzcr_year.py")):
+        if os.path.exists(os.path.join(cand_abs, "year_config.py")):
             return cand_abs
-    # Fallback to cwd if no candidate contains zzcr_year.py
+    # Fallback to cwd if no candidate contains year_config.py
     return os.path.abspath(os.getcwd())
 
 
-ZZCR_CONFIG_DIR = _resolve_zzcr_config_dir()
+CONFIG_DIR = _resolve_config_dir()
 
 if "load_selected_year" not in globals():
-    exec(open(os.path.join(ZZCR_CONFIG_DIR, "zzcr_year.py")).read(), globals(), globals())
+    exec(open(os.path.join(CONFIG_DIR, "year_config.py")).read(), globals(), globals())
 
-# Central ZZ_CR year selection (used by samples/aliases/variables/nuisances).
-# Keep this in sync with keys available in zzcr_year_config.json.
-ZZCR_YEAR = os.environ.get("ZZCR_YEAR", "2024")
-os.environ["ZZCR_YEAR"] = ZZCR_YEAR
+# Central year selection used by samples, aliases, variables, and nuisances.
+# Keep this in sync with keys available in year_config.json.
+YEAR = os.environ.get("YEAR", "2024")
+os.environ["YEAR"] = YEAR
 _, _selected_year, _ = load_selected_year()
 
-tag = f"ZH_4lMET_ZZCR_{ZZCR_YEAR}"
+ANALYSIS_PASS = str(os.environ.get("ANALYSIS_PASS", "ALL")).strip().upper()
+if ANALYSIS_PASS not in ("ALL", "ZPARENT", "FOURL_BASE", "CONTROL"):
+    raise ValueError(
+        "ANALYSIS_PASS must be ALL, ZPARENT, FOURL_BASE, or CONTROL; "
+        f"received {ANALYSIS_PASS!r}"
+    )
+os.environ["ANALYSIS_PASS"] = ANALYSIS_PASS
+
+# PlotsConfigurationsRun3 convention: configuration.py selects either the
+# full nuisance source or a separate empty nominal nuisance source.
+ENABLE_SYSTEMATICS = _early_env_bool("ENABLE_SYSTEMATICS", False)
+os.environ["ENABLE_SYSTEMATICS"] = "1" if ENABLE_SYSTEMATICS else "0"
+if ANALYSIS_PASS == "ALL" and ENABLE_SYSTEMATICS:
+    raise ValueError(
+        "ANALYSIS_PASS=ALL currently supports nominal production only; "
+        "set ENABLE_SYSTEMATICS=0 so cut-dependent corrections remain explicit"
+    )
+
+# ZZ_CR is deliberately histogram-only.  Tree snapshots belong in a dedicated
+# skim configuration, not in this production and plotting contract.
+HISTOGRAMS = True
+os.environ["HISTOGRAMS"] = "1"
+HISTOGRAM_DETAIL = os.environ.get("HISTOGRAM_DETAIL", "all").strip().lower()
+if HISTOGRAM_DETAIL not in ("core", "trigger", "objects", "quality", "weights", "all"):
+    raise ValueError(
+        "HISTOGRAM_DETAIL must be core, trigger, objects, quality, weights, or all; "
+        f"received {HISTOGRAM_DETAIL!r}"
+    )
+os.environ["HISTOGRAM_DETAIL"] = HISTOGRAM_DETAIL
+OUTPUT_PRODUCT = "HIST"
+os.environ["OUTPUT_PRODUCT"] = OUTPUT_PRODUCT
+
+_systematics_tag = "FULLSYST" if ENABLE_SYSTEMATICS else "NOMINAL"
+tag = f"FourLepton_{YEAR}_{ANALYSIS_PASS}_{OUTPUT_PRODUCT}_{_systematics_tag}"
 tag = f"{tag}_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
 
-runnerFile = "default"
+runnerFile = "zz_cr_runner.py"
 
 outputFile = "mkShapes__{}.root".format(tag)
 
@@ -45,14 +89,13 @@ useEOSUserOutput = False
 
 # Edit this one value to select the default execution contract for ordinary
 # mkShapesRDF commands.  Environment variables can still override it for tests.
-ZZCR_EXECUTION_PROFILE = "local"
+EXECUTION_PROFILE = "local"
 
 _LCG_109_EL9_SETUP = (
-    "source /cvmfs/sft.cern.ch/lcg/views/LCG_109/"
-    "x86_64-el9-gcc13-opt/setup.sh"
+    "source /cvmfs/sft.cern.ch/lcg/views/LCG_109/" "x86_64-el9-gcc13-opt/setup.sh"
 )
 
-ZZCR_EXECUTION_PROFILES = {
+EXECUTION_PROFILES = {
     "local": {
         "description": "Local input/output, no Condor runtime package.",
         "inputAccessMode": "as-configured",
@@ -113,6 +156,7 @@ ZZCR_EXECUTION_PROFILES = {
         "useX509Proxy": True,
         "sitePreset": "lxplus",
         "productionCampaign": "lxplus",
+        "xrdWriteEndpoint": "root://eoscms.cern.ch",
     },
     "packaged_xrootd_local": {
         "description": "Packaged Condor, CERN XRootD direct input, returned output.",
@@ -135,7 +179,19 @@ ZZCR_EXECUTION_PROFILES = {
         "sitePreset": "packaged",
     },
     "packaged_xrootd_eos_production": {
-        "description": "Packaged Condor, CERN XRootD direct input, production EOS stage-out.",
+        "description": "Packaged LXPLUS Condor, CERN XRootD input and CERN EOS stage-out.",
+        "inputAccessMode": "xrootd",
+        "outputMode": "production-remote",
+        "condorRuntimePackage": True,
+        "condorRuntimeSetup": [_LCG_109_EL9_SETUP],
+        "configIncludeBase": "runtime",
+        "useX509Proxy": True,
+        "sitePreset": "lxplus",
+        "productionCampaign": "lxplus_packaged",
+        "xrdWriteEndpoint": "root://eoscms.cern.ch",
+    },
+    "packaged_fnal_xrootd_eos_production": {
+        "description": "Packaged FNAL Condor, CERN XRootD input and FNAL EOS stage-out.",
         "inputAccessMode": "xrootd",
         "outputMode": "production-remote",
         "condorRuntimePackage": True,
@@ -144,6 +200,7 @@ ZZCR_EXECUTION_PROFILES = {
         "useX509Proxy": True,
         "sitePreset": "fnal_lpc_packaged",
         "productionCampaign": "fnal_lpc_packaged",
+        "xrdWriteEndpoint": "root://cmseos.fnal.gov",
     },
     "packaged_stagein_local": {
         "description": "Packaged Condor, stage-in input, returned output.",
@@ -175,6 +232,7 @@ ZZCR_EXECUTION_PROFILES = {
         "useX509Proxy": True,
         "sitePreset": "fnal_lpc_packaged",
         "productionCampaign": "fnal_lpc_packaged_stagein",
+        "xrdWriteEndpoint": "root://cmseos.fnal.gov",
     },
 }
 
@@ -201,7 +259,7 @@ def _env_split(name, default=()):
 
 
 def _checkout_include_base():
-    return os.path.abspath(os.path.join(ZZCR_CONFIG_DIR, "../../.."))
+    return os.path.abspath(os.path.join(CONFIG_DIR, "../../.."))
 
 
 def _resolve_include_base(value):
@@ -211,122 +269,122 @@ def _resolve_include_base(value):
 
 
 def _resolve_execution_profile():
-    requested = os.environ.get("ZZCR_EXECUTION_PROFILE", ZZCR_EXECUTION_PROFILE)
-    if requested not in ZZCR_EXECUTION_PROFILES:
-        available = ", ".join(sorted(ZZCR_EXECUTION_PROFILES))
+    requested = os.environ.get("EXECUTION_PROFILE", EXECUTION_PROFILE)
+    if requested not in EXECUTION_PROFILES:
+        available = ", ".join(sorted(EXECUTION_PROFILES))
         raise ValueError(
-            f"Unsupported ZZCR_EXECUTION_PROFILE={requested!r}. "
+            f"Unsupported EXECUTION_PROFILE={requested!r}. "
             f"Available profiles: {available}"
         )
-    return requested, dict(ZZCR_EXECUTION_PROFILES[requested])
+    return requested, dict(EXECUTION_PROFILES[requested])
 
 
-ZZCR_SELECTED_EXECUTION_PROFILE, _profile = _resolve_execution_profile()
-ZZCR_PROFILE_DESCRIPTION = _profile["description"]
-ZZCR_SITE_PRESET = os.environ.get(
-    "ZZCR_SITE_PRESET", _profile.get("sitePreset", ZZCR_SELECTED_EXECUTION_PROFILE)
+SELECTED_EXECUTION_PROFILE, _profile = _resolve_execution_profile()
+PROFILE_DESCRIPTION = _profile["description"]
+SITE_PRESET = os.environ.get(
+    "SITE_PRESET", _profile.get("sitePreset", SELECTED_EXECUTION_PROFILE)
 )
 
 _user = os.environ.get("USER", getpass.getuser())
-_eos_user = os.environ.get("ZZCR_EOS_USER") or os.environ.get("CERN_USER") or _user
-ZZCR_OUTPUT_LEAF = tag
-ZZCR_TEST_CAMPAIGN = os.environ.get("ZZCR_TEST_CAMPAIGN", tag)
-ZZCR_OUTPUT_MODE = os.environ.get("ZZCR_OUTPUT_MODE", _profile["outputMode"])
-
+_eos_user = os.environ.get("EOS_USER") or os.environ.get("CERN_USER") or _user
+OUTPUT_LEAF = tag
+TEST_CAMPAIGN = os.environ.get("TEST_CAMPAIGN", tag)
+OUTPUT_MODE = os.environ.get("OUTPUT_MODE", _profile["outputMode"])
 
 def _default_output_lfn(campaign):
     base_lfn = f"/store/user/{_eos_user}/mkShapesRDF_rootfiles"
     campaign = (campaign or "").strip("/")
-    output_leaf = ZZCR_OUTPUT_LEAF.strip("/")
+    output_leaf = OUTPUT_LEAF.strip("/")
     if campaign and campaign != output_leaf:
         return f"{base_lfn}/{campaign}/{output_leaf}"
     return f"{base_lfn}/{output_leaf}"
 
+
 xrdReadEndpoint = os.environ.get(
-    "ZZCR_XRD_READ_ENDPOINT", _profile.get("xrdReadEndpoint", "root://eoscms.cern.ch")
+    "XRD_READ_ENDPOINT", _profile.get("xrdReadEndpoint", "root://eoscms.cern.ch")
 )
 xrdDiscoveryEndpoint = os.environ.get(
-    "ZZCR_XRD_DISCOVERY_ENDPOINT",
+    "XRD_DISCOVERY_ENDPOINT",
     _profile.get("xrdDiscoveryEndpoint") or xrdReadEndpoint,
 )
 xrdWriteEndpoint = os.environ.get(
-    "ZZCR_XRD_WRITE_ENDPOINT", _profile.get("xrdWriteEndpoint", "root://cmseos.fnal.gov")
+    "XRD_WRITE_ENDPOINT", _profile.get("xrdWriteEndpoint", "root://eoscms.cern.ch")
 )
 xrdRedirector = xrdReadEndpoint.replace("root://", "").strip("/")
 
 testOutputLFN = os.environ.get(
-    "ZZCR_TEST_OUTPUT_LFN",
-    _default_output_lfn(ZZCR_TEST_CAMPAIGN),
+    "TEST_OUTPUT_LFN",
+    _default_output_lfn(TEST_CAMPAIGN),
 )
-ZZCR_PRODUCTION_CAMPAIGN = os.environ.get(
-    "ZZCR_PRODUCTION_CAMPAIGN", _profile.get("productionCampaign", tag)
+PRODUCTION_CAMPAIGN = os.environ.get(
+    "PRODUCTION_CAMPAIGN", _profile.get("productionCampaign", tag)
 )
 productionOutputLFN = os.environ.get(
-    "ZZCR_PRODUCTION_OUTPUT_LFN",
-    _default_output_lfn(ZZCR_PRODUCTION_CAMPAIGN),
+    "PRODUCTION_OUTPUT_LFN",
+    _default_output_lfn(PRODUCTION_CAMPAIGN),
 )
 
-ZZCR_CONFIG_INCLUDE_BASE = _resolve_include_base(
-    os.environ.get("ZZCR_CONFIG_INCLUDE_BASE", _profile.get("configIncludeBase"))
+CONFIG_INCLUDE_BASE = _resolve_include_base(
+    os.environ.get("CONFIG_INCLUDE_BASE", _profile.get("configIncludeBase"))
 )
 
-os.environ["ZZCR_EXECUTION_PROFILE"] = ZZCR_SELECTED_EXECUTION_PROFILE
-os.environ["ZZCR_SITE_PRESET"] = ZZCR_SITE_PRESET
-os.environ["ZZCR_OUTPUT_MODE"] = ZZCR_OUTPUT_MODE
-os.environ["ZZCR_INPUT_ACCESS_MODE"] = os.environ.get(
-    "ZZCR_INPUT_ACCESS_MODE", _profile["inputAccessMode"]
+os.environ["EXECUTION_PROFILE"] = SELECTED_EXECUTION_PROFILE
+os.environ["SITE_PRESET"] = SITE_PRESET
+os.environ["OUTPUT_MODE"] = OUTPUT_MODE
+os.environ["INPUT_ACCESS_MODE"] = os.environ.get(
+    "INPUT_ACCESS_MODE", _profile["inputAccessMode"]
 )
-os.environ["ZZCR_XRD_READ_ENDPOINT"] = xrdReadEndpoint
-os.environ["ZZCR_XRD_DISCOVERY_ENDPOINT"] = xrdDiscoveryEndpoint
-os.environ["ZZCR_XRD_WRITE_ENDPOINT"] = xrdWriteEndpoint
-os.environ["ZZCR_CONFIG_INCLUDE_BASE"] = ZZCR_CONFIG_INCLUDE_BASE
-os.environ["ZZCR_OUTPUT_LEAF"] = ZZCR_OUTPUT_LEAF
-os.environ["ZZCR_TEST_CAMPAIGN"] = ZZCR_TEST_CAMPAIGN
-os.environ["ZZCR_PRODUCTION_CAMPAIGN"] = ZZCR_PRODUCTION_CAMPAIGN
+os.environ["XRD_READ_ENDPOINT"] = xrdReadEndpoint
+os.environ["XRD_DISCOVERY_ENDPOINT"] = xrdDiscoveryEndpoint
+os.environ["XRD_WRITE_ENDPOINT"] = xrdWriteEndpoint
+os.environ["CONFIG_INCLUDE_BASE"] = CONFIG_INCLUDE_BASE
+os.environ["OUTPUT_LEAF"] = OUTPUT_LEAF
+os.environ["TEST_CAMPAIGN"] = TEST_CAMPAIGN
+os.environ["PRODUCTION_CAMPAIGN"] = PRODUCTION_CAMPAIGN
 
 remoteIO = {
-    "inputAccessMode": os.environ["ZZCR_INPUT_ACCESS_MODE"],
+    "inputAccessMode": os.environ["INPUT_ACCESS_MODE"],
     "xrdReadEndpoint": xrdReadEndpoint,
     "xrdDiscoveryEndpoint": xrdDiscoveryEndpoint,
     "xrdWriteEndpoint": xrdWriteEndpoint,
-    "stageInScratch": os.environ.get("ZZCR_STAGE_IN_SCRATCH")
+    "stageInScratch": os.environ.get("STAGE_IN_SCRATCH")
     or _profile.get("stageInScratch"),
     "stageInCleanup": os.environ.get(
-        "ZZCR_STAGE_IN_CLEANUP", _profile.get("stageInCleanup", "on-success")
+        "STAGE_IN_CLEANUP", _profile.get("stageInCleanup", "on-success")
     ),
     "preserveStageInOnFailure": _env_bool(
-        "ZZCR_PRESERVE_STAGE_IN_ON_FAILURE",
+        "PRESERVE_STAGE_IN_ON_FAILURE",
         _profile.get("preserveStageInOnFailure", True),
     ),
     "existingOutputPolicy": os.environ.get(
-        "ZZCR_EXISTING_OUTPUT_POLICY", _profile.get("existingOutputPolicy", "fail")
+        "EXISTING_OUTPUT_POLICY", _profile.get("existingOutputPolicy", "fail")
     ),
     "remoteCommandTimeout": _env_int(
-        "ZZCR_REMOTE_COMMAND_TIMEOUT", _profile.get("remoteCommandTimeout", 120)
+        "REMOTE_COMMAND_TIMEOUT", _profile.get("remoteCommandTimeout", 120)
     ),
     "remoteTransferRetries": _env_int(
-        "ZZCR_REMOTE_TRANSFER_RETRIES", _profile.get("remoteTransferRetries", 2)
+        "REMOTE_TRANSFER_RETRIES", _profile.get("remoteTransferRetries", 2)
     ),
 }
 
 condorRuntimePackage = _env_bool(
-    "ZZCR_CONDOR_RUNTIME_PACKAGE", _profile.get("condorRuntimePackage", False)
+    "CONDOR_RUNTIME_PACKAGE", _profile.get("condorRuntimePackage", False)
 )
 condorRuntimePackageName = os.environ.get(
-    "ZZCR_CONDOR_RUNTIME_PACKAGE_NAME", "mkshapesrdf_runtime.tgz"
+    "CONDOR_RUNTIME_PACKAGE_NAME", "mkshapesrdf_runtime.tgz"
 )
 condorRuntimeSetup = _env_split(
-    "ZZCR_CONDOR_RUNTIME_SETUP", _profile.get("condorRuntimeSetup", [])
+    "CONDOR_RUNTIME_SETUP", _profile.get("condorRuntimeSetup", [])
 )
 condorRuntimeIncludes = _env_split(
-    "ZZCR_CONDOR_RUNTIME_INCLUDES", _profile.get("condorRuntimeIncludes", [])
+    "CONDOR_RUNTIME_INCLUDES", _profile.get("condorRuntimeIncludes", [])
 )
-useX509Proxy = _env_bool("ZZCR_USE_X509_PROXY", _profile.get("useX509Proxy", False))
+useX509Proxy = _env_bool("USE_X509_PROXY", _profile.get("useX509Proxy", False))
 
 requiredExecutionMode = "batch" if condorRuntimePackage else None
 executionModeRemediation = (
-    "For a safe FNAL login-node run, select "
-    "ZZCR_EXECUTION_PROFILE=local_xrootd and ZZCR_OUTPUT_MODE=local, then "
+    "For a safe login-node run, select "
+    "EXECUTION_PROFILE=local_xrootd and OUTPUT_MODE=local, then "
     "recompile with -c 1."
 )
 if (
@@ -334,43 +392,67 @@ if (
     and requiredExecutionMode == "batch"
 ):
     raise RuntimeError(
-        f"ZZCR profile {ZZCR_SELECTED_EXECUTION_PROFILE!r} is batch-only, but "
+        f"Analysis profile {SELECTED_EXECUTION_PROFILE!r} is batch-only, but "
         "local execution (-b 0) was requested. "
         f"{executionModeRemediation} Packaged profiles deliberately use the "
         "worker-relative runtime include tree and must not stage production "
         "output from an interactive smoke test."
     )
 
-zzcrRemoteOutputLFN = (
-    productionOutputLFN
-    if ZZCR_OUTPUT_MODE == "production-remote"
-    else testOutputLFN
+analysisRemoteOutputLFN = (
+    productionOutputLFN if OUTPUT_MODE == "production-remote" else testOutputLFN
 )
-eosUserOutputFolder = f"{xrdWriteEndpoint}/{zzcrRemoteOutputLFN}"
+eosUserOutputFolder = f"{xrdWriteEndpoint}/{analysisRemoteOutputLFN}"
 
-localJobDir = os.path.join("jobs", tag)
+jobControlDir = os.path.join("jobs", tag)
+
+# The stock merge path writes its local hadd target below ``localJobDir``.
+# Keep durable configs/JDLs in the checkout, while giving CERN remote-output
+# merges enough scratch space on EOS user storage.  Other sites can supply an
+# absolute task-owned location explicitly.
+_merge_scratch_override = os.environ.get("MERGE_SCRATCH_ROOT")
+if _merge_scratch_override:
+    mergeScratchRoot = os.path.abspath(os.path.expanduser(_merge_scratch_override))
+    if not os.path.isabs(os.path.expanduser(_merge_scratch_override)):
+        raise ValueError("MERGE_SCRATCH_ROOT must be an absolute path")
+elif OUTPUT_MODE in ("test-remote", "production-remote") and SITE_PRESET == "lxplus":
+    _merge_campaign = (
+        PRODUCTION_CAMPAIGN if OUTPUT_MODE == "production-remote" else TEST_CAMPAIGN
+    )
+    mergeScratchRoot = os.path.join(
+        "/eos/user",
+        _eos_user[0],
+        _eos_user,
+        "mkShapesRDF_merge_scratch",
+        _merge_campaign,
+    )
+else:
+    mergeScratchRoot = None
+
+# The core appends the remote output leaf (the tag) below this base.
+localJobDir = mergeScratchRoot or jobControlDir
 
 outputFolder = (
     eosUserOutputFolder
-    if ZZCR_OUTPUT_MODE in ("test-remote", "production-remote")
-    else os.path.join(localJobDir, ZZCR_OUTPUT_LEAF)
+    if OUTPUT_MODE in ("test-remote", "production-remote")
+    else os.path.join(jobControlDir, OUTPUT_LEAF)
 )
-if ZZCR_OUTPUT_MODE in ("test-remote", "production-remote"):
+if OUTPUT_MODE in ("test-remote", "production-remote"):
     useX509Proxy = True
 
-batchFolder = os.path.join(localJobDir, "condor")
+batchFolder = os.path.join(jobControlDir, "condor")
 
 # mkShapesRDF batch submission removes "{batchFolder}/{tag}" before creating it.
 # Pre-creating it here avoids a noisy first-run FileNotFoundError message.
 os.makedirs(os.path.join(batchFolder, tag), exist_ok=True)
 
-configsFolder = os.path.join(localJobDir, "configs")
+configsFolder = os.path.join(jobControlDir, "configs")
 
 lumi = _selected_year.get("lumi_fb", 26.49)
 
 aliasesFile = "aliases.py"
 
-selectionConfigFile = "zzcr_selection_config.py"
+selectionConfigFile = "selection_config.py"
 
 variablesFile = "variables.py"
 
@@ -382,16 +464,16 @@ plotFile = "plot.py"
 
 structureFile = "structure.py"
 
-nuisancesFile = "nuisances.py"
+nuisancesFile = "nuisances.py" if ENABLE_SYSTEMATICS else "nuisances_nominal.py"
 
-plotPath = os.path.join(localJobDir, "plots")
+plotPath = os.path.join(jobControlDir, "plots")
 
 mountEOS = []
 
 imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
 
 filesToExec = [
-    "zzcr_year.py",
+    "year_config.py",
     samplesFile,
     selectionConfigFile,
     aliasesFile,
@@ -400,16 +482,23 @@ filesToExec = [
     plotFile,
     nuisancesFile,
     structureFile,
+    "worker_payload.py",
 ]
 
 jdlconfigfile = ""
 
 varsToKeep = [
-    "ZZCR_SELECTED_EXECUTION_PROFILE",
-    "ZZCR_PROFILE_DESCRIPTION",
-    "ZZCR_SITE_PRESET",
-    "ZZCR_OUTPUT_MODE",
-    "ZZCR_CONFIG_INCLUDE_BASE",
+    "ANALYSIS_PASS",
+    "ENABLE_SYSTEMATICS",
+    "HISTOGRAMS",
+    "HISTOGRAM_DETAIL",
+    "OUTPUT_PRODUCT",
+    "YEAR",
+    "SELECTED_EXECUTION_PROFILE",
+    "PROFILE_DESCRIPTION",
+    "SITE_PRESET",
+    "OUTPUT_MODE",
+    "CONFIG_INCLUDE_BASE",
     "useEOSUserOutput",
     "useX509Proxy",
     "xrdRedirector",
@@ -425,18 +514,22 @@ varsToKeep = [
     "executionModeRemediation",
     "testOutputLFN",
     "productionOutputLFN",
-    "ZZCR_OUTPUT_LEAF",
-    "ZZCR_TEST_CAMPAIGN",
-    "ZZCR_PRODUCTION_CAMPAIGN",
-    "zzcrRemoteOutputLFN",
+    "OUTPUT_LEAF",
+    "TEST_CAMPAIGN",
+    "PRODUCTION_CAMPAIGN",
+    "analysisRemoteOutputLFN",
     "eosUserOutputFolder",
     "jdlconfigfile",
     "batchVars",
+    "jobControlDir",
+    "mergeScratchRoot",
+    "localJobDir",
     "outputFolder",
     "batchFolder",
     "configsFolder",
     "outputFile",
     "runnerFile",
+    "sharedBatchPayload",
     "tag",
     "samples",
     "aliases",
@@ -448,10 +541,32 @@ varsToKeep = [
     "lumi",
 ]
 
-batchVars = varsToKeep[varsToKeep.index("samples") :]
+# The stock standalone-job representation repeats every entry in ``batchVars``
+# in every process script.  ZZ_CR keeps the large, category-specific analysis
+# dictionaries in one generated payload and sends only split-sample metadata
+# plus its path to each worker.  Plotting metadata remains in ``varsToKeep``.
+batchVars = ["samples", "sharedBatchPayload"]
 
-for _remote_key in ("remoteIO", "xrdWriteEndpoint", "xrdReadEndpoint", "xrdDiscoveryEndpoint"):
+for _remote_key in (
+    "remoteIO",
+    "xrdWriteEndpoint",
+    "xrdReadEndpoint",
+    "xrdDiscoveryEndpoint",
+):
     if _remote_key not in batchVars:
         batchVars.append(_remote_key)
+
+for _worker_contract_key in (
+    "ANALYSIS_PASS",
+    "ENABLE_SYSTEMATICS",
+    "HISTOGRAMS",
+    "HISTOGRAM_DETAIL",
+    "OUTPUT_PRODUCT",
+    "YEAR",
+    "OUTPUT_MODE",
+    "analysisRemoteOutputLFN",
+):
+    if _worker_contract_key not in batchVars:
+        batchVars.append(_worker_contract_key)
 
 varsToKeep += ["plotPath"]

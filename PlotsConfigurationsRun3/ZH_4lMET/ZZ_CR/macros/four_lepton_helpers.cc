@@ -1,14 +1,201 @@
-#ifndef ZH4LMET_ZZCR_HELPERS
-#define ZH4LMET_ZZCR_HELPERS
+#ifndef FOUR_LEPTON_HELPERS
+#define FOUR_LEPTON_HELPERS
 
 #include <Math/Vector4D.h>
 #include <ROOT/RVec.hxx>
+#include "correction.h"
 
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <limits>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <utility>
+#include <vector>
 
-namespace ZH4lMETZZCR {
+namespace FourLepton {
+
+ROOT::VecOps::RVec<float> productionAlignedPt(
+    const ROOT::VecOps::RVec<float> &finalEta,
+    const ROOT::VecOps::RVec<float> &finalPhi,
+    const ROOT::VecOps::RVec<int> &finalPdgId,
+    const ROOT::VecOps::RVec<float> &sourcePt,
+    const ROOT::VecOps::RVec<float> &sourceEta,
+    const ROOT::VecOps::RVec<float> &sourcePhi,
+    const ROOT::VecOps::RVec<int> &sourcePdgId) {
+  // TrigMaker and l2tight run before LeptonScaleSmearing.  The latter resorts
+  // every Lepton_* vector, while VetoLepton_* preserves the earlier object
+  // kinematics and order.  Match immutable flavor/eta/phi coordinates to
+  // recover the exact pre-scale pT aligned to the final selected collection.
+  const size_t nFinal = std::min({finalEta.size(), finalPhi.size(),
+                                  finalPdgId.size()});
+  const size_t nSource = std::min({sourcePt.size(), sourceEta.size(),
+                                   sourcePhi.size(), sourcePdgId.size()});
+  ROOT::VecOps::RVec<float> out(nFinal,
+                                std::numeric_limits<float>::quiet_NaN());
+  std::vector<bool> used(nSource, false);
+  constexpr float maxDeltaR2 = 1.e-8f;
+  for (size_t i = 0; i < nFinal; ++i) {
+    int best = -1;
+    float bestDeltaR2 = maxDeltaR2;
+    for (size_t j = 0; j < nSource; ++j) {
+      // LeptonScaleSmearing has historical files in which integer Lepton_*
+      // vectors did not follow a pT-order swap while eta/phi did.  Match on
+      // the unchanged floating-point coordinates and recover both pT and ID
+      // from the coherent pre-scale VetoLepton collection.
+      if (used[j])
+        continue;
+      const float dEta = finalEta[i] - sourceEta[j];
+      const float dPhi = ROOT::VecOps::DeltaPhi(finalPhi[i], sourcePhi[j]);
+      const float deltaR2 = dEta * dEta + dPhi * dPhi;
+      if (std::isfinite(deltaR2) && deltaR2 <= bestDeltaR2) {
+        best = static_cast<int>(j);
+        bestDeltaR2 = deltaR2;
+      }
+    }
+    if (best < 0 || !std::isfinite(sourcePt[best]) || sourcePt[best] <= 0.f)
+      return ROOT::VecOps::RVec<float>();
+    used[best] = true;
+    out[i] = sourcePt[best];
+  }
+  return out;
+}
+
+ROOT::VecOps::RVec<int> productionAlignedPdgId(
+    const ROOT::VecOps::RVec<float> &finalEta,
+    const ROOT::VecOps::RVec<float> &finalPhi,
+    const ROOT::VecOps::RVec<float> &sourceEta,
+    const ROOT::VecOps::RVec<float> &sourcePhi,
+    const ROOT::VecOps::RVec<int> &sourcePdgId) {
+  const size_t nFinal = std::min(finalEta.size(), finalPhi.size());
+  const size_t nSource = std::min({sourceEta.size(), sourcePhi.size(),
+                                   sourcePdgId.size()});
+  ROOT::VecOps::RVec<int> out(nFinal, 0);
+  std::vector<bool> used(nSource, false);
+  constexpr float maxDeltaR2 = 1.e-8f;
+  for (size_t i = 0; i < nFinal; ++i) {
+    int best = -1;
+    float bestDeltaR2 = maxDeltaR2;
+    for (size_t j = 0; j < nSource; ++j) {
+      if (used[j])
+        continue;
+      const float dEta = finalEta[i] - sourceEta[j];
+      const float dPhi = ROOT::VecOps::DeltaPhi(finalPhi[i], sourcePhi[j]);
+      const float deltaR2 = dEta * dEta + dPhi * dPhi;
+      if (std::isfinite(deltaR2) && deltaR2 <= bestDeltaR2) {
+        best = static_cast<int>(j);
+        bestDeltaR2 = deltaR2;
+      }
+    }
+    if (best < 0 || (std::abs(sourcePdgId[best]) != 11 &&
+                     std::abs(sourcePdgId[best]) != 13))
+      return ROOT::VecOps::RVec<int>();
+    used[best] = true;
+    out[i] = sourcePdgId[best];
+  }
+  return out;
+}
+
+template <typename T>
+bool sameMultiset(const ROOT::VecOps::RVec<T> &left,
+                  const ROOT::VecOps::RVec<T> &right,
+                  double tolerance = 0.) {
+  if (left.size() != right.size())
+    return false;
+  std::vector<bool> used(right.size(), false);
+  for (const auto &value : left) {
+    int match = -1;
+    for (size_t j = 0; j < right.size(); ++j) {
+      if (!used[j] && std::abs(static_cast<double>(value) -
+                               static_cast<double>(right[j])) <= tolerance) {
+        match = static_cast<int>(j);
+        break;
+      }
+    }
+    if (match < 0)
+      return false;
+    used[match] = true;
+  }
+  return true;
+}
+
+ROOT::VecOps::RVec<int> selectedProductionSourceIndices(
+    const ROOT::VecOps::RVec<float> &finalEta,
+    const ROOT::VecOps::RVec<float> &finalPhi,
+    const ROOT::VecOps::RVec<int> &finalPdgId,
+    const ROOT::VecOps::RVec<float> &sourceEta,
+    const ROOT::VecOps::RVec<float> &sourcePhi,
+    const ROOT::VecOps::RVec<int> &sourcePdgId) {
+  // Some historical LeptonScale outputs independently permuted integer,
+  // eta, and phi vectors when the scale correction changed pT ordering.
+  // Their multisets remain intact.  Select the coherent source objects by
+  // eta membership, then validate the independent phi and PDG-ID multisets.
+  if (finalEta.size() != finalPhi.size() || finalEta.size() != finalPdgId.size())
+    return {};
+  std::vector<bool> selected(sourceEta.size(), false);
+  for (const float eta : finalEta) {
+    int best = -1;
+    float bestDelta = 1.e-4f;
+    for (size_t j = 0; j < sourceEta.size(); ++j) {
+      const float delta = std::abs(eta - sourceEta[j]);
+      if (!selected[j] && std::isfinite(delta) && delta <= bestDelta) {
+        best = static_cast<int>(j);
+        bestDelta = delta;
+      }
+    }
+    if (best < 0)
+      return {};
+    selected[best] = true;
+  }
+  ROOT::VecOps::RVec<int> indices;
+  ROOT::VecOps::RVec<float> selectedPhi;
+  ROOT::VecOps::RVec<int> selectedPdgId;
+  for (size_t j = 0; j < selected.size(); ++j) {
+    if (!selected[j])
+      continue;
+    if (j >= sourcePhi.size() || j >= sourcePdgId.size())
+      return {};
+    indices.push_back(static_cast<int>(j));
+    selectedPhi.push_back(sourcePhi[j]);
+    selectedPdgId.push_back(sourcePdgId[j]);
+  }
+  if (!sameMultiset(finalPhi, selectedPhi, 1.e-4) ||
+      !sameMultiset(finalPdgId, selectedPdgId))
+    return {};
+  return indices;
+}
+
+ROOT::VecOps::RVec<int> descendingPtIndices(
+    const ROOT::VecOps::RVec<float> &pt, int count) {
+  ROOT::VecOps::RVec<int> out;
+  if (count < 0 || pt.size() < static_cast<size_t>(count))
+    return out;
+  std::vector<std::pair<float, int>> ranked;
+  ranked.reserve(pt.size());
+  for (size_t i = 0; i < pt.size(); ++i) {
+    if (!std::isfinite(pt[i]) || pt[i] <= 0.f)
+      return ROOT::VecOps::RVec<int>();
+    ranked.emplace_back(pt[i], static_cast<int>(i));
+  }
+  std::stable_sort(ranked.begin(), ranked.end(),
+                   [](const auto &lhs, const auto &rhs) {
+                     return lhs.first > rhs.first;
+                   });
+  for (int i = 0; i < count; ++i)
+    out.push_back(ranked[i].second);
+  return out;
+}
+
+int productionGateIndex(const ROOT::VecOps::RVec<float> &productionPt,
+                        int rank) {
+  const auto indices = descendingPtIndices(productionPt, rank + 1);
+  return rank >= 0 && indices.size() > static_cast<size_t>(rank)
+             ? indices[rank]
+             : -1;
+}
 
 float zeroFloat() {
   return 0.0f;
@@ -335,16 +522,17 @@ int combineTrigMatchState4(int idx0,
   return 0;
 }
 
-bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float> &cleanJetPt,
-                    const ROOT::VecOps::RVec<float> &cleanJetEta,
-                    const ROOT::VecOps::RVec<int> &cleanJetJetIdx,
-                    const ROOT::VecOps::RVec<float> &jetBtagDeepFlavB,
-                    float btagVetoWP) {
+bool bVetoDeepFlavBAtPt(const ROOT::VecOps::RVec<float> &cleanJetPt,
+                        const ROOT::VecOps::RVec<float> &cleanJetEta,
+                        const ROOT::VecOps::RVec<int> &cleanJetJetIdx,
+                        const ROOT::VecOps::RVec<float> &jetBtagDeepFlavB,
+                        float btagVetoWP,
+                        float jetPtMin) {
   const size_t n = std::min<size_t>(
       cleanJetPt.size(),
       std::min<size_t>(cleanJetEta.size(), cleanJetJetIdx.size()));
   for (size_t i = 0; i < n; ++i) {
-    if (cleanJetPt[i] <= 30.f || std::abs(cleanJetEta[i]) >= 2.5f)
+    if (cleanJetPt[i] <= jetPtMin || std::abs(cleanJetEta[i]) >= 2.5f)
       continue;
     const int jetIdx = cleanJetJetIdx[i];
     if (jetIdx < 0 || static_cast<size_t>(jetIdx) >= jetBtagDeepFlavB.size())
@@ -353,6 +541,220 @@ bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float> &cleanJetPt,
       return false;
   }
   return true;
+}
+
+bool bVetoDeepFlavB(const ROOT::VecOps::RVec<float> &cleanJetPt,
+                    const ROOT::VecOps::RVec<float> &cleanJetEta,
+                    const ROOT::VecOps::RVec<int> &cleanJetJetIdx,
+                    const ROOT::VecOps::RVec<float> &jetBtagDeepFlavB,
+                    float btagVetoWP) {
+  return bVetoDeepFlavBAtPt(cleanJetPt, cleanJetEta, cleanJetJetIdx,
+                            jetBtagDeepFlavB, btagVetoWP, 30.f);
+}
+
+float btagVetoShapeSF(const ROOT::VecOps::RVec<float> &cleanJetPt,
+                      const ROOT::VecOps::RVec<float> &cleanJetEta,
+                      const ROOT::VecOps::RVec<int> &cleanJetJetIdx,
+                      const ROOT::VecOps::RVec<int> &jetHadronFlavour,
+                      const ROOT::VecOps::RVec<float> &jetBtagDeepFlavB,
+                      const std::string &jsonPath,
+                      const std::string &systematic) {
+  // This is the established Run-3 shape-SF event product used by the
+  // reference HWW configurations.  A fixed-WP SF needs an efficiency map;
+  // the local four-lepton contract intentionally uses the available DeepFlavB
+  // shape payload instead of borrowing a legacy working point.
+  using Set = correction::CorrectionSet;
+  static std::map<std::string, std::shared_ptr<Set>> sets;
+  static std::mutex setsMutex;
+  std::shared_ptr<Set> set;
+  {
+    std::lock_guard<std::mutex> lock(setsMutex);
+    auto found = sets.find(jsonPath);
+    if (found == sets.end()) {
+      std::unique_ptr<Set> loaded = Set::from_file(jsonPath);
+      set = std::shared_ptr<Set>(loaded.release());
+      sets.emplace(jsonPath, set);
+    } else {
+      set = found->second;
+    }
+  }
+  if (!set)
+    return 1.0f;
+  auto correction = set->at("deepJet_shape");
+  const size_t n = std::min<size_t>(
+      cleanJetPt.size(),
+      std::min<size_t>(cleanJetEta.size(), cleanJetJetIdx.size()));
+  float product = 1.0f;
+  for (size_t i = 0; i < n; ++i) {
+    if (cleanJetPt[i] < 20.0001f || std::abs(cleanJetEta[i]) > 2.49999f)
+      continue;
+    const int jetIdx = cleanJetJetIdx[i];
+    if (jetIdx < 0 || static_cast<size_t>(jetIdx) >= jetHadronFlavour.size() ||
+        static_cast<size_t>(jetIdx) >= jetBtagDeepFlavB.size())
+      continue;
+    const float discr = jetBtagDeepFlavB[jetIdx];
+    if (!std::isfinite(discr) || discr < 0.f || discr > 19.999f)
+      continue;
+    const int rawFlavour = std::abs(jetHadronFlavour[jetIdx]);
+    const int flavour = rawFlavour == 5 ? 5 : (rawFlavour == 4 ? 4 : 0);
+    // Match the core producer's flavour applicability rules for the shape
+    // payload: cferr is charm-only, while hf/lf are not evaluated on charm.
+    if (systematic.find("cferr") != std::string::npos && flavour != 4)
+      continue;
+    if ((systematic.find("hf") != std::string::npos ||
+         systematic.find("lf") != std::string::npos) && flavour == 4)
+      continue;
+    product *= static_cast<float>(correction->evaluate(
+        {systematic, flavour, std::abs(cleanJetEta[i]), cleanJetPt[i], discr}));
+  }
+  return product;
+}
+
+bool fifthLeptonVeto(const ROOT::VecOps::RVec<float> &leptonPt,
+                     float vetoPt) {
+  int nAbove = 0;
+  for (float pt : leptonPt) {
+    // The legacy requirement is Alt$(Lepton_pt[4],0) < 10: a fifth lepton
+    // exactly on the threshold must therefore fail.
+    if (pt >= vetoPt)
+      ++nAbove;
+  }
+  return nAbove <= 4;
+}
+
+ROOT::VecOps::RVec<float> unitFloatVec(size_t n) {
+  return ROOT::VecOps::RVec<float>(n, 1.0f);
+}
+
+float sfValue(const ROOT::VecOps::RVec<float> &electronSF,
+              const ROOT::VecOps::RVec<float> &muonSF,
+              const ROOT::VecOps::RVec<int> &pdgId,
+              int idx) {
+  if (idx < 0 || static_cast<size_t>(idx) >= pdgId.size())
+    return 1.0f;
+  const int absId = std::abs(pdgId[idx]);
+  if (absId == 11)
+    return valueAtFloat(electronSF, idx, 1.0f);
+  if (absId == 13)
+    return valueAtFloat(muonSF, idx, 1.0f);
+  return 1.0f;
+}
+
+float selectedLeptonSFProduct(const ROOT::VecOps::RVec<int> &pdgId,
+                              const ROOT::VecOps::RVec<int> &pairIdx,
+                              const ROOT::VecOps::RVec<float> &electronSF,
+                              const ROOT::VecOps::RVec<float> &muonSF,
+                              int) {
+  if (pairIdx.size() < 2)
+    return 1.0f;
+  return sfValue(electronSF, muonSF, pdgId, pairIdx[0]) *
+         sfValue(electronSF, muonSF, pdgId, pairIdx[1]);
+}
+
+float selectedLeptonSFProduct4(const ROOT::VecOps::RVec<int> &pdgId,
+                               const ROOT::VecOps::RVec<int> &zidx,
+                               const ROOT::VecOps::RVec<int> &xidx,
+                               const ROOT::VecOps::RVec<float> &electronSF,
+                               const ROOT::VecOps::RVec<float> &muonSF) {
+  if (zidx.size() < 2 || xidx.size() < 2)
+    return 1.0f;
+  return sfValue(electronSF, muonSF, pdgId, zidx[0]) *
+         sfValue(electronSF, muonSF, pdgId, zidx[1]) *
+         sfValue(electronSF, muonSF, pdgId, xidx[0]) *
+         sfValue(electronSF, muonSF, pdgId, xidx[1]);
+}
+
+float selectedLeptonSFProductFlavor(const ROOT::VecOps::RVec<int> &pdgId,
+                                    const ROOT::VecOps::RVec<int> &pairIdx,
+                                    const ROOT::VecOps::RVec<float> &electronSF,
+                                    const ROOT::VecOps::RVec<float> &muonSF,
+                                    int variedFlavor) {
+  if (pairIdx.size() < 2)
+    return 1.0f;
+  float product = 1.0f;
+  for (size_t i = 0; i < 2; ++i) {
+    const int idx = pairIdx[i];
+    const int absId = (idx >= 0 && static_cast<size_t>(idx) < pdgId.size())
+                          ? std::abs(pdgId[idx])
+                          : 0;
+    const auto &sf = (absId == 11) ? electronSF : muonSF;
+    product *= (absId == variedFlavor) ? valueAtFloat(sf, idx, 1.0f)
+                                       : sfValue(electronSF, muonSF, pdgId, idx);
+  }
+  return product;
+}
+
+float selectedLeptonSFProductFlavor4(const ROOT::VecOps::RVec<int> &pdgId,
+                                     const ROOT::VecOps::RVec<int> &zidx,
+                                     const ROOT::VecOps::RVec<int> &xidx,
+                                     const ROOT::VecOps::RVec<float> &electronSF,
+                                     const ROOT::VecOps::RVec<float> &muonSF,
+                                     int variedFlavor) {
+  if (zidx.size() < 2 || xidx.size() < 2)
+    return 1.0f;
+  ROOT::VecOps::RVec<int> idx = {zidx[0], zidx[1], xidx[0], xidx[1]};
+  float product = 1.0f;
+  for (const int i : idx) {
+    const int absId = (i >= 0 && static_cast<size_t>(i) < pdgId.size())
+                          ? std::abs(pdgId[i])
+                          : 0;
+    const auto &sf = (absId == 11) ? electronSF : muonSF;
+    product *= (absId == variedFlavor) ? valueAtFloat(sf, i, 1.0f)
+                                       : sfValue(electronSF, muonSF, pdgId, i);
+  }
+  return product;
+}
+
+bool fourSelectedIndicesDistinct(const ROOT::VecOps::RVec<int> &zidx,
+                                 const ROOT::VecOps::RVec<int> &xidx,
+                                 size_t nLepton) {
+  if (zidx.size() < 2 || xidx.size() < 2)
+    return false;
+  ROOT::VecOps::RVec<int> idx = {zidx[0], zidx[1], xidx[0], xidx[1]};
+  for (const int i : idx) {
+    if (i < 0 || static_cast<size_t>(i) >= nLepton)
+      return false;
+  }
+  for (size_t i = 0; i < idx.size(); ++i)
+    for (size_t j = i + 1; j < idx.size(); ++j)
+      if (idx[i] == idx[j])
+        return false;
+  return true;
+}
+
+bool selectedPairIsLeading(const ROOT::VecOps::RVec<int> &idx) {
+  return idx.size() >= 2 && idx[0] == 0 && idx[1] == 1;
+}
+
+bool selectedPairsAreLeading(const ROOT::VecOps::RVec<int> &zidx,
+                             const ROOT::VecOps::RVec<int> &xidx) {
+  if (zidx.size() < 2 || xidx.size() < 2)
+    return false;
+  return zidx[0] == 0 && zidx[1] == 1 && xidx[0] == 2 && xidx[1] == 3;
+}
+
+float selectedTriggerWeight2(const ROOT::VecOps::RVec<int> &idx,
+                             float canonicalEventWeight) {
+  // TriggerMaker stores an event-level 2-lepton correction, not a tensor
+  // indexed by every possible selected pair.  Apply that canonical event
+  // correction to every valid selected pair; never turn a valid non-leading
+  // selection into unity.  The leading-pair equality is the regression
+  // contract, while TriggerSF_Z_Valid remains the coverage diagnostic.
+  return (idx.size() >= 2 && idx[0] >= 0 && idx[1] >= 0)
+             ? canonicalEventWeight
+             : 1.0f;
+}
+
+float selectedTriggerWeight4(const ROOT::VecOps::RVec<int> &zidx,
+                             const ROOT::VecOps::RVec<int> &xidx,
+                             float canonicalEventWeight) {
+  // See selectedTriggerWeight2.  The stored 4-lepton TrigMaker correction is
+  // the canonical event payload and is applied to any valid selected Z+X
+  // index set, including selected sets that are not [0,1,2,3].
+  return (zidx.size() >= 2 && xidx.size() >= 2 && zidx[0] >= 0 &&
+          zidx[1] >= 0 && xidx[0] >= 0 && xidx[1] >= 0)
+             ? canonicalEventWeight
+             : 1.0f;
 }
 
 float lepMass(int pdgId) {
@@ -582,8 +984,8 @@ bool passesOrderedPtThresholdsFromPairs(const ROOT::VecOps::RVec<float> &pt,
   const float min3 = clampPtMin(pt3Min);
   const float min4 = clampPtMin(pt4Min);
 
-  return sortedPt[0] >= min1 && sortedPt[1] >= min2 && sortedPt[2] >= min3 &&
-         sortedPt[3] >= min4;
+  return sortedPt[0] > min1 && sortedPt[1] > min2 && sortedPt[2] > min3 &&
+         sortedPt[3] > min4;
 }
 
 bool validLeptonIndex(int idx,
@@ -871,5 +1273,14 @@ ROOT::VecOps::RVec<int> leptonGenPartIdx(
   return out;
 }
 
-}  // namespace ZH4lMETZZCR
+}  // namespace FourLepton
+
+// Histogram expressions are split on ':' by the stock runner, so expose a
+// concise global wrapper whose call does not require a C++ namespace token.
+ROOT::VecOps::RVec<float> maskedHistogramValue(float value, bool applicable) {
+  if (!applicable)
+    return {};
+  return {value};
+}
+
 #endif

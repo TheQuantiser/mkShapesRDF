@@ -40,7 +40,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Iterator, Mapping, MutableMapping, Optional, Sequence
 
 
-PROGRAM = "mk_run3_sample_catalog"
+PROGRAM = "make_sample_catalog"
 VERSION = "1.0.0"
 SCHEMA_VERSION = "1.0"
 
