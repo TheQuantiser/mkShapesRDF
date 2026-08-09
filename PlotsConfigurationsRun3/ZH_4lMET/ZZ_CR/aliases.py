@@ -352,6 +352,13 @@ aliases["m4l"] = {
     "expr": "FourLepton::fourLeptonMassFromPairs(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, Z0_idx, X_idx)",
 }
 
+aliases["minSelectedPairMass"] = {
+    "expr": (
+        "FourLepton::minimumSelectedPairMass("
+        "Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, Z0_idx, X_idx)"
+    ),
+}
+
 aliases["pT4l"] = {
     "expr": "FourLepton::fourLeptonPtFromPairs(Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, Z0_idx, X_idx)",
 }

@@ -101,6 +101,57 @@ def test_all_eras_have_disjoint_complete_overlap_and_normalization_models():
         assert set(normalizations).issubset(physical), year
 
 
+def test_sample_profiles_cover_exact_logical_outputs_for_every_year():
+    helpers = _helpers()
+    full = helpers["load_full_config"]()
+    for year, definition in full["years"].items():
+        overlap = helpers["resolve_overlap_model"](definition, full)
+        commissioning = helpers["resolve_sample_profile"](
+            definition, full, "commissioning"
+        )
+        presentation = helpers["resolve_sample_profile"](
+            definition, full, "presentation"
+        )
+
+        expected_commissioning_mc = {
+            sample_name
+            for group_name in ("DY", "ZZ")
+            for sample_name in full["plot_groups"][group_name]["samples"]
+            if sample_name in overlap["output_names"]
+        }
+        assert set(commissioning["mc_output_names"]) == expected_commissioning_mc, year
+        assert set(commissioning["output_names"]) == expected_commissioning_mc | {"DATA"}, year
+        assert set(presentation["mc_output_names"]) == set(overlap["output_names"]), year
+        assert set(presentation["output_names"]) == set(overlap["output_names"]) | {"DATA"}, year
+        assert len(presentation["output_names"]) == len(set(presentation["output_names"])), year
+        assert presentation["nonprompt_background_included"] is False
+
+        target_signal = {
+            sample_name
+            for sample_name in full["plot_groups"]["HWW_signal"]["samples"]
+            if sample_name in overlap["output_names"]
+        }
+        assert target_signal, year
+        assert target_signal.issubset(presentation["mc_output_names"]), year
+
+
+def test_sample_filter_is_stronger_than_profile_and_fails_closed():
+    helpers = _helpers()
+    full = helpers["load_full_config"]()
+    year = full["years"]["2024"]
+    selected = helpers["resolve_sample_selection"](
+        year, full, "presentation", "ZZ,DATA"
+    )
+    assert selected["selection_source"] == "filter"
+    assert selected["active_output_names"] == ("ZZ", "DATA")
+    with pytest.raises(ValueError, match="absent from the selected year"):
+        helpers["resolve_sample_selection"](
+            year, full, "commissioning", "DOES_NOT_EXIST"
+        )
+    with pytest.raises(ValueError, match="selected no logical outputs"):
+        helpers["resolve_sample_selection"](year, full, "presentation", "")
+
+
 def test_data_stream_filter_is_exact_and_fail_closed():
     helpers = _helpers()
     full = helpers["load_full_config"]()

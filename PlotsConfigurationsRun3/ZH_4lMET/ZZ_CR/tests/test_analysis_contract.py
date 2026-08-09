@@ -9,6 +9,7 @@ def _contract_from_state(state):
         "analysis_pass": "ALL",
         "category_profile": "minimal",
         "histogram_profile": "analysis",
+        "sample_profile": "commissioning",
         "preselection": state["preselections"],
         "categories": {},
         "variables": {},
@@ -42,6 +43,7 @@ def test_contract_matches_executable_runtime(load_state):
         expected_context={
             "year": "2024", "analysis_pass": "ALL",
             "category_profile": "minimal", "histogram_profile": "analysis",
+            "sample_profile": "commissioning",
         },
     )
 

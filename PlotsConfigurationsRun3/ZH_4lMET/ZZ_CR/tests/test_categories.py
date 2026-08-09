@@ -85,6 +85,32 @@ def test_full_cut_is_mechanical(load_state):
     )
 
 
+def test_selected_pair_low_mass_veto_is_physical_four_lepton_only(load_state):
+    state = load_state(category="minimal")
+    dy = state["cuts"]["DY"]["expr"]
+    zzcr = state["cuts"]["ZZCR"]["expr"]
+    sr = state["cuts"]["SR"]["expr"]
+    assert "minSelectedPairMass > 12." not in dy
+    assert "minSelectedPairMass > 12." in zzcr
+    assert "minSelectedPairMass > 12." in sr
+    assert "Z0_mass > 12." not in zzcr
+    assert "Z0_mass > 12." not in sr
+    assert "abs(Z0_mass - 91.1876) < 15." in zzcr
+    assert "abs(Z0_mass - 91.1876) < 15." in sr
+
+
+def test_an2019_238_region_edges_remain_exact(load_state):
+    state = load_state(category="minimal")
+    zzcr = state["cuts"]["ZZCR"]["expr"]
+    sr = state["cuts"]["SR"]["expr"]
+    assert "X_isSF && X_mass > 75. && X_mass < 105. && PuppiMET_pt < 35." in zzcr
+    assert (
+        "X_isSF && X_mass > 10. && X_mass < 65."
+        " && PuppiMET_pt > 35. && m4l > 140." in sr
+    )
+    assert "X_isDF && X_mass > 10. && X_mass < 70. && PuppiMET_pt > 20." in sr
+
+
 def test_category_budget_fails_closed(load_state):
     with pytest.raises(RuntimeError, match="MAX_CATEGORIES"):
         load_state(category="trigger", MAX_CATEGORIES="3")

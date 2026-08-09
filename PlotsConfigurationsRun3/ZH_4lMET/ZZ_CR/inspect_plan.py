@@ -16,6 +16,7 @@ def build_plan(args):
         ANALYSIS_PASS=args.analysis_pass,
         CATEGORY_PROFILE=args.category_profile,
         HISTOGRAM_PROFILE=args.histogram_profile,
+        SAMPLE_PROFILE=args.sample_profile,
         HISTOGRAMS="1",
         ENABLE_SYSTEMATICS="1" if args.systematics else "0",
     )
@@ -26,6 +27,12 @@ def build_plan(args):
         state.update(runpy.run_path(str(here / filename), init_globals=state))
     _, year_cfg, full_cfg = state["load_selected_year"]()
     overlap = state["resolve_overlap_model"](year_cfg, full_cfg)
+    sample_scope = state["resolve_sample_selection"](
+        year_cfg,
+        full_cfg,
+        args.sample_profile,
+        args.sample_filter,
+    )
     category_variables = state["CATEGORY_VARIABLES"]
     input_files = int(os.environ.get("INPUT_FILE_COUNT", "0"))
     files_per_job = int(os.environ.get("FILES_PER_JOB", "10"))
@@ -48,6 +55,12 @@ def build_plan(args):
         "analysis_pass": args.analysis_pass,
         "category_profile": args.category_profile,
         "histogram_profile": args.histogram_profile,
+        "sample_profile": sample_scope["name"],
+        "sample_profile_groups": list(sample_scope["plot_groups"]),
+        "sample_profile_outputs": list(sample_scope["output_names"]),
+        "sample_selection_source": sample_scope["selection_source"],
+        "active_sample_outputs": list(sample_scope["active_output_names"]),
+        "nonprompt_background_included": False,
         "physics_regions": sorted(
             {item["physics_region"] for item in state["CATEGORY_METADATA"].values()}
         ),
@@ -66,7 +79,8 @@ def build_plan(args):
         "actions_by_view_type": dict(sorted(actions_by_view_type.items())),
         "nominal_action_estimate": actions,
         "systematic_action_estimate": actions * nuisance_multiplier if args.systematics else 0,
-        "configured_process_count": len(overlap["output_names"]) + 1,
+        "configured_process_count": len(sample_scope["active_output_names"]),
+        "all_resolved_process_count": len(overlap["output_names"]) + 1,
         "input_file_count": input_files,
         "estimated_jobs": (input_files + files_per_job - 1) // files_per_job if input_files else None,
         "files_per_job": files_per_job,
@@ -114,6 +128,8 @@ def main():
     parser.add_argument("--analysis-pass", default=os.environ.get("ANALYSIS_PASS", "ALL"))
     parser.add_argument("--category-profile", default=os.environ.get("CATEGORY_PROFILE", "standard"))
     parser.add_argument("--histogram-profile", default=os.environ.get("HISTOGRAM_PROFILE", "analysis"))
+    parser.add_argument("--sample-profile", default=os.environ.get("SAMPLE_PROFILE", "commissioning"))
+    parser.add_argument("--sample-filter", default=os.environ.get("SAMPLE_FILTER"))
     parser.add_argument("--systematics", action="store_true")
     parser.add_argument("--write-profile-comparison", action="store_true")
     parser.add_argument(

@@ -2,9 +2,10 @@
 
 This Run-3 configuration produces compact DY, ZZ-control, and ZH
 four-lepton signal-reference histograms for `2022`, `2022EE`, `2023`,
-`2023BPix`, and `2024`. The ordinary plotting sample scope is recorded DATA
-plus the DY and ZZ MC plot groups. The full source catalog remains available
-in `year_config.json` for explicit targeted runs.
+`2023BPix`, and `2024`. `SAMPLE_PROFILE=commissioning` selects Data plus the
+DY and ZZ MC plot groups for quick development. `SAMPLE_PROFILE=presentation`
+selects the complete configured prompt process model and target ZH/ggZH
+signal for presentation production.
 
 ## Eras and b tagging
 
@@ -31,15 +32,25 @@ histograms.
 - The four selected indices must be distinct and their total charge must be
   zero. A fifth lepton with pT at least 10 GeV is vetoed.
 - The ordered selected-lepton pT thresholds are 25, 15, 10, and 10 GeV.
-- The common physical selection requires `m(Z0)>12 GeV`, a 15 GeV Z window,
-  and the loose physical b veto for CleanJets above 20 GeV and |eta| below
-  2.5.
+- The common physical ZZCR/SR selection requires
+  `minSelectedPairMass>12 GeV`, where the minimum is evaluated over all six
+  unordered pairs formed from exactly the selected Z0+X leptons. Invalid,
+  duplicate, or non-finite selected inputs fail closed. This veto is not part
+  of the DY selection. The 15 GeV Z window remains independent, followed by
+  the loose physical b veto for CleanJets above 20 GeV and |eta| below 2.5.
 - ZZCR explicitly requires `X_isSF`, 75 < m(X) < 105 GeV, and PuppiMET below
   35 GeV.
 - The XSF signal reference requires 10 < m(X) < 65 GeV, PuppiMET above
   35 GeV, and m4l above 140 GeV.
 - The XDF signal reference requires 10 < m(X) < 70 GeV and PuppiMET above
   20 GeV.
+
+These numerical region definitions reproduce AN2019/238 v9. Table 37 on PDF
+page 120 (document page 118) explicitly gives the XSF upper edge as 65 GeV;
+Section 7.4 and Table 39 on PDF page 132 (document page 130) define the ZZ
+control region. The complete source record, including the rendered Table 37
+low-mass row and the explicit six-pair Run-3 implementation, is in
+`development/SELECTION_SOURCE_NOTE.md`.
 
 The common preselection is the configured trigger-family OR, at least two
 leptons, the production-order `L2TightLeading2` decision, and the Run-3
@@ -127,9 +138,22 @@ The resolved `Vg`, `VgS`, `WZ`, and `ZZ` partitions are constructed from
 disjoint source/phase-space components in `year_config.json`. Validation
 requires each physical source to be consumed exactly once or passed through,
 unique output names, and production-normalization aliases that belong to an
-active source. The default plotting activation then selects only DY, ZZ, and
-DATA. `SAMPLE_FILTER` is an explicit targeted override; `DATA_STREAM_FILTER`
-can restrict the logical DATA process to MuonEG, Muon, and/or EGamma inputs.
+active source.
+
+`SAMPLE_PROFILE=commissioning` is the default and activates only the live DY
+and ZZ plot-group members plus `DATA`. `SAMPLE_PROFILE=presentation` derives
+its inventory from all live `plot_groups` and requires complete, unique
+coverage of every resolved logical MC output. That includes DY, ZZ, WZ, Vg,
+VgS, WW, ggWW, top, ttV/tZ, VVV, the target ZH/ggZH H→WW signal, and other
+configured Higgs contamination. Nonprompt/fake background is not included in
+this configuration. `SAMPLE_FILTER` is the stronger exact override for
+targeted runs. `DATA_STREAM_FILTER` can restrict the logical DATA process to
+MuonEG, Muon, and/or EGamma inputs.
+
+`SAMPLE_PROFILE`, its groups, the profile inventory, the actual selection
+source, and active samples are recorded in `analysis_contract.json`. The
+output tag includes the profile name, so commissioning and presentation
+outputs cannot collide.
 
 ## Reproducibility and systematics
 

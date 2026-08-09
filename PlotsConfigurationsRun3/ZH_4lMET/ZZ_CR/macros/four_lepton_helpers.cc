@@ -761,6 +761,48 @@ float lepMass(int pdgId) {
   return (std::abs(pdgId) == 11) ? 0.000511f : 0.105658f;
 }
 
+float minimumSelectedPairMass(
+    const ROOT::VecOps::RVec<float> &pt,
+    const ROOT::VecOps::RVec<float> &eta,
+    const ROOT::VecOps::RVec<float> &phi,
+    const ROOT::VecOps::RVec<int> &pdgId,
+    const ROOT::VecOps::RVec<int> &zidx,
+    const ROOT::VecOps::RVec<int> &xidx) {
+  // The physical four-lepton veto is defined on exactly the selected Z0+X
+  // objects, not on arbitrary additional event leptons.  Return a negative
+  // sentinel for every malformed input so ``minSelectedPairMass > 12`` fails
+  // closed in the ZZCR/SR common selection.
+  const size_t nKinematics =
+      std::min({pt.size(), eta.size(), phi.size(), pdgId.size()});
+  if (!fourSelectedIndicesDistinct(zidx, xidx, nKinematics))
+    return -1.f;
+
+  const ROOT::VecOps::RVec<int> indices = {
+      zidx[0], zidx[1], xidx[0], xidx[1]};
+  std::vector<ROOT::Math::PtEtaPhiMVector> leptons;
+  leptons.reserve(indices.size());
+  for (const int index : indices) {
+    const int absPdgId = std::abs(pdgId[index]);
+    if ((absPdgId != 11 && absPdgId != 13) ||
+        !std::isfinite(pt[index]) || pt[index] <= 0.f ||
+        !std::isfinite(eta[index]) || !std::isfinite(phi[index]))
+      return -1.f;
+    leptons.emplace_back(
+        pt[index], eta[index], phi[index], lepMass(pdgId[index]));
+  }
+
+  float minimumMass = std::numeric_limits<float>::infinity();
+  for (size_t first = 0; first < leptons.size(); ++first) {
+    for (size_t second = first + 1; second < leptons.size(); ++second) {
+      const float mass = static_cast<float>((leptons[first] + leptons[second]).M());
+      if (!std::isfinite(mass) || mass < 0.f)
+        return -1.f;
+      minimumMass = std::min(minimumMass, mass);
+    }
+  }
+  return std::isfinite(minimumMass) ? minimumMass : -1.f;
+}
+
 ROOT::VecOps::RVec<int> orderPairByPt(const ROOT::VecOps::RVec<int> &idx,
                                       const ROOT::VecOps::RVec<float> &pt) {
   if (idx.size() < 2 || idx[0] < 0 || idx[1] < 0)

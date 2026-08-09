@@ -10,6 +10,7 @@ from urllib.parse import urlsplit
 
 DEFAULT_TREE_BASE_DIR = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
 BTAG_SF_CVMFS_BASE = "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV"
+SAMPLE_PROFILES = ("commissioning", "presentation")
 
 
 def is_xrootd_url(value):
@@ -473,6 +474,113 @@ def resolve_overlap_model(year_cfg, full_cfg):
         "passthrough_sources": passthrough,
         "processes": resolved_processes,
         "output_names": output_names,
+    }
+
+
+def resolve_sample_profile(year_cfg, full_cfg, profile_name="commissioning"):
+    """Resolve one logical process scope from the live plot-group registry."""
+    name = str(profile_name or "commissioning").strip().lower()
+    if name not in SAMPLE_PROFILES:
+        raise ValueError(
+            f"Unknown SAMPLE_PROFILE={name!r}; available={SAMPLE_PROFILES}"
+        )
+
+    overlap = resolve_overlap_model(year_cfg, full_cfg)
+    known_mc = tuple(overlap["output_names"])
+    known_mc_set = set(known_mc)
+    plot_groups = full_cfg.get("plot_groups")
+    if not isinstance(plot_groups, dict) or not plot_groups:
+        raise ValueError("year_config.json requires non-empty plot_groups")
+
+    selected_groups = (
+        ("DY", "ZZ") if name == "commissioning" else tuple(plot_groups)
+    )
+    missing_groups = [group for group in selected_groups if group not in plot_groups]
+    if missing_groups:
+        raise ValueError(
+            f"SAMPLE_PROFILE={name!r} references missing plot groups {missing_groups}"
+        )
+
+    owners = {}
+    for group_name, group_cfg in plot_groups.items():
+        configured = group_cfg.get("samples", [])
+        if not isinstance(configured, list):
+            raise ValueError(f"plot_groups.{group_name}.samples must be a list")
+        for sample_name in configured:
+            if sample_name not in known_mc_set:
+                continue
+            if sample_name in owners:
+                raise ValueError(
+                    f"Logical output {sample_name!r} belongs to both plot groups "
+                    f"{owners[sample_name]!r} and {group_name!r}"
+                )
+            owners[sample_name] = group_name
+
+    if name == "presentation":
+        ungrouped = sorted(known_mc_set - set(owners))
+        if ungrouped:
+            raise ValueError(
+                "Presentation profile does not cover configured logical outputs: "
+                f"{ungrouped}"
+            )
+
+    selected_group_set = set(selected_groups)
+    selected_mc = tuple(
+        sample_name
+        for sample_name in known_mc
+        if owners.get(sample_name) in selected_group_set
+    )
+    return {
+        "name": name,
+        "plot_groups": tuple(selected_groups),
+        "mc_output_names": selected_mc,
+        "output_names": selected_mc + ("DATA",),
+        "sample_to_plot_group": {
+            sample_name: owners[sample_name] for sample_name in selected_mc
+        },
+        "nonprompt_background_included": False,
+    }
+
+
+def resolve_sample_selection(
+    year_cfg,
+    full_cfg,
+    profile_name="commissioning",
+    sample_filter=None,
+):
+    """Apply an optional exact SAMPLE_FILTER above a validated sample profile."""
+    profile = resolve_sample_profile(year_cfg, full_cfg, profile_name)
+    overlap = resolve_overlap_model(year_cfg, full_cfg)
+    canonical_outputs = tuple(overlap["output_names"]) + ("DATA",)
+    known_outputs = set(canonical_outputs)
+    if sample_filter is None:
+        active_outputs = tuple(profile["output_names"])
+        source = "profile"
+    else:
+        if isinstance(sample_filter, str):
+            requested = {
+                item.strip() for item in sample_filter.split(",") if item.strip()
+            }
+        else:
+            requested = {
+                str(item).strip() for item in sample_filter if str(item).strip()
+            }
+        if not requested:
+            raise ValueError("SAMPLE_FILTER was set but selected no logical outputs")
+        unknown = sorted(requested - known_outputs)
+        if unknown:
+            raise ValueError(
+                "SAMPLE_FILTER contains outputs absent from the selected year: "
+                f"{unknown}"
+            )
+        active_outputs = tuple(
+            sample_name for sample_name in canonical_outputs if sample_name in requested
+        )
+        source = "filter"
+    return {
+        **profile,
+        "selection_source": source,
+        "active_output_names": active_outputs,
     }
 
 

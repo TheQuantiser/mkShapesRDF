@@ -86,16 +86,23 @@ if HISTOGRAM_PROFILE not in ("analysis", "trigger", "objects", "quality", "weigh
         f"received {HISTOGRAM_PROFILE!r}"
     )
 HISTOGRAM_DETAIL = HISTOGRAM_PROFILE
+SAMPLE_PROFILE = os.environ.get("SAMPLE_PROFILE", "commissioning").strip().lower()
+if SAMPLE_PROFILE not in ("commissioning", "presentation"):
+    raise ValueError(
+        "SAMPLE_PROFILE must be commissioning or presentation; "
+        f"received {SAMPLE_PROFILE!r}"
+    )
 os.environ["CATEGORY_PROFILE"] = CATEGORY_PROFILE
 os.environ["HISTOGRAM_PROFILE"] = HISTOGRAM_PROFILE
 os.environ["HISTOGRAM_DETAIL"] = HISTOGRAM_DETAIL
+os.environ["SAMPLE_PROFILE"] = SAMPLE_PROFILE
 OUTPUT_PRODUCT = "HIST"
 os.environ["OUTPUT_PRODUCT"] = OUTPUT_PRODUCT
 
 _systematics_tag = "FULLSYST" if ENABLE_SYSTEMATICS else "NOMINAL"
 tag = (
     f"FourLepton_{YEAR}_{ANALYSIS_PASS}_{CATEGORY_PROFILE}_"
-    f"{HISTOGRAM_PROFILE}_{OUTPUT_PRODUCT}_{_systematics_tag}"
+    f"{HISTOGRAM_PROFILE}_{SAMPLE_PROFILE}_{OUTPUT_PRODUCT}_{_systematics_tag}"
 )
 tag = f"{tag}_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
 
@@ -543,6 +550,7 @@ varsToKeep = [
     "HISTOGRAM_DETAIL",
     "HISTOGRAM_PROFILE",
     "CATEGORY_PROFILE",
+    "SAMPLE_PROFILE",
     "OUTPUT_PRODUCT",
     "YEAR",
     "SELECTED_EXECUTION_PROFILE",
@@ -589,6 +597,10 @@ varsToKeep = [
     "VARIABLE_REGISTRY_HASHES",
     "CATEGORY_VARIABLES",
     "CATEGORY_METADATA",
+    "SAMPLE_PROFILE_GROUPS",
+    "SAMPLE_PROFILE_OUTPUTS",
+    "SAMPLE_SELECTION_SOURCE",
+    "ACTIVE_SAMPLE_OUTPUTS",
     "analysisContract",
     "analysisContractPath",
     ("cuts", {"cuts": "cuts", "preselections": "preselections"}),
@@ -620,6 +632,7 @@ for _worker_contract_key in (
     "HISTOGRAM_DETAIL",
     "HISTOGRAM_PROFILE",
     "CATEGORY_PROFILE",
+    "SAMPLE_PROFILE",
     "OUTPUT_PRODUCT",
     "YEAR",
     "OUTPUT_MODE",

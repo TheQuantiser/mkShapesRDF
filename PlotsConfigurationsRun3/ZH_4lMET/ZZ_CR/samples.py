@@ -106,35 +106,31 @@ def _selected_correction_weight():
 
 
 _known_samples = set(_resolved_overlap["output_names"]) | {"DATA"}
-
-# DY+ZZ plotting production: all other MC plot groups are intentionally
-# disabled at registration time. DATA remains enabled. An explicit
-# SAMPLE_FILTER still overrides this default for targeted follow-up runs.
-_dy_zz_mc = {
-    sample_name
-    for group_name in ("DY", "ZZ")
-    for sample_name in _full_config["plot_groups"][group_name]["samples"]
-    if sample_name in _known_samples
-}
-if "SAMPLE_FILTER" in os.environ:
-    _sample_filter = {
-        item.strip()
-        for item in os.environ["SAMPLE_FILTER"].split(",")
-        if item.strip()
-    }
-else:
-    _sample_filter = _dy_zz_mc | {"DATA"}
-
-_unknown_filtered = sorted(_sample_filter - _known_samples)
-if _unknown_filtered:
-    raise RuntimeError(
-        f"SAMPLE_FILTER contains output processes absent in YEAR={YEAR}: "
-        f"{_unknown_filtered}"
+SAMPLE_PROFILE = str(
+    globals().get("SAMPLE_PROFILE")
+    or os.environ.get("SAMPLE_PROFILE", "commissioning")
+).strip().lower()
+try:
+    _resolved_sample_profile = resolve_sample_selection(
+        _selected_year,
+        _full_config,
+        SAMPLE_PROFILE,
+        os.environ.get("SAMPLE_FILTER") if "SAMPLE_FILTER" in os.environ else None,
     )
+except ValueError as _sample_scope_error:
+    raise RuntimeError(
+        f"Invalid sample scope for YEAR={YEAR}: {_sample_scope_error}"
+    ) from _sample_scope_error
+SAMPLE_PROFILE = _resolved_sample_profile["name"]
+SAMPLE_PROFILE_GROUPS = tuple(_resolved_sample_profile["plot_groups"])
+SAMPLE_PROFILE_OUTPUTS = tuple(_resolved_sample_profile["output_names"])
+SAMPLE_SELECTION_SOURCE = _resolved_sample_profile["selection_source"]
+ACTIVE_SAMPLE_OUTPUTS = tuple(_resolved_sample_profile["active_output_names"])
+_sample_filter = set(ACTIVE_SAMPLE_OUTPUTS)
 
 
 def _sample_enabled(sample_name):
-    return not _sample_filter or sample_name in _sample_filter
+    return sample_name in _sample_filter
 
 
 def _with_redirector(tree_base_dir):

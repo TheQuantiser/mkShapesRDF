@@ -10,6 +10,7 @@ The normal contract is:
 ANALYSIS_PASS=ALL
 CATEGORY_PROFILE=standard
 HISTOGRAM_PROFILE=analysis
+SAMPLE_PROFILE=commissioning
 ENABLE_SYSTEMATICS=0
 HISTOGRAMS=1
 ```
@@ -29,13 +30,37 @@ cd PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR
 python inspect_plan.py --year 2024 \
   --analysis-pass ALL \
   --category-profile standard \
-  --histogram-profile analysis
+  --histogram-profile analysis \
+  --sample-profile commissioning
 ```
 
 Add `--write-profile-comparison` to regenerate
 `development/category_profile_comparison.json`. The plan reports category and
 action breakdowns by region and `view_type`, variables per category, and the
-expected linear/log plot counts.
+expected linear/log plot counts. It also records the selected sample profile,
+plot groups, logical outputs, and whether `SAMPLE_FILTER` replaced the profile.
+
+Sample profiles are:
+
+- `commissioning` (default): quick development with `DATA` and the live DY
+  and ZZ logical outputs only;
+- `presentation`: every resolved prompt MC output assigned by the current
+  `plot_groups`, including the target ZH/ggZH H→WW signal and other configured
+  Higgs contamination, plus `DATA`.
+
+The presentation profile includes DY, ZZ, WZ, Vg, VgS, WW, ggWW, top,
+ttV/tZ, VVV, and the configured Higgs groups. It does not include a
+nonprompt/fake background estimate. `SAMPLE_FILTER` remains the stronger exact
+override for targeted runs:
+
+```bash
+export SAMPLE_PROFILE=presentation
+export SAMPLE_FILTER=ZZ,DATA
+```
+
+Tags and `analysis_contract.json` record `SAMPLE_PROFILE`; the contract also
+records its groups, complete profile inventory, actual active samples, and
+whether the profile or `SAMPLE_FILTER` selected them.
 
 Category profiles are:
 
@@ -53,6 +78,25 @@ five curated ZZCR stream-by-topology intersections, and no SR stream cross.
 It never generates an automatic Cartesian product. Each category carries
 first-class view, partition, exclusivity, overlap, and diagnostic-purpose
 metadata into `analysis_contract.json`.
+
+## AN2019/238 v9 selection
+
+The authoritative signal selection is Table 37 on PDF page 120 (document page
+118) of `AN2019_238_v9.pdf`. XSF requires `X_isSF`, `10 < X_mass < 65 GeV`,
+`PuppiMET_pt > 35 GeV`, and `m4l > 140 GeV`. XDF requires `X_isDF`,
+`10 < X_mass < 70 GeV`, and `PuppiMET_pt > 20 GeV`, with no m4l threshold.
+Both use ordered lepton pT thresholds `25, 15, 10, 10 GeV`, the 10 GeV
+fifth-lepton veto, the 15 GeV Z window, zero selected-lepton charge, and the
+loose b veto above 20 GeV.
+
+Section 7.4 and Table 39 on PDF page 132 (document page 130) define ZZCR with
+the same-flavor second-Z candidate, `75 < X_mass < 105 GeV`, and
+`PuppiMET_pt < 35 GeV`. The physical ZZCR/SR common selection additionally
+requires `minSelectedPairMass > 12 GeV` over all six pairs formed from exactly
+the selected Z0+X leptons; DY does not use this requirement. The precise source
+and implementation record is `development/SELECTION_SOURCE_NOTE.md`. The XSF
+edge remains 65 GeV because that is the value in the authoritative AN; no
+claim is made that later public material uses an identical edge.
 
 Histogram profiles are `analysis`, `trigger`, `objects`, `weights`, `quality`,
 and `all`. Exact overrides select existing registry entries:
@@ -125,6 +169,7 @@ export YEAR=2024
 export ANALYSIS_PASS=ALL
 export CATEGORY_PROFILE=standard
 export HISTOGRAM_PROFILE=analysis
+export SAMPLE_PROFILE=commissioning
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
 export EXECUTION_PROFILE=local_stagein
@@ -157,6 +202,7 @@ export YEAR=2024
 export ANALYSIS_PASS=ALL
 export CATEGORY_PROFILE=standard
 export HISTOGRAM_PROFILE=analysis
+export SAMPLE_PROFILE=commissioning
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
 export FILES_PER_JOB=1
@@ -182,6 +228,7 @@ export YEAR=2024
 export ANALYSIS_PASS=ALL
 export CATEGORY_PROFILE=standard
 export HISTOGRAM_PROFILE=analysis
+export SAMPLE_PROFILE=presentation
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
 export FILES_PER_JOB=1
@@ -218,6 +265,7 @@ export YEAR=2024
 export ANALYSIS_PASS=ALL
 export CATEGORY_PROFILE=standard
 export HISTOGRAM_PROFILE=analysis
+export SAMPLE_PROFILE=commissioning
 export ENABLE_SYSTEMATICS=0
 export HISTOGRAMS=1
 export FILES_PER_JOB=1

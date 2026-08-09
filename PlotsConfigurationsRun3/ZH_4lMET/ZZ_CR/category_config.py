@@ -43,7 +43,7 @@ FOURL_PARENT = (
     f" && {X2_PT} > {X2_PT_MIN:g} && m4l > 0. && sumLeptonCharge == 0"
 )
 PHYSICAL_COMMON = (
-    f"{FOURL_PARENT} && fifthLeptonVeto && Z0_mass > 12."
+    f"{FOURL_PARENT} && fifthLeptonVeto && minSelectedPairMass > 12."
     " && physicalBtagVeto && abs(Z0_mass - 91.1876) < 15."
     " && Passes4lOrderedPt"
 )
