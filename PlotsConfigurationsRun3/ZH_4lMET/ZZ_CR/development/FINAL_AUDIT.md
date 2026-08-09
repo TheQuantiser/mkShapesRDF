@@ -22,7 +22,7 @@ Truth-table tests mechanically prove every requested flavor/topology/stream
 partition and intersection. A selection-only occupancy study covers staged
 v12/v15 ZZ across all five eras plus 2024 ZH and DATA. A real 100-event
 standard run produced a healthy 35-directory sparse ROOT file. The updated
-focused suite passes 34 tests. Ten packaged standard jobs spanning 2024 DATA,
+focused suite passes 36 tests. Ten packaged standard jobs spanning 2024 DATA,
 ZZ, ZH, and v12 ZZ all exited zero. Their peak `MemoryUsage` was 647 MB, only
 14.3% above the prior 566 MB peak despite a 6.712x action increase. Exact
 evidence is recorded in `fnal_category_pilot_receipt.json`.
@@ -30,6 +30,12 @@ evidence is recorded in `fnal_category_pilot_receipt.json`.
 No physics selection, weight, correction, sample partition, nominal one-job-
 set semantics, or FNAL stage-in/stage-out behavior changed. The original
 minimal full-production package remains immutable at commit `0de38da`.
+
+For future submissions, the FNAL wrapper was subsequently changed to make
+packaged direct CERN XRootD reads the default. The packaged whole-file
+stage-in profile remains an explicit option. This operational default avoids
+the partial-destination `xrdcp` retry failure observed in the immutable first
+full campaign; it does not change analysis or FNAL EOS stage-out semantics.
 
 ## Original minimal-production result
 

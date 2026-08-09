@@ -49,7 +49,7 @@ normal category/action budgets and requires `ALLOW_LARGE_PLAN=1`.
 
 ## Evidence
 
-- Thirty-four focused tests pass, including explicit truth tables for every
+- Thirty-six focused tests pass, including explicit truth tables for every
   requested DY, ZZCR, and SR algebra identity.
 - A real staged 2024 ZZ run over 100 events completed in 55.64 s with
   1,109,000 kB login-node maximum RSS and wrote a healthy 523,253-byte ROOT

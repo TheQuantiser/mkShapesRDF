@@ -168,10 +168,26 @@ export FILES_PER_JOB=1
 export PRODUCTION_CAMPAIGN=ZH4lMET_COMPACT_PILOT
 ```
 
-The wrapper selects `packaged_fnal_stagein_eos_production`: CERN XRootD
-discovery/read, `xrdcp` stage-in to worker scratch, and stage-out only to FNAL
-EOS. It transfers the checkout package and a worker-local CMS proxy. The FNAL
-efficiency-map URL remains remote and is authenticated with that proxy.
+The wrapper now selects `packaged_fnal_xrootd_eos_production`: workers read
+CERN inputs directly through `root://eoscms.cern.ch` and stage output only to
+FNAL EOS through `root://cmseos.fnal.gov`. It transfers the checkout package
+and a worker-local CMS proxy. The FNAL efficiency-map URL also remains remote
+and is authenticated with that proxy. Direct reads avoid whole-file scratch
+copies and the partial-file retry failure mode seen in the first full campaign.
+
+Whole-file stage-in remains available when deliberately wanted:
+
+```bash
+export EXECUTION_PROFILE=packaged_fnal_stagein_eos_production
+export INPUT_ACCESS_MODE=stage-in
+source PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/fnal_lpc_packaged_env.sh
+```
+
+Set those overrides before sourcing the wrapper; the wrapper preserves
+explicit values. The stage-in profile copies each CERN file with `xrdcp` into
+task-owned worker scratch, while the direct profile lets ROOT/XRootD perform
+streamed range reads. Both profiles keep packaged workers and FNAL EOS
+stage-out.
 
 Create a bounded dry-run first:
 

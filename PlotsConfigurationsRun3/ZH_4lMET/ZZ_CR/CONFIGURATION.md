@@ -144,5 +144,8 @@ does not permit redefining a weight column that already depends on variations.
 The commissioned one-graph workflow is therefore nominal-only. This explicit
 limitation avoids silently incorrect systematic histograms.
 
-Operational setup, planning, local stage-in, packaged FNAL Condor, contract
-inspection, status, and merge commands are in `USAGE.MD`.
+Operational setup, planning, direct packaged FNAL XRootD reads, optional local
+or worker stage-in, contract inspection, status, and merge commands are in
+`USAGE.MD`. The FNAL wrapper defaults to
+`packaged_fnal_xrootd_eos_production`; the explicit
+`packaged_fnal_stagein_eos_production` profile remains available.
