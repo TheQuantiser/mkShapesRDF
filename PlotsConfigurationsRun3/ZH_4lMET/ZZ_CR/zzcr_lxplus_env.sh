@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# CERN LXPLUS analysis preset:
-# - selects the shared-checkout production stage-out profile
+# CERN LXPLUS shared-checkout analysis preset:
+# - submits workers from the CERN checkout without a Condor runtime package
+# - reads CERN inputs directly through XRootD
+# - stages production output to the CERN CMS Store endpoint
+# - retains the historical zzcr_lxplus_env.sh entry-point name
 # - resets the complete site contract when sourced; override afterward if needed
 
 export EXECUTION_PROFILE="shared_xrootd_eos_production"

@@ -144,6 +144,62 @@ This copies the CERN input with `xrdcp` into task-owned scratch, reads the
 local copy, and removes it on success. Do not use a packaged production profile
 with `-b 0`.
 
+## CERN shared-checkout Condor
+
+The historical CERN wrapper name is available for jobs that read and write
+through CERN CMS Store:
+
+```bash
+source start.sh
+source PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/zzcr_lxplus_env.sh
+
+export YEAR=2024
+export ANALYSIS_PASS=ALL
+export CATEGORY_PROFILE=standard
+export HISTOGRAM_PROFILE=analysis
+export ENABLE_SYSTEMATICS=0
+export HISTOGRAMS=1
+export FILES_PER_JOB=1
+export PRODUCTION_CAMPAIGN=ZH4lMET_CERN_PRODUCTION
+```
+
+This selects `shared_xrootd_eos_production`: CERN Condor workers use the
+shared checkout without a runtime package, read directly through
+`root://eoscms.cern.ch`, and write to `root://eoscms.cern.ch` beneath
+`/store/user/${EOS_USER}/mkShapesRDF_rootfiles`.
+
+To submit on CERN Condor but write the result to FNAL CMS Store, select the
+FNAL-output wrapper instead:
+
+```bash
+source start.sh
+
+# Set this before the wrapper only when the FNAL and CERN usernames differ.
+export FNAL_USER=<fnal-username>
+source PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/zzcr_lxplus_fnal_env.sh
+
+export YEAR=2024
+export ANALYSIS_PASS=ALL
+export CATEGORY_PROFILE=standard
+export HISTOGRAM_PROFILE=analysis
+export ENABLE_SYSTEMATICS=0
+export HISTOGRAMS=1
+export FILES_PER_JOB=1
+export PRODUCTION_CAMPAIGN=ZH4lMET_CERN_TO_FNAL_PRODUCTION
+```
+
+This selects `shared_xrootd_fnal_eos_production`. It retains the CERN
+shared-checkout, non-packaged execution contract and direct CERN XRootD input,
+but changes stage-out to `root://cmseos.fnal.gov` beneath the FNAL
+`/store/user/${EOS_USER}` namespace.
+
+The site wrappers are reset scripts, not default-value helpers. Sourcing one
+unconditionally replaces `EXECUTION_PROFILE`, input and output modes, runtime
+packaging, include-base, proxy, endpoints, site, `EOS_USER`, and the default
+campaign. Export `FNAL_USER` or `CERN_USER` before sourcing when it is an
+identity input. Apply analysis settings and deliberate site/profile overrides
+after sourcing. Re-sourcing a wrapper resets those overrides.
+
 ## FNAL packaged Condor
 
 Check the proxy without initializing one interactively:
@@ -174,20 +230,22 @@ FNAL EOS through `root://cmseos.fnal.gov`. It transfers the checkout package
 and a worker-local CMS proxy. The FNAL efficiency-map URL also remains remote
 and is authenticated with that proxy. Direct reads avoid whole-file scratch
 copies and the partial-file retry failure mode seen in the first full campaign.
+The wrapper forcibly resets its complete FNAL site contract every time it is
+sourced, so stale values from another site cannot leak into the submission.
 
 Whole-file stage-in remains available when deliberately wanted:
 
 ```bash
+source PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/fnal_lpc_packaged_env.sh
 export EXECUTION_PROFILE=packaged_fnal_stagein_eos_production
 export INPUT_ACCESS_MODE=stage-in
-source PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/fnal_lpc_packaged_env.sh
 ```
 
-Set those overrides before sourcing the wrapper; the wrapper preserves
-explicit values. The stage-in profile copies each CERN file with `xrdcp` into
-task-owned worker scratch, while the direct profile lets ROOT/XRootD perform
-streamed range reads. Both profiles keep packaged workers and FNAL EOS
-stage-out.
+Set deliberate overrides after sourcing the wrapper. The stage-in profile
+copies each CERN file with `xrdcp` into task-owned worker scratch, while the
+direct profile lets ROOT/XRootD perform streamed range reads. Both profiles
+keep packaged workers and FNAL EOS stage-out. Re-sourcing the FNAL wrapper
+returns the environment to direct-read packaged production.
 
 Create a bounded dry-run first:
 

@@ -65,9 +65,18 @@ Unpackaged Condor validates the framework-generated batch payload on a shared fi
 For ZZ_CR, this mode is selected directly in
 ``PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configuration.py`` with
 ``EXECUTION_PROFILE="shared_xrootd_local"``,
-``"shared_xrootd_eos"``, or ``"shared_xrootd_eos_production"``. The
-``lxplus_env.sh`` script is only a convenience wrapper that selects the
-production profile and output naming defaults.
+``"shared_xrootd_eos"``, ``"shared_xrootd_eos_production"``, or
+``"shared_xrootd_fnal_eos_production"``. Source
+``zzcr_lxplus_env.sh`` for CERN input and CERN CMS Store output, or
+``zzcr_lxplus_fnal_env.sh`` for CERN input and FNAL CMS Store output. Both
+select shared-checkout CERN Condor with no runtime package. The compatibility
+``lxplus_env.sh`` entry point selects the CERN-output contract.
+
+These site wrappers unconditionally reset their execution profile, I/O and
+output modes, packaging mode, include base, proxy policy, endpoints, site,
+output user, and default campaign. Set identity inputs such as ``CERN_USER``
+or ``FNAL_USER`` before sourcing when necessary; set deliberate analysis or
+profile overrides afterward. Re-sourcing a wrapper resets those overrides.
 
 Local ZZ_CR smoke tests can also be selected from ``configuration.py`` with
 ``local`` for as-configured paths, ``local_xrootd`` for direct XRootD reads, or
@@ -98,7 +107,12 @@ For ZZ_CR, packaged mode is selected directly in ``configuration.py`` with
 profiles set ``condorRuntimePackage=True``, ``CONFIG_INCLUDE_BASE=runtime``,
 the LCG 109 worker setup command, and explicit proxy transfer. The
 ``fnal_lpc_packaged_env.sh`` script is only a convenience wrapper that
-selects the production direct-read packaged profile and output naming defaults.
+forcibly selects the production direct-read packaged profile, FNAL endpoint,
+runtime packaging, and output naming defaults. This prevents stale CERN or
+stage-in settings from leaking into a new FNAL submission. Deliberate
+alternatives, such as ``packaged_fnal_stagein_eos_production`` with
+``INPUT_ACCESS_MODE=stage-in``, must be exported after the wrapper is sourced;
+re-sourcing returns to direct-read packaged production.
 
 LPC workers do not mount submit-host ``/uscms_data`` or user-home NFS, and they
 must not depend on AFS or mounted EOS. Their working directory is

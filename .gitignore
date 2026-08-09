@@ -6,8 +6,25 @@
 
 # Python-generated files and environments
 **__py*
+*.py[cod]
 *.egg*
 myenv*
+
+# Local test, coverage, lint, and type-check artifacts (not test sources)
+.pytest_cache/
+.hypothesis/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+test-results/
+pytest-report*
+pytestdebug.log
+junit*.xml
 
 # Build, documentation, and system files
 *build*
@@ -19,7 +36,21 @@ myenv*
 
 # Local scripts and analysis output
 start.sh
-codex_analysis
+
+# Codex/agent-local development inputs and scratch output
+.codex/
+.agents/
+.codex-*
+.codex_*
+codex_analysis/
+codex_scratch/
+codex_tmp/
+codex_work/
+/prompt.md
+/prompt-*.md
+/prompt_*.md
+/binning.txt
+/binning.tx
 
 # Example build output
 examples/*/*_cc*

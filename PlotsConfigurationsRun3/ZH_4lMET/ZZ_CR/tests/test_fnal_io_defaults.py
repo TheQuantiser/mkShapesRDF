@@ -28,8 +28,13 @@ def test_fnal_wrapper_defaults_to_direct_xrootd():
     )
 
 
-def test_fnal_wrapper_preserves_explicit_stage_in_option():
+def test_fnal_wrapper_replaces_stale_site_values():
     assert _source_wrapper(
         "export EXECUTION_PROFILE=packaged_fnal_stagein_eos_production "
-        "INPUT_ACCESS_MODE=stage-in;"
-    ).startswith("packaged_fnal_stagein_eos_production|stage-in|")
+        "INPUT_ACCESS_MODE=stage-in "
+        "XRD_READ_ENDPOINT=root://stale-read.example "
+        "XRD_WRITE_ENDPOINT=root://stale-write.example;"
+    ) == (
+        "packaged_fnal_xrootd_eos_production|xrootd|"
+        "root://eoscms.cern.ch|root://cmseos.fnal.gov"
+    )

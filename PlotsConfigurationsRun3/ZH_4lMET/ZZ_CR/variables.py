@@ -359,22 +359,27 @@ def _axis(edges, fold=2):
 
 
 _COMMON_AXES = {
-    # Primary physics observables.  Every cut boundary is an explicit edge.
+    # Primary physics observables.  The presentation ranges intentionally
+    # fold both tails (fold=3): values below/above the displayed range are
+    # accumulated in the first/last visible bins rather than discarded.
     "Z0_mass": _axis(
-        (30, 40, 50, 60, 70, 76.1876, 81, 86, 91.1876, 96, 101,
-         106.1876, 115, 130, 150, 200)
+        (30, 40, 60, 80, 85, 90, 95, 100, 120),
+        3,
     ),
     "X_mass": _axis(
-        (4, 10, 20, 30, 40, 50, 60, 65, 70, 75, 85, 95, 105, 120,
-         150, 200)
+        (30, 40, 60, 80, 85, 90, 95, 100, 120),
+        3,
     ),
     "m4l": _axis((60, 80, 100, 120, 140, 160, 180, 200, 250, 300, 400, 600), 3),
     "pT4l": _axis((0, 20, 40, 60, 80, 100, 150, 200, 300, 400)),
-    "PuppiMET_pt": _axis((0, 10, 20, 30, 35, 50, 70, 100, 150, 200, 300)),
+    "PuppiMET_pt": _axis((0, 10, 20, 30, 40, 50, 80, 100, 120), 3),
     "PuppiMET_significance": _axis((0, 2, 4, 6, 8, 10, 15, 20, 30, 50)),
     "PuppiMET_sumEt": _axis((0, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000)),
     "HT": _axis((0, 30, 50, 100, 150, 200, 300, 400, 600, 800)),
-    "Z0_pt": _axis((0, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400)),
+    "Z0_pt": _axis(
+        (0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 60, 80, 100, 120),
+        3,
+    ),
     "X_pt": _axis((0, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400)),
     "GenMET_pt": _axis((0, 20, 40, 60, 80, 100, 150, 200, 300, 400)),
     "recoil_ut": _axis((0, 20, 40, 60, 80, 100, 150, 200, 300, 400)),
@@ -382,11 +387,16 @@ _COMMON_AXES = {
     "recoil_uy": _axis((-400, -300, -200, -150, -100, -50, 0, 50, 100, 150, 200, 300, 400), 3),
     "recoil_upar": _axis((-400, -300, -200, -150, -100, -50, 0, 50, 100, 150, 200, 300, 400), 3),
     "recoil_uperp": _axis((-400, -300, -200, -150, -100, -50, 0, 50, 100, 150, 200, 300, 400), 3),
-    # Ordered selected leptons: match the configured 25/10/10/10 GeV gates.
-    "lZ1_pt": _axis((25, 30, 40, 50, 70, 100, 150, 200, 300)),
-    "lZ2_pt": _axis((10, 15, 20, 25, 30, 40, 60, 100, 160)),
-    "lX1_pt": _axis((10, 15, 20, 25, 30, 40, 60, 100, 160)),
-    "lX2_pt": _axis((10, 15, 20, 25, 30, 40, 60, 100, 160)),
+    # Ordered selected leptons share one zero-based presentation axis.  The
+    # final 100--120 GeV bin includes the overflow by construction (fold=3).
+    "lZ1_pt": _axis((0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120), 3),
+    "lZ2_pt": _axis((0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120), 3),
+    "lX1_pt": _axis((0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120), 3),
+    "lX2_pt": _axis((0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120), 3),
+    # Multiplicity axes stop at the requested visible values and fold any
+    # larger multiplicity into the last bin.
+    "nCleanJet": _axis((-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5), 3),
+    "nLepton": _axis((1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5), 3),
     # Event environment and weights.
     "nPV": ((50, -0.5, 99.5), 2),
     "nvtx": ((50, -0.5, 99.5), 2),
@@ -396,7 +406,7 @@ _COMMON_AXES = {
 
 _LEPTON_GEN_PT_AXIS = _axis((0, 10, 20, 30, 50, 75, 100, 150, 200, 300))
 _TRIGGER_OBJECT_PT_AXIS = _axis((0, 10, 20, 30, 40, 50, 75, 100, 150, 200, 300))
-_JET_PT_AXIS = _axis((10, 20, 30, 50, 75, 100, 150, 200, 300, 500))
+_JET_PT_AXIS = _axis((0, 10, 20, 30, 40, 50, 70, 90, 100), 3)
 _TRIGGER_SF_AXIS = _axis((0, 0.5, 0.8, 0.9, 0.95, 1, 1.05, 1.1, 1.2, 1.5, 2))
 _LEPTON_SF_AXIS = _axis((0, 0.5, 0.8, 0.9, 0.95, 1, 1.05, 1.1, 1.2, 1.5, 2))
 _RATIO_AXIS = _axis((0, 0.5, 0.8, 0.9, 0.95, 0.98, 1, 1.02, 1.05, 1.1, 1.2, 1.5, 2))
@@ -481,7 +491,9 @@ def _common_histogram_axis(name, source):
     if name.startswith("CleanJet_") and ("_pt_" in name or "_genPt_" in name):
         return _JET_PT_AXIS, "jet-pt"
 
-    if name.startswith("dPhi_") or name.endswith("_phi") or "_phi_" in name:
+    if name.startswith("dPhi_"):
+        return ((8, 0.0, 3.2), 3), "absolute-delta-phi"
+    if name.endswith("_phi") or "_phi_" in name:
         return ((16, -3.2, 3.2), 0), "azimuth"
     if name.startswith("dEta_"):
         return ((20, -5.0, 5.0), 3), "lepton-delta-eta"

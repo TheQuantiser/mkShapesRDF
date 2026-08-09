@@ -144,8 +144,22 @@ does not permit redefining a weight column that already depends on variations.
 The commissioned one-graph workflow is therefore nominal-only. This explicit
 limitation avoids silently incorrect systematic histograms.
 
-Operational setup, planning, direct packaged FNAL XRootD reads, optional local
-or worker stage-in, contract inspection, status, and merge commands are in
-`USAGE.MD`. The FNAL wrapper defaults to
+Operational setup, planning, CERN shared-checkout submission, direct packaged
+FNAL XRootD reads, optional local or worker stage-in, contract inspection,
+status, and merge commands are in `USAGE.MD`.
+
+The site environment scripts are reset scripts. Each one unconditionally
+replaces its execution profile, I/O modes, packaging mode, include base, proxy
+policy, endpoints, site preset, output user, and default campaign so values
+from a previously sourced site cannot leak into a new submission. Identity
+inputs such as `CERN_USER` or `FNAL_USER` may be set before sourcing; deliberate
+analysis or profile overrides must be set afterward. Re-sourcing resets them.
+
+`zzcr_lxplus_env.sh` selects the non-packaged
+`shared_xrootd_eos_production` profile for CERN input and CERN CMS Store
+output. `zzcr_lxplus_fnal_env.sh` selects the non-packaged
+`shared_xrootd_fnal_eos_production` profile for CERN input and FNAL CMS Store
+output. `fnal_lpc_packaged_env.sh` forcibly selects
 `packaged_fnal_xrootd_eos_production`; the explicit
-`packaged_fnal_stagein_eos_production` profile remains available.
+`packaged_fnal_stagein_eos_production` profile remains available when selected
+after sourcing the wrapper.
