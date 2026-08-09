@@ -96,7 +96,7 @@ def _selected_correction_weight():
     selected-object and b-veto factors to the configuration-local runner,
     which applies ``cut_weights`` after each region filter.
     """
-    if _PASS.get("cut_weights"):
+    if _PASS["name"] == "ALL":
         return "puWeight*TriggerSF_event"
     pair = _PASS["selected_lepton_sf"]
     factors = f"puWeight*SelectedLeptonSF_{pair}*TriggerSF_event"
@@ -296,7 +296,17 @@ for _process_name, _process_cfg in _resolved_overlap["processes"].items():
 
 
 DataRunTags = resolve_data_run_tags(_selected_year)
-DataSamples = _selected_year["data"]["samples"]
+_data_stream_filter = {
+    item.strip()
+    for item in os.environ.get("DATA_STREAM_FILTER", "").split(",")
+    if item.strip()
+}
+try:
+    DataSamples = resolve_data_samples(_selected_year, _data_stream_filter)
+except ValueError as _data_filter_error:
+    raise RuntimeError(
+        f"Invalid DATA_STREAM_FILTER for YEAR={YEAR}: {_data_filter_error}"
+    ) from _data_filter_error
 
 if _sample_enabled("DATA"):
     samples["DATA"] = {

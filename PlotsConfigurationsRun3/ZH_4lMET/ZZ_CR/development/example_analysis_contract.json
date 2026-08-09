@@ -1,0 +1,3072 @@
+{
+  "active_samples": {
+    "ZZ": {
+      "components": [
+        {
+          "component_weight": "(1.)*(1)",
+          "input_file_count": 1,
+          "input_registry_sha256": "fa5eb71027ce3cbed329fc0e87f8f5fdc49d3cad6d8fec0784b09684c0e692f1",
+          "source": "ZZ"
+        }
+      ],
+      "files_per_job": 1,
+      "is_data": false,
+      "sample_base_weight": "XSWeight*METFilter_Common*puWeight*TriggerSF_event"
+    }
+  },
+  "analysis_pass": "ALL",
+  "categories": {
+    "DY_ALL": {
+      "active_binning": {
+        "HT": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              30.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0,
+              600.0,
+              800.0
+            ]
+          ]
+        },
+        "PuppiMET_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              10.0,
+              20.0,
+              30.0,
+              35.0,
+              50.0,
+              70.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0
+            ]
+          ]
+        },
+        "SelectedLeptonSF_Z": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "TriggerSF_event": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "Z0_eta": {
+          "fold": 3,
+          "range": [
+            20,
+            -5.0,
+            5.0
+          ]
+        },
+        "Z0_isEE": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "Z0_isMM": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "Z0_mass": {
+          "fold": 2,
+          "range": [
+            [
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              70.0,
+              76.1876,
+              81.0,
+              86.0,
+              91.1876,
+              96.0,
+              101.0,
+              106.1876,
+              115.0,
+              130.0,
+              150.0,
+              200.0
+            ]
+          ]
+        },
+        "Z0_phi": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "Z0_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "dataStreamPriority": {
+          "fold": 0,
+          "range": [
+            5,
+            -0.5,
+            4.5
+          ]
+        },
+        "hltPathPriority": {
+          "fold": 0,
+          "range": [
+            8,
+            -0.5,
+            7.5
+          ]
+        },
+        "lZ1_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lZ1_pt": {
+          "fold": 2,
+          "range": [
+            [
+              25.0,
+              30.0,
+              40.0,
+              50.0,
+              70.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0
+            ]
+          ]
+        },
+        "lZ2_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lZ2_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "nCleanJet": {
+          "fold": 0,
+          "range": [
+            20,
+            -0.5,
+            19.5
+          ]
+        },
+        "nFiredHLTPaths": {
+          "fold": 0,
+          "range": [
+            12,
+            -0.5,
+            11.5
+          ]
+        },
+        "nFiredTriggerFamilies": {
+          "fold": 0,
+          "range": [
+            7,
+            -0.5,
+            6.5
+          ]
+        },
+        "nLepton": {
+          "fold": 0,
+          "range": [
+            14,
+            1.5,
+            15.5
+          ]
+        },
+        "nPV": {
+          "fold": 2,
+          "range": [
+            50,
+            -0.5,
+            99.5
+          ]
+        },
+        "nvtx": {
+          "fold": 2,
+          "range": [
+            50,
+            -0.5,
+            99.5
+          ]
+        },
+        "puWeight": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.2,
+              0.5,
+              0.8,
+              0.9,
+              1.0,
+              1.1,
+              1.2,
+              1.5,
+              2.0,
+              3.0
+            ]
+          ]
+        },
+        "rho": {
+          "fold": 2,
+          "range": [
+            30,
+            0.0,
+            60.0
+          ]
+        },
+        "triggerFamilyPriority": {
+          "fold": 0,
+          "range": [
+            7,
+            -1.5,
+            5.5
+          ]
+        }
+      },
+      "active_nuisances": [],
+      "active_variables": [
+        "Z0_mass",
+        "PuppiMET_pt",
+        "nCleanJet",
+        "HT",
+        "Z0_pt",
+        "Z0_eta",
+        "Z0_phi",
+        "Z0_isEE",
+        "Z0_isMM",
+        "nLepton",
+        "nFiredTriggerFamilies",
+        "nFiredHLTPaths",
+        "triggerFamilyPriority",
+        "hltPathPriority",
+        "lZ1_pt",
+        "lZ2_pt",
+        "lZ1_eta",
+        "lZ2_eta",
+        "nPV",
+        "nvtx",
+        "rho",
+        "puWeight",
+        "dataStreamPriority",
+        "TriggerSF_event",
+        "SelectedLeptonSF_Z"
+      ],
+      "analysis_profile": "ALL",
+      "category_id": "DY_ALL",
+      "category_profile": "minimal",
+      "category_weight_factor": "SelectedLeptonSF_Z",
+      "data_weight_rule": "METFilter_DATA with DATA trigger-stream de-duplication; no MC scale factors",
+      "display_label": "Inclusive Z/DY: Inclusive",
+      "full_cut_expression": "((Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && L2TightLeading2 && nJetInHorn == 0) && ((Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 25 && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10) && (1)",
+      "full_nominal_mc_weight": "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event*(SelectedLeptonSF_Z)",
+      "histogram_profile": "analysis",
+      "parent_expression": "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 25 && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10",
+      "physics_region": "DY",
+      "recommended_variable_groups": [
+        "dy",
+        "trigger",
+        "weights"
+      ],
+      "sample_base_mc_weight": "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event",
+      "split_expression": "1",
+      "weight_domain": "selected-Z leptons",
+      "weight_policy": "SelectedLeptonSF_Z",
+      "year": "2024"
+    },
+    "SR_ALL": {
+      "active_binning": {
+        "BTagVetoSF": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "CleanJet_eta_0": {
+          "fold": 3,
+          "range": [
+            24,
+            -4.7,
+            4.7
+          ]
+        },
+        "CleanJet_eta_1": {
+          "fold": 3,
+          "range": [
+            24,
+            -4.7,
+            4.7
+          ]
+        },
+        "CleanJet_pt_0": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              20.0,
+              30.0,
+              50.0,
+              75.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              500.0
+            ]
+          ]
+        },
+        "CleanJet_pt_1": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              20.0,
+              30.0,
+              50.0,
+              75.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              500.0
+            ]
+          ]
+        },
+        "HT": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              30.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0,
+              600.0,
+              800.0
+            ]
+          ]
+        },
+        "PuppiMET_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              10.0,
+              20.0,
+              30.0,
+              35.0,
+              50.0,
+              70.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0
+            ]
+          ]
+        },
+        "SelectedLeptonSF_ZX": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "TriggerSF_event": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "X_eta": {
+          "fold": 3,
+          "range": [
+            20,
+            -5.0,
+            5.0
+          ]
+        },
+        "X_isDF": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "X_isSF": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "X_mass": {
+          "fold": 2,
+          "range": [
+            [
+              4.0,
+              10.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              65.0,
+              70.0,
+              75.0,
+              85.0,
+              95.0,
+              105.0,
+              120.0,
+              150.0,
+              200.0
+            ]
+          ]
+        },
+        "X_phi": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "X_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "Z0_eta": {
+          "fold": 3,
+          "range": [
+            20,
+            -5.0,
+            5.0
+          ]
+        },
+        "Z0_mass": {
+          "fold": 2,
+          "range": [
+            [
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              70.0,
+              76.1876,
+              81.0,
+              86.0,
+              91.1876,
+              96.0,
+              101.0,
+              106.1876,
+              115.0,
+              130.0,
+              150.0,
+              200.0
+            ]
+          ]
+        },
+        "Z0_phi": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "Z0_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "dPhi_MET_X": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "dPhi_MET_Z": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "dPhi_MET_ZplusX": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "dR_lX1_lX2": {
+          "fold": 2,
+          "range": [
+            20,
+            0.0,
+            5.0
+          ]
+        },
+        "dR_lZ1_lZ2": {
+          "fold": 2,
+          "range": [
+            20,
+            0.0,
+            5.0
+          ]
+        },
+        "dataStreamPriority": {
+          "fold": 0,
+          "range": [
+            5,
+            -0.5,
+            4.5
+          ]
+        },
+        "hltPathPriority": {
+          "fold": 0,
+          "range": [
+            8,
+            -0.5,
+            7.5
+          ]
+        },
+        "lX1_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lX1_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "lX2_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lX2_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "lZ1_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lZ1_pt": {
+          "fold": 2,
+          "range": [
+            [
+              25.0,
+              30.0,
+              40.0,
+              50.0,
+              70.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0
+            ]
+          ]
+        },
+        "lZ2_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lZ2_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "m4l": {
+          "fold": 3,
+          "range": [
+            [
+              60.0,
+              80.0,
+              100.0,
+              120.0,
+              140.0,
+              160.0,
+              180.0,
+              200.0,
+              250.0,
+              300.0,
+              400.0,
+              600.0
+            ]
+          ]
+        },
+        "nCleanJet": {
+          "fold": 0,
+          "range": [
+            20,
+            -0.5,
+            19.5
+          ]
+        },
+        "nFiredHLTPaths": {
+          "fold": 0,
+          "range": [
+            12,
+            -0.5,
+            11.5
+          ]
+        },
+        "nFiredTriggerFamilies": {
+          "fold": 0,
+          "range": [
+            7,
+            -0.5,
+            6.5
+          ]
+        },
+        "nLepton": {
+          "fold": 0,
+          "range": [
+            14,
+            1.5,
+            15.5
+          ]
+        },
+        "nPV": {
+          "fold": 2,
+          "range": [
+            50,
+            -0.5,
+            99.5
+          ]
+        },
+        "nvtx": {
+          "fold": 2,
+          "range": [
+            50,
+            -0.5,
+            99.5
+          ]
+        },
+        "pT4l": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              40.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "physicalBtagVeto": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "puWeight": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.2,
+              0.5,
+              0.8,
+              0.9,
+              1.0,
+              1.1,
+              1.2,
+              1.5,
+              2.0,
+              3.0
+            ]
+          ]
+        },
+        "recoil_upar": {
+          "fold": 3,
+          "range": [
+            [
+              -400.0,
+              -300.0,
+              -200.0,
+              -150.0,
+              -100.0,
+              -50.0,
+              0.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "recoil_uperp": {
+          "fold": 3,
+          "range": [
+            [
+              -400.0,
+              -300.0,
+              -200.0,
+              -150.0,
+              -100.0,
+              -50.0,
+              0.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "recoil_ut": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              40.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "rho": {
+          "fold": 2,
+          "range": [
+            30,
+            0.0,
+            60.0
+          ]
+        },
+        "sumLeptonCharge": {
+          "fold": 0,
+          "range": [
+            9,
+            -4.5,
+            4.5
+          ]
+        },
+        "triggerFamilyPriority": {
+          "fold": 0,
+          "range": [
+            7,
+            -1.5,
+            5.5
+          ]
+        }
+      },
+      "active_nuisances": [],
+      "active_variables": [
+        "Z0_mass",
+        "X_mass",
+        "m4l",
+        "pT4l",
+        "PuppiMET_pt",
+        "nCleanJet",
+        "HT",
+        "sumLeptonCharge",
+        "X_isSF",
+        "dPhi_MET_Z",
+        "dPhi_MET_X",
+        "dPhi_MET_ZplusX",
+        "recoil_ut",
+        "recoil_upar",
+        "recoil_uperp",
+        "Z0_pt",
+        "X_pt",
+        "Z0_eta",
+        "X_eta",
+        "Z0_phi",
+        "X_phi",
+        "X_isDF",
+        "nLepton",
+        "nFiredTriggerFamilies",
+        "nFiredHLTPaths",
+        "triggerFamilyPriority",
+        "hltPathPriority",
+        "lZ1_pt",
+        "lZ2_pt",
+        "lX1_pt",
+        "lX2_pt",
+        "lZ1_eta",
+        "lZ2_eta",
+        "lX1_eta",
+        "lX2_eta",
+        "nPV",
+        "nvtx",
+        "rho",
+        "SelectedLeptonSF_ZX",
+        "puWeight",
+        "BTagVetoSF",
+        "dR_lZ1_lZ2",
+        "dR_lX1_lX2",
+        "physicalBtagVeto",
+        "dataStreamPriority",
+        "CleanJet_pt_0",
+        "CleanJet_eta_0",
+        "CleanJet_pt_1",
+        "CleanJet_eta_1",
+        "TriggerSF_event"
+      ],
+      "analysis_profile": "ALL",
+      "category_id": "SR_ALL",
+      "category_profile": "minimal",
+      "category_weight_factor": "SelectedLeptonSF_ZX*BTagVetoSF",
+      "data_weight_rule": "METFilter_DATA with DATA trigger-stream de-duplication; no MC scale factors",
+      "display_label": "ZH four-lepton signal-reference region: Inclusive",
+      "full_cut_expression": "((Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && L2TightLeading2 && nJetInHorn == 0) && ((Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 25 && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10 && nLepton >= 4 && hasValidX && selectedIndicesDistinct && X_mass > 4. && Alt(Lepton_pt, Alt(X_idx, 0, -1), -999.f) > 10 && Alt(Lepton_pt, Alt(X_idx, 1, -1), -999.f) > 10 && m4l > 0. && sumLeptonCharge == 0 && fifthLeptonVeto && Z0_mass > 12. && physicalBtagVeto && abs(Z0_mass - 91.1876) < 15. && Passes4lOrderedPt && ((X_isSF && X_mass > 10. && X_mass < 65. && PuppiMET_pt > 35. && m4l > 140.) || (X_isDF && X_mass > 10. && X_mass < 70. && PuppiMET_pt > 20.))) && (1)",
+      "full_nominal_mc_weight": "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event*(SelectedLeptonSF_ZX*BTagVetoSF)",
+      "histogram_profile": "analysis",
+      "parent_expression": "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 25 && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10 && nLepton >= 4 && hasValidX && selectedIndicesDistinct && X_mass > 4. && Alt(Lepton_pt, Alt(X_idx, 0, -1), -999.f) > 10 && Alt(Lepton_pt, Alt(X_idx, 1, -1), -999.f) > 10 && m4l > 0. && sumLeptonCharge == 0 && fifthLeptonVeto && Z0_mass > 12. && physicalBtagVeto && abs(Z0_mass - 91.1876) < 15. && Passes4lOrderedPt && ((X_isSF && X_mass > 10. && X_mass < 65. && PuppiMET_pt > 35. && m4l > 140.) || (X_isDF && X_mass > 10. && X_mass < 70. && PuppiMET_pt > 20.))",
+      "physics_region": "SR",
+      "recommended_variable_groups": [
+        "fourl",
+        "trigger",
+        "weights"
+      ],
+      "sample_base_mc_weight": "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event",
+      "split_expression": "1",
+      "weight_domain": "selected-ZX leptons and fixed-WP b veto",
+      "weight_policy": "SelectedLeptonSF_ZX*BTagVetoSF",
+      "year": "2024"
+    },
+    "ZZCR_ALL": {
+      "active_binning": {
+        "BTagVetoSF": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "CleanJet_eta_0": {
+          "fold": 3,
+          "range": [
+            24,
+            -4.7,
+            4.7
+          ]
+        },
+        "CleanJet_eta_1": {
+          "fold": 3,
+          "range": [
+            24,
+            -4.7,
+            4.7
+          ]
+        },
+        "CleanJet_pt_0": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              20.0,
+              30.0,
+              50.0,
+              75.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              500.0
+            ]
+          ]
+        },
+        "CleanJet_pt_1": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              20.0,
+              30.0,
+              50.0,
+              75.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              500.0
+            ]
+          ]
+        },
+        "HT": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              30.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0,
+              600.0,
+              800.0
+            ]
+          ]
+        },
+        "PuppiMET_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              10.0,
+              20.0,
+              30.0,
+              35.0,
+              50.0,
+              70.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0
+            ]
+          ]
+        },
+        "SelectedLeptonSF_ZX": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "TriggerSF_event": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.5,
+              0.8,
+              0.9,
+              0.95,
+              1.0,
+              1.05,
+              1.1,
+              1.2,
+              1.5,
+              2.0
+            ]
+          ]
+        },
+        "X_eta": {
+          "fold": 3,
+          "range": [
+            20,
+            -5.0,
+            5.0
+          ]
+        },
+        "X_isDF": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "X_isSF": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "X_mass": {
+          "fold": 2,
+          "range": [
+            [
+              4.0,
+              10.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              65.0,
+              70.0,
+              75.0,
+              85.0,
+              95.0,
+              105.0,
+              120.0,
+              150.0,
+              200.0
+            ]
+          ]
+        },
+        "X_phi": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "X_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "Z0_eta": {
+          "fold": 3,
+          "range": [
+            20,
+            -5.0,
+            5.0
+          ]
+        },
+        "Z0_mass": {
+          "fold": 2,
+          "range": [
+            [
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              70.0,
+              76.1876,
+              81.0,
+              86.0,
+              91.1876,
+              96.0,
+              101.0,
+              106.1876,
+              115.0,
+              130.0,
+              150.0,
+              200.0
+            ]
+          ]
+        },
+        "Z0_phi": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "Z0_pt": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              30.0,
+              40.0,
+              50.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "dPhi_MET_X": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "dPhi_MET_Z": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "dPhi_MET_ZplusX": {
+          "fold": 0,
+          "range": [
+            16,
+            -3.2,
+            3.2
+          ]
+        },
+        "dR_lX1_lX2": {
+          "fold": 2,
+          "range": [
+            20,
+            0.0,
+            5.0
+          ]
+        },
+        "dR_lZ1_lZ2": {
+          "fold": 2,
+          "range": [
+            20,
+            0.0,
+            5.0
+          ]
+        },
+        "dataStreamPriority": {
+          "fold": 0,
+          "range": [
+            5,
+            -0.5,
+            4.5
+          ]
+        },
+        "hltPathPriority": {
+          "fold": 0,
+          "range": [
+            8,
+            -0.5,
+            7.5
+          ]
+        },
+        "lX1_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lX1_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "lX2_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lX2_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "lZ1_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lZ1_pt": {
+          "fold": 2,
+          "range": [
+            [
+              25.0,
+              30.0,
+              40.0,
+              50.0,
+              70.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0
+            ]
+          ]
+        },
+        "lZ2_eta": {
+          "fold": 3,
+          "range": [
+            24,
+            -3.0,
+            3.0
+          ]
+        },
+        "lZ2_pt": {
+          "fold": 2,
+          "range": [
+            [
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              40.0,
+              60.0,
+              100.0,
+              160.0
+            ]
+          ]
+        },
+        "m4l": {
+          "fold": 3,
+          "range": [
+            [
+              60.0,
+              80.0,
+              100.0,
+              120.0,
+              140.0,
+              160.0,
+              180.0,
+              200.0,
+              250.0,
+              300.0,
+              400.0,
+              600.0
+            ]
+          ]
+        },
+        "nCleanJet": {
+          "fold": 0,
+          "range": [
+            20,
+            -0.5,
+            19.5
+          ]
+        },
+        "nFiredHLTPaths": {
+          "fold": 0,
+          "range": [
+            12,
+            -0.5,
+            11.5
+          ]
+        },
+        "nFiredTriggerFamilies": {
+          "fold": 0,
+          "range": [
+            7,
+            -0.5,
+            6.5
+          ]
+        },
+        "nLepton": {
+          "fold": 0,
+          "range": [
+            14,
+            1.5,
+            15.5
+          ]
+        },
+        "nPV": {
+          "fold": 2,
+          "range": [
+            50,
+            -0.5,
+            99.5
+          ]
+        },
+        "nvtx": {
+          "fold": 2,
+          "range": [
+            50,
+            -0.5,
+            99.5
+          ]
+        },
+        "pT4l": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              40.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "physicalBtagVeto": {
+          "fold": 0,
+          "range": [
+            2,
+            -0.5,
+            1.5
+          ]
+        },
+        "puWeight": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              0.2,
+              0.5,
+              0.8,
+              0.9,
+              1.0,
+              1.1,
+              1.2,
+              1.5,
+              2.0,
+              3.0
+            ]
+          ]
+        },
+        "recoil_upar": {
+          "fold": 3,
+          "range": [
+            [
+              -400.0,
+              -300.0,
+              -200.0,
+              -150.0,
+              -100.0,
+              -50.0,
+              0.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "recoil_uperp": {
+          "fold": 3,
+          "range": [
+            [
+              -400.0,
+              -300.0,
+              -200.0,
+              -150.0,
+              -100.0,
+              -50.0,
+              0.0,
+              50.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "recoil_ut": {
+          "fold": 2,
+          "range": [
+            [
+              0.0,
+              20.0,
+              40.0,
+              60.0,
+              80.0,
+              100.0,
+              150.0,
+              200.0,
+              300.0,
+              400.0
+            ]
+          ]
+        },
+        "rho": {
+          "fold": 2,
+          "range": [
+            30,
+            0.0,
+            60.0
+          ]
+        },
+        "sumLeptonCharge": {
+          "fold": 0,
+          "range": [
+            9,
+            -4.5,
+            4.5
+          ]
+        },
+        "triggerFamilyPriority": {
+          "fold": 0,
+          "range": [
+            7,
+            -1.5,
+            5.5
+          ]
+        }
+      },
+      "active_nuisances": [],
+      "active_variables": [
+        "Z0_mass",
+        "X_mass",
+        "m4l",
+        "pT4l",
+        "PuppiMET_pt",
+        "nCleanJet",
+        "HT",
+        "sumLeptonCharge",
+        "X_isSF",
+        "dPhi_MET_Z",
+        "dPhi_MET_X",
+        "dPhi_MET_ZplusX",
+        "recoil_ut",
+        "recoil_upar",
+        "recoil_uperp",
+        "Z0_pt",
+        "X_pt",
+        "Z0_eta",
+        "X_eta",
+        "Z0_phi",
+        "X_phi",
+        "X_isDF",
+        "nLepton",
+        "nFiredTriggerFamilies",
+        "nFiredHLTPaths",
+        "triggerFamilyPriority",
+        "hltPathPriority",
+        "lZ1_pt",
+        "lZ2_pt",
+        "lX1_pt",
+        "lX2_pt",
+        "lZ1_eta",
+        "lZ2_eta",
+        "lX1_eta",
+        "lX2_eta",
+        "nPV",
+        "nvtx",
+        "rho",
+        "SelectedLeptonSF_ZX",
+        "puWeight",
+        "BTagVetoSF",
+        "dR_lZ1_lZ2",
+        "dR_lX1_lX2",
+        "physicalBtagVeto",
+        "dataStreamPriority",
+        "CleanJet_pt_0",
+        "CleanJet_eta_0",
+        "CleanJet_pt_1",
+        "CleanJet_eta_1",
+        "TriggerSF_event"
+      ],
+      "analysis_profile": "ALL",
+      "category_id": "ZZCR_ALL",
+      "category_profile": "minimal",
+      "category_weight_factor": "SelectedLeptonSF_ZX*BTagVetoSF",
+      "data_weight_rule": "METFilter_DATA with DATA trigger-stream de-duplication; no MC scale factors",
+      "display_label": "ZZ control region: Inclusive",
+      "full_cut_expression": "((Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && L2TightLeading2 && nJetInHorn == 0) && ((Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 25 && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10 && nLepton >= 4 && hasValidX && selectedIndicesDistinct && X_mass > 4. && Alt(Lepton_pt, Alt(X_idx, 0, -1), -999.f) > 10 && Alt(Lepton_pt, Alt(X_idx, 1, -1), -999.f) > 10 && m4l > 0. && sumLeptonCharge == 0 && fifthLeptonVeto && Z0_mass > 12. && physicalBtagVeto && abs(Z0_mass - 91.1876) < 15. && Passes4lOrderedPt && X_isSF && X_mass > 75. && X_mass < 105. && PuppiMET_pt < 35.) && (1)",
+      "full_nominal_mc_weight": "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event*(SelectedLeptonSF_ZX*BTagVetoSF)",
+      "histogram_profile": "analysis",
+      "parent_expression": "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && hasValidZ0 && Z0_mass > 30. && Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f) > 25 && Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f) > 10 && nLepton >= 4 && hasValidX && selectedIndicesDistinct && X_mass > 4. && Alt(Lepton_pt, Alt(X_idx, 0, -1), -999.f) > 10 && Alt(Lepton_pt, Alt(X_idx, 1, -1), -999.f) > 10 && m4l > 0. && sumLeptonCharge == 0 && fifthLeptonVeto && Z0_mass > 12. && physicalBtagVeto && abs(Z0_mass - 91.1876) < 15. && Passes4lOrderedPt && X_isSF && X_mass > 75. && X_mass < 105. && PuppiMET_pt < 35.",
+      "physics_region": "ZZCR",
+      "recommended_variable_groups": [
+        "fourl",
+        "trigger",
+        "weights"
+      ],
+      "sample_base_mc_weight": "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event",
+      "split_expression": "1",
+      "weight_domain": "selected-ZX leptons and fixed-WP b veto",
+      "weight_policy": "SelectedLeptonSF_ZX*BTagVetoSF",
+      "year": "2024"
+    }
+  },
+  "category_profile": "minimal",
+  "contract_sha256": "efa9fd6bbca4d5d9f4ba5ad4961bf6111161ca6c8b5cee102d32bd4789184927",
+  "execution_profile": "packaged_fnal_stagein_eos_production",
+  "git_dirty": true,
+  "git_sha": "b7d701b6bb7dbd2fd899cc53ba54c1bcbeeba7f6",
+  "histogram_profile": "analysis",
+  "input_access_mode": "stage-in",
+  "input_registry_sha256": "d0f324a7027e71a042c7d2b1e5f80864af5fe73dae84e0beb12d56db5b823574",
+  "nuisance_mapping": {},
+  "output_mode": "production-remote",
+  "preselection": "(Trigger_ElMu || Trigger_sngMu || Trigger_dblMu || Trigger_sngEl || Trigger_dblEl) && nLepton >= 2 && L2TightLeading2 && nJetInHorn == 0",
+  "read_endpoint": "root://eoscms.cern.ch",
+  "registry_sha256": "0006e181723130d63c8a6cb9e7acd3873742cc0094178f67ab1529486cf909df",
+  "runtime_payload_sha256": "30c7e21a95efd54fbe1428c1d3f0499e19b6502c1135be3365fb6817bac81e74",
+  "sample_overlap_stitching_summary": {
+    "consumed_sources": [
+      "ZZ",
+      "DYGto2LG-1Jets_Bin-MLL-4to50",
+      "DYGto2LG-1Jets_Bin-MLL-50",
+      "WZTo3LNu",
+      "WGtoLNuG-1J"
+    ],
+    "output_names": [
+      "GluGluHToWWTo2L2Nu_M125",
+      "VBFHToWWTo2L2Nu_M125",
+      "ZH_Zto2L_Hto2Wto2L2Nu_M125",
+      "GluGluZH_Zto2L_Hto2Wto2L2Nu_M125",
+      "HWminusJ_HToWWTo2L2Nu_WToLNu_M125",
+      "HWplusJ_HToWWTo2L2Nu_WToLNu_M125",
+      "ttHToNonbb_M125",
+      "GluGluHToTauTau_M125_Powheg",
+      "VBFHToTauTau_M125",
+      "THQ",
+      "THW",
+      "DYto2E-2Jets_MLL-10to50",
+      "DYto2E-2Jets_MLL-50",
+      "DYto2Mu-2Jets_MLL-10to50",
+      "DYto2Mu-2Jets_MLL-50",
+      "DYto2Tau-2Jets_MLL-10to50",
+      "DYto2Tau-2Jets_MLL-50",
+      "WWTo2L2Nu",
+      "WpWmJJ_EWK_noTop",
+      "GluGlutoContintoWWtoENuENu",
+      "GluGlutoContintoWWtoENuMuNu",
+      "GluGlutoContintoWWtoENuTauNu",
+      "GluGlutoContintoWWtoMuNuENu",
+      "GluGlutoContintoWWtoMuNuMuNu",
+      "GluGlutoContintoWWtoMuNuTauNu",
+      "GluGlutoContintoWWtoTauNuENu",
+      "GluGlutoContintoWWtoTauNuMuNu",
+      "GluGlutoContintoWWtoTauNuTauNu",
+      "TTTo2L2Nu",
+      "TTToSemiLeptonic",
+      "TTTo4Q",
+      "TTW-WtoQQ",
+      "ST_t-channel_top",
+      "ST_t-channel_antitop",
+      "ST_tW_top",
+      "ST_tW_antitop",
+      "ST_s-channel_plus",
+      "ST_s-channel_minus",
+      "TWminusto2L2Nu",
+      "TbarWplusto2L2Nu",
+      "TTLL_MLL-4to50",
+      "TTLL_MLL-50",
+      "TTNuNu",
+      "TTLNu",
+      "TTZ-ZtoQQ",
+      "TZQB-ZTo2L",
+      "WWW",
+      "WWZ",
+      "WZZ",
+      "ZZZ",
+      "Vg",
+      "VgS",
+      "WZ",
+      "ZZ"
+    ],
+    "passthrough_sources": [
+      "GluGluHToWWTo2L2Nu_M125",
+      "VBFHToWWTo2L2Nu_M125",
+      "ZH_Zto2L_Hto2Wto2L2Nu_M125",
+      "GluGluZH_Zto2L_Hto2Wto2L2Nu_M125",
+      "HWminusJ_HToWWTo2L2Nu_WToLNu_M125",
+      "HWplusJ_HToWWTo2L2Nu_WToLNu_M125",
+      "ttHToNonbb_M125",
+      "GluGluHToTauTau_M125_Powheg",
+      "VBFHToTauTau_M125",
+      "THQ",
+      "THW",
+      "DYto2E-2Jets_MLL-10to50",
+      "DYto2E-2Jets_MLL-50",
+      "DYto2Mu-2Jets_MLL-10to50",
+      "DYto2Mu-2Jets_MLL-50",
+      "DYto2Tau-2Jets_MLL-10to50",
+      "DYto2Tau-2Jets_MLL-50",
+      "WWTo2L2Nu",
+      "WpWmJJ_EWK_noTop",
+      "GluGlutoContintoWWtoENuENu",
+      "GluGlutoContintoWWtoENuMuNu",
+      "GluGlutoContintoWWtoENuTauNu",
+      "GluGlutoContintoWWtoMuNuENu",
+      "GluGlutoContintoWWtoMuNuMuNu",
+      "GluGlutoContintoWWtoMuNuTauNu",
+      "GluGlutoContintoWWtoTauNuENu",
+      "GluGlutoContintoWWtoTauNuMuNu",
+      "GluGlutoContintoWWtoTauNuTauNu",
+      "TTTo2L2Nu",
+      "TTToSemiLeptonic",
+      "TTTo4Q",
+      "TTW-WtoQQ",
+      "ST_t-channel_top",
+      "ST_t-channel_antitop",
+      "ST_tW_top",
+      "ST_tW_antitop",
+      "ST_s-channel_plus",
+      "ST_s-channel_minus",
+      "TWminusto2L2Nu",
+      "TbarWplusto2L2Nu",
+      "TTLL_MLL-4to50",
+      "TTLL_MLL-50",
+      "TTNuNu",
+      "TTLNu",
+      "TTZ-ZtoQQ",
+      "TZQB-ZTo2L",
+      "WWW",
+      "WWZ",
+      "WZZ",
+      "ZZZ"
+    ],
+    "physical_sources": [
+      "GluGluHToWWTo2L2Nu_M125",
+      "VBFHToWWTo2L2Nu_M125",
+      "ZH_Zto2L_Hto2Wto2L2Nu_M125",
+      "GluGluZH_Zto2L_Hto2Wto2L2Nu_M125",
+      "HWminusJ_HToWWTo2L2Nu_WToLNu_M125",
+      "HWplusJ_HToWWTo2L2Nu_WToLNu_M125",
+      "ttHToNonbb_M125",
+      "GluGluHToTauTau_M125_Powheg",
+      "VBFHToTauTau_M125",
+      "THQ",
+      "THW",
+      "ZZ",
+      "DYto2E-2Jets_MLL-10to50",
+      "DYto2E-2Jets_MLL-50",
+      "DYto2Mu-2Jets_MLL-10to50",
+      "DYto2Mu-2Jets_MLL-50",
+      "DYto2Tau-2Jets_MLL-10to50",
+      "DYto2Tau-2Jets_MLL-50",
+      "DYGto2LG-1Jets_Bin-MLL-4to50",
+      "DYGto2LG-1Jets_Bin-MLL-50",
+      "WWTo2L2Nu",
+      "WpWmJJ_EWK_noTop",
+      "GluGlutoContintoWWtoENuENu",
+      "GluGlutoContintoWWtoENuMuNu",
+      "GluGlutoContintoWWtoENuTauNu",
+      "GluGlutoContintoWWtoMuNuENu",
+      "GluGlutoContintoWWtoMuNuMuNu",
+      "GluGlutoContintoWWtoMuNuTauNu",
+      "GluGlutoContintoWWtoTauNuENu",
+      "GluGlutoContintoWWtoTauNuMuNu",
+      "GluGlutoContintoWWtoTauNuTauNu",
+      "WZTo3LNu",
+      "WGtoLNuG-1J",
+      "TTTo2L2Nu",
+      "TTToSemiLeptonic",
+      "TTTo4Q",
+      "TTW-WtoQQ",
+      "ST_t-channel_top",
+      "ST_t-channel_antitop",
+      "ST_tW_top",
+      "ST_tW_antitop",
+      "ST_s-channel_plus",
+      "ST_s-channel_minus",
+      "TWminusto2L2Nu",
+      "TbarWplusto2L2Nu",
+      "TTLL_MLL-4to50",
+      "TTLL_MLL-50",
+      "TTNuNu",
+      "TTLNu",
+      "TTZ-ZtoQQ",
+      "TZQB-ZTo2L",
+      "WWW",
+      "WWZ",
+      "WZZ",
+      "ZZZ"
+    ],
+    "processes": {
+      "Vg": {
+        "components": [
+          {
+            "region": "direct_gamma",
+            "source_alias": "DYGto2LG-1Jets_Bin-MLL-4to50",
+            "source_set": "DYG",
+            "weight": "Gen_ZGstar_mass <= 0."
+          },
+          {
+            "region": "direct_gamma",
+            "source_alias": "DYGto2LG-1Jets_Bin-MLL-50",
+            "source_set": "DYG",
+            "weight": "Gen_ZGstar_mass <= 0."
+          },
+          {
+            "region": "direct_gamma",
+            "source_alias": "WGtoLNuG-1J",
+            "source_set": "WG",
+            "weight": "Gen_ZGstar_mass <= 0."
+          }
+        ],
+        "theory_group": "Vg"
+      },
+      "VgS": {
+        "components": [
+          {
+            "region": "low_mass_gamma_star",
+            "source_alias": "DYGto2LG-1Jets_Bin-MLL-4to50",
+            "source_set": "DYG",
+            "weight": "(Gen_ZGstar_mass > 0. && Gen_ZGstar_mass < 4.)"
+          },
+          {
+            "region": "low_mass_gamma_star",
+            "source_alias": "DYGto2LG-1Jets_Bin-MLL-50",
+            "source_set": "DYG",
+            "weight": "(Gen_ZGstar_mass > 0. && Gen_ZGstar_mass < 4.)"
+          },
+          {
+            "region": "low_mass_gamma_star",
+            "source_alias": "WGtoLNuG-1J",
+            "source_set": "WG",
+            "weight": "(Gen_ZGstar_mass > 0. && Gen_ZGstar_mass < 4.)"
+          },
+          {
+            "region": "intermediate_wz",
+            "source_alias": "WZTo3LNu",
+            "source_set": "WZ",
+            "weight": "(Gen_ZGstar_mass >= 4. && Gen_ZGstar_mass < 50.)"
+          }
+        ],
+        "theory_group": "VgS"
+      },
+      "WZ": {
+        "components": [
+          {
+            "region": "on_shell_wz",
+            "source_alias": "WZTo3LNu",
+            "source_set": "WZ",
+            "weight": "Gen_ZGstar_mass >= 50."
+          }
+        ],
+        "theory_group": "WZ"
+      },
+      "ZZ": {
+        "components": [
+          {
+            "region": "inclusive",
+            "source_alias": "ZZ",
+            "source_set": "ZZ",
+            "weight": "1."
+          }
+        ],
+        "theory_group": "ZZ"
+      }
+    },
+    "source_sets": {
+      "DYG": [
+        "DYGto2LG-1Jets_Bin-MLL-4to50",
+        "DYGto2LG-1Jets_Bin-MLL-50"
+      ],
+      "WG": [
+        "WGtoLNuG-1J"
+      ],
+      "WZ": [
+        "WZTo3LNu"
+      ],
+      "ZZ": [
+        "ZZ"
+      ]
+    }
+  },
+  "schema_version": 1,
+  "site_profile": "fnal_lpc_packaged",
+  "timestamp_utc": "2026-08-09T17:06:44.864542+00:00",
+  "variables": {
+    "BTagVetoSF": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "c95b9fe549c1cd71b839df77f8b2a829597a8f4e8bbff0702699dc011c2f9418",
+      "expression": "BTagVetoSF",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          0.5,
+          0.8,
+          0.9,
+          0.95,
+          1.0,
+          1.05,
+          1.1,
+          1.2,
+          1.5,
+          2.0
+        ]
+      ],
+      "title": "w_{veto}^{b-tag}"
+    },
+    "CleanJet_eta_0": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "68cce126cf00425fd2b59ccdced69f69213e860b7e6384a27f972e95edb5cfec",
+      "expression": "CleanJet_eta_0_values",
+      "fold": 3,
+      "range": [
+        24,
+        -4.7,
+        4.7
+      ],
+      "title": "#eta(j_{1})"
+    },
+    "CleanJet_eta_1": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "d53ab3504522819f157c5207fca5c6bfb381b949ea8fa73af752411dbb2086c6",
+      "expression": "CleanJet_eta_1_values",
+      "fold": 3,
+      "range": [
+        24,
+        -4.7,
+        4.7
+      ],
+      "title": "#eta(j_{2})"
+    },
+    "CleanJet_pt_0": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "3a7d6e45e0c4f58148e657e2cc33633dad18685a5cc8c2c0f7b6eaf68e5e75d2",
+      "expression": "CleanJet_pt_0_values",
+      "fold": 2,
+      "range": [
+        [
+          10.0,
+          20.0,
+          30.0,
+          50.0,
+          75.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          500.0
+        ]
+      ],
+      "title": "p_{T}(j_{1}) [GeV]"
+    },
+    "CleanJet_pt_1": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "c550cf037ac773961766020f18dd1f8825dbf2bd17f34d71ba90bb0e498279ec",
+      "expression": "CleanJet_pt_1_values",
+      "fold": 2,
+      "range": [
+        [
+          10.0,
+          20.0,
+          30.0,
+          50.0,
+          75.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          500.0
+        ]
+      ],
+      "title": "p_{T}(j_{2}) [GeV]"
+    },
+    "HT": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "7c7176ab6db3cc099f02450543250886da99b71cce3b7f08904fe08f146393f2",
+      "expression": "HT",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          30.0,
+          50.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0,
+          600.0,
+          800.0
+        ]
+      ],
+      "title": "H_{T} [GeV]"
+    },
+    "PuppiMET_pt": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "1018a4b8eed543e66f6cb6bdaec55363c57191561028b510cbb38a80719783f1",
+      "expression": "PuppiMET_pt",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          35.0,
+          50.0,
+          70.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0
+        ]
+      ],
+      "title": "p_{T}^{miss} [GeV]"
+    },
+    "SelectedLeptonSF_Z": {
+      "categories": [
+        "DY_ALL"
+      ],
+      "definition_sha256": "e52fb1d79dafee112622c8c10425f4e8e781900a18380a5bc39add47e4b3273f",
+      "expression": "SelectedLeptonSF_Z",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          0.5,
+          0.8,
+          0.9,
+          0.95,
+          1.0,
+          1.05,
+          1.1,
+          1.2,
+          1.5,
+          2.0
+        ]
+      ],
+      "title": "w_{#it{l}}^{Z_{0}}"
+    },
+    "SelectedLeptonSF_ZX": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "08a396237df8364705e5cced6a5523c3e9355f4afec0f5f5799c5a20f723ab5a",
+      "expression": "maskedHistogramValue(static_cast<float>(SelectedLeptonSF_ZX), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          0.5,
+          0.8,
+          0.9,
+          0.95,
+          1.0,
+          1.05,
+          1.1,
+          1.2,
+          1.5,
+          2.0
+        ]
+      ],
+      "title": "w_{#it{l}}^{4#it{l}}"
+    },
+    "TriggerSF_event": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "6e549fd5372b925af61f3b1dfce87b3da6c589aec1eaeabdf00a60ed868a13b5",
+      "expression": "TriggerSF_event",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          0.5,
+          0.8,
+          0.9,
+          0.95,
+          1.0,
+          1.05,
+          1.1,
+          1.2,
+          1.5,
+          2.0
+        ]
+      ],
+      "title": "w_{trig}^{evt}"
+    },
+    "X_eta": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "56954393fb4e0fe2ebf978a676b36e1264c5c59a56489ee3a609752cd041098a",
+      "expression": "maskedHistogramValue(static_cast<float>(X_eta), hasValidX)",
+      "fold": 3,
+      "range": [
+        20,
+        -5.0,
+        5.0
+      ],
+      "title": "#eta_{X}"
+    },
+    "X_isDF": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "372db6cc927613109b12f361e140c2abfaafec2b4a810fab99f8f48c1f69743b",
+      "expression": "maskedHistogramValue(static_cast<float>(X_isDF), hasValidX)",
+      "fold": 0,
+      "range": [
+        2,
+        -0.5,
+        1.5
+      ],
+      "title": "I_{X}^{DF}"
+    },
+    "X_isSF": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "53364843ec366c3689ea9d55cb989697f2ad2ad9c0ffd04bee127501bb967fb8",
+      "expression": "maskedHistogramValue(static_cast<float>(X_isSF), hasValidX)",
+      "fold": 0,
+      "range": [
+        2,
+        -0.5,
+        1.5
+      ],
+      "title": "I_{X}^{SF}"
+    },
+    "X_mass": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "37cb3b0597c6bdb9a96e89f67e2f59b1074e64da2d861cb564c31d4521249295",
+      "expression": "maskedHistogramValue(static_cast<float>(X_mass), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          4.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          65.0,
+          70.0,
+          75.0,
+          85.0,
+          95.0,
+          105.0,
+          120.0,
+          150.0,
+          200.0
+        ]
+      ],
+      "title": "m_{X} [GeV]"
+    },
+    "X_phi": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "cab620a4862fec53236462beea49b4a587ffe56e454b7b87333d6c56d7a615eb",
+      "expression": "maskedHistogramValue(static_cast<float>(X_phi), hasValidX)",
+      "fold": 0,
+      "range": [
+        16,
+        -3.2,
+        3.2
+      ],
+      "title": "#phi_{X}"
+    },
+    "X_pt": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "7bf2d7686064b41e8c2f81b0cc80874531a76f38e5f9e7aa0c82fe59a688630c",
+      "expression": "maskedHistogramValue(static_cast<float>(X_pt), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          80.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0
+        ]
+      ],
+      "title": "p_{T}^{X} [GeV]"
+    },
+    "Z0_eta": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "a7c96f332bd9c53fc3917748571539f56c1b2dca658809179fbdc8bbdecd7ad5",
+      "expression": "Z0_eta",
+      "fold": 3,
+      "range": [
+        20,
+        -5.0,
+        5.0
+      ],
+      "title": "#eta_{Z_{0}}"
+    },
+    "Z0_isEE": {
+      "categories": [
+        "DY_ALL"
+      ],
+      "definition_sha256": "d1de06d5ba356135dd2499888a302632db4ae758bce3c4dd793715f91a7c28d7",
+      "expression": "Z0_isEE",
+      "fold": 0,
+      "range": [
+        2,
+        -0.5,
+        1.5
+      ],
+      "title": "I_{Z_{0}}^{ee}"
+    },
+    "Z0_isMM": {
+      "categories": [
+        "DY_ALL"
+      ],
+      "definition_sha256": "df805d69028bcfd595c9225e6771b6ae474d16a5e0dd672ee2549e2246842dec",
+      "expression": "Z0_isMM",
+      "fold": 0,
+      "range": [
+        2,
+        -0.5,
+        1.5
+      ],
+      "title": "I_{Z_{0}}^{#mu#mu}"
+    },
+    "Z0_mass": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "6153227f595d6218ef69574ca70fa00757c9086a4aa3f0f8deb4a3c78550ffc1",
+      "expression": "Z0_mass",
+      "fold": 2,
+      "range": [
+        [
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          70.0,
+          76.1876,
+          81.0,
+          86.0,
+          91.1876,
+          96.0,
+          101.0,
+          106.1876,
+          115.0,
+          130.0,
+          150.0,
+          200.0
+        ]
+      ],
+      "title": "m_{Z_{0}} [GeV]"
+    },
+    "Z0_phi": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "67421166d8db2bc6668c5dc941dd22b03af02e0dc09709a383230b14b8e8d67c",
+      "expression": "Z0_phi",
+      "fold": 0,
+      "range": [
+        16,
+        -3.2,
+        3.2
+      ],
+      "title": "#phi_{Z_{0}}"
+    },
+    "Z0_pt": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "f3d62451999228f6c633009fef6f36ea0be304df8a6f2edd119c888cdf2c4896",
+      "expression": "Z0_pt",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          80.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0
+        ]
+      ],
+      "title": "p_{T}^{Z_{0}} [GeV]"
+    },
+    "dPhi_MET_X": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "882517b58496bafd3d6961bfbf04b350a1e74f1b41bd24af9b95c322c0332668",
+      "expression": "maskedHistogramValue(static_cast<float>(dPhi_MET_X), hasValidX)",
+      "fold": 0,
+      "range": [
+        16,
+        -3.2,
+        3.2
+      ],
+      "title": "#Delta#phi(p_{T}^{miss},X)"
+    },
+    "dPhi_MET_Z": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "ab2301bd227684d336c5b7b41443e36f90bb3a5a0fdf09cde8d1e045edda61a3",
+      "expression": "dPhi_MET_Z",
+      "fold": 0,
+      "range": [
+        16,
+        -3.2,
+        3.2
+      ],
+      "title": "#Delta#phi(p_{T}^{miss},Z_{0})"
+    },
+    "dPhi_MET_ZplusX": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "5e13e890501fd8dafec45c34423a1dcca8d60c4e13e7f18f7630a17a6022470d",
+      "expression": "maskedHistogramValue(static_cast<float>(dPhi_MET_ZplusX), hasValidX)",
+      "fold": 0,
+      "range": [
+        16,
+        -3.2,
+        3.2
+      ],
+      "title": "#Delta#phi(p_{T}^{miss},4#it{l})"
+    },
+    "dR_lX1_lX2": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "7b078a6e246e3baae554a0712f41cc58273da8d2f38ad4b1d380543fc71d50bb",
+      "expression": "maskedHistogramValue(static_cast<float>(dR_lX1_lX2), hasValidX)",
+      "fold": 2,
+      "range": [
+        20,
+        0.0,
+        5.0
+      ],
+      "title": "#Delta R(#it{l}_{X,1},#it{l}_{X,2})"
+    },
+    "dR_lZ1_lZ2": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "278b2c0b5243672910d8a2f311ba22a0d4ce37f5cf093ead68a095bb926da69d",
+      "expression": "dR_lZ1_lZ2",
+      "fold": 2,
+      "range": [
+        20,
+        0.0,
+        5.0
+      ],
+      "title": "#Delta R(#it{l}_{Z,1},#it{l}_{Z,2})"
+    },
+    "dataStreamPriority": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "b5ca3361191a93f4ae1b6379f467a3cebbdcdf864002adae4ef8e5afde80d7b8",
+      "expression": "dataStreamPriority",
+      "fold": 0,
+      "range": [
+        5,
+        -0.5,
+        4.5
+      ],
+      "title": "c_{stream}"
+    },
+    "hltPathPriority": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "ff3e79fbeae3b27f0b46f890a5e5501ffb7a11941ec0d8585a474615dcb24880",
+      "expression": "hltPathPriority",
+      "fold": 0,
+      "range": [
+        8,
+        -0.5,
+        7.5
+      ],
+      "title": "c_{path}^{HLT}"
+    },
+    "lX1_eta": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "901118fe7bc8653c75e67d36fea96a8b3bce150f1630c2fd2dfb0dba471568c8",
+      "expression": "maskedHistogramValue(static_cast<float>(Alt(Lepton_eta, Alt(X_idx, 0, -1), -999.f)), hasValidX)",
+      "fold": 3,
+      "range": [
+        24,
+        -3.0,
+        3.0
+      ],
+      "title": "#eta_{#it{l}_{X,1}}"
+    },
+    "lX1_pt": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "5043a4d305c33a6e8638bea35412130e3a7b9c4933652b7af264dcee5d900823",
+      "expression": "maskedHistogramValue(static_cast<float>(Alt(Lepton_pt, Alt(X_idx, 0, -1), -999.f)), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          40.0,
+          60.0,
+          100.0,
+          160.0
+        ]
+      ],
+      "title": "p_{T}(#it{l}_{X,1}) [GeV]"
+    },
+    "lX2_eta": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "02b27b8e251bfeeaceb30ade9e4645a4e5934d6679fb074f617be04c62452b19",
+      "expression": "maskedHistogramValue(static_cast<float>(Alt(Lepton_eta, Alt(X_idx, 1, -1), -999.f)), hasValidX)",
+      "fold": 3,
+      "range": [
+        24,
+        -3.0,
+        3.0
+      ],
+      "title": "#eta_{#it{l}_{X,2}}"
+    },
+    "lX2_pt": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "911865db9379ecb39d61abad9eab35f335727e64496c91796fc90d40ed2582a9",
+      "expression": "maskedHistogramValue(static_cast<float>(Alt(Lepton_pt, Alt(X_idx, 1, -1), -999.f)), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          40.0,
+          60.0,
+          100.0,
+          160.0
+        ]
+      ],
+      "title": "p_{T}(#it{l}_{X,2}) [GeV]"
+    },
+    "lZ1_eta": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "3ad6c2562cf6c24b75c60cac0ecc7ee073e34e3c0b9467122fb445a1c1995f37",
+      "expression": "Alt(Lepton_eta, Alt(Z0_idx, 0, -1), -999.f)",
+      "fold": 3,
+      "range": [
+        24,
+        -3.0,
+        3.0
+      ],
+      "title": "#eta_{#it{l}_{Z,1}}"
+    },
+    "lZ1_pt": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "d1236ac069f5f5b3bcd01fd697ee9a39a029404364bec7a79eeee75bcd4998b4",
+      "expression": "Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f)",
+      "fold": 2,
+      "range": [
+        [
+          25.0,
+          30.0,
+          40.0,
+          50.0,
+          70.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0
+        ]
+      ],
+      "title": "p_{T}(#it{l}_{Z,1}) [GeV]"
+    },
+    "lZ2_eta": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "5a205f2240c6f7119ea5de03892d167de113de6fd89666976ac4080ce7ddfb22",
+      "expression": "Alt(Lepton_eta, Alt(Z0_idx, 1, -1), -999.f)",
+      "fold": 3,
+      "range": [
+        24,
+        -3.0,
+        3.0
+      ],
+      "title": "#eta_{#it{l}_{Z,2}}"
+    },
+    "lZ2_pt": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "2bcf8ec110b116e8ed669c6b942da1143928c4cc5f7feac9db251c4925be2990",
+      "expression": "Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f)",
+      "fold": 2,
+      "range": [
+        [
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          40.0,
+          60.0,
+          100.0,
+          160.0
+        ]
+      ],
+      "title": "p_{T}(#it{l}_{Z,2}) [GeV]"
+    },
+    "m4l": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "8ff0207528d04354babf19f91278076b0899d9dc3a0541ffe824414c58a917ee",
+      "expression": "maskedHistogramValue(static_cast<float>(m4l), hasValidX)",
+      "fold": 3,
+      "range": [
+        [
+          60.0,
+          80.0,
+          100.0,
+          120.0,
+          140.0,
+          160.0,
+          180.0,
+          200.0,
+          250.0,
+          300.0,
+          400.0,
+          600.0
+        ]
+      ],
+      "title": "m_{4#it{l}} [GeV]"
+    },
+    "nCleanJet": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "0960ba688ee411bcea311605f3956ee6931e1c9ef1b44a19fb5cc41e0edaa06e",
+      "expression": "nCleanJet",
+      "fold": 0,
+      "range": [
+        20,
+        -0.5,
+        19.5
+      ],
+      "title": "N_{jet}"
+    },
+    "nFiredHLTPaths": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "6d787be7db1ccc574fc25bdd207bd964f68d0703e5c6c5d3b948a53f08d4d544",
+      "expression": "nFiredHLTPaths",
+      "fold": 0,
+      "range": [
+        12,
+        -0.5,
+        11.5
+      ],
+      "title": "N_{path}^{HLT}"
+    },
+    "nFiredTriggerFamilies": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "a63d32b896819fc25b3a3a75f43c41d63443e09eed23dd1de80ed7ca8a0d244e",
+      "expression": "nFiredTriggerFamilies",
+      "fold": 0,
+      "range": [
+        7,
+        -0.5,
+        6.5
+      ],
+      "title": "N_{fam}^{HLT}"
+    },
+    "nLepton": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "c740db8f5e4c6d077253293b80f36fc3e221ac3063775fea9a235f9ab6af72b3",
+      "expression": "nLepton",
+      "fold": 0,
+      "range": [
+        14,
+        1.5,
+        15.5
+      ],
+      "title": "N_{#it{l}}"
+    },
+    "nPV": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "d261f4eb6db63034296495dd840d2cb8a9bb217aaa53156831dab3ee9900cc2b",
+      "expression": "PV_npvs",
+      "fold": 2,
+      "range": [
+        50,
+        -0.5,
+        99.5
+      ],
+      "title": "N_{PV}"
+    },
+    "nvtx": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "9ed1637c295c77d2066ff417cc2604fe112d138844be5836a7ccecd4df4f4e53",
+      "expression": "PV_npvsGood",
+      "fold": 2,
+      "range": [
+        50,
+        -0.5,
+        99.5
+      ],
+      "title": "N_{PV}^{good}"
+    },
+    "pT4l": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "fa07a2fedf3d941374999ab1501ea216265cca5d2530e44c96d7df4d7a75e824",
+      "expression": "maskedHistogramValue(static_cast<float>(pT4l), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0
+        ]
+      ],
+      "title": "p_{T}^{4#it{l}} [GeV]"
+    },
+    "physicalBtagVeto": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "ebf841475a4d23f6288ef68c456215c5377c33e810829fa03aff15fde1486188",
+      "expression": "physicalBtagVeto",
+      "fold": 0,
+      "range": [
+        2,
+        -0.5,
+        1.5
+      ],
+      "title": "I_{b-veto}"
+    },
+    "puWeight": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "19668d8d7c1be931785ce5388ccbf801a3355258ff2385fbabc728c69cf2082b",
+      "expression": "puWeight",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          0.2,
+          0.5,
+          0.8,
+          0.9,
+          1.0,
+          1.1,
+          1.2,
+          1.5,
+          2.0,
+          3.0
+        ]
+      ],
+      "title": "w_{PU}"
+    },
+    "recoil_upar": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "b59f6d8ba6e3aaaf5a519e4316db528893882bab2801e15917b5e802c3ac32e1",
+      "expression": "maskedHistogramValue(static_cast<float>(recoil_upar), hasValidX)",
+      "fold": 3,
+      "range": [
+        [
+          -400.0,
+          -300.0,
+          -200.0,
+          -150.0,
+          -100.0,
+          -50.0,
+          0.0,
+          50.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0
+        ]
+      ],
+      "title": "u_{#parallel} [GeV]"
+    },
+    "recoil_uperp": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "59bd675965e2275a322703b4186e0b0a2cad5b58f240bfd2939ae767c54853f1",
+      "expression": "maskedHistogramValue(static_cast<float>(recoil_uperp), hasValidX)",
+      "fold": 3,
+      "range": [
+        [
+          -400.0,
+          -300.0,
+          -200.0,
+          -150.0,
+          -100.0,
+          -50.0,
+          0.0,
+          50.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0
+        ]
+      ],
+      "title": "u_{#perp} [GeV]"
+    },
+    "recoil_ut": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "7e714f3565449fd4d7224a94e3ebc8aea0fc0983eb21fdc81b895d1f19e15912",
+      "expression": "maskedHistogramValue(static_cast<float>(recoil_ut), hasValidX)",
+      "fold": 2,
+      "range": [
+        [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0,
+          150.0,
+          200.0,
+          300.0,
+          400.0
+        ]
+      ],
+      "title": "u_{T} [GeV]"
+    },
+    "rho": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "562ce3a9774d653989488961725d090100f248ba0e22d888de77da956ad06c0f",
+      "expression": "Rho_fixedGridRhoFastjetCentralCalo",
+      "fold": 2,
+      "range": [
+        30,
+        0.0,
+        60.0
+      ],
+      "title": "#rho"
+    },
+    "sumLeptonCharge": {
+      "categories": [
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "4db32b62747fbab7993ed20f735d95e54f9085e638096bf5fe5dd4ed7ccf03d9",
+      "expression": "maskedHistogramValue(static_cast<float>(sumLeptonCharge), hasValidX)",
+      "fold": 0,
+      "range": [
+        9,
+        -4.5,
+        4.5
+      ],
+      "title": "#sum_{i=1}^{4}q_{#it{l}_{i}}"
+    },
+    "triggerFamilyPriority": {
+      "categories": [
+        "DY_ALL",
+        "ZZCR_ALL",
+        "SR_ALL"
+      ],
+      "definition_sha256": "3bf727de930b5b5f907a219576fe604278e80327e7cb4caa92cb9d0b2d39d787",
+      "expression": "triggerFamilyPriority",
+      "fold": 0,
+      "range": [
+        7,
+        -1.5,
+        5.5
+      ],
+      "title": "c_{fam}^{HLT}"
+    }
+  },
+  "write_endpoint": "root://cmseos.fnal.gov",
+  "year": "2024"
+}

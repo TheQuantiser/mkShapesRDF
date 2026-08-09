@@ -1,233 +1,134 @@
-# ZZ_CR configuration summary
+# ZZ_CR configuration contract
 
-This configuration builds Run-3 two- and four-lepton control/reference
-histograms for `2022`, `2022EE`, `2023`, `2023BPix`, and `2024`. The active
-DY+ZZ plotting production retains recorded DATA and enables only the `DY` and
-`ZZ` MC plot groups; the complete sample catalog remains in
-`year_config.json`.
+This Run-3 configuration produces compact DY, ZZ-control, and ZH
+four-lepton signal-reference histograms for `2022`, `2022EE`, `2023`,
+`2023BPix`, and `2024`. The ordinary plotting sample scope is recorded DATA
+plus the DY and ZZ MC plot groups. The full source catalog remains available
+in `year_config.json` for explicit targeted runs.
 
-## Eras and inputs
+## Eras and b tagging
 
-| Era | Luminosity | NanoAOD schema | Fixed-WP tagger and loose WP |
-| --- | ---: | --- | --- |
-| 2022 | 8.000 fb^-1 | v12 | PNetB, 0.0470 |
-| 2022EE | 26.700 fb^-1 | v12 | PNetB, 0.0499 |
-| 2023 | 17.794 fb^-1 | v12 | PNetB, 0.0358 |
-| 2023BPix | 9.451 fb^-1 | v12 | PNetB, 0.0359 |
-| 2024 | 109.080 fb^-1 | v15 | UParTAK4B, 0.0246 |
+| Era | Luminosity | NanoAOD | Tagger | Loose WP |
+| --- | ---: | ---: | --- | ---: |
+| 2022 | 8.000 fb^-1 | v12 | PNetB | 0.0470 |
+| 2022EE | 26.700 fb^-1 | v12 | PNetB | 0.0499 |
+| 2023 | 17.794 fb^-1 | v12 | PNetB | 0.0358 |
+| 2023BPix | 9.451 fb^-1 | v12 | PNetB | 0.0359 |
+| 2024 | 109.080 fb^-1 | v15 | UParTAK4B | 0.0246 |
 
-MC and DATA are read from the configured HWWNano productions. DATA uses the
-MuonEG, Muon/Muon0/Muon1, and EGamma/EGamma0/EGamma1 streams available in each
-era. Stream-trigger weights make those streams exclusive. The active MC
-processes are ordinary DY samples and the overlap-resolved inclusive `ZZ`
-sample; DYG is not part of the DY plot group.
+The loose WP is read with correctionlib from each era's official, explicit
+CVMFS `btagging.json.gz`; the duplicated JSON value is a fail-closed audit
+check. The same payload supplies the heavy- and light-flavor fixed-WP scale
+factors. Separate process-dependent MC efficiency histograms
+`bjet_eff`, `cjet_eff`, and `ljet_eff` are read from the explicit FNAL EOS
+XRootD ROOT-file URL. The official correctionlib files do not contain those
+histograms.
 
-## Physics objects
+## Selected objects and physics regions
 
-- Leptons are the HWWNano merged `Lepton` collection. The common production
-  gate requires at least two leptons and the production-order
-  `L2TightLeading2` decision. Pre-scale `VetoLepton` coordinates recover the
-  exact ordering used by the upstream l2tight step.
-- Pair IDs require both leptons to pass
-  `mvaWinter22V2Iso_WP90_tthMVA_Run3` for electrons or
-  `cut_TightID_pfIsoTight_HWW_tthmva_67` for muons. Z leptons require
-  leading/subleading pT > 25/10 GeV, while X leptons require > 10/10 GeV.
-  These thresholds come from `year_config.json`.
-- `Z0` is the opposite-sign, same-flavor pair closest to 91.1876 GeV. `X` is
-  the highest-pT non-overlapping opposite-sign pair; it may be same- or
-  different-flavor unless a region says otherwise.
-- Four-lepton observables (`m4l`, `pT4l`, angular separations, recoil, and MET
-  angles) are constructed from the selected `Z0` and `X` indices.
-- Jets use `CleanJet`; the common detector-quality veto rejects events with a
-  30 < pT < 50 GeV jet at 2.5 < |eta| < 3.0 (`nJetInHorn == 0`).
-- The physical b veto considers CleanJets with pT > 20 GeV and |eta| < 2.5.
-  A separate diagnostic `bVeto` uses pT > 30 GeV.
-- Trigger objects are flavor-matched to leptons by nearest delta-R < 0.1,
-  with NanoAOD-v12/v15 filter-bit decoding kept era-specific.
-
-## Common event selection
-
-All passes require the OR of the configured e-mu, single-muon, double-muon,
-single-electron, and double-electron triggers, `nLepton >= 2`, the production
-l2tight gate, and the forward-horn jet veto.
-
-| Pass | Cuts and purpose |
-| --- | --- |
-| `ALL` | Default nominal production containing every category below. It applies declarative per-category weights in the configuration-local runner. |
-| `ZPARENT` | The inclusive Z/DY two-lepton baseline with the complete stream × Z flavour × `X_NA` matrix. |
-| `FOURL_BASE` | Adds `nLepton >= 4`, valid and distinct `Z0/X` indices, `m(X) > 4 GeV`, `m4l > 0`, and total selected-lepton charge zero. No b veto or ordered four-lepton pT requirement is applied. |
-| `CONTROL` | Implements the AN2019/238 ZZ-control and signal regions. It adds ordered selected-lepton pT > 25/15/10/10 GeV, the fifth-lepton veto, `m(Z0) > 12 GeV`, physical b veto, and `|m(Z0)-91.1876| < 15 GeV`. |
-
-The `CONTROL` children are:
-
-- ZZ control region: 75 < m(X) < 105 GeV and PuppiMET pT < 35 GeV. Its XSF
-  cells are the nominal AN2019/238 ZZ control region; XDF cells are explicit
-  validation slices under the same sideband selection.
-- Same-flavor signal region: 10 < m(X) < 65 GeV, PuppiMET pT > 35 GeV,
-  and m4l > 140 GeV.
-- Different-flavor signal region: 10 < m(X) < 70 GeV and PuppiMET pT >
+- `Z0` is the opposite-sign same-flavor pair closest to 91.1876 GeV.
+- `X` is the highest-pT non-overlapping opposite-sign pair.
+- The four selected indices must be distinct and their total charge must be
+  zero. A fifth lepton with pT at least 10 GeV is vetoed.
+- The ordered selected-lepton pT thresholds are 25, 15, 10, and 10 GeV.
+- The common physical selection requires `m(Z0)>12 GeV`, a 15 GeV Z window,
+  and the loose physical b veto for CleanJets above 20 GeV and |eta| below
+  2.5.
+- ZZCR explicitly requires `X_isSF`, 75 < m(X) < 105 GeV, and PuppiMET below
+  35 GeV.
+- The XSF signal reference requires 10 < m(X) < 65 GeV, PuppiMET above
+  35 GeV, and m4l above 140 GeV.
+- The XDF signal reference requires 10 < m(X) < 70 GeV and PuppiMET above
   20 GeV.
 
-The `signal_region` parent is the union of those XSF and XDF signal
-expressions. Its X-flavour matrix predicates project that union into disjoint
-XEE, XMM, and XDF cells. XEE and XMM are the two atomic components of the
-physical XSF branch, and together the three leaf families exhaust the parent
-union.
+The common preselection is the configured trigger-family OR, at least two
+leptons, the production-order `L2TightLeading2` decision, and the Run-3
+forward-horn jet veto. Selected-index trigger efficiencies are reconstructed
+from the canonical TrigMaker payload; stored leading-lepton scalar trigger
+weights are regression oracles, not the nominal correction.
 
-The fifth-lepton veto rejects a fifth lepton with pT >= 10 GeV.
+## Declarative category model
 
-The selections are deliberately incremental: `four_lepton_base` extends
-`inclusive_z_dy`; the common physical four-lepton requirements extend that
-base; and `zz_control_region` and `signal_region` are the final mutually
-distinct physical selections. No independent selection bypasses the DY baseline.
+`category_config.py` is authoritative. The default `minimal` profile is:
 
 ```text
-inclusive_z_dy
-└── four_lepton_base
-    └── physical common selection
-        ├── zz_control_region (XSF nominal, XDF validation)
-        └── signal_region (XSF/XDF union)
+DY_ALL
+ZZCR_ALL
+SR_ALL
 ```
 
-## Category matrices
+The `flavor` profile adds `DY_ZEE`, `DY_ZMM`, `ZZCR_4E`, `ZZCR_4MU`,
+`ZZCR_2E2MU`, `SR_XSF`, and `SR_XDF`. ZZCR has no impossible XDF category.
+The bounded `stream`, `trigger`, and `debug` profiles add diagnostics without
+an implicit stream-by-flavor Cartesian product. Trigger family/path and DATA
+stream priorities are ordinary default variables, so routine production does
+not multiply every kinematic histogram by those axes.
 
-For `inclusive_z_dy`, `four_lepton_base`, and `zz_control_region`, the source
-contract books the stream-integrated `Inclusive` projection alongside the
-three mutually exclusive stream-priority classes (`MuonEG`, `Muon`, and
-`EGamma`). The `Inclusive` entries intentionally overlap the corresponding
-three per-stream entries; the per-stream entries remain mutually exclusive.
+Each category's metadata is generated from the same registry that materializes
+`cuts.py`. It contains its parent and split expressions, full preselection and
+cut, display label, weight domain, resolved MC weight, DATA rule, active
+variables/binning/nuisances, profiles, year, and git state.
 
-Crossing those four stream labels with `ZEE`/`ZMM` yields eight categories for
-`inclusive_z_dy`, with the non-applicable X axis encoded as `X_NA`. Crossing
-them additionally with `XSF`/`XDF` yields 16 categories each for
-`four_lepton_base` and `zz_control_region`.
+## Sparse histogram model
 
-`signal_region` deliberately has no per-stream categories. It books only six
-stream-integrated categories: two Z flavours crossed with `XEE`, `XMM`, and
-`XDF`. `XEE` and `XMM` atomically split its physical XSF branch.
+The persistent registry in `histogram_config.py` holds every supported
+expression, title, binning, fold, tag, role, and applicability definition.
+Activation is separate. For the 2024 `minimal + analysis` default there are
+509 registry entries, 53 active variables, and only 125 actual
+category-variable actions:
 
-The first three parents use the axis-explicit identifier
-`STR_<Inclusive|MuonEG|Muon|EGamma>__Z_<ZEE|ZMM>__X_<NA|XSF|XDF>`, subject to
-the applicable X values for each parent. Signal uses only
-`STR_Inclusive__Z_<ZEE|ZMM>__X_<XEE|XMM|XDF>`.
-`inclusive_z_dy` uses `X_NA`; `four_lepton_base` and `zz_control_region` use
-`X_XSF`/`X_XDF`; and `signal_region` uses `X_XEE`/`X_XMM`/`X_XDF`. The `ALL`
-identifier selects the unified execution pass and is not a category key.
-All category dictionaries are explicitly enumerated in `cuts.py`; they are not
-generated at configuration load time. Concrete HLT-path and path-priority
-aliases remain available as trigger diagnostics, but they are not category
-axes.
+| Category | Booked variables |
+| --- | ---: |
+| `DY_ALL` | 25 |
+| `ZZCR_ALL` | 50 |
+| `SR_ALL` | 50 |
 
-The unified execution contract is thus `8 + 16 + 16 + 6 = 46` categories.
-With 509 variables this gives 23,414 category-variable cells, rendered as
-23,414 linear plus 23,414 logarithmic plots (46,828 PNGs). For eight enabled
-samples, the nominal merged output contains 187,312
-sample-category-variable histograms.
+The previous graph had 46 categories by 509 variables, or 23,414 actions; the
+default is reduced by a factor of 187.312. The local runner books only the
+approved pairs and its conversion/save/merge paths support the resulting
+non-rectangular dictionary. Missing pairs are absent, not empty histograms.
 
-## Corrections and nominal weights
+## Nominal weights
 
-The MC event weight is
+The common sample-level MC weight is:
 
 ```text
-XSWeight * METFilter_Common * puWeight
-* SelectedLeptonSF_<Z or ZX> * TriggerSF_event
-[* BTagVetoSF for CONTROL]
+XSWeight * METFilter_Common * puWeight * TriggerSF_event
 ```
 
-`ZPARENT` applies selected-lepton efficiencies only to `Z0`; `FOURL_BASE` and
-`CONTROL` apply them to all four selected `Z0+X` leptons. Trigger efficiencies
-are evaluated for the selected event contract. DATA receives only
-`METFilter_DATA` and the per-run exclusive stream-trigger weight; MC
-corrections never target DATA.
+After each category filter, the local runner applies:
 
-In unified `ALL` mode, the common MC weight ends at `TriggerSF_event`; each
-flattened category then multiplies its configured correction expression. A
-cut's `*` policy supplies the default and an exact category key may override
-it, so future categories can use distinct weights without runner changes.
-
-For `CONTROL`, `BTagVetoSF = btagSFbc * btagSFlight`. Official fixed-WP BTV
-scale factors and working points are loaded directly from
-`/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/<campaign>/latest/btagging.json.gz`.
-The process-dependent ttbar efficiencies are read from the shared
-`PlotsConfigurationsRun3/utils/data/btag/<era>` maps.
-
-## Systematic model
-
-When `ENABLE_SYSTEMATICS=1`, the configuration books:
-
-- era-specific luminosity and a correlated 1.5% CP5 underlying-event
-  normalization;
-- pileup, selected-electron efficiency, selected-muon efficiency, and event
-  trigger shape weights;
-- correlated and era-uncorrelated heavy-flavor and light-flavor b-tag shape
-  weights in `CONTROL` only;
-- JER, unclustered MET, lepton scale, and lepton resolution suffix shapes;
-- JES sources: Absolute, era-Absolute, FlavorQCD, BBEC1, EC2, HF,
-  era-BBEC1, era-EC2, RelativeBal, era-RelativeSample, and era-HF;
-- ISR/FSR weights when at least four PS weights exist;
-- six-point QCD-scale envelopes and 102-replica PDF RMS shapes, grouped by
-  physics process, only when the required vectors are present;
-- automatic finite-MC statistical uncertainties.
-
-DATA is excluded from every nuisance. The current optimized plotting campaign
-is nominal-only (`ENABLE_SYSTEMATICS=0`).
-
-## Histogram and optimized-binning contract
-
-`HISTOGRAM_DETAIL=all` books all compact physics, object, trigger, quality, and
-weight diagnostics. `variables.py` resolves one physics-aware axis per
-variable, shared by all eras, categories, and nominal/systematic variations.
-The axes incorporate the completed DY+ZZ optimization catalog, variable
-definitions, and explicit selection thresholds while folding sparse or
-nonphysical tails into sensible display boundaries. No runtime binning JSON or
-category-specific event-loop mode is used.
-
-Every parent cut uses the explicitly enumerated category matrices above. The
-one two-lepton cut exposes eight categories; `four_lepton_base` and
-`zz_control_region` expose 16 each; and `signal_region` exposes six. Stream
-splits are retained for the first three parents, while signal is intentionally
-stream-integrated. Trigger-path information remains a separate diagnostic
-rather than a category split.
-
-## Extension and production lifecycle
-
-The internal `ALL` contract is the default nominal operating mode; users do
-not need to export `ANALYSIS_PASS=ALL`. It exposes every parent cut in
-one compiled payload; the configuration-local runner branches the same
-dataframe once per flattened category and redefines only that branch's nominal
-weight. Core `mkShapesRDF` and `BatchSubmission` remain unchanged.
-
-The FNAL profile keeps that implementation analysis-local as well.  During
-compilation, `worker_payload.py` registers the compressed payload and the
-year-selected b-tag efficiency map as runtime includes, replaces their source
-paths with package tokens, and rejects a packaged payload that still contains
-an AFS dependency.  On the worker, `zz_cr_runner.py` expands those tokens after
-deserialization and creates the configured remote campaign/tag directory
-before processing.  `fnal_lpc_packaged_env.sh` selects FNAL XRootD endpoints
-and injects a 4096 MB HTCondor memory request while preserving any existing
-submit attributes.  These are configuration contracts; they do not require a
-fork or modification of the framework core.
-
-Category-weight policy is declarative:
-
-```python
-"cut_weights": {
-    "parent_cut": {
-        "*": "defaultCorrection",
-        "special_category": "specialCorrection",
-    },
-}
+```text
+DY_*:          SelectedLeptonSF_Z
+ZZCR_* / SR_*: SelectedLeptonSF_ZX * BTagVetoSF
 ```
 
-To add a category, add its expression under the parent's `categories` mapping,
-add a compact display label, and add an exact weight override only if it must
-differ from `*`. `cuts.py` rejects weight entries for unknown categories, and
-the runner has no hard-coded category names. Common axes in `variables.py`
-apply automatically. A category requiring a new physics object or correction
-must define that alias before its selection or weight references it.
+This permits overlapping regions to receive independent factors in one event
+graph. DATA uses `METFilter_DATA` and the exclusive per-run stream trigger
+rule, never MC scale factors.
 
-The production lifecycle is: compile and submit one immutable receipt;
-reconcile Condor job IDs with nonempty EOS split files; merge using that exact
-receipt; verify all top-level ROOT directories; then render and count every
-linear/log plot pair. Commands, recovery rules, and expected counts are in
-`USAGE.MD`.
+## Samples and overlap
+
+The resolved `Vg`, `VgS`, `WZ`, and `ZZ` partitions are constructed from
+disjoint source/phase-space components in `year_config.json`. Validation
+requires each physical source to be consumed exactly once or passed through,
+unique output names, and production-normalization aliases that belong to an
+active source. The default plotting activation then selects only DY, ZZ, and
+DATA. `SAMPLE_FILTER` is an explicit targeted override; `DATA_STREAM_FILTER`
+can restrict the logical DATA process to MuonEG, Muon, and/or EGamma inputs.
+
+## Reproducibility and systematics
+
+Every compile writes a self-digested `analysis_contract.json` beside the job
+controls and in the durable configs directory. It records exact cuts, weights,
+variables/binning, active inputs, overlap model, nuisances, endpoints,
+profiles, hashes, timestamp, and git state.
+
+Sparse ROOT variations are retained by the local runner. Unified
+`ANALYSIS_PASS=ALL` with systematics is nevertheless fail-closed because ROOT
+does not permit redefining a weight column that already depends on variations.
+The commissioned one-graph workflow is therefore nominal-only. This explicit
+limitation avoids silently incorrect systematic histograms.
+
+Operational setup, planning, local stage-in, packaged FNAL Condor, contract
+inspection, status, and merge commands are in `USAGE.MD`.

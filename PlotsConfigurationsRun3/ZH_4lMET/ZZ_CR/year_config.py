@@ -6,22 +6,46 @@ import os
 import re
 from copy import deepcopy
 from functools import lru_cache
+from urllib.parse import urlsplit
 
 DEFAULT_TREE_BASE_DIR = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
 BTAG_SF_CVMFS_BASE = "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV"
 
 
-def resolve_btag_efficiency_map(relative_map):
-    """Resolve a shared PlotsConfigurationsRun3 fixed-WP efficiency map.
+def is_xrootd_url(value):
+    """Return whether *value* is a syntactically valid absolute XRootD URL."""
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value.strip())
+    return bool(
+        parsed.scheme == "root"
+        and parsed.netloc
+        and parsed.path.startswith("//store/")
+        and not parsed.query
+        and not parsed.fragment
+    )
+
+
+def resolve_btag_efficiency_map(configured_map):
+    """Resolve a fixed-WP efficiency map from XRootD or a local fallback.
 
     The official BTV scale-factor correction is read from CVMFS by the C++
     evaluator. Fixed-WP event weights additionally need process-dependent MC
-    efficiencies; following the Run-3 configurations, those small ROOT maps
-    live once in ``PlotsConfigurationsRun3/utils/data/btag``.
+    efficiencies. Production uses the explicit FNAL EOS XRootD URLs stored in
+    ``year_config.json``; relative paths remain supported for development
+    checkouts of ``PlotsConfigurationsRun3/utils/data/btag``.
     """
-    if not isinstance(relative_map, str) or not relative_map.strip():
-        raise ValueError("btag.efficiency_map must be a non-empty relative path")
-    normalized = os.path.normpath(relative_map.strip())
+    if not isinstance(configured_map, str) or not configured_map.strip():
+        raise ValueError("btag.efficiency_map must be a non-empty path or XRootD URL")
+    configured_map = configured_map.strip()
+    if configured_map.startswith("root://"):
+        if not is_xrootd_url(configured_map) or not configured_map.endswith(".root"):
+            raise ValueError(
+                "btag.efficiency_map must be a root://host//store/.../*.root URL"
+            )
+        return configured_map
+
+    normalized = os.path.normpath(configured_map)
     if os.path.isabs(normalized) or normalized == ".." or normalized.startswith("../"):
         raise ValueError(
             "btag.efficiency_map must be relative to the shared b-tag map directory"
@@ -88,13 +112,71 @@ def resolve_btag_efficiency_map(relative_map):
     )
 
 
-def resolve_btag_sf_payload(campaign):
-    """Return the official CVMFS BTV scale-factor JSON for a campaign."""
-    if not isinstance(campaign, str) or not campaign.strip():
-        raise ValueError("btag.pog_campaign must be a non-empty string")
-    return os.path.join(
-        BTAG_SF_CVMFS_BASE, campaign.strip(), "latest", "btagging.json.gz"
-    )
+def resolve_btag_sf_payload(configured_path):
+    """Validate and return an explicitly configured official BTV JSON path."""
+    if not isinstance(configured_path, str) or not configured_path.strip():
+        raise ValueError("btag.correction_file must be a non-empty string")
+    payload = os.path.normpath(configured_path.strip())
+    if not os.path.isabs(payload):
+        raise ValueError("btag.correction_file must be an absolute CVMFS path")
+    expected_prefix = os.path.realpath(BTAG_SF_CVMFS_BASE) + os.sep
+    if not os.path.realpath(payload).startswith(expected_prefix):
+        raise ValueError(
+            "btag.correction_file must be inside {!r}; got {!r}".format(
+                BTAG_SF_CVMFS_BASE, payload
+            )
+        )
+    if os.path.basename(payload) != "btagging.json.gz":
+        raise ValueError(
+            "btag.correction_file must name the official btagging.json.gz payload"
+        )
+    if not os.path.isfile(payload):
+        raise FileNotFoundError(
+            "Cannot find official BTV correctionlib payload {!r}. "
+            "Check that cms-griddata.cern.ch is mounted and that "
+            "btag.correction_file matches the NanoAOD campaign.".format(payload)
+        )
+    return payload
+
+
+@lru_cache(maxsize=None)
+def resolve_btag_working_point(correction_file, correction_prefix, working_point="L"):
+    """Read a tagger working point from the official BTV correctionlib JSON.
+
+    BTV publishes the discriminator thresholds in ``<tagger>_wp_values`` in
+    the same payload as the fixed-working-point scale factors.  Keeping this
+    lookup here makes the JSON authoritative while the duplicated value in
+    ``year_config.json`` remains a fail-closed review/audit check.
+    """
+    if not isinstance(correction_prefix, str) or not correction_prefix.strip():
+        raise ValueError("btag.correction_prefix must be a non-empty string")
+    if working_point not in ("L", "M", "T"):
+        raise ValueError("BTV working point must be one of L, M, or T")
+
+    try:
+        import correctionlib
+    except ImportError as error:
+        raise RuntimeError(
+            "correctionlib is required to read the official BTV working point"
+        ) from error
+
+    payload = resolve_btag_sf_payload(correction_file)
+    correction_set = correctionlib.CorrectionSet.from_file(payload)
+    correction_name = correction_prefix.strip() + "_wp_values"
+    if correction_name not in correction_set:
+        raise KeyError(
+            "Official BTV payload {!r} has no correction {!r}; available keys: {}".format(
+                payload, correction_name, ", ".join(sorted(correction_set.keys()))
+            )
+        )
+    value = float(correction_set[correction_name].evaluate(working_point))
+    if not math.isfinite(value) or not 0.0 < value < 1.0:
+        raise ValueError(
+            "Official BTV correction {}({}) returned invalid value {}".format(
+                correction_name, working_point, value
+            )
+        )
+    return value
 
 
 def _deep_merge(base, override):
@@ -424,8 +506,8 @@ def _validate_year_cfg(year_key, year_cfg):
     required_btag = {
         "algo",
         "veto_wp",
-        "pog_prefix",
-        "pog_campaign",
+        "correction_prefix",
+        "correction_file",
         "efficiency_map",
     }
     if set(year_cfg["btag"]) != required_btag:
@@ -651,6 +733,23 @@ def resolve_data_run_tags(year_cfg):
                 f"Got: {run_item!r}"
             )
     return run_tags
+
+
+def resolve_data_samples(year_cfg, stream_filter=()):
+    """Return DATA definitions, optionally restricted to exact stream names."""
+    samples = list(year_cfg["data"]["samples"])
+    requested = {str(item).strip() for item in stream_filter if str(item).strip()}
+    if not requested:
+        return samples
+    known = {item["stream"] for item in samples}
+    unknown = sorted(requested - known)
+    if unknown:
+        raise ValueError(
+            "DATA stream filter contains unknown streams: {}; available: {}".format(
+                unknown, sorted(known)
+            )
+        )
+    return [item for item in samples if item["stream"] in requested]
 
 
 def resolve_trigger_path_branches(year_cfg):

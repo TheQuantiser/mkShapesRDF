@@ -604,9 +604,18 @@ def _optional_hist_expr(*candidates, default="maskedHistogramValue(0.f, false)")
     return default
 
 
-_histogram_detail = str(
-    globals().get("HISTOGRAM_DETAIL", os.environ.get("HISTOGRAM_DETAIL", "all"))
+_requested_histogram_profile = str(
+    globals().get(
+        "HISTOGRAM_PROFILE",
+        os.environ.get(
+            "HISTOGRAM_PROFILE",
+            globals().get("HISTOGRAM_DETAIL", os.environ.get("HISTOGRAM_DETAIL", "analysis")),
+        ),
+    )
 ).lower()
+# Always construct the complete supported definition set.  Activation is a
+# separate final step below and can never erase or rewrite disabled binning.
+_histogram_detail = "all"
 _histogram_groups = {
     "core": {"core"},
     "trigger": {"core", "trigger"},
@@ -804,11 +813,14 @@ if bool(globals().get("HISTOGRAMS", True)):
         _hist_edges("SelectedLeptonSF_ZX", _lepton_sf_source_edges, "w_{#it{l}}^{4#it{l}}", _masked_scalar("SelectedLeptonSF_ZX", "hasValidX"))
         _hist("TriggerEff_ZX", 120, 0.0, 1.2, "#epsilon_{trig}^{4#it{l},data}", _masked_scalar("TriggerEff_ZX", "hasValidX"))
         _hist_edges("puWeight", _pileup_source_edges, "w_{PU}")
-        if _VARIABLE_PASS["btag_sf"]:
-            _hist_edges("btagSFbc", _btag_sf_source_edges, "w_{b/c}^{b-tag}")
-            _hist_edges("btagSFlight", _btag_sf_source_edges, "w_{light}^{b-tag}")
-            _hist_edges("BTagVetoSF", _btag_sf_source_edges, "w_{veto}^{b-tag}")
-            _hist("BTagVetoSF_Valid", 2, -0.5, 1.5, "I_{veto}^{b-tag,valid}")
+        # Registry completeness is independent of the active pass.  These
+        # definitions remain dormant in DY-only runs and are materialized only
+        # for four-lepton categories where the aliases are part of the weight
+        # contract.
+        _hist_edges("btagSFbc", _btag_sf_source_edges, "w_{b/c}^{b-tag}")
+        _hist_edges("btagSFlight", _btag_sf_source_edges, "w_{light}^{b-tag}")
+        _hist_edges("BTagVetoSF", _btag_sf_source_edges, "w_{veto}^{b-tag}")
+        _hist("BTagVetoSF_Valid", 2, -0.5, 1.5, "I_{veto}^{b-tag,valid}")
         _hist("SelectedLeptonSF_ZX_UpOverNom", 100, 0.0, 2.0, "w_{#it{l}}^{up}/w_{#it{l}}", _masked_scalar("(SelectedLeptonSF_ZX_Up + (SelectedLeptonSF_ZX == 0.f)) / (SelectedLeptonSF_ZX + (SelectedLeptonSF_ZX == 0.f))", "hasValidX"))
         _hist("SelectedLeptonSF_ZX_DownOverNom", 100, 0.0, 2.0, "w_{#it{l}}^{down}/w_{#it{l}}", _masked_scalar("(SelectedLeptonSF_ZX_Down + (SelectedLeptonSF_ZX == 0.f)) / (SelectedLeptonSF_ZX + (SelectedLeptonSF_ZX == 0.f))", "hasValidX"))
         _hist_edges("TriggerSF_ZX_UpOverNom", _trigger_sf_source_edges, "w_{trig}^{up}/w_{trig}", _masked_scalar("(TriggerSF_ZX_Up + (TriggerSF_ZX == 0.f)) / (TriggerSF_ZX + (TriggerSF_ZX == 0.f))", "hasValidX"))
@@ -1367,3 +1379,27 @@ if bool(globals().get("HISTOGRAMS", True)):
             for item in HISTOGRAM_BINNING_CONTRACT.values()
         ):
             raise RuntimeError("Histogram axes must be common to every category and era")
+
+# The complete raw definitions above are deliberately independent of runtime
+# activation.  This final materialization adds immutable registry hashes and
+# resolves sparse category-variable pairs from the declarative categories.
+from histogram_config import materialize_histograms
+
+if "CATEGORY_METADATA" not in globals():
+    raise RuntimeError("cuts.py/category_config.py must run before variables.py")
+
+(
+    VARIABLE_REGISTRY,
+    variables,
+    CATEGORY_VARIABLES,
+    HISTOGRAM_PROFILE,
+) = materialize_histograms(
+    variables,
+    HISTOGRAM_BINNING_CONTRACT,
+    CATEGORY_METADATA,
+    _requested_histogram_profile,
+)
+VARIABLE_REGISTRY_HASHES = {
+    name: definition["definition_sha256"]
+    for name, definition in VARIABLE_REGISTRY.items()
+}

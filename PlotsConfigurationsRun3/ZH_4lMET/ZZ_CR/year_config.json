@@ -293,9 +293,9 @@
       "btag": {
         "algo": "btagPNetB",
         "veto_wp": 0.047,
-        "pog_prefix": "particleNet",
-        "pog_campaign": "Run3-22CDSep23-Summer22-NanoAODv12",
-        "efficiency_map": "2022/bTagEff_2022_ttbar_PNetB_loose.root"
+        "correction_prefix": "particleNet",
+        "correction_file": "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-22CDSep23-Summer22-NanoAODv12/latest/btagging.json.gz",
+        "efficiency_map": "root://cmseos.fnal.gov//store/user/mwadud/ZH4lMET/btag/bTagEff_2022_ttbar_PNetB_loose.root"
       },
       "mc": {
         "production": "Summer22_130x_nAODv12_Full2022v12",
@@ -396,9 +396,9 @@
       "btag": {
         "algo": "btagPNetB",
         "veto_wp": 0.0499,
-        "pog_prefix": "particleNet",
-        "pog_campaign": "Run3-22EFGSep23-Summer22EE-NanoAODv12",
-        "efficiency_map": "2022EE/bTagEff_2022EE_ttbar_PNetB_loose.root"
+        "correction_prefix": "particleNet",
+        "correction_file": "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/btagging.json.gz",
+        "efficiency_map": "root://cmseos.fnal.gov//store/user/mwadud/ZH4lMET/btag/bTagEff_2022EE_ttbar_PNetB_loose.root"
       },
       "mc": {
         "production": "Summer22EE_130x_nAODv12_Full2022v12",
@@ -500,9 +500,9 @@
       "btag": {
         "algo": "btagPNetB",
         "veto_wp": 0.0358,
-        "pog_prefix": "particleNet",
-        "pog_campaign": "Run3-23CSep23-Summer23-NanoAODv12",
-        "efficiency_map": "2023/bTagEff_2023_ttbar_PNetB_loose.root"
+        "correction_prefix": "particleNet",
+        "correction_file": "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-23CSep23-Summer23-NanoAODv12/latest/btagging.json.gz",
+        "efficiency_map": "root://cmseos.fnal.gov//store/user/mwadud/ZH4lMET/btag/bTagEff_2023_ttbar_PNetB_loose.root"
       },
       "mc": {
         "production": "Summer23_130x_nAODv12_Full2023v12",
@@ -613,9 +613,9 @@
       "btag": {
         "algo": "btagPNetB",
         "veto_wp": 0.0359,
-        "pog_prefix": "particleNet",
-        "pog_campaign": "Run3-23DSep23-Summer23BPix-NanoAODv12",
-        "efficiency_map": "2023BPix/bTagEff_2023BPix_ttbar_PNetB_loose.root"
+        "correction_prefix": "particleNet",
+        "correction_file": "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/btagging.json.gz",
+        "efficiency_map": "root://cmseos.fnal.gov//store/user/mwadud/ZH4lMET/btag/bTagEff_2023BPix_ttbar_PNetB_loose.root"
       },
       "mc": {
         "production": "Summer23BPix_130x_nAODv12_Full2023BPixv12",
@@ -723,9 +723,9 @@
       "btag": {
         "algo": "btagUParTAK4B",
         "veto_wp": 0.0246,
-        "pog_prefix": "UParTAK4",
-        "pog_campaign": "Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15",
-        "efficiency_map": "2024/bTagEff_2024_ttbar_UParTAK4B_loose.root"
+        "correction_prefix": "UParTAK4",
+        "correction_file": "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/btagging.json.gz",
+        "efficiency_map": "root://cmseos.fnal.gov//store/user/mwadud/ZH4lMET/btag/bTagEff_2024_ttbar_UParTAK4B_loose.root"
       },
       "mc": {
         "production": "Summer24_150x_nAODv15_Full2024v15",

@@ -998,9 +998,15 @@ for lep_name, lep_idx in LEPTON_PAIR_INDEX_EXPRESSIONS.items():
 # the identical tagger, loose WP, CleanJet pT, and eta acceptance.
 _btag_cfg = _selected_year["btag"]
 btag_veto_algo = _btag_cfg["algo"]
-btag_veto_WP = float(_btag_cfg["veto_wp"])
-_btag_map = resolve_btag_efficiency_map(_btag_cfg["efficiency_map"])
-_btag_sf_payload = resolve_btag_sf_payload(_btag_cfg["pog_campaign"])
+btag_veto_WP = resolve_btag_working_point(
+    _btag_cfg["correction_file"], _btag_cfg["correction_prefix"], "L"
+)
+_configured_btag_veto_WP = float(_btag_cfg["veto_wp"])
+if abs(btag_veto_WP - _configured_btag_veto_WP) > 5.e-5:
+    raise RuntimeError(
+        "Configured and official BTV loose working points disagree: "
+        f"year_config.json={_configured_btag_veto_WP}, correctionlib={btag_veto_WP}"
+    )
 _BTAG_INCLUDE = [
     '#include "%s/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/macros/fixed_wp_btag_sf.cc"'
     % configurations
@@ -1043,6 +1049,8 @@ _btagsf_samples = [
 # diagnostics, so they must not instantiate an evaluator that can fail on a
 # physically irrelevant efficiency-map bin.
 if _ALIAS_PASS["btag_sf"] and (_btagsf_samples or DATA_SAMPLES):
+    _btag_map = resolve_btag_efficiency_map(_btag_cfg["efficiency_map"])
+    _btag_sf_payload = resolve_btag_sf_payload(_btag_cfg["correction_file"])
     _systematics_enabled = globals().get("ENABLE_SYSTEMATICS")
     if _systematics_enabled is None:
         _systematics_value = os.environ.get("ENABLE_SYSTEMATICS", "1").strip().lower()
@@ -1072,7 +1080,7 @@ if _ALIAS_PASS["btag_sf"] and (_btagsf_samples or DATA_SAMPLES):
                     "CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, "
                     f"Jet_hadronFlavour, Jet_{btag_veto_algo}, "
                     f'"{_btag_map}", "{_btag_sf_payload}", '
-                    f'"{_btag_cfg["pog_prefix"]}", "{_shift}", '
+                    f'"{_btag_cfg["correction_prefix"]}", "{_shift}", '
                     f"{_group}, {btag_veto_WP})"
                 )
             aliases[_alias_name] = {"expr": _event_sf_expr}

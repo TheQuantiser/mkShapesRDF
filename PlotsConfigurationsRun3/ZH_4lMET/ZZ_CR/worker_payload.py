@@ -40,17 +40,17 @@ sharedBatchPayload = os.path.abspath(
 )
 
 _payload_replacements = []
-if condorRuntimePackage:
-    # The fixed-WP efficiency map is deliberately shared outside this analysis
-    # directory.  Register the exact selected map as a packaged input and store
-    # a worker-relative token in the compressed payload; do not alter any b-tag
-    # physics expression beyond this path relocation.
+if condorRuntimePackage and _ALIAS_PASS["btag_sf"]:
+    # Production maps are stable FNAL EOS XRootD resources and remain URLs in
+    # the worker payload.  Preserve local-map packaging as a development
+    # fallback, without rewriting or copying a configured remote resource.
     _btag_efficiency_map = resolve_btag_efficiency_map(
         _selected_year["btag"]["efficiency_map"]
     )
-    _payload_replacements.append(
-        (_btag_efficiency_map, _runtime_include(_btag_efficiency_map))
-    )
+    if not is_xrootd_url(_btag_efficiency_map):
+        _payload_replacements.append(
+            (_btag_efficiency_map, _runtime_include(_btag_efficiency_map))
+        )
 
 _worker_payload = {
     "aliases": aliases,
@@ -58,6 +58,7 @@ _worker_payload = {
     "cuts": {"cuts": cuts, "preselections": preselections},
     "nuisances": nuisances,
     "lumi": lumi,
+    "analysisContract": analysisContract,
     "remoteIO": remoteIO,
 }
 _worker_payload = _relocate(_worker_payload, _payload_replacements)

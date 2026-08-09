@@ -36,8 +36,32 @@ class RunAnalysis(_CoreRunAnalysis):
     """Use stock analysis with compact jobs and optional per-cut weights."""
 
     def __init__(self, samples, aliases, variables, cuts, nuisances, lumi, *args, **kwargs):
+        tree_variables = [name for name, cfg in variables.items() if "tree" in cfg]
+        if tree_variables:
+            raise RuntimeError(
+                "ZZ_CR is histogram-only; tree variables are disabled: "
+                + ", ".join(tree_variables)
+            )
         self.cut_weight_factors = self.resolve_cut_weight_factors(cuts)
         super().__init__(samples, aliases, variables, cuts, nuisances, lumi, *args, **kwargs)
+
+    def _variables_for_cut(self, cut_name, source=None):
+        return {
+            name: definition
+            for name, definition in (source or self.variables).items()
+            if not definition.get("categories")
+            or cut_name in definition["categories"]
+        }
+
+    def createResults(self):
+        """Create only resolved sparse category-variable result slots."""
+        self.results = {
+            cut_name: {
+                variable_name: {}
+                for variable_name in self._variables_for_cut(cut_name)
+            }
+            for cut_name in self.cuts
+        }
 
     @staticmethod
     def resolve_cut_weight_factors(cuts):
@@ -83,10 +107,15 @@ class RunAnalysis(_CoreRunAnalysis):
         """
         all_cuts = self.cuts
         all_dfs = self.dfs
+        all_variables = self.variables
         try:
             for cut_name, cut_definition in all_cuts.items():
+                selected_variables = self._variables_for_cut(cut_name, all_variables)
+                if not selected_variables:
+                    raise RuntimeError(f"No variables resolved for {cut_name}")
                 factor = self.cut_weight_factors.get(cut_name, "1.f")
                 self.cuts = {cut_name: cut_definition}
+                self.variables = selected_variables
                 if factor in ("1", "1.", "1.f", "1.0"):
                     self.dfs = all_dfs
                 else:
@@ -106,6 +135,60 @@ class RunAnalysis(_CoreRunAnalysis):
         finally:
             self.cuts = all_cuts
             self.dfs = all_dfs
+            self.variables = all_variables
+
+    def convertResults(self):
+        """Convert only booked sparse results, retaining every variation."""
+        all_cuts = self.cuts
+        all_variables = self.variables
+        try:
+            for cut_name, cut_definition in all_cuts.items():
+                self.cuts = {cut_name: cut_definition}
+                self.variables = self._variables_for_cut(cut_name, all_variables)
+                super().convertResults()
+        finally:
+            self.cuts = all_cuts
+            self.variables = all_variables
+
+    def _save_sparse_results(self):
+        """Write the non-rectangular result dictionary without empty folders."""
+        output = ROOT.TFile(self.outputFileMap, "recreate")
+        try:
+            for cut_name, cut_results in self.results.items():
+                output.mkdir(cut_name)
+                for variable_name, variable_results in cut_results.items():
+                    public_name = (
+                        variable_name[len(self.remappedVariables[variable_name]):]
+                        if variable_name in self.remappedVariables
+                        else variable_name
+                    )
+                    output.mkdir(f"{cut_name}/{public_name}")
+                    output.cd(f"/{cut_name}/{public_name}")
+                    for sample_name, indexed_results in variable_results.items():
+                        merged = {}
+                        for variations in indexed_results.values():
+                            for variation_name, histogram in variations.items():
+                                if variation_name not in merged:
+                                    merged[variation_name] = histogram.Clone()
+                                else:
+                                    merged[variation_name].Add(histogram)
+                        for variation_name, histogram in merged.items():
+                            suffix = "" if variation_name == "nominal" else f"_{variation_name}"
+                            name = f"histo_{sample_name}{suffix}"
+                            histogram.SetName(name)
+                            histogram.SetTitle(name)
+                            histogram.Write()
+        finally:
+            output.Close()
+
+    def saveResults(self):
+        self._save_sparse_results()
+
+    def mergeSaveResults(self):
+        self._save_sparse_results()
+
+    def mergeAndSaveResults(self):
+        self._save_sparse_results()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-08-09T17:23:00Z",
+  "site": "FNAL LPC",
+  "submit_host": "cmslpc-el9-heavy02.fnal.gov",
+  "schedd": "lpcschedd6.fnal.gov",
+  "starting_git_sha": "b7d701b6bb7dbd2fd899cc53ba54c1bcbeeba7f6",
+  "execution_contract": {
+    "analysis_pass": "ALL",
+    "category_profile": "minimal",
+    "histogram_profile": "analysis",
+    "systematics": false,
+    "histograms": true,
+    "trees": false,
+    "event_limit_per_job": 100,
+    "files_per_job": 1,
+    "request_memory_mb": 2048,
+    "input_access_mode": "stage-in",
+    "read_endpoint": "root://eoscms.cern.ch",
+    "write_endpoint": "root://cmseos.fnal.gov"
+  },
+  "package_audit": {
+    "runtime_archive_bytes": 81333994,
+    "payload_bytes": 32584,
+    "worker_absolute_path_leaks": [],
+    "contains": [
+      "category_config.py",
+      "histogram_config.py",
+      "zz_cr_runner.py",
+      "worker_payload.py",
+      "write_contract.py",
+      "macros/fixed_wp_btag_sf.cc",
+      "macros/selected_trigger_wrappers.cc"
+    ],
+    "proxy_is_worker_local": true,
+    "efficiency_map_policy": "authenticated FNAL XRootD URL retained in payload"
+  },
+  "local_stage_in": {
+    "source": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_ZZ__part0.root",
+    "input_bytes": 47440187,
+    "events_entries": 12465,
+    "xrdcp_seconds": 5.434,
+    "sha256": "4f8d9c09c92505c7036ce96f6ad5773618ccf7691a02ad0d2c0f7cb822b276e1",
+    "root_open": true,
+    "scratch_cleaned": true
+  },
+  "condor_jobs": [
+    {
+      "purpose": "2024 v15 ZZ",
+      "cluster_proc": "85068165.0",
+      "exit_code": 0,
+      "remote_wall_seconds": 175,
+      "runner_wall_seconds_including_stage_in": 112.611,
+      "stage_in_seconds": null,
+      "stage_in_note": "included in runner wall time; core emits mapping but no separate timer",
+      "memory_usage_mb": 540,
+      "input_bytes": 47440187,
+      "output_bytes": 80190,
+      "input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_ZZ__part0.root",
+      "output": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_ALL_PACKAGE_AUDIT/FourLepton_2024_ALL_minimal_analysis_HIST_NOMINAL_20260809_170641/mkShapes__FourLepton_2024_ALL_minimal_analysis_HIST_NOMINAL_20260809_170641__ALL__ZZ_0.root"
+    },
+    {
+      "purpose": "2022 v12 ZZ",
+      "cluster_proc": "85068167.0",
+      "exit_code": 0,
+      "remote_wall_seconds": 378,
+      "runner_wall_seconds_including_stage_in": 103.445,
+      "memory_usage_mb": 536,
+      "input_bytes": 8313636,
+      "output_bytes": 79919,
+      "input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer22_130x_nAODv12_Full2022v12/MCl2loose2022v12__MCCorr2022v12JetScaling__l2tight/nanoLatino_ZZ__part0.root",
+      "output": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_PILOT_2022_ZZ/FourLepton_2022_ALL_minimal_analysis_HIST_NOMINAL_20260809_171208/mkShapes__FourLepton_2022_ALL_minimal_analysis_HIST_NOMINAL_20260809_171208__ALL__ZZ_0.root"
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run C",
+      "cluster_proc": "85068168.0",
+      "exit_code": 0,
+      "remote_wall_seconds": 158,
+      "runner_wall_seconds_including_stage_in": 136.496,
+      "memory_usage_mb": 544,
+      "input_bytes": 85552372,
+      "output_bytes": 77362
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run D",
+      "cluster_proc": "85068168.1",
+      "exit_code": 0,
+      "remote_wall_seconds": 612,
+      "runner_wall_seconds_including_stage_in": 449.343,
+      "memory_usage_mb": 562,
+      "input_bytes": 276354064,
+      "output_bytes": 76995
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run E",
+      "cluster_proc": "85068168.2",
+      "exit_code": 0,
+      "remote_wall_seconds": 310,
+      "runner_wall_seconds_including_stage_in": 279.487,
+      "memory_usage_mb": 566,
+      "input_bytes": 214872298,
+      "output_bytes": 77438
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run F",
+      "cluster_proc": "85068168.3",
+      "exit_code": 0,
+      "remote_wall_seconds": 712,
+      "runner_wall_seconds_including_stage_in": 399.775,
+      "memory_usage_mb": 539,
+      "input_bytes": 193394922,
+      "output_bytes": 77374
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run G",
+      "cluster_proc": "85068168.4",
+      "exit_code": 0,
+      "remote_wall_seconds": 131,
+      "runner_wall_seconds_including_stage_in": 113.991,
+      "memory_usage_mb": 544,
+      "input_bytes": 67928873,
+      "output_bytes": 76995
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run H",
+      "cluster_proc": "85068168.5",
+      "exit_code": 0,
+      "remote_wall_seconds": 157,
+      "runner_wall_seconds_including_stage_in": 136.600,
+      "memory_usage_mb": 532,
+      "input_bytes": 8883165,
+      "output_bytes": 76995
+    },
+    {
+      "purpose": "2024 v15 MuonEG DATA Run I",
+      "cluster_proc": "85068168.6",
+      "exit_code": 0,
+      "remote_wall_seconds": 610,
+      "runner_wall_seconds_including_stage_in": 449.307,
+      "memory_usage_mb": 530,
+      "input_bytes": 14926210,
+      "output_bytes": 77506
+    },
+    {
+      "purpose": "2024 v15 ZH signal",
+      "cluster_proc": "85068169.0",
+      "exit_code": 0,
+      "remote_wall_seconds": 259,
+      "runner_wall_seconds_including_stage_in": 179.172,
+      "memory_usage_mb": 544,
+      "input_bytes": 7402862,
+      "output_bytes": 98957,
+      "input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_ZH_Zto2L_Hto2Wto2L2Nu_M125__part0.root",
+      "output": "root://cmseos.fnal.gov//store/user/mwadud/mkShapesRDF_rootfiles/FNAL_ZZCR_PILOT_2024_ZH/FourLepton_2024_ALL_minimal_analysis_HIST_NOMINAL_20260809_171226/mkShapes__FourLepton_2024_ALL_minimal_analysis_HIST_NOMINAL_20260809_171226__ALL__ZH_Zto2L_Hto2Wto2L2Nu_M125_0.root"
+    }
+  ],
+  "root_validation": {
+    "files_checked": 10,
+    "all_open_non_zombie": true,
+    "category_variable_directories": {
+      "DY_ALL": 25,
+      "ZZCR_ALL": 50,
+      "SR_ALL": 50
+    },
+    "DY_ALL/X_mass_absent": true,
+    "ZZCR_ALL/X_mass_present": true,
+    "SR_ALL/X_mass_present": true
+  },
+  "recommended_full_production": {
+    "files_per_job": 10,
+    "request_memory_mb": 2048,
+    "request_disk_gb": 8,
+    "job_flavour": "workday",
+    "basis": "pilot maximum MemoryUsage 566 MB; disk sized for ten staged files plus runtime package"
+  }
+}

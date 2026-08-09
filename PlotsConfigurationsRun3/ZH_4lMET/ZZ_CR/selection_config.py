@@ -32,10 +32,9 @@ _, _selected_year, _ = load_selected_year()
 ANALYSIS_PASS_CONTRACT = {
     "ALL": {
         "cuts": (
-            "inclusive_z_dy",
-            "four_lepton_base",
-            "zz_control_region",
-            "signal_region",
+            "DY",
+            "ZZCR",
+            "SR",
         ),
         # ALL loads the superset of correction aliases.  The configuration's
         # custom runner applies the expressions below per cut, because the
@@ -44,30 +43,25 @@ ANALYSIS_PASS_CONTRACT = {
         "selected_lepton_sf": "ZX",
         "trigger_sf": "event",
         "btag_sf": True,
-        "cut_weights": {
-            "inclusive_z_dy": {"*": "SelectedLeptonSF_Z"},
-            "four_lepton_base": {"*": "SelectedLeptonSF_ZX"},
-            "zz_control_region": {"*": "SelectedLeptonSF_ZX*BTagVetoSF"},
-            "signal_region": {"*": "SelectedLeptonSF_ZX*BTagVetoSF"},
-        },
+        "cut_weights": {},
         "description": "All Z/DY, four-lepton, ZZ-control, and signal regions in one nominal production",
     },
     "ZPARENT": {
-        "cuts": ("inclusive_z_dy",),
+        "cuts": ("DY",),
         "selected_lepton_sf": "Z",
         "trigger_sf": "event",
         "btag_sf": False,
         "description": "Inclusive Z/DY baseline and diagnostic categories",
     },
     "FOURL_BASE": {
-        "cuts": ("four_lepton_base",),
+        "cuts": ("FOURL",),
         "selected_lepton_sf": "ZX",
         "trigger_sf": "event",
         "btag_sf": False,
         "description": "Four-lepton preselection without a b veto",
     },
     "CONTROL": {
-        "cuts": ("zz_control_region", "signal_region"),
+        "cuts": ("ZZCR", "SR"),
         "selected_lepton_sf": "ZX",
         "trigger_sf": "event",
         "btag_sf": True,
@@ -78,10 +72,10 @@ ANALYSIS_PASS_CONTRACT = {
 # Stable cut/category identifiers remain suitable for ROOT directories and
 # merging.  Plotting uses these independent, compact TLatex labels.
 CUT_DISPLAY_LABELS = {
-    "inclusive_z_dy": "Inclusive Z/DY",
-    "four_lepton_base": "4#it{l} preselection",
-    "zz_control_region": "ZZ control region",
-    "signal_region": "ZH4#it{l} signal region",
+    "DY": "Inclusive Z/DY",
+    "FOURL": "4#it{l} diagnostic preselection",
+    "ZZCR": "ZZ control region",
+    "SR": "ZH4#it{l} signal-reference region",
 }
 
 CATEGORY_DISPLAY_LABELS = {

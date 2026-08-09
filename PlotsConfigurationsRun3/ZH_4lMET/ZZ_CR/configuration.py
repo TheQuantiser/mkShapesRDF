@@ -60,25 +60,40 @@ os.environ["ENABLE_SYSTEMATICS"] = "1" if ENABLE_SYSTEMATICS else "0"
 if ANALYSIS_PASS == "ALL" and ENABLE_SYSTEMATICS:
     raise ValueError(
         "ANALYSIS_PASS=ALL currently supports nominal production only; "
-        "set ENABLE_SYSTEMATICS=0 so cut-dependent corrections remain explicit"
+        "ROOT cannot redefine the category weight after that column depends "
+        "on variations. Set ENABLE_SYSTEMATICS=0; no variation is silently dropped"
     )
 
 # ZZ_CR is deliberately histogram-only.  Tree snapshots belong in a dedicated
 # skim configuration, not in this production and plotting contract.
 HISTOGRAMS = True
 os.environ["HISTOGRAMS"] = "1"
-HISTOGRAM_DETAIL = os.environ.get("HISTOGRAM_DETAIL", "all").strip().lower()
-if HISTOGRAM_DETAIL not in ("core", "trigger", "objects", "quality", "weights", "all"):
+CATEGORY_PROFILE = os.environ.get("CATEGORY_PROFILE", "minimal").strip().lower()
+if CATEGORY_PROFILE not in ("minimal", "flavor", "stream", "trigger", "debug"):
     raise ValueError(
-        "HISTOGRAM_DETAIL must be core, trigger, objects, quality, weights, or all; "
-        f"received {HISTOGRAM_DETAIL!r}"
+        "CATEGORY_PROFILE must be minimal, flavor, stream, trigger, or debug; "
+        f"received {CATEGORY_PROFILE!r}"
     )
+HISTOGRAM_PROFILE = os.environ.get(
+    "HISTOGRAM_PROFILE", os.environ.get("HISTOGRAM_DETAIL", "analysis")
+).strip().lower()
+if HISTOGRAM_PROFILE not in ("analysis", "trigger", "objects", "quality", "weights", "all"):
+    raise ValueError(
+        "HISTOGRAM_PROFILE must be analysis, trigger, objects, quality, weights, or all; "
+        f"received {HISTOGRAM_PROFILE!r}"
+    )
+HISTOGRAM_DETAIL = HISTOGRAM_PROFILE
+os.environ["CATEGORY_PROFILE"] = CATEGORY_PROFILE
+os.environ["HISTOGRAM_PROFILE"] = HISTOGRAM_PROFILE
 os.environ["HISTOGRAM_DETAIL"] = HISTOGRAM_DETAIL
 OUTPUT_PRODUCT = "HIST"
 os.environ["OUTPUT_PRODUCT"] = OUTPUT_PRODUCT
 
 _systematics_tag = "FULLSYST" if ENABLE_SYSTEMATICS else "NOMINAL"
-tag = f"FourLepton_{YEAR}_{ANALYSIS_PASS}_{OUTPUT_PRODUCT}_{_systematics_tag}"
+tag = (
+    f"FourLepton_{YEAR}_{ANALYSIS_PASS}_{CATEGORY_PROFILE}_"
+    f"{HISTOGRAM_PROFILE}_{OUTPUT_PRODUCT}_{_systematics_tag}"
+)
 tag = f"{tag}_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
 
 runnerFile = "zz_cr_runner.py"
@@ -232,6 +247,20 @@ EXECUTION_PROFILES = {
         "useX509Proxy": True,
         "sitePreset": "fnal_lpc_packaged",
         "productionCampaign": "fnal_lpc_packaged_stagein",
+        "xrdWriteEndpoint": "root://cmseos.fnal.gov",
+    },
+    "packaged_fnal_stagein_eos_production": {
+        "description": "Packaged FNAL Condor, CERN xrdcp stage-in, FNAL EOS stage-out.",
+        "inputAccessMode": "stage-in",
+        "outputMode": "production-remote",
+        "condorRuntimePackage": True,
+        "condorRuntimeSetup": [_LCG_109_EL9_SETUP],
+        "configIncludeBase": "runtime",
+        "useX509Proxy": True,
+        "sitePreset": "fnal_lpc_packaged",
+        "productionCampaign": "fnal_lpc_packaged_stagein",
+        "xrdReadEndpoint": "root://eoscms.cern.ch",
+        "xrdDiscoveryEndpoint": "root://eoscms.cern.ch",
         "xrdWriteEndpoint": "root://cmseos.fnal.gov",
     },
 }
@@ -477,11 +506,12 @@ filesToExec = [
     samplesFile,
     selectionConfigFile,
     aliasesFile,
-    variablesFile,
     cutsFile,
+    variablesFile,
     plotFile,
     nuisancesFile,
     structureFile,
+    "write_contract.py",
     "worker_payload.py",
 ]
 
@@ -492,6 +522,8 @@ varsToKeep = [
     "ENABLE_SYSTEMATICS",
     "HISTOGRAMS",
     "HISTOGRAM_DETAIL",
+    "HISTOGRAM_PROFILE",
+    "CATEGORY_PROFILE",
     "OUTPUT_PRODUCT",
     "YEAR",
     "SELECTED_EXECUTION_PROFILE",
@@ -534,6 +566,12 @@ varsToKeep = [
     "samples",
     "aliases",
     "variables",
+    "VARIABLE_REGISTRY",
+    "VARIABLE_REGISTRY_HASHES",
+    "CATEGORY_VARIABLES",
+    "CATEGORY_METADATA",
+    "analysisContract",
+    "analysisContractPath",
     ("cuts", {"cuts": "cuts", "preselections": "preselections"}),
     ("plot", {"plot": "plot", "groupPlot": "groupPlot", "legend": "legend"}),
     "nuisances",
@@ -561,6 +599,8 @@ for _worker_contract_key in (
     "ENABLE_SYSTEMATICS",
     "HISTOGRAMS",
     "HISTOGRAM_DETAIL",
+    "HISTOGRAM_PROFILE",
+    "CATEGORY_PROFILE",
     "OUTPUT_PRODUCT",
     "YEAR",
     "OUTPUT_MODE",
