@@ -57,6 +57,7 @@ nuisances["UE_CP5"] = {
 }
 
 _pair = _PASS["selected_lepton_sf"]
+_trigger = _PASS["trigger_sf"]
 for _key, _nuisance_name, _nominal, _up, _down in (
     ("pileup", f"CMS_pileup_{YEAR}", "puWeight", "puWeightUp", "puWeightDown"),
     (
@@ -76,9 +77,9 @@ for _key, _nuisance_name, _nominal, _up, _down in (
     (
         "event_trigger",
         f"CMS_eff_hwwtrigger_{YEAR}",
-        "TriggerSF_event",
-        "TriggerSF_event_Up",
-        "TriggerSF_event_Down",
+        f"TriggerSF_{_trigger}",
+        f"TriggerSF_{_trigger}_Up",
+        f"TriggerSF_{_trigger}_Down",
     ),
 ):
     _shape_weight(

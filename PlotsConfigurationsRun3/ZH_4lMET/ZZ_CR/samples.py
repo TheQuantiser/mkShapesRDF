@@ -97,9 +97,10 @@ def _selected_correction_weight():
     which applies ``cut_weights`` after each region filter.
     """
     if _PASS["name"] == "ALL":
-        return "puWeight*TriggerSF_event"
+        return "puWeight"
     pair = _PASS["selected_lepton_sf"]
-    factors = f"puWeight*SelectedLeptonSF_{pair}*TriggerSF_event"
+    trigger = _PASS["trigger_sf"]
+    factors = f"puWeight*SelectedLeptonSF_{pair}*TriggerSF_{trigger}"
     if _PASS["btag_sf"]:
         factors += "*BTagVetoSF"
     return factors

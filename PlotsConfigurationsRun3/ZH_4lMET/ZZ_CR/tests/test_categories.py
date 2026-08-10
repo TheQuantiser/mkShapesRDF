@@ -72,11 +72,38 @@ def test_detailed_adds_only_curated_sr_stream_x_flavor(load_state):
     }
 
 
-def test_debug_requires_explicit_large_plan(load_state):
+@pytest.mark.parametrize("analysis_pass", ("ALL", "ZPARENT", "FOURL_BASE", "CONTROL"))
+def test_debug_requires_explicit_large_plan(load_state, analysis_pass):
     with pytest.raises(RuntimeError, match="ALLOW_LARGE_PLAN"):
-        load_state(category="debug")
-    state = load_state(category="debug", ALLOW_LARGE_PLAN="1")
-    assert len(state["CATEGORY_METADATA"]) == 73
+        load_state(category="debug", analysis_pass=analysis_pass)
+    state = load_state(
+        category="debug", analysis_pass=analysis_pass, ALLOW_LARGE_PLAN="1"
+    )
+    assert state["CATEGORY_METADATA"]
+
+
+@pytest.mark.parametrize(
+    ("analysis_pass", "regions", "correction"),
+    (
+        ("ZPARENT", ("DY",), "SelectedLeptonSF_Z*TriggerSF_Z"),
+        ("FOURL_BASE", ("FOURL",), "SelectedLeptonSF_ZX*TriggerSF_ZX"),
+        (
+            "CONTROL",
+            ("ZZCR", "SR"),
+            "SelectedLeptonSF_ZX*TriggerSF_ZX*BTagVetoSF",
+        ),
+    ),
+)
+def test_focused_pass_places_correction_in_sample_weight(
+    load_state, analysis_pass, regions, correction
+):
+    state = load_state(analysis_pass=analysis_pass)
+    assert tuple(state["cuts"]) == regions
+    assert state["preselections"] == state["PRESELECTION"]
+    for category in state["CATEGORY_METADATA"].values():
+        assert category["category_weight_factor"] == "1.f"
+        assert correction in category["sample_base_mc_weight"]
+        assert category["full_nominal_mc_weight"].count(correction) == 1
 
 
 def test_enriched_dy_uses_signal_z_window_as_overlapping_inclusive_view(load_state):
@@ -93,6 +120,22 @@ def test_enriched_dy_uses_signal_z_window_as_overlapping_inclusive_view(load_sta
     assert enriched["partition_family"] == "DY:signal_z_window_projection"
     assert not enriched["is_exclusive_within_family"]
     assert enriched["is_overlapping_projection"]
+
+
+def test_ordered_two_lepton_pt_requirement_is_attached_only_to_dy_registry(load_state):
+    state = load_state(category="detailed")
+    assert state["cuts"]["DY"]["expr"].endswith("&& Passes2lOrderedPt")
+    assert "Passes2lOrderedPt" not in state["cuts"]["ZZCR"]["expr"]
+    assert "Passes2lOrderedPt" not in state["cuts"]["SR"]["expr"]
+    for category in state["CATEGORY_METADATA"].values():
+        if category["physics_region"] == "DY":
+            assert "Passes2lOrderedPt" in category["parent_expression"]
+        else:
+            assert "Passes2lOrderedPt" not in category["parent_expression"]
+
+    fourl = load_state(category="minimal", analysis_pass="FOURL_BASE")
+    assert tuple(fourl["cuts"]) == ("FOURL",)
+    assert "Passes2lOrderedPt" not in fourl["cuts"]["FOURL"]["expr"]
 
 
 @pytest.mark.parametrize(

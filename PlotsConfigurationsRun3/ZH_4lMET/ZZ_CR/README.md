@@ -5,10 +5,15 @@ validation region, physical ZZ control region, and ZH four-lepton
 signal-reference region. It supports `2022`, `2022EE`, `2023`, `2023BPix`,
 and `2024` NanoAOD productions.
 
+See [`TRIGGER_SCALE_FACTORS.md`](TRIGGER_SCALE_FACTORS.md) for the exact
+selected-lepton trigger-efficiency calculation and weight-placement contract.
+
 ## Essentials
 
-- `Z0` is the opposite-sign same-flavor pair closest to the Z mass.
-- `X` is the highest-pT non-overlapping opposite-sign pair.
+- `Z0` is the opposite-sign same-flavor pair closest to the Z mass, built from
+  a pair whose two leptons each exceed 10 GeV.
+- `X` is the non-overlapping opposite-sign pair with the highest leading
+  lepton pT, breaking ties with the subleading lepton pT.
 - ZZCR requires same-flavor X, `75 < X_mass < 105 GeV`, and
   `PuppiMET_pt < 35 GeV`.
 - SR uses the AN2019/238 v9 XSF/XDF selections and the same 15 GeV Z window.
@@ -16,8 +21,13 @@ and `2024` NanoAOD productions.
   pairs; DY deliberately does not.
 - `DY_ENRICHED` applies the SR Z window and mirrors every ordinary DY
   subcategory.
+- DY and all Enriched DY mirrors require the two selected Z0 leptons, sorted
+  by pT, to exceed 25 and 15 GeV. This DY-registry requirement is not applied
+  to FOURL, ZZCR, or SR.
 - The nominal MC weight combines luminosity normalization, MET filters,
   pileup, selected-lepton, trigger, and region-appropriate b-veto factors.
+  DY evaluates `TriggerSF_Z` from exactly the two selected `Z0_idx` leptons;
+  four-lepton regions evaluate `TriggerSF_ZX` from the selected Z0+X quartet.
 - Official BTV correctionlib JSON files are read from CVMFS. Fixed-WP
   efficiency histograms are read directly from the configured FNAL EOS XRootD
   ROOT files.

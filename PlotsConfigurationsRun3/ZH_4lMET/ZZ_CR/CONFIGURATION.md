@@ -46,10 +46,17 @@ histograms.
 ## Selected objects and physics regions
 
 - `Z0` is the opposite-sign same-flavor pair closest to 91.1876 GeV.
-- `X` is the highest-pT non-overlapping opposite-sign pair.
+  Candidate construction requires both Z0 leptons to exceed 10 GeV.
+- `X` is the non-overlapping opposite-sign pair with the highest leading
+  lepton pT, breaking ties with the subleading lepton pT.
+- Every DY category, including the Enriched DY mirrors, requires the two
+  selected Z0 leptons after pT sorting to exceed 25 and 15 GeV. This DY-only
+  requirement is attached directly to the `DY` entry in `REGION_REGISTRY`;
+  it is not inherited by FOURL, ZZCR, or SR.
 - The four selected indices must be distinct and their total charge must be
   zero. A fifth lepton with pT at least 10 GeV is vetoed.
-- The ordered selected-lepton pT thresholds are 25, 15, 10, and 10 GeV.
+- The ordered Z0+X four-lepton pT thresholds used by ZZCR/SR are 25, 15, 10,
+  and 10 GeV.
 - The common physical ZZCR/SR selection requires
   `minSelectedPairMass>12 GeV`, where the minimum is evaluated over all six
   unordered pairs formed from exactly the selected Z0+X leptons. Invalid,
@@ -75,8 +82,17 @@ low-mass row and the explicit six-pair Run-3 implementation, is in
 The common preselection is the configured trigger-family OR, at least two
 leptons, the production-order `L2TightLeading2` decision, and the Run-3
 forward-horn jet veto. Selected-index trigger efficiencies are reconstructed
-from the canonical TrigMaker payload; stored leading-lepton scalar trigger
-weights are regression oracles, not the nominal correction.
+from the canonical TrigMaker payload. DY evaluates `TriggerSF_Z` from exactly
+the two selected `Z0_idx` leptons after sorting that pair by pT; ZZCR/SR
+evaluate `TriggerSF_ZX` from exactly the selected Z0+X quartet. Stored
+leading-lepton scalar trigger weights are regression oracles, not the nominal
+correction.
+
+The resolved `trigger_paths` for each era are checked fail-closed against the
+complete DATA/MC HLT-path union in that era's canonical mkShapesRDF
+`TrigMaker_cfg.py` entry. The five current Run 3 eras genuinely share the same
+seven paths, so they inherit one `year_defaults.trigger_paths` definition;
+future era-specific differences must be supplied as per-year overrides.
 
 ## Declarative category model
 
@@ -171,19 +187,21 @@ progressive 2/5/10/20 GeV-width axis.
 The common sample-level MC weight is:
 
 ```text
-XSWeight * METFilter_Common * puWeight * TriggerSF_event
+XSWeight * METFilter_Common * puWeight
 ```
 
 After each category filter, the local runner applies:
 
 ```text
-DY_*:          SelectedLeptonSF_Z
-ZZCR_* / SR_*: SelectedLeptonSF_ZX * BTagVetoSF
+DY_*:          SelectedLeptonSF_Z * TriggerSF_Z
+ZZCR_* / SR_*: SelectedLeptonSF_ZX * TriggerSF_ZX * BTagVetoSF
 ```
 
-This permits overlapping regions to receive independent factors in one event
-graph. DATA uses `METFilter_DATA` and the exclusive per-run stream trigger
-rule, never MC scale factors.
+The selected trigger factors use the adapted TrigMaker algebra described
+above. Keeping them branch-local permits overlapping regions to receive the
+correct object-domain factors exactly once in one event graph. DATA uses
+`METFilter_DATA` and the exclusive per-run stream trigger rule, never MC scale
+factors.
 
 ## Samples and overlap
 

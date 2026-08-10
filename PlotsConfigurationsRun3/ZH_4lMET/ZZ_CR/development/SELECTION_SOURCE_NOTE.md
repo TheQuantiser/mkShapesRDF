@@ -25,6 +25,11 @@ PDF page 132 (document page 130).
   working point configured in `year_config.json`, applied at the same `20 GeV`
   jet threshold.
 
+The separate DY validation selection additionally applies configurable
+ordered pT thresholds of `25, 15 GeV` to the two selected Z0 leptons. That
+study-specific DY requirement is attached only to the `DY` region registry
+entry and is not part of the AN-derived FOURL, ZZCR, or SR selections.
+
 Table 37 renders the low-mass row as `mll(Z0) > 12 GeV`. The executable Run-3
 reproduction applies the explicit selected-four-lepton requirement requested
 for this study: `minSelectedPairMass > 12 GeV`, where the minimum is taken over

@@ -62,9 +62,10 @@ _ALIAS_PASS = analysis_pass(
 _L2TIGHT_ERA = _selected_year["l2tight_era"]
 TRIGOBJ_NANOAOD_VERSION = trigobj_nanoaod_version(_selected_year)
 
-# Ordered pT thresholds for the four leptons in Z0+X (lead -> 4th).
+# Ordered pT thresholds for the selected Z0 pair and Z0+X quartet.
 _SELECTION_PROFILE = selection_profile(_selected_year)
-FOUR_LEPTON_PT_MINS = _SELECTION_PROFILE["ordered_pt_mins"]
+TWO_LEPTON_PT_MINS = _SELECTION_PROFILE["ordered_2l_pt_mins"]
+FOUR_LEPTON_PT_MINS = _SELECTION_PROFILE["ordered_4l_pt_mins"]
 TRIGOBJ_MATCH_DR = 0.1
 
 configurations = os.environ.get("CONFIG_INCLUDE_BASE") or (
@@ -293,9 +294,19 @@ aliases["Lepton_trigMatchState_tnp"] = {
 }
 
 
+aliases["Passes2lOrderedPt"] = {
+    "expr": (
+        "FourLepton::passesOrdered2lPtThresholdsFromPair("
+        "Lepton_pt, Z0_idx, "
+        f"{TWO_LEPTON_PT_MINS[0]}, "
+        f"{TWO_LEPTON_PT_MINS[1]})"
+    )
+}
+
+
 aliases["Passes4lOrderedPt"] = {
     "expr": (
-        "FourLepton::passesOrderedPtThresholdsFromPairs("
+        "FourLepton::passesOrdered4lPtThresholdsFromPairs("
         "Lepton_pt, Z0_idx, X_idx, "
         f"{FOUR_LEPTON_PT_MINS[0]}, "
         f"{FOUR_LEPTON_PT_MINS[1]}, "

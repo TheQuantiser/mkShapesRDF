@@ -9,6 +9,8 @@ customizations. It is a code-navigation guide rather than a replacement for:
   contract and physics model;
 - [`USAGE.MD`](USAGE.MD), which gives setup, submission, merge, and plotting
   commands;
+- [`TRIGGER_SCALE_FACTORS.md`](TRIGGER_SCALE_FACTORS.md), which documents the
+  exact selected-object TrigMaker adaptation and region weight placement;
 - [`development/CATEGORY_DESIGN.md`](development/CATEGORY_DESIGN.md), which
   lists the exact category inventory and category algebra;
 - [`development/SELECTION_SOURCE_NOTE.md`](development/SELECTION_SOURCE_NOTE.md),
@@ -163,7 +165,8 @@ The file contains:
 - logical overlap components and source-set rules;
 - plot groups and process presentation metadata;
 - trigger paths and era mappings;
-- lepton working points and selection profiles;
+- lepton working points, 10/10 GeV Z0 pair-construction thresholds, and the
+  separate ordered two-/four-lepton selection profiles;
 - the official CVMFS `btagging.json.gz` path for each era;
 - the FNAL EOS XRootD b-tag efficiency-map ROOT URL for each era;
 - configured loose working-point audit values and era defaults.
@@ -380,7 +383,14 @@ and X leptons rather than relying on stored leading-lepton scalar weights.
 
 It assembles and orders the selected leptons, invokes the canonical trigger
 payload, and exposes the relevant central/variation projections with guarded
-fallback behavior.
+fallback behavior. `TriggerSF_Z` compacts exactly `Z0_idx[0:2]` for DY;
+`TriggerSF_ZX` compacts exactly the selected Z0+X quartet for four-lepton
+regions. These factors are applied in the corresponding region registry
+weight policies, not as a generic event-level correction.
+
+The complete data flow, result-vector schema, fallback behavior, nuisance
+contract, and duplication safeguards are documented in
+[`TRIGGER_SCALE_FACTORS.md`](TRIGGER_SCALE_FACTORS.md).
 
 **Customize this file when:** the selected-object interface or canonical
 TrigMaker result schema changes. Do not reproduce the underlying trigger

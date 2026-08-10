@@ -779,22 +779,27 @@ def _validate_year_cfg(year_key, year_cfg):
     profiles = lepton_id_cfg.get("selection_profiles")
     if not isinstance(profiles, dict) or "run3_lowpt" not in profiles:
         raise ValueError(f"Year '{year_key}' requires selection profile 'run3_lowpt'")
-    ordered_pt = profiles["run3_lowpt"].get("ordered_pt_mins")
-    if (
-        not isinstance(ordered_pt, (list, tuple))
-        or len(ordered_pt) != 4
-        or not all(
-            isinstance(value, (int, float))
-            and math.isfinite(value)
-            and value >= 0.0
-            for value in ordered_pt
-        )
-        or any(left < right for left, right in zip(ordered_pt, ordered_pt[1:]))
+    selection_profile = profiles["run3_lowpt"]
+    for field, expected_size in (
+        ("ordered_2l_pt_mins", 2),
+        ("ordered_4l_pt_mins", 4),
     ):
-        raise ValueError(
-            f"Year '{year_key}' run3_lowpt thresholds must be four finite, "
-            "non-increasing values"
-        )
+        ordered_pt = selection_profile.get(field)
+        if (
+            not isinstance(ordered_pt, (list, tuple))
+            or len(ordered_pt) != expected_size
+            or not all(
+                isinstance(value, (int, float))
+                and math.isfinite(value)
+                and value >= 0.0
+                for value in ordered_pt
+            )
+            or any(left < right for left, right in zip(ordered_pt, ordered_pt[1:]))
+        ):
+            raise ValueError(
+                f"Year '{year_key}' run3_lowpt.{field} must contain "
+                f"{expected_size} finite, non-increasing values"
+            )
 
     storage_cfg = year_cfg.get("storage", {})
     if not isinstance(storage_cfg, dict):

@@ -66,9 +66,9 @@ REGION_REGISTRY = OrderedDict(
             "DY",
             {
                 "display_label": "Inclusive Z/DY",
-                "parent_expr": DY_PARENT,
-                "weight_policy": "SelectedLeptonSF_Z",
-                "weight_domain": "selected-Z leptons",
+                "parent_expr": f"({DY_PARENT}) && Passes2lOrderedPt",
+                "weight_policy": "SelectedLeptonSF_Z*TriggerSF_Z",
+                "weight_domain": "selected-Z leptons and selected-Z trigger algebra",
                 "recommended_variable_groups": ["dy", "trigger", "weights"],
                 "splits": OrderedDict(
                     (
@@ -84,8 +84,8 @@ REGION_REGISTRY = OrderedDict(
             {
                 "display_label": "Four-lepton diagnostic parent",
                 "parent_expr": FOURL_PARENT,
-                "weight_policy": "SelectedLeptonSF_ZX",
-                "weight_domain": "selected-ZX leptons",
+                "weight_policy": "SelectedLeptonSF_ZX*TriggerSF_ZX",
+                "weight_domain": "selected-ZX leptons and selected-ZX trigger algebra",
                 "recommended_variable_groups": ["fourl", "trigger", "weights"],
                 "splits": OrderedDict((("ALL", ("1", "Inclusive")),)),
             },
@@ -95,8 +95,10 @@ REGION_REGISTRY = OrderedDict(
             {
                 "display_label": "ZZ control region",
                 "parent_expr": ZZCR_PARENT,
-                "weight_policy": "SelectedLeptonSF_ZX*BTagVetoSF",
-                "weight_domain": "selected-ZX leptons and fixed-WP b veto",
+                "weight_policy": "SelectedLeptonSF_ZX*TriggerSF_ZX*BTagVetoSF",
+                "weight_domain": (
+                    "selected-ZX leptons, selected-ZX trigger algebra, and fixed-WP b veto"
+                ),
                 "recommended_variable_groups": ["fourl", "trigger", "weights"],
                 "splits": OrderedDict(
                     (
@@ -119,8 +121,10 @@ REGION_REGISTRY = OrderedDict(
             {
                 "display_label": "ZH four-lepton signal-reference region",
                 "parent_expr": SR_PARENT,
-                "weight_policy": "SelectedLeptonSF_ZX*BTagVetoSF",
-                "weight_domain": "selected-ZX leptons and fixed-WP b veto",
+                "weight_policy": "SelectedLeptonSF_ZX*TriggerSF_ZX*BTagVetoSF",
+                "weight_domain": (
+                    "selected-ZX leptons, selected-ZX trigger algebra, and fixed-WP b veto"
+                ),
                 "recommended_variable_groups": ["fourl", "trigger", "weights"],
                 "splits": OrderedDict(
                     (
@@ -351,6 +355,11 @@ def build_categories(analysis_pass_name=None, profile=None):
         raise ValueError(
             f"Unknown CATEGORY_PROFILE={profile!r}; available={CATEGORY_PROFILES}"
         )
+    allow_large = _env_bool("ALLOW_LARGE_PLAN")
+    if profile == "debug" and not allow_large:
+        raise RuntimeError(
+            "CATEGORY_PROFILE=debug always requires ALLOW_LARGE_PLAN=1"
+        )
 
     materialized = OrderedDict()
     metadata = OrderedDict()
@@ -359,9 +368,23 @@ def build_categories(analysis_pass_name=None, profile=None):
         if region not in REGION_REGISTRY:
             raise RuntimeError(f"Unknown region {region!r} in analysis pass")
         registry = REGION_REGISTRY[region]
+        if pass_cfg["name"] != "ALL":
+            expected_weight_policy = (
+                f"SelectedLeptonSF_{pass_cfg['selected_lepton_sf']}"
+                f"*TriggerSF_{pass_cfg['trigger_sf']}"
+            )
+            if pass_cfg["btag_sf"]:
+                expected_weight_policy += "*BTagVetoSF"
+            if registry["weight_policy"] != expected_weight_policy:
+                raise RuntimeError(
+                    f"ANALYSIS_PASS={pass_cfg['name']} and region={region} "
+                    "have inconsistent selected-object correction policies: "
+                    f"pass={expected_weight_policy!r}, "
+                    f"region={registry['weight_policy']!r}"
+                )
         splits = _profile_splits(region, profile)
         runner_factor = registry["weight_policy"] if pass_cfg["name"] == "ALL" else "1.f"
-        sample_base_weight = "lumi*XSWeight*METFilter_Common*puWeight*TriggerSF_event"
+        sample_base_weight = "lumi*XSWeight*METFilter_Common*puWeight"
         if pass_cfg["name"] != "ALL":
             sample_base_weight += f"*({registry['weight_policy']})"
         materialized[region] = {
@@ -421,7 +444,7 @@ def build_categories(analysis_pass_name=None, profile=None):
     max_categories = int(
         os.environ.get("MAX_CATEGORIES", profile_category_budgets[profile])
     )
-    if len(metadata) > max_categories and not _env_bool("ALLOW_LARGE_PLAN"):
+    if len(metadata) > max_categories and not allow_large:
         raise RuntimeError(
             f"Category plan has {len(metadata)} categories, above MAX_CATEGORIES="
             f"{max_categories}; set ALLOW_LARGE_PLAN=1 for deliberate debugging"

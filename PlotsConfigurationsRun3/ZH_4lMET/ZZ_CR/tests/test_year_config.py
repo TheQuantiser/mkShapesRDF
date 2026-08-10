@@ -101,6 +101,54 @@ def test_all_eras_have_disjoint_complete_overlap_and_normalization_models():
         assert set(normalizations).issubset(physical), year
 
 
+def test_all_eras_resolve_explicit_two_and_four_lepton_pt_thresholds():
+    helpers = _helpers()
+    full = helpers["load_full_config"]()
+    for year, definition in full["years"].items():
+        lepton_ids = definition["lepton_ids"]
+        assert tuple(lepton_ids["z0_pt_mins"]) == (10.0, 10.0), year
+        profile = lepton_ids["selection_profiles"]["run3_lowpt"]
+        assert "ordered_pt_mins" not in profile, year
+        assert tuple(profile["ordered_2l_pt_mins"]) == (25.0, 15.0), year
+        assert tuple(profile["ordered_4l_pt_mins"]) == (
+            25.0, 15.0, 10.0, 10.0
+        ), year
+
+
+def test_all_resolved_trigger_paths_match_each_years_canonical_trigmaker_era():
+    from mkShapesRDF.processor.data.TrigMaker_cfg import Trigger
+
+    family_map = {
+        "Trigger_ElMu": "EleMu",
+        "Trigger_dblMu": "DoubleMu",
+        "Trigger_sngMu": "SingleMu",
+        "Trigger_dblEl": "DoubleEle",
+        "Trigger_sngEl": "SingleEle",
+    }
+    helpers = _helpers()
+    full = helpers["load_full_config"]()
+    for year, definition in full["years"].items():
+        era = definition["l2tight_era"]
+        assert era in Trigger, year
+        configured = {
+            aggregate: tuple(definition["trigger_paths"][aggregate]["paths"])
+            for aggregate in family_map
+        }
+        canonical_by_mode = {}
+        for mode in ("DATA", "MC"):
+            canonical = {aggregate: [] for aggregate in family_map}
+            for period in Trigger[era].values():
+                for aggregate, family in family_map.items():
+                    for path in period[mode][family]:
+                        if path not in canonical[aggregate]:
+                            canonical[aggregate].append(path)
+            canonical_by_mode[mode] = {
+                aggregate: tuple(paths) for aggregate, paths in canonical.items()
+            }
+        assert canonical_by_mode["DATA"] == canonical_by_mode["MC"], year
+        assert configured == canonical_by_mode["DATA"], year
+
+
 def test_sample_profiles_cover_exact_logical_outputs_for_every_year():
     helpers = _helpers()
     full = helpers["load_full_config"]()

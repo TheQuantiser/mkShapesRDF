@@ -992,13 +992,34 @@ ROOT::VecOps::RVec<int> xPairIdxWithID(
   return best;
 }
 
-bool passesOrderedPtThresholdsFromPairs(const ROOT::VecOps::RVec<float> &pt,
-                                        const ROOT::VecOps::RVec<int> &zidx,
-                                        const ROOT::VecOps::RVec<int> &xidx,
-                                        float pt1Min,
-                                        float pt2Min,
-                                        float pt3Min,
-                                        float pt4Min) {
+bool passesOrdered2lPtThresholdsFromPair(
+    const ROOT::VecOps::RVec<float> &pt,
+    const ROOT::VecOps::RVec<int> &idx,
+    float pt1Min,
+    float pt2Min) {
+  if (idx.size() < 2 || idx[0] == idx[1])
+    return false;
+  if (idx[0] < 0 || idx[1] < 0 ||
+      static_cast<size_t>(idx[0]) >= pt.size() ||
+      static_cast<size_t>(idx[1]) >= pt.size())
+    return false;
+
+  ROOT::VecOps::RVec<float> lepPt = {pt[idx[0]], pt[idx[1]]};
+  ROOT::VecOps::RVec<float> sortedPt =
+      ROOT::VecOps::Reverse(ROOT::VecOps::Sort(lepPt));
+
+  return sortedPt[0] > clampPtMin(pt1Min) &&
+         sortedPt[1] > clampPtMin(pt2Min);
+}
+
+bool passesOrdered4lPtThresholdsFromPairs(
+    const ROOT::VecOps::RVec<float> &pt,
+    const ROOT::VecOps::RVec<int> &zidx,
+    const ROOT::VecOps::RVec<int> &xidx,
+    float pt1Min,
+    float pt2Min,
+    float pt3Min,
+    float pt4Min) {
   if (zidx.size() < 2 || xidx.size() < 2)
     return false;
 

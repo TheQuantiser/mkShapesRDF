@@ -95,7 +95,9 @@ Category profiles are:
 `DY_ENRICHED` applies `abs(Z0_mass - 91.1876) < 15`, exactly the physical
 ZZCR/SR Z window. Every ordinary profile-dependent DY projection is mirrored
 as `DY_ENRICHED_*` with the same view type, histogram tier, exclusivity, and DY
-weight. The standard profile contains both the ordinary and enriched full DY
+weight. All ordinary and enriched DY categories apply the DY registry's
+selected-Z0 ordered pT thresholds of `25, 15 GeV`; this requirement is not
+part of FOURL, ZZCR, or SR. The standard profile contains both the ordinary and enriched full DY
 stream-by-Z-flavor closure matrices, five curated ZZCR stream-by-topology
 intersections, and no SR stream cross. It never generates an automatic
 Cartesian product outside that explicit DY mirror. Each category carries
@@ -108,7 +110,7 @@ The authoritative signal selection is Table 37 on PDF page 120 (document page
 118) of `AN2019_238_v9.pdf`. XSF requires `X_isSF`, `10 < X_mass < 65 GeV`,
 `PuppiMET_pt > 35 GeV`, and `m4l > 140 GeV`. XDF requires `X_isDF`,
 `10 < X_mass < 70 GeV`, and `PuppiMET_pt > 20 GeV`, with no m4l threshold.
-Both use ordered lepton pT thresholds `25, 15, 10, 10 GeV`, the 10 GeV
+Both use ordered four-lepton pT thresholds `25, 15, 10, 10 GeV`, the 10 GeV
 fifth-lepton veto, the 15 GeV Z window, zero selected-lepton charge, and the
 loose b veto above 20 GeV.
 
@@ -179,20 +181,23 @@ The combined five-era evidence and keep/omit decisions are in
 The common MC weight is:
 
 ```text
-lumi * XSWeight * METFilter_Common * puWeight * TriggerSF_event
+lumi * XSWeight * METFilter_Common * puWeight
 ```
 
 The local runner independently multiplies that weight on each category branch:
 
 ```text
-DY_*:          SelectedLeptonSF_Z
-ZZCR_* / SR_*: SelectedLeptonSF_ZX * BTagVetoSF
+DY_*:          SelectedLeptonSF_Z * TriggerSF_Z
+ZZCR_* / SR_*: SelectedLeptonSF_ZX * TriggerSF_ZX * BTagVetoSF
 DATA:          METFilter_DATA and stream trigger de-duplication; no MC SF
 ```
 
-Categories may overlap; their branch-local factors do not contaminate each
-other. `DATA_STREAM_FILTER=MuonEG`, `Muon`, or `EGamma` restricts a targeted
-DATA pilot while the logical output process remains `DATA`.
+`TriggerSF_Z` evaluates the adapted TrigMaker two-lepton algebra from exactly
+the two selected `Z0_idx` leptons after sorting that pair by pT;
+`TriggerSF_ZX` uses exactly the selected Z0+X quartet. Categories may overlap;
+their branch-local factors do not contaminate each other.
+`DATA_STREAM_FILTER=MuonEG`, `Muon`, or `EGamma` restricts a targeted DATA
+pilot while the logical output process remains `DATA`.
 
 Fixed-WP b tagging uses two authoritative inputs:
 
@@ -498,12 +503,9 @@ source start.sh
 pytest -q PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/tests
 ```
 
-As of 2026-08-10, 53 tests pass. One presentation-binning assertion remains
-stale: it expects the former `Z0_pt` edge list and omits the live 50 and
-70 GeV edges now shared by `Z0_pt` and `X_pt`. The executable registry,
-generated contracts, full-event outputs, and this runbook all describe the
-live shared axis above; the stale test is not evidence that production used
-the old binning.
+The suite includes regression coverage for the shared `Z0_pt`/`X_pt` axis,
+all category partitions, pass-dependent correction placement, exact trigger
+paths for every era, sparse booking, and executable contract agreement.
 
 ## Systematics limitation
 

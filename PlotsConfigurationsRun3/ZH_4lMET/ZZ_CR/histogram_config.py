@@ -10,18 +10,18 @@ COMMON_ANALYSIS = (
     "Z0_mass", "Z0_pt", "Z0_eta", "Z0_phi",
     "PuppiMET_pt", "nLepton", "nCleanJet", "HT", "nPV", "nvtx", "rho",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event", "puWeight",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "puWeight",
 )
 DY_ANALYSIS = COMMON_ANALYSIS + (
     "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta",
-    "SelectedLeptonSF_Z", "Z0_isEE", "Z0_isMM",
+    "TriggerSF_Z", "SelectedLeptonSF_Z", "Z0_isEE", "Z0_isMM",
 )
 FOURL_ANALYSIS = COMMON_ANALYSIS + (
     "X_mass", "X_pt", "X_eta", "X_phi", "m4l", "pT4l",
     "lZ1_pt", "lZ2_pt", "lX1_pt", "lX2_pt",
     "lZ1_eta", "lZ2_eta", "lX1_eta", "lX2_eta",
     "sumLeptonCharge", "X_isSF", "X_isDF", "physicalBtagVeto",
-    "BTagVetoSF", "SelectedLeptonSF_ZX", "dPhi_MET_Z", "dPhi_MET_X",
+    "BTagVetoSF", "TriggerSF_ZX", "SelectedLeptonSF_ZX", "dPhi_MET_Z", "dPhi_MET_X",
     "dPhi_MET_ZplusX", "dR_lZ1_lZ2", "dR_lX1_lX2",
     "recoil_ut", "recoil_upar", "recoil_uperp",
     "CleanJet_pt_0", "CleanJet_eta_0", "CleanJet_pt_1", "CleanJet_eta_1",
@@ -34,21 +34,21 @@ DY_FLAVOR = (
     "Z0_mass", "Z0_pt", "Z0_eta", "Z0_phi", "PuppiMET_pt",
     "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta", "nPV", "rho",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_Z",
     "SelectedLeptonSF_Z", "puWeight",
 )
 DY_STREAM = (
     "Z0_mass", "Z0_pt", "PuppiMET_pt",
     "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta", "nPV", "rho",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_Z",
     "SelectedLeptonSF_Z", "puWeight",
 )
 DY_STREAM_FLAVOR = (
     "Z0_mass", "Z0_pt", "PuppiMET_pt",
     "lZ1_pt", "lZ2_pt", "lZ1_eta", "lZ2_eta", "nPV", "rho",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "TriggerSF_event", "SelectedLeptonSF_Z", "puWeight",
+    "TriggerSF_Z", "SelectedLeptonSF_Z", "puWeight",
 )
 FOURL_FLAVOR = (
     "Z0_mass", "X_mass", "m4l", "pT4l", "PuppiMET_pt", "Z0_pt", "X_pt",
@@ -57,7 +57,7 @@ FOURL_FLAVOR = (
     "nCleanJet", "HT", "physicalBtagVeto",
     "CleanJet_pt_0", "CleanJet_eta_0", "CleanJet_pt_1", "CleanJet_eta_1",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_ZX",
     "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
 )
 FOURL_STREAM = (
@@ -65,14 +65,14 @@ FOURL_STREAM = (
     "lZ1_pt", "lZ2_pt", "lX1_pt", "lX2_pt",
     "lZ1_eta", "lZ2_eta", "lX1_eta", "lX2_eta", "nPV", "rho",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_event",
+    "nFiredTriggerFamilies", "nFiredHLTPaths", "TriggerSF_ZX",
     "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
 )
 FOURL_STREAM_FLAVOR = (
     "Z0_mass", "X_mass", "m4l", "PuppiMET_pt",
     "lZ1_pt", "lZ2_pt", "lX1_pt", "lX2_pt",
     "dataStreamPriority", "triggerFamilyPriority", "hltPathPriority",
-    "TriggerSF_event", "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
+    "TriggerSF_ZX", "SelectedLeptonSF_ZX", "BTagVetoSF", "puWeight",
 )
 
 VIEW_VARIABLE_POLICIES = {

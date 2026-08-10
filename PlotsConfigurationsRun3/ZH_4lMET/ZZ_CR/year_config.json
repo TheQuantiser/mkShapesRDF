@@ -868,7 +868,7 @@
       "z0_min_pass": 2,
       "x_min_pass": 2,
       "z0_pt_mins": [
-        25.0,
+        10.0,
         10.0
       ],
       "x_pt_mins": [
@@ -877,7 +877,11 @@
       ],
       "selection_profiles": {
         "run3_lowpt": {
-          "ordered_pt_mins": [
+          "ordered_2l_pt_mins": [
+            25.0,
+            15.0
+          ],
+          "ordered_4l_pt_mins": [
             25.0,
             15.0,
             10.0,

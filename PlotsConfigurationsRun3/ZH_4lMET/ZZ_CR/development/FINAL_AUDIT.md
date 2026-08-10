@@ -117,9 +117,9 @@ actual histogram actions. The previous 46-category by 509-variable rectangle
 had 23,414 actions, so the minimal booking reduction is 187.312x.
 
 The exact minimal categories are `DY_ALL`, `ZZCR_ALL`, and `SR_ALL`. The
-runner applies `SelectedLeptonSF_Z` below DY and
-`SelectedLeptonSF_ZX*BTagVetoSF` below ZZCR/SR, after the common
-`XSWeight*METFilter_Common*puWeight*TriggerSF_event` MC weight. DATA has its
+runner applies `SelectedLeptonSF_Z*TriggerSF_Z` below DY and
+`SelectedLeptonSF_ZX*TriggerSF_ZX*BTagVetoSF` below ZZCR/SR, after the common
+`XSWeight*METFilter_Common*puWeight` MC weight. DATA has its
 exclusive stream-trigger/MET-filter weight and unit realizations of MC-only
 corrections.
 

@@ -1,14 +1,18 @@
 def test_default_sparse_plan(load_state):
     state = load_state()
-    assert len(state["VARIABLE_REGISTRY"]) == 509
-    assert len(state["variables"]) == 53
+    assert len(state["VARIABLE_REGISTRY"]) == 510
+    assert len(state["variables"]) == 54
     assert sum(map(len, state["CATEGORY_VARIABLES"].values())) == 150
     assert "X_mass" not in state["CATEGORY_VARIABLES"]["DY_ALL"]
+    assert "TriggerSF_Z" in state["CATEGORY_VARIABLES"]["DY_ALL"]
+    assert "TriggerSF_ZX" not in state["CATEGORY_VARIABLES"]["DY_ALL"]
     assert (
         state["CATEGORY_VARIABLES"]["DY_ENRICHED"]
         == state["CATEGORY_VARIABLES"]["DY_ALL"]
     )
     assert "X_mass" in state["CATEGORY_VARIABLES"]["ZZCR_ALL"]
+    assert "TriggerSF_ZX" in state["CATEGORY_VARIABLES"]["ZZCR_ALL"]
+    assert "TriggerSF_Z" not in state["CATEGORY_VARIABLES"]["ZZCR_ALL"]
 
 
 def test_activation_does_not_change_definition_hashes(load_state):
@@ -25,7 +29,8 @@ def test_requested_presentation_binning_and_flow_folding(load_state):
         "Z0_mass": [30, 40, 60, 80, 85, 90, 95, 100, 120],
         "X_mass": [30, 40, 60, 80, 85, 90, 95, 100, 120],
         "PuppiMET_pt": [0, 10, 20, 30, 40, 50, 80, 100, 120],
-        "Z0_pt": [0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 60, 80, 100, 120],
+        "Z0_pt": [0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120],
+        "X_pt": [0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120],
         "lZ1_pt": [0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120],
         "lZ2_pt": [0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120],
         "lX1_pt": [0, 5, 10, 15, 20, 25, 30, 40, 50, 80, 100, 120],
