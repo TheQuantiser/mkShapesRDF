@@ -33,9 +33,9 @@ histogram graph remains the same 47-category, 1,043-action graph.
 
 For the current full detailed presentation contract, also set
 `CATEGORY_PROFILE=detailed`. This adds only the six SR
-stream-by-`XSF`/`XDF` views, giving 53 categories and 1,133 actions. The five
-full-event campaigns produced on 2026-08-10 used this detailed/presentation
-combination with `FILES_PER_JOB=10` and no event limit.
+stream-by-`XSF`/`XDF` views, giving 53 categories and 1,133 actions. A normal
+full detailed campaign uses this detailed/presentation combination with
+`FILES_PER_JOB=10` and an explicit unlimited-event compile.
 
 ## Plan and profiles
 
@@ -310,6 +310,19 @@ campaign. Export `FNAL_USER` or `CERN_USER` before sourcing when it is an
 identity input. Apply analysis settings and deliberate site/profile overrides
 after sourcing. Re-sourcing a wrapper resets those overrides.
 
+After either CERN setup and the intended pilot review, compile and submit the
+active environment as a fresh unlimited-event configuration:
+
+```bash
+mkShapesRDF -c 1 --submit \
+  -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR \
+  -l -1 -q workday
+```
+
+Do not reduce this to `--submit` alone: without `-c 1`, mkShapesRDF may load a
+selected/latest pickle produced with different profiles, limits, endpoints,
+or output settings.
+
 ## FNAL packaged Condor
 
 Check the proxy without initializing one interactively:
@@ -361,6 +374,7 @@ returns the environment to direct-read packaged production.
 For a full all-sample detailed 2024 plotting campaign, use:
 
 ```bash
+export YEAR=2024
 export ANALYSIS_PASS=ALL
 export CATEGORY_PROFILE=detailed
 export HISTOGRAM_PROFILE=analysis
@@ -370,7 +384,15 @@ export HISTOGRAMS=1
 export FILES_PER_JOB=10
 export PRODUCTION_CAMPAIGN=ZH4lMET_2024_PRESENTATION
 unset SAMPLE_FILTER LIMIT_FILES_PER_SAMPLE DATA_STREAM_FILTER
+
+mkShapesRDF -c 1 --submit \
+  -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR \
+  -l -1 -q workday
 ```
+
+Run this block only after `source start.sh` and exactly one site wrapper from
+the sections above. The wrapper establishes the site/I/O contract; the block
+then deliberately overrides analysis scope and campaign settings.
 
 `presentation` means every logical output resolved from the 2024
 `year_config.json` and live plot groups—currently 54 MC outputs plus DATA.
@@ -394,8 +416,8 @@ submit-side sources and are expected.
 
 The `-l 100` pilot JDL is event-limited and must never be reused as a full
 production JDL. For full production, unset the pilot sample/file filters and
-compile or submit a fresh configuration with `-l -1` (or omit `-l`, whose
-default is `-1`). Otherwise every Condor process reads only 100 events, which
+compile and submit a fresh configuration with `-c 1 --submit -l -1`.
+Otherwise every Condor process reads only 100 events, which
 can leave the rare ZZCR and SR DATA histograms empty even when every job exits
 successfully. A campaign name containing `FULL_EVENTS` is descriptive only;
 the fresh command-line value embedded in the generated jobs is authoritative.
@@ -411,8 +433,18 @@ condor_submit -terse \
   submit.jdl | tee submit.receipt.txt
 ```
 
-For an ordinary unlimited submission through the application, create a fresh
-full configuration and use `--submit -l -1` after the pilot review. Keep
+For an ordinary unlimited submission through the application after pilot
+review, use:
+
+```bash
+mkShapesRDF -c 1 --submit \
+  -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR \
+  -l -1 -q workday
+```
+
+`-c 1` creates a new compiled configuration from the active environment.
+Without it, submission may select an existing/latest pickle and retain stale
+profiles, limits, payload paths, endpoints, or output settings. Keep
 `FILES_PER_JOB=1` for commissioning; tune it only from completed pilot timing,
 memory, input-size, and output-size evidence.
 

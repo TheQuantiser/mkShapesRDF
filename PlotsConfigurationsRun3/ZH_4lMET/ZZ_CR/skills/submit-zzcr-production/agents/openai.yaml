@@ -1,0 +1,4 @@
+interface:
+  display_name: "Submit ZZ_CR Production"
+  short_description: "Submit validated all-era ZZ_CR jobs"
+  default_prompt: "Use $submit-zzcr-production to submit a fresh full ZZ_CR production campaign safely."

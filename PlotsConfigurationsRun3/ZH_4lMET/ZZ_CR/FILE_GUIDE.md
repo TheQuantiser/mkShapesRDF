@@ -658,9 +658,9 @@ than merely repeating `write_contract.py` line for line.
 
 ## 10. Environment wrappers
 
-Source exactly one site wrapper before compiling a job. These scripts force
-the site-sensitive variables rather than retaining stale values from a
-previous setup.
+From the repository root, source `start.sh` and then exactly one site wrapper
+before compiling a job. These scripts force the site-sensitive variables
+rather than retaining stale values from a previous setup.
 
 ### `zzcr_lxplus_env.sh`
 
@@ -696,8 +696,9 @@ remote endpoints, and production output defaults.
 - Analysis-scope variables such as year, sample profile, and file limits may
   be exported after sourcing the wrapper for an individual campaign.
 - Keep CERN and FNAL usernames explicit when they differ.
-- Compile a fresh pickle after changing wrappers; an existing pickle retains
-  the old resolved paths and endpoints.
+- Compile with `-c 1` after changing wrappers or analysis environment; an
+  existing pickle retains the old profiles, limits, resolved paths, and
+  endpoints.
 - Do not combine assumptions from two wrappers in one compiled configuration.
 
 ## 11. Inspection and storage utilities
@@ -920,10 +921,12 @@ and remote file operations. Execution profiles feed it through
 
 ### Change submission site or output destination
 
-1. Source the one matching environment wrapper.
-2. Export campaign-specific analysis variables after it.
-3. Compile a fresh configuration on that site.
-4. Submit and later merge using that campaign's own pickle and checkout.
+1. From the repository root, source `start.sh` and exactly one matching
+   environment wrapper.
+2. Export campaign-specific analysis variables after the wrapper.
+3. Compile and submit a fresh configuration on that site with
+   `mkShapesRDF -c 1 --submit -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR -l -1 -q workday`.
+4. Later check and merge using that campaign's own pickle and checkout.
 5. Use XRootD/EOS tools appropriate to the destination for operational files;
    do not rewrite analysis source to point at one completed campaign.
 

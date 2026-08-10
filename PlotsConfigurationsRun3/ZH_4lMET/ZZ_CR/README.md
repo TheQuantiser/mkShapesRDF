@@ -69,6 +69,21 @@ export FILES_PER_JOB=10
 unset SAMPLE_FILTER LIMIT_FILES_PER_SAMPLE DATA_STREAM_FILTER
 ```
 
+For a complete production submission, source `start.sh`, source exactly one
+site wrapper from the table below, and only then export the analysis settings
+above plus an era-specific `PRODUCTION_CAMPAIGN`. Compile and submit the
+current configuration explicitly:
+
+```bash
+mkShapesRDF -c 1 --submit \
+  -f PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR \
+  -l -1 -q workday
+```
+
+`-c 1` is required for a fresh production compile. Calling `--submit` without
+it may reuse the selected or latest pickle, including stale profiles, filters,
+event limits, payload paths, endpoints, or output settings.
+
 ## Inspect before running
 
 From the repository root:
@@ -128,8 +143,9 @@ mkShapesRDF -c 1 -o 0 -b 0 \
 ```
 
 For Condor, first compile a bounded dry run with `-b 1 -dR 1` and inspect the
-generated JDL and worker script. Compile a fresh configuration with `-l -1`
-for full production; never reuse an event-limited pilot JDL.
+generated JDL and worker script. For full production, run the exact
+`-c 1 --submit ... -l -1` command above; never reuse an event-limited pilot
+JDL or submit a moving/latest pickle implicitly.
 
 ## Merge contract
 
@@ -161,6 +177,8 @@ payloads, profiles, endpoints, output locations, and git state.
   histogram, weight, payload, and reproducibility contract.
 - [`FILE_GUIDE.md`](FILE_GUIDE.md): file-by-file architecture and guidance on
   where and how to customize the configuration.
+- [`skills/submit-zzcr-production/SKILL.md`](skills/submit-zzcr-production/SKILL.md):
+  reusable safeguards for fresh site-aware Condor production submissions.
 - [`development/CATEGORY_DESIGN.md`](development/CATEGORY_DESIGN.md): exact
   category inventory and algebra.
 - [`development/SELECTION_SOURCE_NOTE.md`](development/SELECTION_SOURCE_NOTE.md):
