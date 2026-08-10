@@ -1,5 +1,10 @@
 # ZZ_CR compact Run-3 workflow
 
+For an architectural map of every relevant configuration, helper, macro,
+environment, utility, test, and mkShapesRDF core file, including guidance on
+where to make each kind of customization, see
+[`FILE_GUIDE.md`](FILE_GUIDE.md).
+
 This configuration produces the inclusive DY validation region, physical ZZ
 control region, and ZH four-lepton signal-reference region in one nominal job
 graph. It supports `2022`, `2022EE`, `2023`, `2023BPix`, and `2024`.

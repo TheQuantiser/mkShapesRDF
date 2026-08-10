@@ -1,5 +1,9 @@
 # ZZ_CR configuration contract
 
+For a file-by-file map of the implementation, execution order, authoritative
+customization points, and validation expectations, see
+[`FILE_GUIDE.md`](FILE_GUIDE.md).
+
 This Run-3 configuration produces compact DY, ZZ-control, and ZH
 four-lepton signal-reference histograms for `2022`, `2022EE`, `2023`,
 `2023BPix`, and `2024`. `SAMPLE_PROFILE=commissioning` selects DATA plus the
