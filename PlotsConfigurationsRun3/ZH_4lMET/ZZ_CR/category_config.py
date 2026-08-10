@@ -42,9 +42,10 @@ FOURL_PARENT = (
     f" && X_mass > 4. && {X1_PT} > {X1_PT_MIN:g}"
     f" && {X2_PT} > {X2_PT_MIN:g} && m4l > 0. && sumLeptonCharge == 0"
 )
+SIGNAL_Z_WINDOW = "abs(Z0_mass - 91.1876) < 15."
 PHYSICAL_COMMON = (
     f"{FOURL_PARENT} && fifthLeptonVeto && minSelectedPairMass > 12."
-    " && physicalBtagVeto && abs(Z0_mass - 91.1876) < 15."
+    f" && physicalBtagVeto && {SIGNAL_Z_WINDOW}"
     " && Passes4lOrderedPt"
 )
 ZZCR_PARENT = (
@@ -241,6 +242,20 @@ def _profile_splits(region, profile):
             ),
         )
     )
+
+    # Keep an explicit DY projection in the same selected-Z mass window used
+    # by the physical ZZCR/SR parent.  It remains an overlapping inclusive
+    # view so histogram activation is exactly the same as for DY_ALL.
+    if region == "DY":
+        out["ENRICHED"] = _split_record(
+            SIGNAL_Z_WINDOW,
+            "Enriched DY",
+            "inclusive",
+            "DY:signal_z_window_projection",
+            False,
+            True,
+            "DY reference restricted to the physical ZZCR/SR Z0-mass window",
+        )
 
     use_flavor = profile in ("standard", "flavor", "detailed", "debug")
     use_stream = profile in ("standard", "stream", "detailed", "debug")

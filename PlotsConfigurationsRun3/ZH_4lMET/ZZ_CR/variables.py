@@ -358,6 +358,17 @@ def _axis(edges, fold=2):
     return (values,), fold
 
 
+# Use one presentation axis for both reconstructed dilepton systems.  The
+# widths progress through 2, 5, 10, and 20 GeV, avoiding the former direct
+# 5-to-20 GeV jump while retaining fine resolution at low pT.
+_PAIR_PT_EDGES = (
+    0, 2, 4, 6, 8, 10,
+    15, 20, 25, 30, 35, 40,
+    50, 60, 70, 80,
+    100, 120,
+)
+
+
 _COMMON_AXES = {
     # Primary physics observables.  The presentation ranges intentionally
     # fold both tails (fold=3): values below/above the displayed range are
@@ -376,11 +387,8 @@ _COMMON_AXES = {
     "PuppiMET_significance": _axis((0, 2, 4, 6, 8, 10, 15, 20, 30, 50)),
     "PuppiMET_sumEt": _axis((0, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000)),
     "HT": _axis((0, 30, 50, 100, 150, 200, 300, 400, 600, 800)),
-    "Z0_pt": _axis(
-        (0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 60, 80, 100, 120),
-        3,
-    ),
-    "X_pt": _axis((0, 20, 30, 40, 50, 60, 80, 100, 150, 200, 300, 400)),
+    "Z0_pt": _axis(_PAIR_PT_EDGES, 3),
+    "X_pt": _axis(_PAIR_PT_EDGES, 3),
     "GenMET_pt": _axis((0, 20, 40, 60, 80, 100, 150, 200, 300, 400)),
     "recoil_ut": _axis((0, 20, 40, 60, 80, 100, 150, 200, 300, 400)),
     "recoil_ux": _axis((-400, -300, -200, -150, -100, -50, 0, 50, 100, 150, 200, 300, 400), 3),

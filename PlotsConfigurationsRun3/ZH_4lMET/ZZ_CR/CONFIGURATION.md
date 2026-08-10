@@ -66,13 +66,17 @@ weights are regression oracles, not the nominal correction.
 profile is a declared set of diagnostic projections, not a Cartesian product:
 
 ```text
-DY:   1 inclusive + 2 Z flavors + 3 streams + 6 stream-by-Z-flavor
+DY:   1 inclusive + 1 signal-Z-window enriched + 2 Z flavors
+      + 3 streams + 6 stream-by-Z-flavor
 ZZCR: 1 inclusive + 3 topologies + 3 streams + 5 curated intersections
 SR:   1 inclusive + 2 X flavors + 5 topologies + 3 streams
 ```
 
-This gives 35 categories. `minimal` preserves exactly `DY_ALL`, `ZZCR_ALL`,
-and `SR_ALL`. `flavor`, `stream`, and `trigger` isolate their named use cases;
+This gives 36 categories. `DY_ENRICHED` is an overlapping projection defined
+by `abs(Z0_mass - 91.1876) < 15`, the same Z window used by ZZCR/SR, and has
+the exact same 25 histograms and binning as `DY_ALL`. `minimal` preserves
+exactly `DY_ALL`, `DY_ENRICHED`, `ZZCR_ALL`, and `SR_ALL`. `flavor`, `stream`,
+and `trigger` isolate their named use cases;
 the trigger views filter on the exclusive `triggerFamilyPriority`, never on
 overlapping raw trigger bits. `detailed` adds only six SR
 stream-by-`XSF`/`XDF` views. `debug` is the curated detailed/trigger union and
@@ -98,7 +102,7 @@ The persistent registry in `histogram_config.py` holds every supported
 expression, title, binning, fold, tag, role, and applicability definition.
 Activation is separate and resolved declaratively from
 `(physics_region, view_type)`. For 2024 `standard + analysis` there are 509
-registry entries, 53 active variables, and 839 actual category-variable
+registry entries, 53 active variables, and 864 actual category-variable
 actions:
 
 | View | DY | ZZCR/SR |
@@ -108,9 +112,9 @@ actions:
 | stream/trigger priority | 17 | 25 |
 | stream-flavor | 15 | 15 |
 
-Minimal remains 125 actions. Standard is 6.712 times that basic plan and
-27.907 times smaller than the previous 23,414-action graph. `flavor`,
-`stream`, `trigger`, and `detailed` use 473, 326, 460, and 929 actions. The
+Minimal is 150 actions. Standard is 5.760 times that basic plan and
+27.100 times smaller than the previous 23,414-action graph. `flavor`,
+`stream`, `trigger`, and `detailed` use 498, 351, 485, and 954 actions. The
 local runner books only approved pairs and its conversion/save/merge paths
 support the resulting non-rectangular dictionary. Missing pairs are absent,
 not empty histograms. Definition hashes and binning never depend on view.

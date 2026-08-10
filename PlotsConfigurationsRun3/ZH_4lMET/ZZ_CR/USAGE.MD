@@ -15,16 +15,16 @@ ENABLE_SYSTEMATICS=0
 HISTOGRAMS=1
 ```
 
-This resolves 35 bounded projections, 53 active registry variables, and 839
-category-variable actions. `minimal` remains the fastest three-category,
-125-action basic production. The persistent registry keeps all supported
+This resolves 36 bounded projections, 53 active registry variables, and 864
+category-variable actions. `minimal` remains the fastest four-category,
+150-action basic production. The persistent registry keeps all supported
 definitions and binning even when variables are inactive. ZZ_CR is
 histogram-only.
 
 For a full plotting campaign, change only the sample scope to
 `SAMPLE_PROFILE=presentation` and ensure `SAMPLE_FILTER`,
 `LIMIT_FILES_PER_SAMPLE`, and `DATA_STREAM_FILTER` are unset. The category and
-histogram graph remains the same 35-category, 839-action graph.
+histogram graph remains the same 36-category, 864-action graph.
 
 ## Plan and profiles
 
@@ -69,20 +69,25 @@ whether the profile or `SAMPLE_FILTER` selected them.
 
 Category profiles are:
 
-- `minimal`: three rich inclusive projections; fastest basic production;
-- `standard`: recommended DATA/MC commissioning projections (35/839);
-- `flavor`: inclusive plus selected-pair flavor/topology partitions (15/473);
-- `stream`: inclusive plus exclusive stream-priority marginals (12/326);
-- `trigger`: inclusive plus exclusive `triggerFamilyPriority` views (18/460);
-- `detailed`: standard plus six SR stream-by-X-flavor views (41/929);
-- `debug`: the curated detailed/trigger union (56/1,264), requiring
+- `minimal`: the three region inclusives plus `DY_ENRICHED` (4/150);
+- `standard`: recommended DATA/MC commissioning projections (36/864);
+- `flavor`: inclusive projections plus selected-pair flavor/topology partitions
+  (16/498);
+- `stream`: inclusive projections plus exclusive stream-priority marginals
+  (13/351);
+- `trigger`: inclusive projections plus exclusive `triggerFamilyPriority` views
+  (19/485);
+- `detailed`: standard plus six SR stream-by-X-flavor views (42/954);
+- `debug`: the curated detailed/trigger union (57/1,289), requiring
   `ALLOW_LARGE_PLAN=1`.
 
-The standard profile contains the full DY stream-by-Z-flavor closure matrix,
-five curated ZZCR stream-by-topology intersections, and no SR stream cross.
-It never generates an automatic Cartesian product. Each category carries
-first-class view, partition, exclusivity, overlap, and diagnostic-purpose
-metadata into `analysis_contract.json`.
+`DY_ENRICHED` applies `abs(Z0_mass - 91.1876) < 15`, exactly the physical
+ZZCR/SR Z window, and deliberately uses the same inclusive histogram tier as
+`DY_ALL`. The standard profile also contains the full DY stream-by-Z-flavor
+closure matrix, five curated ZZCR stream-by-topology intersections, and no SR
+stream cross. It never generates an automatic Cartesian product. Each category
+carries first-class view, partition, exclusivity, overlap, and
+diagnostic-purpose metadata into `analysis_contract.json`.
 
 ## AN2019/238 v9 selection
 

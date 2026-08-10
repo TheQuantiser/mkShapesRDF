@@ -110,8 +110,13 @@ normal category/action budgets and requires `ALLOW_LARGE_PLAN=1`.
 
 ## Post-audit current contract
 
-The category inventory and sparse action counts above remain current. Later
-work added two orthogonal sample profiles: `commissioning` for DATA plus DY
+The 35-category/839-action inventory above is retained as dated validation
+evidence. The live category contract subsequently added `DY_ENRICHED`, an
+overlapping projection with `abs(Z0_mass - 91.1876) < 15` and the same 25
+histograms as `DY_ALL`. The current profile sizes are 4/150 minimal, 36/864
+standard, 16/498 flavor, 13/351 stream, 19/485 trigger, 42/954 detailed, and
+57/1,289 debug. Later work also added two orthogonal sample profiles:
+`commissioning` for DATA plus DY
 and ZZ, and `presentation` for every logical process covered by the live plot
 groups. For 2024 these resolve to 8 and 55 logical outputs respectively. The
 profile name is part of the tag and its resolved scope is persisted in
@@ -121,7 +126,7 @@ The later physics update replaced the ZZCR/SR-only `Z0_mass > 12 GeV`
 requirement with `minSelectedPairMass > 12 GeV` over all six unordered masses
 from exactly the selected Z0+X leptons. DY remains outside this veto. The XSF,
 XDF, and ZZCR mass/MET boundaries remain 65, 70, and 75--105 GeV as recorded
-in AN2019/238 v9. The current focused suite contains 47 passing tests,
+in AN2019/238 v9. The current focused suite contains 48 passing tests,
 including synthetic cross-pair cases and all-era sample-profile coverage.
 
 FNAL packaged production now defaults to direct CERN XRootD reads and FNAL

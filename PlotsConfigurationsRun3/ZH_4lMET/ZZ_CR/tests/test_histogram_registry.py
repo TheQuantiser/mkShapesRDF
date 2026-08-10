@@ -2,8 +2,12 @@ def test_default_sparse_plan(load_state):
     state = load_state()
     assert len(state["VARIABLE_REGISTRY"]) == 509
     assert len(state["variables"]) == 53
-    assert sum(map(len, state["CATEGORY_VARIABLES"].values())) == 125
+    assert sum(map(len, state["CATEGORY_VARIABLES"].values())) == 150
     assert "X_mass" not in state["CATEGORY_VARIABLES"]["DY_ALL"]
+    assert (
+        state["CATEGORY_VARIABLES"]["DY_ENRICHED"]
+        == state["CATEGORY_VARIABLES"]["DY_ALL"]
+    )
     assert "X_mass" in state["CATEGORY_VARIABLES"]["ZZCR_ALL"]
 
 
@@ -50,6 +54,7 @@ def test_exact_include_and_exclude(load_state):
     )
     assert tuple(state["variables"]) == ("Z0_mass", "X_mass")
     assert state["CATEGORY_VARIABLES"]["DY_ALL"] == ["Z0_mass"]
+    assert state["CATEGORY_VARIABLES"]["DY_ENRICHED"] == ["Z0_mass"]
     assert state["CATEGORY_VARIABLES"]["ZZCR_ALL"] == ["Z0_mass", "X_mass"]
     assert "PuppiMET_pt" in state["VARIABLE_REGISTRY"]
 
@@ -63,8 +68,9 @@ def test_action_budget_fails_closed(load_state):
 def test_standard_view_aware_sparse_policy(load_state):
     state = load_state(category="standard")
     variables = state["CATEGORY_VARIABLES"]
-    assert sum(map(len, variables.values())) == 839
+    assert sum(map(len, variables.values())) == 864
     assert len(variables["DY_ALL"]) == 25
+    assert variables["DY_ENRICHED"] == variables["DY_ALL"]
     assert len(variables["ZZCR_ALL"]) == 50
     assert len(variables["SR_ALL"]) == 50
     assert len(variables["DY_ZEE"]) == 19
@@ -81,12 +87,12 @@ def test_standard_view_aware_sparse_policy(load_state):
 
 def test_profile_action_counts(load_state):
     expected = {
-        "minimal": 125,
-        "standard": 839,
-        "flavor": 473,
-        "stream": 326,
-        "trigger": 460,
-        "detailed": 929,
+        "minimal": 150,
+        "standard": 864,
+        "flavor": 498,
+        "stream": 351,
+        "trigger": 485,
+        "detailed": 954,
     }
     for profile, actions in expected.items():
         state = load_state(category=profile)

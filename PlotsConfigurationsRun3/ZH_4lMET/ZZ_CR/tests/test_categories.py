@@ -3,14 +3,16 @@ import pytest
 
 def test_minimal_category_ids_exact(load_state):
     state = load_state()
-    assert tuple(state["CATEGORY_METADATA"]) == ("DY_ALL", "ZZCR_ALL", "SR_ALL")
+    assert tuple(state["CATEGORY_METADATA"]) == (
+        "DY_ALL", "DY_ENRICHED", "ZZCR_ALL", "SR_ALL"
+    )
     assert len(state["CATEGORY_METADATA"]) == len(set(state["CATEGORY_METADATA"]))
 
 
 def test_flavor_profile_is_physical(load_state):
     state = load_state(category="flavor")
     assert tuple(state["CATEGORY_METADATA"]) == (
-        "DY_ALL", "DY_ZEE", "DY_ZMM",
+        "DY_ALL", "DY_ENRICHED", "DY_ZEE", "DY_ZMM",
         "ZZCR_ALL", "ZZCR_4E", "ZZCR_4MU", "ZZCR_2E2MU",
         "SR_ALL", "SR_XSF", "SR_XDF", "SR_4E", "SR_4MU",
         "SR_2E2MU", "SR_3E1MU", "SR_1E3MU",
@@ -22,13 +24,13 @@ def test_flavor_profile_is_physical(load_state):
 def test_stream_is_not_flavor_cartesian(load_state):
     state = load_state(category="stream")
     names = tuple(state["CATEGORY_METADATA"])
-    assert len(names) == 12
+    assert len(names) == 13
     assert not any("ZEE" in name or "ZMM" in name or "XSF" in name for name in names)
 
 
 def test_trigger_profile_is_bounded(load_state):
     state = load_state(category="trigger")
-    assert len(state["CATEGORY_METADATA"]) == 18
+    assert len(state["CATEGORY_METADATA"]) == 19
     assert all(item["display_label"] for item in state["CATEGORY_METADATA"].values())
     assert all(
         "triggerFamilyPriority ==" in item["split_expression"]
@@ -44,8 +46,8 @@ def test_trigger_profile_is_bounded(load_state):
 def test_standard_projection_inventory_and_metadata(load_state):
     state = load_state(category="standard")
     metadata = state["CATEGORY_METADATA"]
-    assert len(metadata) == 35
-    assert sum(name.startswith("DY_") for name in metadata) == 12
+    assert len(metadata) == 36
+    assert sum(name.startswith("DY_") for name in metadata) == 13
     assert sum(name.startswith("ZZCR_") for name in metadata) == 12
     assert sum(name.startswith("SR_") for name in metadata) == 11
     for item in metadata.values():
@@ -73,7 +75,23 @@ def test_debug_requires_explicit_large_plan(load_state):
     with pytest.raises(RuntimeError, match="ALLOW_LARGE_PLAN"):
         load_state(category="debug")
     state = load_state(category="debug", ALLOW_LARGE_PLAN="1")
-    assert len(state["CATEGORY_METADATA"]) == 56
+    assert len(state["CATEGORY_METADATA"]) == 57
+
+
+def test_enriched_dy_uses_signal_z_window_as_overlapping_inclusive_view(load_state):
+    state = load_state(category="standard")
+    enriched = state["CATEGORY_METADATA"]["DY_ENRICHED"]
+    zzcr = state["CATEGORY_METADATA"]["ZZCR_ALL"]
+    sr = state["CATEGORY_METADATA"]["SR_ALL"]
+
+    assert enriched["display_label"] == "Inclusive Z/DY: Enriched DY"
+    assert enriched["split_expression"] == "abs(Z0_mass - 91.1876) < 15."
+    assert enriched["split_expression"] in zzcr["parent_expression"]
+    assert enriched["split_expression"] in sr["parent_expression"]
+    assert enriched["view_type"] == "inclusive"
+    assert enriched["partition_family"] == "DY:signal_z_window_projection"
+    assert not enriched["is_exclusive_within_family"]
+    assert enriched["is_overlapping_projection"]
 
 
 def test_full_cut_is_mechanical(load_state):

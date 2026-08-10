@@ -5,8 +5,10 @@ Recorded on 2026-08-09 after local and FNAL Condor validation.
 ## Current-contract addendum
 
 This document preserves the dated minimal/category-refinement evidence below.
-The current executable contract subsequently added two independent features:
+The current executable contract subsequently added three independent features:
 
+- `DY_ENRICHED` applies the same `abs(Z0_mass - 91.1876) < 15` selected-Z
+  window as ZZCR/SR and books the exact same 25 histograms as `DY_ALL`.
 - `minSelectedPairMass > 12 GeV` is evaluated over all six unordered masses
   formed from exactly the selected Z0+X leptons and applied only to ZZCR/SR;
   DY does not use it. Invalid selected inputs fail closed. The AN2019/238 v9
@@ -18,7 +20,7 @@ The current executable contract subsequently added two independent features:
 
 The tag and generated contract now include the sample profile, and the
 contract records profile groups, profile inventory, actual selection source,
-and active outputs. The current focused suite passes 47 tests. A bounded
+and active outputs. The current focused suite passes 48 tests. A bounded
 direct-XRootD 2024 ZZ run produced a healthy 839-histogram, no-tree ROOT file
 and persisted the ZZCR/SR-only minimum-pair cut exactly. The ordinary FNAL
 production mode is packaged direct XRootD input with FNAL CMS Store stage-out;
@@ -28,13 +30,14 @@ mapping.
 
 ## Category refinement
 
-The later commissioning refinement preserves the original validated minimal
-contract below and makes `standard + analysis` the recommended ordinary view.
-Standard has 35 declared projections and 839 sparse actions: 12 DY, 12 ZZCR,
-and 11 SR categories. The complete profile comparison is 125 minimal, 839
-standard, 473 flavor, 326 stream, 460 trigger-priority, and 929 detailed
-actions. Debug is a curated 1,264-action union and requires an explicit large
-plan override.
+The later commissioning refinement preserves the original validated evidence
+below and makes `standard + analysis` the recommended ordinary view. The live
+contract has 36 declared projections and 864 sparse actions: 13 DY, 12 ZZCR,
+and 11 SR categories. The complete profile comparison is 150 minimal, 864
+standard, 498 flavor, 351 stream, 485 trigger-priority, and 954 detailed
+actions. Debug is a curated 1,289-action union and requires an explicit large
+plan override. The 35-directory/839-action runtime measurements below predate
+the additive `DY_ENRICHED` projection and remain historical evidence.
 
 Variable activation now depends on `(physics_region, view_type)`. Inclusive,
 flavor, stream, and curated-intersection views use 25/50, 19/31, 17/25, and
