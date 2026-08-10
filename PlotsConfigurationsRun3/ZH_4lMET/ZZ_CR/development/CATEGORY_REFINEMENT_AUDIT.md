@@ -115,10 +115,14 @@ evidence. The live category contract subsequently added `DY_ENRICHED` and a
 mechanical `DY_ENRICHED_*` mirror of every ordinary profile-dependent DY
 projection. The current profile sizes are 4/150 minimal, 47/1,043 standard,
 18/536 flavor, 16/402 stream, 24/570 trigger, 53/1,133 detailed, and 73/1,553
-debug. Later work also added two orthogonal sample profiles:
+debug. The corresponding category/action budgets are 6/200, 50/1,100,
+20/700, 20/500, 30/700, 60/1,200, and 50/1,200. Debug deliberately exceeds
+its defaults and requires `ALLOW_LARGE_PLAN=1`. Later work also added two
+orthogonal sample profiles:
 `commissioning` for DATA plus DY
 and ZZ, and `presentation` for every logical process covered by the live plot
-groups. For 2024 these resolve to 8 and 55 logical outputs respectively. The
+groups. Commissioning/presentation resolve to 4/53 outputs in 2022, 2022EE,
+2023, and 2023BPix, and 8/55 outputs in 2024. The
 profile name is part of the tag and its resolved scope is persisted in
 `analysis_contract.json`; nonprompt/fake background is explicitly absent.
 
@@ -126,8 +130,22 @@ The later physics update replaced the ZZCR/SR-only `Z0_mass > 12 GeV`
 requirement with `minSelectedPairMass > 12 GeV` over all six unordered masses
 from exactly the selected Z0+X leptons. DY remains outside this veto. The XSF,
 XDF, and ZZCR mass/MET boundaries remain 65, 70, and 75--105 GeV as recorded
-in AN2019/238 v9. The current focused suite contains 48 passing tests,
+in AN2019/238 v9. The preceding post-audit update had 48 passing tests,
 including synthetic cross-pair cases and all-era sample-profile coverage.
+
+The 2026-08-10 rerun supersedes that count: 53 tests pass, while the one
+remaining failure is a stale presentation-binning assertion that omits the
+live 50 and 70 GeV edges shared by `Z0_pt` and `X_pt`. The registry and
+full-event production use the shared 18-edge axis documented in
+`../CONFIGURATION.md`; no source or test change is folded into this Markdown
+audit update.
+
+The same date's full-event reference production used the 53-category detailed
+profile and all presentation samples for all five eras. It produced complete
+505/1,216/707/455/3,895-file split inventories and all five were merged
+successfully through direct XRootD reads. This supersedes the earlier
+event-limited campaign for full-yield use; a `-l 100` pilot can legitimately
+leave rare ZZCR/SR DATA categories empty.
 
 FNAL packaged production now defaults to direct CERN XRootD reads and FNAL
 stage-out. The stage-in pilot evidence above remains valid historical

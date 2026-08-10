@@ -47,3 +47,13 @@ and offers only `4E`, `4MU`, and `2E2MU` flavor refinements for ZZCR.
 The later six-pair veto is the only subsequent physics-selection change
 relative to that category-refinement audit. Sample profiles affect process
 activation only and do not alter any event selection.
+
+## Enriched DY projection
+
+`DY_ENRICHED` and every `DY_ENRICHED_*` subcategory apply
+`abs(Z0_mass - 91.1876) < 15` on top of their corresponding ordinary DY view.
+They intentionally remain children of the DY parent: they do not require a
+valid X pair and do not inherit `minSelectedPairMass > 12 GeV`, the b veto, or
+the ZZCR/SR X-mass and MET requirements. The Enriched DY hierarchy is an
+overlapping Z-window projection for direct comparison with the physical
+four-lepton regions, not a fourth physics region.

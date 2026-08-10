@@ -15,6 +15,71 @@ No code constructs a general Cartesian product.
 | SR | 1 | 7 | 3 | 0 | 11 |
 | Total | 4 | 14 | 12 | 17 | 47 |
 
+The current `detailed` production profile contains the standard inventory plus
+the six SR stream-by-X-flavor projections. Its exact 53 directory IDs are:
+
+```text
+DY_ALL
+DY_ENRICHED
+DY_ZEE
+DY_ZMM
+DY_STREAM_MUONEG
+DY_STREAM_MUON
+DY_STREAM_EGAMMA
+DY_STREAM_MUONEG_ZEE
+DY_STREAM_MUONEG_ZMM
+DY_STREAM_MUON_ZEE
+DY_STREAM_MUON_ZMM
+DY_STREAM_EGAMMA_ZEE
+DY_STREAM_EGAMMA_ZMM
+DY_ENRICHED_ZEE
+DY_ENRICHED_ZMM
+DY_ENRICHED_STREAM_MUONEG
+DY_ENRICHED_STREAM_MUON
+DY_ENRICHED_STREAM_EGAMMA
+DY_ENRICHED_STREAM_MUONEG_ZEE
+DY_ENRICHED_STREAM_MUONEG_ZMM
+DY_ENRICHED_STREAM_MUON_ZEE
+DY_ENRICHED_STREAM_MUON_ZMM
+DY_ENRICHED_STREAM_EGAMMA_ZEE
+DY_ENRICHED_STREAM_EGAMMA_ZMM
+
+ZZCR_ALL
+ZZCR_4E
+ZZCR_4MU
+ZZCR_2E2MU
+ZZCR_STREAM_MUONEG
+ZZCR_STREAM_MUON
+ZZCR_STREAM_EGAMMA
+ZZCR_STREAM_EGAMMA_4E
+ZZCR_STREAM_MUON_4MU
+ZZCR_STREAM_MUONEG_2E2MU
+ZZCR_STREAM_MUON_2E2MU
+ZZCR_STREAM_EGAMMA_2E2MU
+
+SR_ALL
+SR_XSF
+SR_XDF
+SR_4E
+SR_4MU
+SR_2E2MU
+SR_3E1MU
+SR_1E3MU
+SR_STREAM_MUONEG
+SR_STREAM_MUON
+SR_STREAM_EGAMMA
+SR_STREAM_MUONEG_XSF
+SR_STREAM_MUONEG_XDF
+SR_STREAM_MUON_XSF
+SR_STREAM_MUON_XDF
+SR_STREAM_EGAMMA_XSF
+SR_STREAM_EGAMMA_XDF
+```
+
+This is 24 DY, 12 ZZCR, and 17 SR directories. The names are generated from
+the registry; this list documents the executable result and is not a second
+source of category definitions.
+
 `DY_ENRICHED` is selected by `abs(Z0_mass - 91.1876) < 15`, using the same
 constant as the physical ZZCR/SR parent. It is not an exclusive partition
 member: it overlaps `DY_ALL` by design. Each ordinary DY subcategory is
@@ -96,15 +161,19 @@ Truth-table tests prove the DY flavor/stream/intersection identities, ZZCR
 topology partition and curated intersections, and the SR topology/X-flavor
 identities. The final nominal action counts are:
 
-| Profile | Categories | Actions |
-| --- | ---: | ---: |
-| minimal | 4 | 150 |
-| standard | 47 | 1,043 |
-| flavor | 18 | 536 |
-| stream | 16 | 402 |
-| trigger | 24 | 570 |
-| detailed | 53 | 1,133 |
-| debug | 73 | 1,553 (requires `ALLOW_LARGE_PLAN=1`) |
+| Profile | Categories | Category budget | Actions | Action budget |
+| --- | ---: | ---: | ---: | ---: |
+| minimal | 4 | 6 | 150 | 200 |
+| standard | 47 | 50 | 1,043 | 1,100 |
+| flavor | 18 | 20 | 536 | 700 |
+| stream | 16 | 20 | 402 | 500 |
+| trigger | 24 | 30 | 570 | 700 |
+| detailed | 53 | 60 | 1,133 | 1,200 |
+| debug | 73 | 50 | 1,553 | 1,200 |
+
+Debug exceeds both defaults by design and requires
+`ALLOW_LARGE_PLAN=1`. Every ordinary production profile fits within its
+profile-specific fail-closed margin.
 
 Standard is 6.953 times the minimal action count but 22.449 times smaller
 than the former 23,414-action rectangle. It remains one nominal `ALL` job set
@@ -128,3 +197,10 @@ Ordinary FNAL validation and packaged production read CERN inputs directly
 through XRootD. The staged files described in the occupancy evidence are
 historical bounded inputs; whole-file stage-in remains an explicit fallback,
 not the production default.
+
+The 2026-08-10 full-event reference production used
+`detailed + analysis + presentation + nominal` for all five eras. Its split
+inventories were 505, 1,216, 707, 455, and 3,895 ROOT files for 2022, 2022EE,
+2023, 2023BPix, and 2024. All five inventories were merged successfully by
+streaming the remote split files through XRootD; no whole-campaign copy was
+used.

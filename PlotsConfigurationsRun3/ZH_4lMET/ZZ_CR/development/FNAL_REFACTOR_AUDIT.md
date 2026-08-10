@@ -8,6 +8,13 @@ current contract. In particular, the planned stage-in default below was later
 superseded by direct CERN XRootD reads, with whole-file stage-in retained only
 as an explicit option. Later work also added commissioning/presentation sample
 profiles and the selected-four-lepton minimum-pair-mass veto for ZZCR/SR only.
+The live default category plan is now 47/1,043 `standard`; the full detailed
+plan is 53/1,133 after mechanically mirroring every ordinary DY projection in
+the Enriched DY Z window. The 2026-08-10 full-event reference used the
+non-packaged CERN shared checkout, direct CERN input, and FNAL CMS Store
+stage-out for all five eras. Its complete remote split inventories were later
+merged through direct FNAL XRootD reads. These facts are later outcomes, not
+part of the pre-edit plan recorded below.
 
 - Branch: `ZH_devel`
 - Starting commit: `b7d701b6bb7dbd2fd899cc53ba54c1bcbeeba7f6`

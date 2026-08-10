@@ -52,6 +52,10 @@ changed to follow a later public source with a different edge.
 - `aliases.py` exposes the result as `minSelectedPairMass`.
 - `category_config.py` uses it only in the shared physical ZZCR/SR parent;
   the DY parent remains independent of X and of this veto.
+- `DY_ENRICHED` and its mirrored subcategories use only the same 15 GeV
+  selected-Z window as an overlapping DY projection. They remain outside the
+  selected-four-lepton minimum-pair veto and do not acquire ZZCR/SR X, MET,
+  m4l, or b-veto requirements.
 - `tests/test_selected_pair_mass.py` covers all-pairs-above-threshold,
   low cross-pair, and invalid/duplicate-index cases.
 - `tests/test_categories.py` locks the DY exclusion and the 65/70/75--105 GeV

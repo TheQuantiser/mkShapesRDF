@@ -2,7 +2,7 @@
 
 Recorded on 2026-08-09 after local and FNAL Condor validation.
 
-## Current-contract addendum
+## Current-contract addendum — 2026-08-10
 
 This document preserves the dated minimal/category-refinement evidence below.
 The current executable contract subsequently added three independent features:
@@ -16,18 +16,58 @@ The current executable contract subsequently added three independent features:
   XSF, XDF, and ZZCR boundaries remain 65, 70, and 75--105 GeV.
 - `SAMPLE_PROFILE=commissioning` activates DATA plus live DY and ZZ outputs,
   while `SAMPLE_PROFILE=presentation` activates every logical output owned by
-  the current plot groups. For 2024 those scopes contain 8 and 55 logical
-  outputs. Nonprompt/fake background is not included.
+  the current plot groups. Those scopes contain 4/53 outputs for 2022,
+  2022EE, 2023, and 2023BPix, and 8/55 outputs for 2024. Nonprompt/fake
+  background is not included.
 
-The tag and generated contract now include the sample profile, and the
-contract records profile groups, profile inventory, actual selection source,
-and active outputs. The current focused suite passes 48 tests. A bounded
-direct-XRootD 2024 ZZ run produced a healthy 839-histogram, no-tree ROOT file
-and persisted the ZZCR/SR-only minimum-pair cut exactly. The ordinary FNAL
-production mode is packaged direct XRootD input with FNAL CMS Store stage-out;
-whole-file stage-in remains an explicit fallback. See `../CONFIGURATION.md`,
-`../USAGE.MD`, and `SELECTION_SOURCE_NOTE.md` for the live runbook and source
-mapping.
+The tag and generated contract include the sample profile, and the contract
+records profile groups, profile inventory, actual selection source, and active
+outputs. A bounded direct-XRootD 2024 ZZ run made before the Enriched DY
+addition produced a healthy 839-histogram, no-tree ROOT file and persisted the
+ZZCR/SR-only minimum-pair cut exactly. The ordinary FNAL packaged mode is
+direct XRootD input with FNAL CMS Store stage-out; whole-file stage-in remains
+an explicit fallback. See `../CONFIGURATION.md`, `../USAGE.MD`, and
+`SELECTION_SOURCE_NOTE.md` for the live runbook and source mapping.
+
+The complete 2026-08-10 suite currently has 53 passing tests and one known
+stale assertion. The stale assertion expects the former `Z0_pt` bin list and
+omits the live 50 and 70 GeV edges shared by both pair-pT observables. The
+current executable presentation axes are:
+
+```text
+Z0_mass, X_mass: 30, 40, 60, 80, 85, 90, 95, 100, 120 GeV
+Z0_pt, X_pt:     0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40,
+                  50, 60, 70, 80, 100, 120 GeV
+```
+
+All four fold underflow and overflow into the first and last visible bins.
+
+## Full-event detailed production and merge
+
+The current full-yield reference is the five-era CERN-to-FNAL production
+compiled from the Enriched DY mirror implementation. It used
+`ALL + detailed + analysis + presentation + nominal`, `FILES_PER_JOB=10`, and
+an unlimited event setting (`-l -1` or omitted `-l`). The exact serialized
+plans resolved and merged these split inventories:
+
+| Era | Split files | Merged bytes |
+| --- | ---: | ---: |
+| 2022 | 505 | 28,570,685 |
+| 2022EE | 1,216 | 29,067,427 |
+| 2023 | 707 | 29,069,360 |
+| 2023BPix | 455 | 28,797,651 |
+| 2024 | 3,895 | 30,785,065 |
+
+Every merge completed the standard post-processing and FNAL stage-out, and
+the local and remote byte sizes match. Inputs were streamed directly from
+`root://cmseos.fnal.gov`; no whole-campaign `xrdcp` was used. Each merged file
+contains the exact detailed inventory of 24 DY, 12 ZZCR, and 17 SR category
+directories listed in `CATEGORY_DESIGN.md`.
+
+An earlier nominal campaign was compiled with the pilot `-l 100` limit. Its
+tiny DY DATA yield and zero rare-region DATA yield were consequences of that
+embedded per-job event limit, not category-selection or merge failure. Those
+outputs are not the full-yield reference.
 
 ## Category refinement
 
@@ -37,8 +77,10 @@ contract has 47 declared projections and 1,043 sparse actions: 24 DY, 12 ZZCR,
 and 11 SR categories. The complete profile comparison is 150 minimal, 1,043
 standard, 536 flavor, 402 stream, 570 trigger-priority, and 1,133 detailed
 actions. Debug is a curated 1,553-action union and requires an explicit large
-plan override. The 35-directory/839-action runtime measurements below predate
-the additive `DY_ENRICHED` projection and remain historical evidence.
+plan override. Standard and detailed use fail-closed category/action budgets
+of 50/1,100 and 60/1,200 respectively. The 35-directory/839-action runtime
+measurements below predate the additive `DY_ENRICHED` projection and remain
+historical evidence.
 
 Variable activation now depends on `(physics_region, view_type)`. Inclusive,
 flavor, stream, and curated-intersection views use 25/50, 19/31, 17/25, and

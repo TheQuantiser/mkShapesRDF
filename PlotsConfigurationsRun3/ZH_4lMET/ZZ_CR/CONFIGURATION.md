@@ -7,6 +7,20 @@ DY and ZZ MC plot groups for quick development. `SAMPLE_PROFILE=presentation`
 selects the complete configured prompt process model and target ZH/ggZH
 signal for presentation production.
 
+The live default and the latest full-production contract are independent
+choices along the category and sample axes:
+
+| Use | Category profile | Sample profile | Categories | Actions |
+| --- | --- | --- | ---: | ---: |
+| Ordinary commissioning | `standard` | `commissioning` | 47 | 1,043 |
+| Full detailed presentation | `detailed` | `presentation` | 53 | 1,133 |
+
+Both use `ANALYSIS_PASS=ALL`, `HISTOGRAM_PROFILE=analysis`, nominal-only
+histograms, and the same physics selections, weights, and variable
+definitions. The six categories added by `detailed` are the SR
+stream-by-`XSF`/`XDF` projections; changing the sample profile never changes
+the category graph.
+
 ## Eras and b tagging
 
 | Era | Luminosity | NanoAOD | Tagger | Loose WP |
@@ -120,6 +134,34 @@ local runner books only approved pairs and its conversion/save/merge paths
 support the resulting non-rectangular dictionary. Missing pairs are absent,
 not empty histograms. Definition hashes and binning never depend on view.
 
+The fail-closed default budgets leave a small explicit margin above each live
+plan:
+
+| Profile | Categories | Category budget | Actions | Action budget |
+| --- | ---: | ---: | ---: | ---: |
+| `minimal` | 4 | 6 | 150 | 200 |
+| `standard` | 47 | 50 | 1,043 | 1,100 |
+| `flavor` | 18 | 20 | 536 | 700 |
+| `stream` | 16 | 20 | 402 | 500 |
+| `trigger` | 24 | 30 | 570 | 700 |
+| `detailed` | 53 | 60 | 1,133 | 1,200 |
+| `debug` | 73 | 50 | 1,553 | 1,200 |
+
+`debug` intentionally exceeds both defaults and therefore requires
+`ALLOW_LARGE_PLAN=1`; the other profiles run without that override.
+
+The current presentation axes keep five-GeV mass bins across 80--100 GeV:
+
+```text
+Z0_mass, X_mass: 30, 40, 60, 80, 85, 90, 95, 100, 120 GeV
+Z0_pt, X_pt:     0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40,
+                  50, 60, 70, 80, 100, 120 GeV
+```
+
+All four axes use `fold=3`, so underflow enters the first visible bin and
+overflow enters the last. `Z0_pt` and `X_pt` deliberately share the same
+progressive 2/5/10/20 GeV-width axis.
+
 ## Nominal weights
 
 The common sample-level MC weight is:
@@ -162,10 +204,19 @@ source, and active samples are recorded in `analysis_contract.json`. The
 output tag includes the profile name, so commissioning and presentation
 outputs cannot collide.
 
-For the current 2024 registry, commissioning resolves to eight logical
-outputs (six DY outputs, ZZ, and DATA), while presentation resolves to all 55
-logical outputs (54 MC plus DATA). These counts are derived checks, not a
-second hard-coded sample list.
+The current resolved sample counts are:
+
+| Era | Commissioning outputs | Presentation outputs |
+| --- | ---: | ---: |
+| 2022 | 4 | 53 (52 MC + DATA) |
+| 2022EE | 4 | 53 (52 MC + DATA) |
+| 2023 | 4 | 53 (52 MC + DATA) |
+| 2023BPix | 4 | 53 (52 MC + DATA) |
+| 2024 | 8 | 55 (54 MC + DATA) |
+
+The 2024 commissioning scope is six DY outputs, ZZ, and DATA. The earlier
+eras resolve fewer commissioning DY aliases but the same group-based rule.
+All counts are derived checks, not a second hard-coded sample list.
 
 ## Reproducibility and systematics
 

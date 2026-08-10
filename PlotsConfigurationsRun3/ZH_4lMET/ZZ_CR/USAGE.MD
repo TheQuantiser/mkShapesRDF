@@ -26,6 +26,12 @@ For a full plotting campaign, change only the sample scope to
 `LIMIT_FILES_PER_SAMPLE`, and `DATA_STREAM_FILTER` are unset. The category and
 histogram graph remains the same 47-category, 1,043-action graph.
 
+For the current full detailed presentation contract, also set
+`CATEGORY_PROFILE=detailed`. This adds only the six SR
+stream-by-`XSF`/`XDF` views, giving 53 categories and 1,133 actions. The five
+full-event campaigns produced on 2026-08-10 used this detailed/presentation
+combination with `FILES_PER_JOB=10` and no event limit.
+
 ## Plan and profiles
 
 Inspect the graph without discovering input files:
@@ -122,8 +128,33 @@ An include never creates or changes a definition. Re-enabling a variable later
 restores the same expression, fold, and binning. `MAX_CATEGORIES` and
 `MAX_HISTOGRAM_ACTIONS` are fail-closed safety budgets;
 `ALLOW_LARGE_PLAN=1` is the explicit debug override. Normal category/action
-budgets are profile-aware: standard fails above 40 categories or 1,000
-actions, and detailed fails above 50 categories or 1,200 actions.
+budgets are profile-aware:
+
+| Profile | Live categories/actions | Category/action budget |
+| --- | ---: | ---: |
+| `minimal` | 4 / 150 | 6 / 200 |
+| `standard` | 47 / 1,043 | 50 / 1,100 |
+| `flavor` | 18 / 536 | 20 / 700 |
+| `stream` | 16 / 402 | 20 / 500 |
+| `trigger` | 24 / 570 | 30 / 700 |
+| `detailed` | 53 / 1,133 | 60 / 1,200 |
+| `debug` | 73 / 1,553 | 50 / 1,200 |
+
+`debug` deliberately exceeds both defaults and requires
+`ALLOW_LARGE_PLAN=1`. A user-supplied lower `MAX_CATEGORIES` or
+`MAX_HISTOGRAM_ACTIONS` still fails closed.
+
+The live primary presentation axes are:
+
+```text
+Z0_mass, X_mass: 30, 40, 60, 80, 85, 90, 95, 100, 120 GeV
+Z0_pt, X_pt:     0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40,
+                  50, 60, 70, 80, 100, 120 GeV
+```
+
+All four use `fold=3`: underflow is included in the first bin and overflow in
+the last. In particular, the mass axes retain five-GeV bins around the Z peak,
+and the Z/X pT axes are identical.
 
 Run the selection-only occupancy tool on a bounded staged input with:
 
@@ -317,10 +348,15 @@ direct profile lets ROOT/XRootD perform streamed range reads. Both profiles
 keep packaged workers and FNAL EOS stage-out. Re-sourcing the FNAL wrapper
 returns the environment to direct-read packaged production.
 
-For the full all-sample 2024 plotting campaign, use:
+For a full all-sample detailed 2024 plotting campaign, use:
 
 ```bash
+export ANALYSIS_PASS=ALL
+export CATEGORY_PROFILE=detailed
+export HISTOGRAM_PROFILE=analysis
 export SAMPLE_PROFILE=presentation
+export ENABLE_SYSTEMATICS=0
+export HISTOGRAMS=1
 export FILES_PER_JOB=10
 export PRODUCTION_CAMPAIGN=ZH4lMET_2024_PRESENTATION
 unset SAMPLE_FILTER LIMIT_FILES_PER_SAMPLE DATA_STREAM_FILTER
@@ -351,7 +387,8 @@ production JDL. For full production, unset the pilot sample/file filters and
 compile or submit a fresh configuration with `-l -1` (or omit `-l`, whose
 default is `-1`). Otherwise every Condor process reads only 100 events, which
 can leave the rare ZZCR and SR DATA histograms empty even when every job exits
-successfully.
+successfully. A campaign name containing `FULL_EVENTS` is descriptive only;
+the fresh command-line value embedded in the generated jobs is authoritative.
 
 For a pilot, submit the inspected JDL with the empirically validated resource
 requests (currently 2048 MB memory and 8 GB disk):
@@ -393,6 +430,20 @@ mkShapesRDF -c 0 --histoadd -b 0 \
   -config PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/configs/config_<exact>.pkl
 ```
 
+Run management and merge commands from the checkout/site that compiled the
+pickle whenever possible. A compiled pickle preserves absolute `folder`,
+`runnerFile`, and merge-scratch paths; copying only a CERN `/afs` pickle to
+FNAL does not relocate those paths. Cross-site merging therefore requires an
+explicit local checkout/scratch override while preserving its configured
+remote `outputFolder`. It must not use `--output-folder` for that purpose,
+because that option changes the merge input path as well as the output target.
+
+The merge list is reconstructed from the serialized sample split plan and
+reads each split directly through XRootD. It does not perform a whole-campaign
+`xrdcp`. On success, the standard path post-processes configured nuisances,
+keeps the local merged file in its merge scratch, and stages the final ROOT
+file into the same remote `<campaign>/<tag>/` leaf.
+
 Remote split outputs live below:
 
 ```text
@@ -405,7 +456,9 @@ under each four-lepton inclusive, 19/31 under flavor views, 17/25 under stream
 views, and 15 under curated intersections. For example,
 `DY_STREAM_MUON_ZEE/X_mass` must not exist, while
 `ZZCR_STREAM_EGAMMA_4E/X_mass` must exist. Minimal outputs retain their
-original 25/50/50 directory contract.
+25/50/50 directory contract. Detailed outputs have the same standard tiers
+plus six `SR_STREAM_<stream>_<XSF|XDF>` directories with 15 variables each;
+their exact inventory is 24 DY, 12 ZZCR, and 17 SR categories.
 
 ## Exact analysis contract
 
@@ -439,6 +492,13 @@ runner factors, and variable definitions:
 source start.sh
 pytest -q PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR/tests
 ```
+
+As of 2026-08-10, 53 tests pass. One presentation-binning assertion remains
+stale: it expects the former `Z0_pt` edge list and omits the live 50 and
+70 GeV edges now shared by `Z0_pt` and `X_pt`. The executable registry,
+generated contracts, full-event outputs, and this runbook all describe the
+live shared axis above; the stale test is not evidence that production used
+the old binning.
 
 ## Systematics limitation
 
