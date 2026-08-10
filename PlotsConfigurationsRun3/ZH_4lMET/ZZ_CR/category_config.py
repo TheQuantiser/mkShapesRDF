@@ -228,6 +228,34 @@ def _add_family(out, splits, view_type, partition_family, exclusive, purpose):
         )
 
 
+def _add_enriched_dy_subcategories(out):
+    """Mirror every non-inclusive DY projection inside the signal-Z window."""
+    ordinary_splits = tuple(
+        (split_id, split)
+        for split_id, split in out.items()
+        if split_id not in ("ALL", "ENRICHED")
+        and not split_id.startswith("ENRICHED_")
+    )
+    for split_id, split in ordinary_splits:
+        partition_family = split["partition_family"]
+        if partition_family.startswith("DY:"):
+            partition_family = partition_family.replace(
+                "DY:", "DY:enriched:", 1
+            )
+        out[f"ENRICHED_{split_id}"] = _split_record(
+            f"({SIGNAL_Z_WINDOW}) && ({split['expr']})",
+            f"Enriched DY, {split['label']}",
+            split["view_type"],
+            partition_family,
+            split["is_exclusive_within_family"],
+            True,
+            (
+                "Signal-Z-window DY projection mirroring: "
+                f"{split['diagnostic_purpose']}"
+            ),
+        )
+
+
 def _profile_splits(region, profile):
     base = REGION_REGISTRY[region]["splits"]
     out = OrderedDict(
@@ -306,6 +334,8 @@ def _profile_splits(region, profile):
             f"{region}:trigger_family_priority", True,
             "Exclusive trigger-family-priority acceptance diagnostic",
         )
+    if region == "DY":
+        _add_enriched_dy_subcategories(out)
     return out
 
 
@@ -379,11 +409,11 @@ def build_categories(analysis_pass_name=None, profile=None):
 
     profile_category_budgets = {
         "minimal": 6,
-        "standard": 40,
+        "standard": 50,
         "flavor": 20,
-        "stream": 15,
-        "trigger": 20,
-        "detailed": 50,
+        "stream": 20,
+        "trigger": 30,
+        "detailed": 60,
         # The curated debug union deliberately crosses the ordinary limit and
         # therefore requires ALLOW_LARGE_PLAN=1.
         "debug": 50,

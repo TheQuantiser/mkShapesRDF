@@ -1,8 +1,9 @@
 def test_exact_weight_contract(load_state):
     state = load_state(category="flavor")
     metadata = state["CATEGORY_METADATA"]
-    for name in ("DY_ALL", "DY_ENRICHED", "DY_ZEE", "DY_ZMM"):
-        assert metadata[name]["category_weight_factor"] == "SelectedLeptonSF_Z"
+    for name, item in metadata.items():
+        if name.startswith("DY_"):
+            assert item["category_weight_factor"] == "SelectedLeptonSF_Z"
     for name, item in metadata.items():
         if name.startswith(("ZZCR_", "SR_")):
             assert item["category_weight_factor"] == "SelectedLeptonSF_ZX*BTagVetoSF"

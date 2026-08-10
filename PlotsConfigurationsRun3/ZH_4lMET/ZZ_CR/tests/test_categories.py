@@ -13,6 +13,7 @@ def test_flavor_profile_is_physical(load_state):
     state = load_state(category="flavor")
     assert tuple(state["CATEGORY_METADATA"]) == (
         "DY_ALL", "DY_ENRICHED", "DY_ZEE", "DY_ZMM",
+        "DY_ENRICHED_ZEE", "DY_ENRICHED_ZMM",
         "ZZCR_ALL", "ZZCR_4E", "ZZCR_4MU", "ZZCR_2E2MU",
         "SR_ALL", "SR_XSF", "SR_XDF", "SR_4E", "SR_4MU",
         "SR_2E2MU", "SR_3E1MU", "SR_1E3MU",
@@ -24,13 +25,13 @@ def test_flavor_profile_is_physical(load_state):
 def test_stream_is_not_flavor_cartesian(load_state):
     state = load_state(category="stream")
     names = tuple(state["CATEGORY_METADATA"])
-    assert len(names) == 13
+    assert len(names) == 16
     assert not any("ZEE" in name or "ZMM" in name or "XSF" in name for name in names)
 
 
 def test_trigger_profile_is_bounded(load_state):
     state = load_state(category="trigger")
-    assert len(state["CATEGORY_METADATA"]) == 19
+    assert len(state["CATEGORY_METADATA"]) == 24
     assert all(item["display_label"] for item in state["CATEGORY_METADATA"].values())
     assert all(
         "triggerFamilyPriority ==" in item["split_expression"]
@@ -46,8 +47,8 @@ def test_trigger_profile_is_bounded(load_state):
 def test_standard_projection_inventory_and_metadata(load_state):
     state = load_state(category="standard")
     metadata = state["CATEGORY_METADATA"]
-    assert len(metadata) == 36
-    assert sum(name.startswith("DY_") for name in metadata) == 13
+    assert len(metadata) == 47
+    assert sum(name.startswith("DY_") for name in metadata) == 24
     assert sum(name.startswith("ZZCR_") for name in metadata) == 12
     assert sum(name.startswith("SR_") for name in metadata) == 11
     for item in metadata.values():
@@ -75,7 +76,7 @@ def test_debug_requires_explicit_large_plan(load_state):
     with pytest.raises(RuntimeError, match="ALLOW_LARGE_PLAN"):
         load_state(category="debug")
     state = load_state(category="debug", ALLOW_LARGE_PLAN="1")
-    assert len(state["CATEGORY_METADATA"]) == 57
+    assert len(state["CATEGORY_METADATA"]) == 73
 
 
 def test_enriched_dy_uses_signal_z_window_as_overlapping_inclusive_view(load_state):
@@ -92,6 +93,45 @@ def test_enriched_dy_uses_signal_z_window_as_overlapping_inclusive_view(load_sta
     assert enriched["partition_family"] == "DY:signal_z_window_projection"
     assert not enriched["is_exclusive_within_family"]
     assert enriched["is_overlapping_projection"]
+
+
+@pytest.mark.parametrize(
+    ("profile", "expected_ordinary"),
+    (
+        ("standard", 11),
+        ("flavor", 2),
+        ("stream", 3),
+        ("trigger", 5),
+        ("detailed", 11),
+        ("debug", 16),
+    ),
+)
+def test_enriched_dy_mirrors_every_ordinary_dy_subcategory(
+    load_state, profile, expected_ordinary
+):
+    extra = {"ALLOW_LARGE_PLAN": "1"} if profile == "debug" else {}
+    metadata = load_state(category=profile, **extra)["CATEGORY_METADATA"]
+    ordinary = {
+        name: item
+        for name, item in metadata.items()
+        if name.startswith("DY_")
+        and name not in ("DY_ALL", "DY_ENRICHED")
+        and not name.startswith("DY_ENRICHED_")
+    }
+    assert len(ordinary) == expected_ordinary
+    for name, item in ordinary.items():
+        enriched_name = name.replace("DY_", "DY_ENRICHED_", 1)
+        enriched = metadata[enriched_name]
+        assert enriched["split_expression"] == (
+            f"({metadata['DY_ENRICHED']['split_expression']})"
+            f" && ({item['split_expression']})"
+        )
+        assert enriched["view_type"] == item["view_type"]
+        assert enriched["is_exclusive_within_family"] == (
+            item["is_exclusive_within_family"]
+        )
+        assert enriched["partition_family"].startswith("DY:enriched:")
+        assert enriched["category_weight_factor"] == item["category_weight_factor"]
 
 
 def test_full_cut_is_mechanical(load_state):

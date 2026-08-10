@@ -8,7 +8,8 @@ This document preserves the dated minimal/category-refinement evidence below.
 The current executable contract subsequently added three independent features:
 
 - `DY_ENRICHED` applies the same `abs(Z0_mass - 91.1876) < 15` selected-Z
-  window as ZZCR/SR and books the exact same 25 histograms as `DY_ALL`.
+  window as ZZCR/SR. Every ordinary DY projection is mechanically mirrored as
+  `DY_ENRICHED_*` with the matching histogram tier and DY weight.
 - `minSelectedPairMass > 12 GeV` is evaluated over all six unordered masses
   formed from exactly the selected Z0+X leptons and applied only to ZZCR/SR;
   DY does not use it. Invalid selected inputs fail closed. The AN2019/238 v9
@@ -32,10 +33,10 @@ mapping.
 
 The later commissioning refinement preserves the original validated evidence
 below and makes `standard + analysis` the recommended ordinary view. The live
-contract has 36 declared projections and 864 sparse actions: 13 DY, 12 ZZCR,
-and 11 SR categories. The complete profile comparison is 150 minimal, 864
-standard, 498 flavor, 351 stream, 485 trigger-priority, and 954 detailed
-actions. Debug is a curated 1,289-action union and requires an explicit large
+contract has 47 declared projections and 1,043 sparse actions: 24 DY, 12 ZZCR,
+and 11 SR categories. The complete profile comparison is 150 minimal, 1,043
+standard, 536 flavor, 402 stream, 570 trigger-priority, and 1,133 detailed
+actions. Debug is a curated 1,553-action union and requires an explicit large
 plan override. The 35-directory/839-action runtime measurements below predate
 the additive `DY_ENRICHED` projection and remain historical evidence.
 

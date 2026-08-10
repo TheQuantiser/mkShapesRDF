@@ -68,7 +68,7 @@ def test_action_budget_fails_closed(load_state):
 def test_standard_view_aware_sparse_policy(load_state):
     state = load_state(category="standard")
     variables = state["CATEGORY_VARIABLES"]
-    assert sum(map(len, variables.values())) == 864
+    assert sum(map(len, variables.values())) == 1043
     assert len(variables["DY_ALL"]) == 25
     assert variables["DY_ENRICHED"] == variables["DY_ALL"]
     assert len(variables["ZZCR_ALL"]) == 50
@@ -76,6 +76,14 @@ def test_standard_view_aware_sparse_policy(load_state):
     assert len(variables["DY_ZEE"]) == 19
     assert len(variables["DY_STREAM_MUON"]) == 17
     assert len(variables["DY_STREAM_MUON_ZEE"]) == 15
+    for name in tuple(variables):
+        if (
+            name.startswith("DY_")
+            and name not in ("DY_ALL", "DY_ENRICHED")
+            and not name.startswith("DY_ENRICHED_")
+        ):
+            enriched_name = name.replace("DY_", "DY_ENRICHED_", 1)
+            assert variables[enriched_name] == variables[name]
     assert len(variables["ZZCR_4E"]) == 31
     assert len(variables["ZZCR_STREAM_MUON"]) == 25
     assert len(variables["ZZCR_STREAM_EGAMMA_4E"]) == 15
@@ -88,11 +96,11 @@ def test_standard_view_aware_sparse_policy(load_state):
 def test_profile_action_counts(load_state):
     expected = {
         "minimal": 150,
-        "standard": 864,
-        "flavor": 498,
-        "stream": 351,
-        "trigger": 485,
-        "detailed": 954,
+        "standard": 1043,
+        "flavor": 536,
+        "stream": 402,
+        "trigger": 570,
+        "detailed": 1133,
     }
     for profile, actions in expected.items():
         state = load_state(category=profile)

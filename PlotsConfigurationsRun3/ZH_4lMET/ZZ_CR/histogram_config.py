@@ -228,7 +228,7 @@ def materialize_histograms(raw_variables, binning_contract, category_metadata, p
     category_profile = next(iter(category_metadata.values()))["category_profile"]
     profile_action_budgets = {
         "minimal": 200,
-        "standard": 1000,
+        "standard": 1100,
         "flavor": 700,
         "stream": 500,
         "trigger": 700,

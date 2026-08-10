@@ -4,15 +4,16 @@ import re
 def _evaluate(expression, values):
     python_expr = expression.replace("&&", " and ").replace("||", " or ")
     python_expr = re.sub(r"!(?!=)", " not ", python_expr)
-    return bool(eval(python_expr, {"__builtins__": {}}, dict(values)))
+    return bool(eval(python_expr, {"__builtins__": {}, "abs": abs}, dict(values)))
 
 
 def _split(metadata, category_id, values):
     return _evaluate(metadata[category_id]["split_expression"], values)
 
 
-def _values(z_flavor, x_flavor=None, stream=None):
+def _values(z_flavor, x_flavor=None, stream=None, z_mass=91.1876):
     values = {
+        "Z0_mass": z_mass,
         "Z0_isEE": z_flavor == "EE",
         "Z0_isMM": z_flavor == "MM",
         "X_isEE": x_flavor == "EE",
@@ -48,6 +49,25 @@ def test_dy_partition_and_intersection_algebra(load_state):
                     )
                     leaf_bits.append(leaf)
             assert sum(leaf_bits) == 1
+
+            ordinary_names = (
+                "ZEE", "ZMM",
+                "STREAM_MUONEG", "STREAM_MUON", "STREAM_EGAMMA",
+                "STREAM_MUONEG_ZEE", "STREAM_MUONEG_ZMM",
+                "STREAM_MUON_ZEE", "STREAM_MUON_ZMM",
+                "STREAM_EGAMMA_ZEE", "STREAM_EGAMMA_ZMM",
+            )
+            for suffix in ordinary_names:
+                assert _split(metadata, f"DY_ENRICHED_{suffix}", values) == (
+                    _split(metadata, "DY_ENRICHED", values)
+                    and _split(metadata, f"DY_{suffix}", values)
+                )
+                outside_window = _values(
+                    z_flavor, stream=stream, z_mass=70.0
+                )
+                assert not _split(
+                    metadata, f"DY_ENRICHED_{suffix}", outside_window
+                )
 
 
 def test_zzcr_partition_and_curated_intersections(load_state):

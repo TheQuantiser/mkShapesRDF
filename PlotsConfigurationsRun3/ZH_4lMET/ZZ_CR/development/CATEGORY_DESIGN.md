@@ -2,24 +2,25 @@
 
 ## Decision
 
-The recommended `standard` profile contains 36 diagnostic projections and
-864 category-variable actions. It retains the three rich region-inclusive
-views, adds the overlapping `DY_ENRICHED` signal-Z-window projection, then
-adds only declared flavor, stream, and selected stream-by-flavor views.
+The recommended `standard` profile contains 47 diagnostic projections and
+1,043 category-variable actions. It retains the three rich region-inclusive
+views and mirrors every declared DY flavor, stream, and stream-by-flavor view
+inside the overlapping `DY_ENRICHED` signal-Z window.
 No code constructs a general Cartesian product.
 
 | Region | Inclusive/projection | Flavor/topology | Stream | Curated intersection | Total |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| DY | 2 | 2 | 3 | 6 | 13 |
+| DY | 2 | 4 | 6 | 12 | 24 |
 | ZZCR | 1 | 3 | 3 | 5 | 12 |
 | SR | 1 | 7 | 3 | 0 | 11 |
-| Total | 4 | 12 | 9 | 11 | 36 |
+| Total | 4 | 14 | 12 | 17 | 47 |
 
 `DY_ENRICHED` is selected by `abs(Z0_mass - 91.1876) < 15`, using the same
 constant as the physical ZZCR/SR parent. It is not an exclusive partition
-member: it overlaps `DY_ALL` by design. Its `view_type` is `inclusive`, which
-makes its 25 active histograms, expressions, bins, and folds exactly identical
-to `DY_ALL` through the normal sparse-materialization policy.
+member: it overlaps `DY_ALL` by design. Each ordinary DY subcategory is
+mechanically mirrored as `DY_ENRICHED_*`; it conjoins the same shared window
+with the ordinary split and inherits its view type, histogram tier, weight,
+and within-family exclusivity.
 
 DY keeps its full 3-by-2 stream-priority versus selected-Z-flavor closure
 matrix. This is the one region where every leaf directly diagnoses dataset
@@ -98,14 +99,14 @@ identities. The final nominal action counts are:
 | Profile | Categories | Actions |
 | --- | ---: | ---: |
 | minimal | 4 | 150 |
-| standard | 36 | 864 |
-| flavor | 16 | 498 |
-| stream | 13 | 351 |
-| trigger | 19 | 485 |
-| detailed | 42 | 954 |
-| debug | 57 | 1,289 (requires `ALLOW_LARGE_PLAN=1`) |
+| standard | 47 | 1,043 |
+| flavor | 18 | 536 |
+| stream | 16 | 402 |
+| trigger | 24 | 570 |
+| detailed | 53 | 1,133 |
+| debug | 73 | 1,553 (requires `ALLOW_LARGE_PLAN=1`) |
 
-Standard is 5.760 times the minimal action count but 27.100 times smaller
+Standard is 6.953 times the minimal action count but 22.449 times smaller
 than the former 23,414-action rectangle. It remains one nominal `ALL` job set
 with unchanged region-specific weight factors.
 
@@ -114,7 +115,7 @@ with unchanged region-specific weight factors.
 Category projection and sample activation are independent axes. The default
 `commissioning` sample profile activates DATA plus the live DY and ZZ outputs;
 `presentation` activates every logical output owned by the live plot groups.
-Neither profile changes the 36-category/864-action standard histogram graph,
+Neither profile changes the 47-category/1,043-action standard histogram graph,
 and `SAMPLE_FILTER` remains a stronger exact override.
 
 The current physical ZZCR/SR parent includes

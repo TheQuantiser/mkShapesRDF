@@ -111,11 +111,11 @@ normal category/action budgets and requires `ALLOW_LARGE_PLAN=1`.
 ## Post-audit current contract
 
 The 35-category/839-action inventory above is retained as dated validation
-evidence. The live category contract subsequently added `DY_ENRICHED`, an
-overlapping projection with `abs(Z0_mass - 91.1876) < 15` and the same 25
-histograms as `DY_ALL`. The current profile sizes are 4/150 minimal, 36/864
-standard, 16/498 flavor, 13/351 stream, 19/485 trigger, 42/954 detailed, and
-57/1,289 debug. Later work also added two orthogonal sample profiles:
+evidence. The live category contract subsequently added `DY_ENRICHED` and a
+mechanical `DY_ENRICHED_*` mirror of every ordinary profile-dependent DY
+projection. The current profile sizes are 4/150 minimal, 47/1,043 standard,
+18/536 flavor, 16/402 stream, 24/570 trigger, 53/1,133 detailed, and 73/1,553
+debug. Later work also added two orthogonal sample profiles:
 `commissioning` for DATA plus DY
 and ZZ, and `presentation` for every logical process covered by the live plot
 groups. For 2024 these resolve to 8 and 55 logical outputs respectively. The
