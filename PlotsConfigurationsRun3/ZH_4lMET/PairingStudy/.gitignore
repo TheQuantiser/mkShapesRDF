@@ -1,0 +1,10 @@
+# Generated PairingStudy products.  Source, tests, and documentation remain
+# tracked; campaign controls and outputs are reproducible from run_all_years.sh.
+configs/
+condor/
+rootFiles/
+reports/
+plots/
+*.log
+*.tgz
+*.tgz.manifest.json
