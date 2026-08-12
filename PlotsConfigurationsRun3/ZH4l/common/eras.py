@@ -15,7 +15,7 @@ from urllib.parse import urlsplit
 
 DEFAULT_TREE_BASE_DIR = "/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano"
 BTAG_SF_CVMFS_BASE = "/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV"
-SAMPLE_PROFILES = ("commissioning", "presentation")
+SAMPLE_PROFILES = ("full", "quick", "presentation", "commissioning")
 
 
 def is_xrootd_url(value):
@@ -219,7 +219,9 @@ def _materialize_years(raw_cfg):
             raise ValueError("DATA stream names must be non-empty strings")
         if not isinstance(rule, str) or not rule.strip():
             raise ValueError(f"DATA stream {stream!r} needs a trigger expression")
-        unknown = sorted(set(re.findall(r"Trigger_[A-Za-z0-9_]+", rule)) - configured_triggers)
+        unknown = sorted(
+            set(re.findall(r"Trigger_[A-Za-z0-9_]+", rule)) - configured_triggers
+        )
         if unknown:
             raise ValueError(
                 f"DATA stream {stream!r} uses unconfigured trigger flags: {unknown}"
@@ -303,13 +305,9 @@ def resolve_era(era=None, *, environ=None):
         )
     selected = requested or era_env or year_env
     if requested and era_env and requested != era_env:
-        raise ValueError(
-            f"Explicit era {requested!r} disagrees with ERA={era_env!r}"
-        )
+        raise ValueError(f"Explicit era {requested!r} disagrees with ERA={era_env!r}")
     if requested and year_env and requested != year_env:
-        raise ValueError(
-            f"Explicit era {requested!r} disagrees with YEAR={year_env!r}"
-        )
+        raise ValueError(f"Explicit era {requested!r} disagrees with YEAR={year_env!r}")
     return selected
 
 
@@ -367,8 +365,10 @@ def resolve_production_normalizations(year_cfg, full_cfg):
         if registry_xs <= 0.0 or target_xs <= 0.0:
             raise ValueError(f"Invalid cross sections for production mode {mode!r}")
         aliases = cfg.get("aliases")
-        if not isinstance(aliases, list) or not aliases or not all(
-            isinstance(alias, str) and alias for alias in aliases
+        if (
+            not isinstance(aliases, list)
+            or not aliases
+            or not all(isinstance(alias, str) and alias for alias in aliases)
         ):
             raise ValueError(f"Production mode {mode!r} requires source aliases")
         factor = target_xs / registry_xs
@@ -404,7 +404,9 @@ def resolve_overlap_model(year_cfg, full_cfg):
     if not isinstance(model, dict) or model.get("schema_version") != 1:
         raise ValueError("overlap_model schema_version must be 1")
     if model.get("unmatched_source_policy") != "passthrough":
-        raise ValueError("Only overlap_model unmatched_source_policy=passthrough is supported")
+        raise ValueError(
+            "Only overlap_model unmatched_source_policy=passthrough is supported"
+        )
     active_sources = list(year_cfg["mc"]["samples"])
     if len(active_sources) != len(set(active_sources)):
         raise ValueError("mc.samples contains duplicate physical aliases")
@@ -418,7 +420,9 @@ def resolve_overlap_model(year_cfg, full_cfg):
             )
         if "prefix" in selector:
             members = [
-                source for source in active_sources if source.startswith(selector["prefix"])
+                source
+                for source in active_sources
+                if source.startswith(selector["prefix"])
             ]
         elif "aliases" in selector:
             expected = list(selector["aliases"])
@@ -429,7 +433,9 @@ def resolve_overlap_model(year_cfg, full_cfg):
                     f"overlap source set {set_name!r} is missing active aliases {missing}"
                 )
         else:
-            raise ValueError(f"Unsupported selector for overlap source set {set_name!r}")
+            raise ValueError(
+                f"Unsupported selector for overlap source set {set_name!r}"
+            )
         if not members:
             raise ValueError(f"overlap source set {set_name!r} resolved no inputs")
         for source in members:
@@ -482,7 +488,9 @@ def resolve_overlap_model(year_cfg, full_cfg):
                     }
                 )
         if not components:
-            raise ValueError(f"Logical process {process_name!r} has no active components")
+            raise ValueError(
+                f"Logical process {process_name!r} has no active components"
+            )
         resolved_processes[process_name] = {
             "theory_group": theory_group,
             "components": tuple(components),
@@ -508,16 +516,24 @@ def resolve_overlap_model(year_cfg, full_cfg):
     return {
         "physical_sources": tuple(active_sources),
         "source_sets": resolved_sets,
-        "consumed_sources": tuple(source for source in active_sources if source in consumed),
+        "consumed_sources": tuple(
+            source for source in active_sources if source in consumed
+        ),
         "passthrough_sources": passthrough,
         "processes": resolved_processes,
         "output_names": output_names,
     }
 
 
-def resolve_sample_profile(year_cfg, full_cfg, profile_name="commissioning"):
-    """Resolve one logical process scope from the live plot-group registry."""
-    name = str(profile_name or "commissioning").strip().lower()
+def resolve_sample_profile(year_cfg, full_cfg, profile_name="full"):
+    """Resolve one logical process scope from the live plot-group registry.
+
+    ``full`` is the production contract. ``quick`` is the intentionally
+    bounded DY+ZZ scope used for smoke tests.  The historical names
+    ``presentation`` and ``commissioning`` remain compatibility aliases for
+    ``full`` and ``quick``, respectively.
+    """
+    name = str(profile_name or "full").strip().lower()
     if name not in SAMPLE_PROFILES:
         raise ValueError(
             f"Unknown SAMPLE_PROFILE={name!r}; available={SAMPLE_PROFILES}"
@@ -530,9 +546,9 @@ def resolve_sample_profile(year_cfg, full_cfg, profile_name="commissioning"):
     if not isinstance(plot_groups, dict) or not plot_groups:
         raise ValueError("year_config.json requires non-empty plot_groups")
 
-    selected_groups = (
-        ("DY", "ZZ") if name == "commissioning" else tuple(plot_groups)
-    )
+    is_quick = name in ("quick", "commissioning")
+    is_full = name in ("full", "presentation")
+    selected_groups = ("DY", "ZZ") if is_quick else tuple(plot_groups)
     missing_groups = [group for group in selected_groups if group not in plot_groups]
     if missing_groups:
         raise ValueError(
@@ -554,7 +570,7 @@ def resolve_sample_profile(year_cfg, full_cfg, profile_name="commissioning"):
                 )
             owners[sample_name] = group_name
 
-    if name == "presentation":
+    if is_full:
         ungrouped = sorted(known_mc_set - set(owners))
         if ungrouped:
             raise ValueError(
@@ -583,7 +599,7 @@ def resolve_sample_profile(year_cfg, full_cfg, profile_name="commissioning"):
 def resolve_sample_selection(
     year_cfg,
     full_cfg,
-    profile_name="commissioning",
+    profile_name="full",
     sample_filter=None,
 ):
     """Apply an optional exact SAMPLE_FILTER above a validated sample profile."""
@@ -645,9 +661,7 @@ def _validate_year_cfg(year_key, year_cfg):
         isinstance(lumi_nuisance[key], str) and lumi_nuisance[key]
         for key in ("name", "value")
     ):
-        raise ValueError(
-            f"Year '{year_key}' lumi_nuisance requires string name/value"
-        )
+        raise ValueError(f"Year '{year_key}' lumi_nuisance requires string name/value")
 
     required_btag = {
         "algo",
@@ -657,9 +671,7 @@ def _validate_year_cfg(year_key, year_cfg):
         "efficiency_map",
     }
     if set(year_cfg["btag"]) != required_btag:
-        raise ValueError(
-            f"Year '{year_key}' btag keys must be {sorted(required_btag)}"
-        )
+        raise ValueError(f"Year '{year_key}' btag keys must be {sorted(required_btag)}")
     btag_wp = year_cfg["btag"]["veto_wp"]
     if (
         not isinstance(btag_wp, (int, float))
@@ -689,8 +701,10 @@ def _validate_year_cfg(year_key, year_cfg):
         if not isinstance(year_cfg["mc"].get(key), str) or not year_cfg["mc"][key]:
             raise ValueError(f"Year '{year_key}' mc.{key} must be a non-empty string")
     mc_samples = year_cfg["mc"]["samples"]
-    if not isinstance(mc_samples, list) or not mc_samples or not all(
-        isinstance(sample, str) and sample for sample in mc_samples
+    if (
+        not isinstance(mc_samples, list)
+        or not mc_samples
+        or not all(isinstance(sample, str) and sample for sample in mc_samples)
     ):
         raise ValueError(f"Year '{year_key}' mc.samples must contain sample names")
     if len(mc_samples) != len(set(mc_samples)):
@@ -719,7 +733,10 @@ def _validate_year_cfg(year_key, year_cfg):
                 raise ValueError(
                     f"Year '{year_key}' data.samples[{i}] is missing '{sample_key}'."
                 )
-            if not isinstance(sample_cfg[sample_key], str) or not sample_cfg[sample_key]:
+            if (
+                not isinstance(sample_cfg[sample_key], str)
+                or not sample_cfg[sample_key]
+            ):
                 raise ValueError(
                     f"Year '{year_key}' data.samples[{i}].{sample_key} "
                     "must be a non-empty string"
@@ -766,7 +783,9 @@ def _validate_year_cfg(year_key, year_cfg):
         if (
             not isinstance(paths, list)
             or not paths
-            or not all(isinstance(path, str) and path.startswith("HLT_") for path in paths)
+            or not all(
+                isinstance(path, str) and path.startswith("HLT_") for path in paths
+            )
         ):
             raise ValueError(
                 f"Year '{year_key}' trigger_paths.{trigger_flag}.paths must be a non-empty list of HLT_* strings."
@@ -939,7 +958,9 @@ def resolve_tree_base_dir(year_cfg, sample_kind, sample_name=None, stream_name=N
       4. legacy fallback constant
     """
     if sample_kind not in ("mc", "data"):
-        raise ValueError(f"Unsupported sample_kind='{sample_kind}'. Use 'mc' or 'data'.")
+        raise ValueError(
+            f"Unsupported sample_kind='{sample_kind}'. Use 'mc' or 'data'."
+        )
 
     storage_cfg = year_cfg.get("storage", {})
     default_dir = storage_cfg.get("default_tree_base_dir", DEFAULT_TREE_BASE_DIR)

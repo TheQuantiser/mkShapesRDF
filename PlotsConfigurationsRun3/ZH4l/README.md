@@ -47,9 +47,15 @@ mkShapesRDF -c 1 -o 0 -b 0 \
   -f PlotsConfigurationsRun3/ZH4l/ZZCR -l 100
 ```
 
-Use `ENABLE_SYSTEMATICS=1` for the full ZZCR nuisance model.  `SAMPLE_PROFILE`
-selects a centrally validated operational scope and `SAMPLE_FILTER` narrows it
-to a comma-separated set of logical outputs.  Generated `configs/`, `condor/`,
+Use `ENABLE_SYSTEMATICS=1` for the full ZZCR nuisance model. `SAMPLE_PROFILE`
+has two documented scopes:
+
+- `full` (default): every configured signal/background process plus `DATA`;
+- `quick`: the bounded DY+ZZ+DATA scope for compilation and smoke tests.
+
+The old names `presentation` and `commissioning` remain compatibility aliases
+for `full` and `quick`. `SAMPLE_FILTER` is an exact comma-separated override,
+so the quick-start command runs only `ZZ`. Generated `configs/`, `condor/`,
 `rootFiles/`, plots, caches, and rendered reports are ignored.
 
 For the studies:

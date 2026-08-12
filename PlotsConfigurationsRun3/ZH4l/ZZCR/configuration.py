@@ -9,8 +9,8 @@ FAMILY_DIR = CONFIG_DIR.parent
 if str(FAMILY_DIR) not in os.sys.path:
     os.sys.path.insert(0, str(FAMILY_DIR))
 
-from common.eras import load_selected_era
-from common.runtime import batch_runtime_from_env, remote_io_from_env
+from common.eras import load_selected_era  # noqa: E402
+from common.runtime import batch_runtime_from_env, remote_io_from_env  # noqa: E402
 
 ERA, ERA_CONFIG, _FULL_CONFIG = load_selected_era()
 os.environ["ERA"] = ERA
@@ -19,6 +19,13 @@ if _systematics_value not in {"0", "1", "false", "true", "no", "yes", "off", "on
     raise ValueError("ENABLE_SYSTEMATICS must be boolean")
 ENABLE_SYSTEMATICS = _systematics_value in {"1", "true", "yes", "on"}
 os.environ["ENABLE_SYSTEMATICS"] = "1" if ENABLE_SYSTEMATICS else "0"
+SAMPLE_PROFILE = os.environ.get("SAMPLE_PROFILE", "full").strip().lower()
+if SAMPLE_PROFILE not in {"quick", "full", "commissioning", "presentation"}:
+    raise ValueError(
+        "SAMPLE_PROFILE must be quick or full "
+        "(legacy aliases: commissioning or presentation)"
+    )
+os.environ["SAMPLE_PROFILE"] = SAMPLE_PROFILE
 campaign = os.environ.get(
     "ZH4L_CAMPAIGN", datetime.now(timezone.utc).strftime("zzcr_%Y%m%d_%H%M%S")
 ).strip()
@@ -45,15 +52,41 @@ nuisancesFile = "nuisances.py"
 remoteIO = remote_io_from_env()
 globals().update(batch_runtime_from_env())
 imports = ["os", "math", ("collections", "OrderedDict"), "ROOT"]
-filesToExec = [samplesFile, aliasesFile, cutsFile, variablesFile, plotFile, nuisancesFile, structureFile]
+filesToExec = [
+    samplesFile,
+    aliasesFile,
+    cutsFile,
+    variablesFile,
+    plotFile,
+    nuisancesFile,
+    structureFile,
+]
 varsToKeep = [
-    "batchVars", "outputFolder", "batchFolder", "configsFolder", "outputFile",
-    "runnerFile", "tag", "samples", "aliases", "variables",
+    "batchVars",
+    "outputFolder",
+    "batchFolder",
+    "configsFolder",
+    "outputFile",
+    "runnerFile",
+    "tag",
+    "samples",
+    "aliases",
+    "variables",
     ("cuts", {"cuts": "cuts", "preselections": "preselections"}),
     ("plot", {"plot": "plot", "groupPlot": "groupPlot", "legend": "legend"}),
-    "nuisances", "structure", "lumi", "mountEOS", "remoteIO", "ENABLE_SYSTEMATICS",
-    "condorRuntimePackage", "condorRuntimePackageName", "condorRuntimeIncludes",
-    "condorRuntimeSetup", "useX509Proxy", "useEOSUserOutput",
+    "nuisances",
+    "structure",
+    "lumi",
+    "mountEOS",
+    "remoteIO",
+    "ENABLE_SYSTEMATICS",
+    "SAMPLE_PROFILE",
+    "condorRuntimePackage",
+    "condorRuntimePackageName",
+    "condorRuntimeIncludes",
+    "condorRuntimeSetup",
+    "useX509Proxy",
+    "useEOSUserOutput",
 ]
-batchVars = varsToKeep[varsToKeep.index("samples"):]
+batchVars = varsToKeep[varsToKeep.index("samples") :]
 varsToKeep += ["plotPath"]

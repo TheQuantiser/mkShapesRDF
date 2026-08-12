@@ -19,9 +19,7 @@ _remote_discovery_enabled = _remote_io.get("inputAccessMode") in (
     "xrootd",
     "stage-in",
 )
-redirector = (
-    _remote_io.get("xrdDiscoveryEndpoint") if _remote_discovery_enabled else ""
-)
+redirector = _remote_io.get("xrdDiscoveryEndpoint") if _remote_discovery_enabled else ""
 readRedirector = (
     _remote_io.get("xrdReadEndpoint") if _remote_discovery_enabled else None
 )
@@ -57,10 +55,11 @@ if not CORRECTION_WEIGHT.strip():
 
 
 _known_samples = set(_resolved_overlap["output_names"]) | {"DATA"}
-SAMPLE_PROFILE = str(
-    globals().get("SAMPLE_PROFILE")
-    or os.environ.get("SAMPLE_PROFILE", "commissioning")
-).strip().lower()
+SAMPLE_PROFILE = (
+    str(globals().get("SAMPLE_PROFILE") or os.environ.get("SAMPLE_PROFILE", "full"))
+    .strip()
+    .lower()
+)
 try:
     _resolved_sample_profile = resolve_sample_selection(
         _selected_era,
@@ -176,7 +175,9 @@ def nanoGetSampleFilesWithFallback(paths, name):
                 f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' in '{path}' (returning first {limitFiles})."
             )
             return [(name, files[:limitFiles])]
-        print(f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' in '{path}'.")
+        print(
+            f"[nanoGetSampleFiles] Found {len(files)} files for '{name}' in '{path}'."
+        )
         return [(name, files)]
 
     if _remote_discovery_enabled:
@@ -185,7 +186,9 @@ def nanoGetSampleFilesWithFallback(paths, name):
             f"sample='{name}', folders={paths}, discovery_endpoint='{redirector}', "
             f"read_endpoint='{readRedirector}'"
         )
-    print(f"[nanoGetSampleFiles] No files found for sample '{name}' in any of: {paths}.")
+    print(
+        f"[nanoGetSampleFiles] No files found for sample '{name}' in any of: {paths}."
+    )
     return [(name, [])]
 
 
@@ -223,12 +226,8 @@ for _process_name, _process_cfg in _resolved_overlap["processes"].items():
     _components = []
     for _component in _process_cfg["components"]:
         _source_alias = _component["source_alias"]
-        _files = nanoGetSampleFiles(
-            makeMCDirectory(_source_alias), _source_alias
-        )[0][1]
-        _source_norm = source_normalization(
-            _source_alias, _selected_era, _full_config
-        )
+        _files = nanoGetSampleFiles(makeMCDirectory(_source_alias), _source_alias)[0][1]
+        _source_norm = source_normalization(_source_alias, _selected_era, _full_config)
         _components.append(
             (
                 _source_alias,

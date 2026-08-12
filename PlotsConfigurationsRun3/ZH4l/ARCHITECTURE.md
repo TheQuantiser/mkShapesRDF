@@ -40,6 +40,21 @@ shared rather than cloning five leaf directories.
 | DY→ZZ stages and sparse axes | `Closure/study_config.py`, `Closure/variables.py` | Closure only |
 | Endpoints, package mode, proxy/stage-out | `common/runtime.py`, `env/*.sh` | No physics values |
 
+## Sample scopes and observable axes
+
+`full` is the production-default sample profile and resolves every configured
+logical MC output plus `DATA`. `quick` is deliberately limited to the DY and
+ZZ groups plus `DATA`. The historical names `presentation` and
+`commissioning` remain aliases for `full` and `quick`; they are not separate
+physics contracts. An exact `SAMPLE_FILTER` may select any configured logical
+output independently of the operational profile.
+
+The retained nominal axes for `mZ`, `mX`, `m4l`, `ptZ`, `ptX`, `pt4l`, and
+`PuppiMET_pt` preserve the legacy variable edges and fold policies exactly.
+`minMll4l` and `nLepton10` are new public observables with family-owned axes.
+Tests freeze both the production sample default and every retained legacy
+axis, so a future scope or binning change must be explicit.
+
 ## Analyst-facing alias contract
 
 Public physics names are concise and unprefixed. Implementation-only columns

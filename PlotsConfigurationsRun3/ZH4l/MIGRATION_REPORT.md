@@ -77,6 +77,18 @@ Retained custom code and reason:
 - Pairing and Closure macros: these own study-specific truth/score and closure
   quantities, respectively.
 
+## Production sample scope
+
+`ZZCR` now defaults to `SAMPLE_PROFILE=full`: all 54 configured 2024 logical
+MC outputs plus `DATA`. The bounded `quick` profile contains DY, ZZ, and DATA
+for smoke tests. The former names `presentation` and `commissioning` remain
+compatibility aliases for `full` and `quick`. An exact `SAMPLE_FILTER` can
+select any configured output independently of the operational profile.
+
+A default, unfiltered 2024 dry batch compile resolved all 55 logical outputs
+and materialized 60 split jobs (including DATA stream components) in 13.65 s
+at 584,356 kB peak RSS.
+
 ## Runner, category, and histogram comparison
 
 | Analysis | Old runner | New runner | Old categories/actions | New categories/actions |
@@ -102,9 +114,32 @@ The authoritative validated inputs/kernels are byte-identical old-to-new:
 | Pairing candidate/truth/score kernel | `07733b8a7c6fe05f1788f6235c3e584751d26e05359f5e370244645a762f058c` |
 
 Automated tests freeze these hashes, map each renamed public alias to the same
-kernel, exercise real C++ candidate/boundary semantics, enforce exact sample
-inventories, preserve Pairing truth/summary behavior, freeze Closure stage
-expressions, and fail on alias collisions or leaf redefinitions.
+kernel, exercise real C++ candidate/boundary semantics, enforce the complete
+default sample scope and exact legacy histogram axes, preserve Pairing
+truth/summary behavior, freeze Closure stage expressions, and fail on alias
+collisions or leaf redefinitions. The completed family suite has 73 tests.
+
+The final old/new equivalence run used one real `ZZ` file and one real ZH
+signal file per era, with a 10,000-event bound. The protected legacy source
+was copied into ignored temporary space; no file or generated output was
+written below `ZH_4lMET`. For every event passing preselection it compared
+event identity, Z/X indices, all nine nominal observables, selection
+predicates, six region memberships, and the complete nominal event weight.
+It also rebuilt all 54 nominal distributions per era/sample using identical
+validated bin edges and flow policies.
+
+| ERA | ZZ preselection / ZZCR | ZH preselection / XSF / XDF | result |
+|---|---:|---:|---|
+| 2022 | 865 / 5 | 2,963 / 14 / 18 | exact |
+| 2022EE | 2,348 / 19 | 5,430 / 29 / 34 | exact |
+| 2023 | 6,489 / 44 | 1,872 / 11 / 10 | exact |
+| 2023BPix | 6,430 / 51 | 818 / 4 / 4 | exact |
+| 2024 | 6,530 / 47 | 424 / 5 / 12 | exact |
+
+The maximum floating-observable difference, nominal-weight difference, and
+histogram-bin difference were all exactly zero. The 540 sample/era/category
+distribution comparisons all passed. The complete curated receipt and
+reproduction command are in `ZZCR/EQUIVALENCE_REPORT.md`.
 
 New ZZCR was then run through native RunAnalysis against one real remotely
 opened `ZZ` NanoAOD file per era with `LIMIT_FILES_PER_SAMPLE=1`, 100 input
@@ -131,8 +166,19 @@ memory for 839 actions. The new bounded timings are comparable or lower and
 the nominal action count is reduced from 1,043 to 54. The new 2024 ZZCR
 configuration-only compile took 6.04 s and 583,436 KB. No separate legacy
 configuration-only timing was recorded in the available audit, so no invented
-number is reported. A full-systematics 2024 configuration compile, including
-real-file systematic branch inspection, took 13.70 s and 912,344 KB.
+number is reported. The final event-level all-era validation completed in
+261.51 s wall time at 987,480 kB orchestration peak RSS. Its per-era new
+snapshot graphs took 20.87–21.59 s versus 28.52–31.34 s for the matching
+legacy graphs.
+
+Full-systematics graphs were executed, not merely compiled, on representative
+2024 ZZ and ZH files. The 1,000-event ZZ job passed 639 preselection events in
+118.99 s at 1,204,004 kB peak RSS and produced 51 finite histograms (nominal
+plus 50 experimental/PS variations) in each of 54 category-variable
+directories. The ZH job processed its complete 424-event first file in
+105.98 s at 1,096,052 kB peak RSS and produced 163 finite histograms per
+directory, including the QCD-scale envelope, 102-member PDF RMS set, PS, and
+experimental variations.
 
 ## Site/runtime validation
 
@@ -153,12 +199,6 @@ real-file systematic branch inspection, took 13.70 s and 912,344 KB.
    configurations. Therefore the old tree remains as an immutable duplicate
    validation oracle; it was not replaced with a deprecation stub or removed,
    even though the original task's preferred final state requested retirement.
-2. To avoid generating any new artifact under that protected old tree, the
-   migration did not execute a second old configuration in place. Equivalence
-   is established by byte-identical validated JSON/C++ kernels, frozen renamed
-   expressions and existing legacy real-event evidence, plus new real-event
-   execution in every era. A fully independent old/new per-event dump was not
-   produced in this turn.
-3. No new CERN/FNAL Condor job or remote stage-out was launched. The local
+2. No new CERN/FNAL Condor job or remote stage-out was launched. The local
    native graph and remote reads are validated; site scripts still require a
    valid user proxy and writable destination at production time.
