@@ -1,0 +1,614 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.78in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\definecolor{cmsblue}{RGB}{34,94,168}
+\definecolor{cmsdark}{RGB}{42,49,58}
+\definecolor{softgray}{RGB}{245,246,248}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=cmsblue,
+  urlcolor=cmsblue,
+  citecolor=cmsblue,
+  pdftitle={Run 3 ZH and ZZ Four-Lepton Pairing Study},
+  pdfsubject={Comparison of reconstructed Z/X pairing methods in ZH and ZZ},
+  pdfkeywords={CMS, Run 3, ZH, ZZ, four leptons, pairing, FSR}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Run 3 ZH/ZZ pairing study}
+\rhead{All-file, all-event result}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlist[itemize]{nosep,leftmargin=1.5em}
+\setlist[enumerate]{nosep,leftmargin=1.7em}
+\captionsetup{font=small,labelfont=bf}
+\renewcommand{\arraystretch}{1.12}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\mZ}{m_{Z}}
+\newcommand{\pTZ}{p_{\mathrm{T}}(Z)}
+\newcommand{\mX}{m_{X}}
+\newcommand{\pt}{p_{\mathrm{T}}}
+\newcommand{\campaign}{\texttt{pairing\_dual\_full\_packaged\_v2\_20260811}}
+\newcommand{\physbase}{\texttt{PAIRING\_PHYS\_BASE}}
+\newcommand{\objectbase}{\texttt{PAIRING\_OBJECT\_BASE}}
+\newcommand{\plots}{plots/pairing_dual_full_packaged_v2_20260811}
+\newcommand{\maybegraphic}[2][]{%
+  \IfFileExists{#2}{\includegraphics[#1]{#2}}{%
+    \fbox{\parbox[c][0.20\textheight][c]{0.92\linewidth}{\centering
+      Plot artifact unavailable.\\[-1mm]\scriptsize\texttt{\detokenize{#2}}}}}}
+
+\title{\vspace{-1.2cm}\bfseries\color{cmsdark}
+  Run 3 ZH and ZZ Four-Lepton Pairing Study\\[2mm]
+  \large Associated-Z recovery, two-boson partition fidelity, and region stability}
+\author{ZH $\to 4\ell+\mathrm{MET}$ PairingStudy configuration}
+\date{Final all-file, all-event campaign --- 11 August 2026}
+
+\begin{document}
+\maketitle
+\vspace{-0.5em}
+
+\begin{abstract}
+This report compares six reconstructed four-lepton Z/X pairing conventions in
+two deliberately separate truth domains: the label-sensitive associated-Z pair
+in $Z(\ell\ell)H(WW\to2\ell2\nu)$ and the label-invariant generator-record
+two-boson partition in direct-four-lepton ZZ events.  The study processes all
+780 configured Run 3 input files across five eras in 86 successful jobs, using
+one pairing-independent quartet, one exhaustive candidate cache, and one event
+graph.  The established physical-mass nearest-$\mZ$ method reaches a raw
+associated-Z efficiency of $94.1712\%$ and a ZZ partition fidelity of
+$97.4749\%$.  Source-associated FSR recovery gives only a small positive net
+gain ($+851$ ZH and $+3$ ZZ assignments), while lowering both signal-region
+and ZZ-control-region acceptance.  Resolution-pull variants lose net correct
+assignments in both domains.  The evidence supports retaining the current
+nearest-$\mZ$ rule.
+\end{abstract}
+
+\noindent\colorbox{softgray}{\parbox{0.965\linewidth}{
+\textbf{Primary conclusion.} Keep the current physical-mass nearest-$\mZ$
+pairing.  Core and historical massless rules are effectively identical to it
+in production ($1$ changed ZH assignment in $668{,}539$ physical-base events;
+none in ZZ).  Explicit X ranking is exactly redundant after fixing the quartet
+and Z: the measured XSF$\leftrightarrow$XDF off-diagonal count is zero.}}
+
+\tableofcontents
+
+\section{Physics questions and truth definitions}
+
+The same reconstructed pairing rule is studied against two different truth
+objects.  Their denominators and efficiencies are never combined.
+
+\subsection{ZH associated-Z truth}
+
+The signal is
+\[
+  pp\to ZH,\qquad Z\to\ell^{+}\ell^{-},\qquad
+  H\to WW\to\ell\nu\ell\nu.
+\]
+The truth target is the unique hard-process Z lineage that is not a Higgs
+descendant.  Direct prompt $Z\to ee$ or $Z\to\mu\mu$ daughters are followed
+through same-PDG copy chains and must match two distinct quartet leptons
+one-to-one.  A reconstructed candidate is correct only if its unordered
+selected-Z index pair equals this associated-Z pair.  This definition is
+\emph{label sensitive}: exchanging the associated-Z pair with an SF HWW pair
+is wrong even when the complete four-lepton partition is unchanged.  The
+complement is independently checked against the two matched HWW leptons.
+
+The $3e1\mu$ and $1e3\mu$ topologies are essential signal channels: the
+associated Z is SF and the HWW complement is DF.  They are retained throughout.
+
+\subsection{ZZ two-boson truth}
+
+For inclusive ZZ, the direct-four-lepton truth subset requires two distinct
+hard Z/$\gamma^{*}$ neutral-current lineages, each with direct prompt
+$ee$ or $\mu\mu$ daughters, and a one-to-one match of all four daughters to
+the quartet.  FSR/conversion photons and nonleptonic intermediate decays are
+not promoted to direct lineages.  Correctness is
+\[
+ \bigl\{\{Z_1,Z_2\},\{X_1,X_2\}\bigr\}_{\mathrm{reco}}
+ =
+ \bigl\{\{\ell_1,\ell_2\},\{\ell_3,\ell_4\}\bigr\}_{\mathrm{truth}},
+\]
+where both the individual pairs and the set of pairs are unordered.  Swapping
+the two bosons or the reconstructed Z/X labels is accepted.  The $2e2\mu$
+partition is flavor distinguishable.  For $4e$ and $4\mu$, identical-particle
+interference prevents a unique observable pairing; the metric is explicitly
+generator-record partition fidelity.  Odd-flavor quartets remain reconstructed
+diagnostics but do not enter the direct-4$\ell$ ZZ truth denominator.
+
+\section{Pairing-independent event contract}
+
+The principal denominator is defined before any Z/X assignment:
+\begin{itemize}
+  \item the four highest-$\pt$ leptons passing the configured Run 3 tight
+        electron or muon working point;
+  \item strict ordered thresholds $\pt>25,15,10,10\ \mathrm{GeV}$;
+  \item total selected charge zero;
+  \item a veto on any fifth common \texttt{Lepton} with $\pt\geq10\ \mathrm{GeV}$.
+\end{itemize}
+This defines \objectbase.  The physical baseline \physbase additionally
+requires the minimum invariant mass among all six quartet pairs to exceed
+$12\ \mathrm{GeV}$.  Neither baseline uses a selected Z, a Z window, X flavor,
+$\mX$, MET, or analysis-region membership.
+
+Every unordered OS-SF pair is enumerated once as a Z candidate and X is the
+two-object complement.  Four-vectors, nominal and alternative scores,
+candidate multiplicity, truth state, and region labels are cached once per
+event and reused by all histograms.
+
+\section{Pairing methods}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Executable pairing algorithms.  All methods consume the same quartet
+and candidate set.}
+\begin{tabularx}{\textwidth}{c l Y}
+\toprule
+Code & Name & Ranking rule \\
+\midrule
+0 & nearest $\mZ$ & Physical electron/muon masses; minimize
+$|m_{\ell\ell}-91.1876|$ with strict-first tie behavior. \\
+1 & core massless & Literal fixed-quartet massless convention of core
+\texttt{getZXLepIdx}. \\
+2 & historical massless & Same executable selector as code 1, retaining
+historical Run-2 source provenance. \\
+3 & resolution pull & Minimize $|m_{\ell\ell}-\mZ|/\sigma_{m_{\ell\ell}}$
+with independent fixed-direction lepton uncertainties. \\
+4 & FSR nearest $\mZ$ & Nearest-$\mZ$ ranking after validated forward/reverse
+source-associated FSR recovery. \\
+5 & FSR resolution pull & FSR-recovered mass with the documented lepton-only
+resolution approximation. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The normalized physical/core/historical equivalence is a proof-level
+reference, not duplicate executable code.  The core
+\texttt{getZAZBLepIdx} method was audited but excluded: it is an auxiliary
+cross-pair construction, not a universal selector, and retains a known legacy
+indexing defect and a sentinel inconsistency.  Truth oracles are diagnostic
+ceilings only.  No deployable score uses $\mX$, MET, region membership, or ML.
+
+\section{Inputs and production}
+
+Inventories, production steps, luminosities, component weights, and source
+normalizations are materialized dynamically from
+\path{../ZZ_CR/year_config.json}.  Each logical sample currently resolves to
+one same-named component with component weight one.  Source normalization is
+$1.0119790366858$ for qqZH, $0.9651076466221233$ for ggZH, and $1$ for ZZ.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Final input inventory.  The numbers in parentheses are files.}
+\begin{tabularx}{\textwidth}{l Y Y r}
+\toprule
+Era & ZH components & ZZ component & Jobs \\
+\midrule
+2022 & qqZH HWW (53), ggZH HWW (5) & inclusive ZZ (21) & 10 \\
+2022EE & qqZH HWW (23), ggZH HWW (19) & inclusive ZZ (38) & 9 \\
+2023 & qqZH HWW (72), ggZH HWW (47) & inclusive ZZ (11) & 15 \\
+2023BPix & qqZH HWW (58), ggZH HWW (33) & inclusive ZZ (5) & 11 \\
+2024 & qqZH $Z\to2\ell$, HWW (161), ggZH $Z\to2\ell$, HWW (158)
+     & inclusive ZZ (76) & 41 \\
+\midrule
+Total & \multicolumn{2}{l}{780 files, all events, 10 files/job} & 86 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The final campaign, \campaign, freshly compiled every era and streamed all
+event inputs from \path{root://eoscms.cern.ch}.  Table~\ref{tab:jobs} records
+the exact FNAL submission.  All 86 jobs terminated normally with return value
+zero, and all five ordinary mkShapesRDF histogram merges completed without a
+reported \texttt{hadd} failure.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Final Condor campaign on \texttt{lpcschedd4.fnal.gov}.}
+\label{tab:jobs}
+\begin{tabular}{l r l l}
+\toprule
+Era & Jobs & Cluster range & Pickle timestamp \\
+\midrule
+2022 & 10 & 3798586.0--9 & 26-08-11 15:54:06 \\
+2022EE & 9 & 3798587.0--8 & 26-08-11 15:57:29 \\
+2023 & 15 & 3798588.0--14 & 26-08-11 15:58:10 \\
+2023BPix & 11 & 3798589.0--10 & 26-08-11 15:58:42 \\
+2024 & 41 & 3798590.0--40 & 26-08-11 15:59:19 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+An earlier campaign (clusters 3798577--3798581) failed before event processing
+because the FNAL worker container did not mount the submit host's
+\path{/uscms_data/start.sh}; it produced no physics output and was stopped.
+After a successful packaged three-process smoke test (cluster 3798585), the
+final campaign used mkShapesRDF's deterministic runtime package for code
+transport only.  Event data were still read directly over XRootD.
+
+\section{Truth and source quality}
+
+\begin{table}[htbp]
+\centering
+\caption{Pairing-independent physical-base truth and alignment diagnostics.}
+\begin{tabular}{l rr}
+\toprule
+Quantity & ZH & ZZ \\
+\midrule
+Total reconstructed events & 668,539 & 9,179 \\
+Direct target record & 651,340 (97.4274\%) & 8,873 (96.6663\%) \\
+Truth recoverable / partition valid & 651,076 (97.3879\%) & 8,871 (96.6445\%) \\
+Provable source alignment & 661,530 (98.9516\%) & 9,040 (98.4857\%) \\
+Resolution and FSR score complete & 660,390 & 9,040 \\
+HWW complement valid & 650,701 (99.9424\% of recoverable) & --- \\
+Identical-flavor record ambiguity & --- & 4,657 (52.4969\% of valid) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The combined HWWNano schema does not provide a reliable final
+\texttt{Lepton\_genPartIdx}.  Historical scale-smearing output can rarely
+permute final lepton component vectors independently.  The study therefore
+requires a deterministic one-to-one match to coherent pre-scale source objects
+with valid flavor/origin information.  If identity cannot be proved, truth,
+resolution, and FSR are marked unavailable; no geometric guess is made.  The
+live nearest-$\mZ$ baseline remains evaluable on the final production vectors.
+
+Candidate multiplicity exposes the combinatorics.  ZH contains 1,146 events
+with zero valid Z candidates, 490,807 with two, and 176,586 with four.  ZZ has
+4,395 two-candidate and 4,784 four-candidate events and no zero-candidate event
+on \physbase.
+
+\section{ZH associated-Z performance}
+
+The ZH truth denominator contains 651,076 recoverable events.  Table
+\ref{tab:zhmain} reports raw counts and the minimal signed and absolute weights.
+The signed weight is luminosity/source normalized and includes only
+\texttt{XSWeight}, \texttt{puWeight}, and \texttt{METFilter\_Common}.
+
+\begin{table}[htbp]
+\centering
+\caption{ZH associated-Z correctness on \physbase.}
+\label{tab:zhmain}
+\begin{tabular}{l r r r r}
+\toprule
+Algorithm & Correct & Raw & Signed & Absolute \\
+\midrule
+Nearest $\mZ$ & 613,126 & 94.1712\% & 93.9976\% & 94.0079\% \\
+Core massless & 613,125 & 94.1710\% & 93.9976\% & 94.0079\% \\
+Historical massless & 613,125 & 94.1710\% & 93.9976\% & 94.0079\% \\
+Resolution pull & 609,024 & 93.5412\% & 93.5228\% & 93.5267\% \\
+FSR nearest $\mZ$ & 613,977 & \textbf{94.3019\%} & \textbf{94.0965\%} & \textbf{94.1089\%} \\
+FSR resolution pull & 610,086 & 93.7043\% & 93.6531\% & 93.6559\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Current nearest-$\mZ$ ZH efficiency by era and topology.}
+\begin{subtable}[t]{0.46\textwidth}
+\centering
+\begin{tabular}{l r r}
+\toprule
+Era & Correct/valid & Raw \\
+\midrule
+2022 & 7,911/8,399 & 94.1898\% \\
+2022EE & 26,917/28,591 & 94.1450\% \\
+2023 & 17,770/18,828 & 94.3807\% \\
+2023BPix & 8,812/9,355 & 94.1956\% \\
+2024 & 551,716/585,903 & 94.1651\% \\
+\bottomrule
+\end{tabular}
+\end{subtable}\hfill
+\begin{subtable}[t]{0.50\textwidth}
+\centering
+\begin{tabular}{l r r}
+\toprule
+Topology & Correct/valid & Raw \\
+\midrule
+$4e$ & 45,622/51,261 & 88.9994\% \\
+$4\mu$ & 109,346/121,664 & 89.8754\% \\
+$2e2\mu$ & 156,518/157,749 & 99.2196\% \\
+$3e1\mu$ & 124,380/132,297 & 94.0157\% \\
+$1e3\mu$ & 177,260/188,105 & 94.2346\% \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\end{table}
+
+Correct current assignments have a signed binned mean relative $\pTZ$
+response, $(p_{\mathrm T}^{\rm reco}-p_{\mathrm T}^{\rm truth})/
+p_{\mathrm T}^{\rm truth}$, of $+0.0106$; wrong assignments have a much broader
+negative mean near $-0.344$.  FSR nearest-$\mZ$ changes these to $+0.0103$ and
+$-0.340$.  The signed binned mean selected $\mX$ changes from $41.64$ GeV to
+$41.41$ GeV with FSR nearest-$\mZ$; these are reconstructed distributions, not
+truth-$\mX$ responses.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{0.49\textwidth}
+\centering
+\maybegraphic[width=\linewidth]{\plots/01_zh_efficiency_by_algorithm.pdf}
+\caption{Algorithm comparison.}
+\end{subfigure}\hfill
+\begin{subfigure}{0.49\textwidth}
+\centering
+\maybegraphic[width=\linewidth]{\plots/03_zh_efficiency_by_topology.pdf}
+\caption{All five ZH topologies.}
+\end{subfigure}
+\caption{Associated-Z correctness in the yield-summed Run 3 signal sample.}
+\end{figure}
+\FloatBarrier
+
+\section{ZZ partition performance}
+
+The ZZ denominator contains 8,871 valid direct-four-lepton partitions.
+
+\begin{table}[htbp]
+\centering
+\caption{ZZ generator-record partition fidelity on \physbase.}
+\begin{tabular}{l r r r}
+\toprule
+Algorithm & Correct & Raw & Signed/absolute \\
+\midrule
+Nearest $\mZ$ & 8,647 & 97.4749\% & 97.7491\% \\
+Core massless & 8,647 & 97.4749\% & 97.7491\% \\
+Historical massless & 8,647 & 97.4749\% & 97.7491\% \\
+Resolution pull & 8,640 & 97.3960\% & 97.6135\% \\
+FSR nearest $\mZ$ & 8,650 & \textbf{97.5087\%} & \textbf{97.7715\%} \\
+FSR resolution pull & 8,639 & 97.3847\% & 97.6137\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Current raw fidelity is $97.3171\%$, $97.0472\%$, $97.0390\%$, $98.4529\%$,
+and $97.8274\%$ in 2022, 2022EE, 2023, 2023BPix, and 2024.  Its topology
+dependence separates physical interpretations:
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Current ZZ fidelity by topology.}
+\begin{tabularx}{0.90\textwidth}{l r r Y}
+\toprule
+Topology & Correct/valid & Raw & Interpretation \\
+\midrule
+$4e$ & 1,202/1,283 & 93.6867\% & Identical-flavor generator-record convention \\
+$4\mu$ & 3,229/3,372 & 95.7592\% & Identical-flavor generator-record convention \\
+$2e2\mu$ & 4,216/4,216 & 100.0000\% & Flavor-distinguishable partition \\
+$3e1\mu$ & 0/0 & --- & Not a direct-4$\ell$ ZZ truth topology \\
+$1e3\mu$ & 0/0 & --- & Not a direct-4$\ell$ ZZ truth topology \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The current signed binned mean selected $\mX$ is $88.22$ GeV; all alternatives
+remain within $0.11$ GeV.  A deterministic truth dilepton nearest $\mZ$ is used
+only for the ZZ $\pTZ$ response.  This reference label never enters
+partition-correctness decisions.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{0.49\textwidth}
+\centering
+\maybegraphic[width=\linewidth]{\plots/04_zz_partition_efficiency_by_algorithm.pdf}
+\caption{Algorithm comparison.}
+\end{subfigure}\hfill
+\begin{subfigure}{0.49\textwidth}
+\centering
+\maybegraphic[width=\linewidth]{\plots/06_zz_partition_efficiency_by_topology.pdf}
+\caption{Direct-4$\ell$ topology dependence.}
+\end{subfigure}
+\caption{ZZ two-boson generator-record partition fidelity.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\maybegraphic[width=0.75\textwidth]{\plots/08_zz_efficiency_vs_score_gap.pdf}
+\caption{ZZ partition correctness versus the nearest-$\mZ$ score gap.  Small
+gaps identify the more ambiguous candidate configurations.}
+\end{figure}
+\FloatBarrier
+
+\section{Exact gains, losses, and candidate agreement}
+
+Table~\ref{tab:gainloss} uses joint event-level states relative to current
+nearest-$\mZ$; it does not infer gains and losses by subtracting marginal
+efficiencies.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Exact raw correctness transitions and candidate agreement.}
+\label{tab:gainloss}
+\begin{tabular}{l l r r r r}
+\toprule
+Domain & Alternative & Wrong$\to$correct & Correct$\to$wrong & Net & Agreement \\
+\midrule
+ZH & Core/historical massless & 0 & 1 & $-1$ & 99.99985\% \\
+ZH & Resolution pull & 4,635 & 8,737 & $-4,102$ & 96.6343\% \\
+ZH & FSR nearest $\mZ$ & 1,541 & 690 & $+851$ & 98.6083\% \\
+ZH & FSR resolution pull & 5,877 & 8,917 & $-3,040$ & 96.4235\% \\
+\addlinespace
+ZZ & Core/historical massless & 0 & 0 & 0 & 100.0000\% \\
+ZZ & Resolution pull & 20 & 27 & $-7$ & 88.6698\% \\
+ZZ & FSR nearest $\mZ$ & 8 & 5 & $+3$ & 96.9169\% \\
+ZZ & FSR resolution pull & 25 & 33 & $-8$ & 87.6239\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+FSR nearest-$\mZ$ gives a signed net gain of $+0.01250$ in ZH and $+0.4171$
+in ZZ.  Signed efficiency increases are about $0.099$ and $0.022$ percentage
+points.  Negative ZH weights are retained explicitly; no negative event weight
+appears in the final selected ZZ sample, so signed and absolute ZZ efficiencies
+coincide.
+
+\begin{figure}[htbp]
+\centering
+\maybegraphic[width=0.82\textwidth]{\plots/16_fsr_resolution_gain_loss.pdf}
+\caption{Exact joint raw gain and loss fractions for the resolution- and
+FSR-aware comparators.}
+\end{figure}
+\FloatBarrier
+
+\section{Region migration and acceptance}
+
+Region definitions reproduce the numerical study selections after the common
+pairing-independent denominator.  Region kinematics always use nominal
+lepton-only four-vectors; FSR is used only to rank candidates.  Thus the
+migration matrices isolate the pairing decision.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Raw analysis-region acceptance on \physbase.}
+\begin{tabular}{l r r r}
+\toprule
+Method & ZH XSF+XDF SR & ZH ZZCR & ZZ ZZCR \\
+\midrule
+Current/core/historical & 492,952 (73.7357\%) & 1,871 (0.2799\%) & 6,031 (65.7043\%) \\
+Resolution pull & 488,146 (73.0168\%) & 1,861 (0.2784\%) & 5,977 (65.1160\%) \\
+FSR nearest $\mZ$ & 490,048 (73.3013\%) & 1,829 (0.2736\%) & 5,976 (65.1051\%) \\
+FSR resolution pull & 488,281 (73.0370\%) & 1,847 (0.2763\%) & 5,977 (65.1160\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For ZH, FSR nearest-$\mZ$ moves 9, 260, and 301 outside events into ZZCR,
+XSF SR, and XDF SR, while moving 51, 1,735, and 1,730 events in the reverse
+direction.  Resolution pull has 62/872/976 outside-to-region migrations and
+72/2,972/3,682 reverse migrations.  The combined rule has 68/1,094/1,198 gains
+and 92/3,102/3,861 losses.
+
+For ZZ, FSR nearest-$\mZ$ moves 4 events from outside to ZZCR but 59 from ZZCR
+to outside, plus 2 XSF events outside.  Resolution pull moves 15 outside events
+to ZZCR and 69 back; FSR-resolution moves 18 in and 72 out.  No alternative
+produces a direct ZZCR-to-SR or XSF-to-XDF transition.  Nontrivial region
+changes pass through \emph{outside}; X flavor remains invariant.
+
+\begin{figure}[htbp]
+\centering
+\maybegraphic[width=\textwidth]{\plots/14_region_migration_zh.pdf}
+\caption{ZH region assignment matrices relative to current nearest-$\mZ$,
+using signed yields.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\maybegraphic[width=\textwidth]{\plots/15_region_migration_zz.pdf}
+\caption{ZZ region assignment matrices relative to current nearest-$\mZ$,
+using signed yields.}
+\end{figure}
+\FloatBarrier
+
+\section{X-ranking theorem and measurement}
+
+Let the fixed quartet have total charge zero and let the selected Z be an OS
+pair.  The quartet therefore contains two positive and two negative leptons.
+Removing one positive and one negative lepton leaves exactly one positive and
+one negative lepton, so the complement X is necessarily OS.  Because only two
+objects remain after fixing Z, no independent X candidate can be ranked.
+
+The event-level measurement is exact:
+\begin{itemize}
+  \item ZH: $667{,}393/667{,}393$ valid-Z events have the live-style X equal
+        to the two-object complement;
+  \item ZZ: $9{,}179/9{,}179$ valid-Z events have exact identity;
+  \item the remaining 1,146 ZH events have no valid nearest-$\mZ$ candidate and
+        are not X disagreements; and
+  \item measured physical XSF$\leftrightarrow$XDF migrations are exactly zero.
+\end{itemize}
+Explicit X ranking is therefore redundant within this fixed-quartet study.
+This result is diagnostic and does not by itself authorize a change to the
+production ZZ control-region configuration.
+
+\section{Validation and limitations}
+
+The final implementation passed 37 focused PyROOT/Python tests covering all
+five topologies, candidate multiplicities, strict tie behavior, the literal
+massless edge case, source-vector corruption, uncertainty propagation, FSR
+link validation and deduplication, same-candidate-set availability, ZH and ZZ
+truth contracts, boson-label-swap invariance, duplicated matches, region
+migrations, exact gain/loss states, X-flavor closure, and mkShapesRDF's
+first-logical-axis-fastest histogram unrolling.
+
+Further validation included:
+\begin{itemize}
+  \item representative ZH and ZZ schemas for all five eras;
+  \item all five merged ROOT files reopened as non-zombie files with both
+        pairing baselines;
+  \item strict final summary generation with zero warnings;
+  \item yield-summed, rather than percentage-averaged, \texttt{ALL\_RUN3};
+  \item 14 supported plot products in both PDF and PNG, visually inspected;
+  \item Python compilation, shell syntax, and staged whitespace checks.
+\end{itemize}
+
+Truth-$\mX$ response plots were deliberately omitted.  There is no unique,
+defensible truth-$\mX$ target shared by the two domains, and the selected-$\mX$
+distribution was not misrepresented as a response.  The resolution score
+neglects correlations and directional uncertainties; the combined FSR-pull
+score has no photon-resolution term.  The study uses minimal nominal MC
+weights and is not a detector-systematics or analysis-scale-factor study.
+
+\section{Recommendation}
+
+Retain the current physical-mass nearest-$\mZ$ pairing.  It is simple, stable
+across all five eras and all five ZH topologies, exactly reproduces the live
+Run 3 convention, and already gives high associated-Z and ZZ-partition
+fidelity.  FSR nearest-$\mZ$ has a real but small net truth gain in both
+domains; that gain does not compensate for its source/FSR association burden,
+its fail-closed unavailable population, and its lower signal-region and ZZCR
+acceptance.  Resolution-aware variants are disfavored because they lose net
+correct assignments in both ZH and ZZ.  No production pairing change is
+justified by these results.
+
+\appendix
+\section{Reproducibility and artifact locations}
+
+The audited starting revision was
+\texttt{1a44b3143560703146039f03a1b6118e9a769243}; the completed study was
+committed as \texttt{3659c2e930d58b8a3df387ca9080c9443bb528e8} on
+\texttt{ZH\_devel}.
+
+Relative to this configuration directory, generated products are located at:
+\begin{itemize}
+  \item merged ROOT files: \path{rootFiles/pairing_dual_full_packaged_v2_20260811/<era>/};
+  \item CSV/JSON reports: \path{reports/pairing_dual_full_packaged_v2_20260811/};
+  \item figures: \path{plots/pairing_dual_full_packaged_v2_20260811/};
+  \item submission controls and receipts:
+        \path{condor/pairing_dual_full_packaged_v2_20260811/};
+  \item submission and merge logs:
+        \path{submit_pairing_dual_full_packaged_v2_20260811.log} and
+        \path{merge_pairing_dual_full_packaged_v2_20260811.log}.
+\end{itemize}
+
+Exact inventories and source paths are in
+\path{reports/pairing_dual_full_packaged_v2_20260811/sample_inventory.json}.
+The complete machine-readable result includes ZH and ZZ efficiencies,
+algorithm agreement, migration matrices, truth-matching diagnostics,
+X-ranking closure, plot data, and manifests.
+
+\end{document}

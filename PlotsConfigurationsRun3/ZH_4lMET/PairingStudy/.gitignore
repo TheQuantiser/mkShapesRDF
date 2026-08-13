@@ -8,3 +8,9 @@ plots/
 *.log
 *.tgz
 *.tgz.manifest.json
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
