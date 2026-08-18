@@ -196,10 +196,37 @@ Samples['ZH-HTo2B_ZTo2Nu'] = {
     'nanoAOD' :'/ZH-Zto2Nu-Hto2B_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
 }
 
-##### WW EWK
+##### OS WW EWK + QCD + EWK polarized (all with noTop filter)
 
+Samples['WpWmJJ_QCD_noTop'] = {
+    'nanoAOD' : '/WWJJto2L2Nu-OS-noTop-QCD_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
 Samples['WpWmJJ_EWK_noTop'] = {
-    'nanoAOD': '/VBS-OSWWto2L2Nu-noTop_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'    
+}
+Samples['WpWmJJ_EWK_noTop_pol_LL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-LL_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_LT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-LT_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_TL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-TL_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_TT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-TT_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_LL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-LL-WWCM_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_LT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-LT-WWCM_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_TL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-TL-WWCM_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_TT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu-noTop-TT-WWCM_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM'
 }
 
 ##### WGamma

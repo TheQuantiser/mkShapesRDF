@@ -12,7 +12,6 @@
 # G: https://xsecdb-xsdb-official.app.cern.ch/xsdb/
 # H: http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2023_179_v6.pdf
 # I: https://cms-generators.docs.cern.ch/useful-tools-and-links/HowToGenXSecAnalyzer/
-#
 # X: reference unknown. Please provide a valid reference!
 
 xs_db = {}
@@ -92,6 +91,17 @@ xs_db["GluGlutoContintoWWtoTauNuMuNu"]  = ["xsec=0.0795", "kfact=1.000", "ref=A"
 xs_db["GluGlutoContintoWWtoTauNuTauNu"] = ["xsec=0.0840", "kfact=1.000", "ref=A"]
 
 xs_db["WpWmJJ_EWK_noTop"] = ["xsec=0.1012", "kfact=1.000", "ref=I"] # GenXSecAnalyzer output: 1.012e-01 +/- 4.467e-05
+
+xs_db["WpWmJJ_EWK_noTop"] = ["xsec=0.101", "kfact=1.000", "ref=I"] #inclusive in polarization
+xs_db["WpWmJJ_EWK_noTop_pol_LL"] = ["xsec=0.005605", "kfact=1.000", "ref=I"] #also cross-checked by calculating the quantity of XS(pp -> W{0}W{0}jj)*(3*BR(W -> lnu))^2
+xs_db["WpWmJJ_EWK_noTop_pol_LT"] = ["xsec=0.01684", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_EWK_noTop_pol_TL"] = ["xsec=0.01767", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_EWK_noTop_pol_TT"] = ["xsec=0.05965", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_EWK_noTop_CMWW_pol_LL"] = ["xsec=0.00757", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_EWK_noTop_CMWW_pol_LT"] = ["xsec=0.01589", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_EWK_noTop_CMWW_pol_TL"] = ["xsec=0.01679", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_EWK_noTop_CMWW_pol_TT"] = ["xsec=0.05956", "kfact=1.000", "ref=I"]
+xs_db["WpWmJJ_QCD_noTop"] = ["xsec=2.675", "kfact=1.000", "ref=I"]
 
 xs_db["WWTo2L2Nu_LL"] = ["xsec=0.488",  "kfact=1.000", "ref=X"] ## 4.598 * 9 * BR(W->lnu) * BR(W->lnu) / BR(W->lnu) = 0.1086
 xs_db["WWTo2L2Nu_TT"] = ["xsec=6.266",  "kfact=1.000", "ref=X"] ## 59.03
