@@ -31,8 +31,16 @@ junit*.xml
 *html*
 .DS*
 
-# ROOT files
+# Large columnar/event-data products.  Configuration manifests and reviewed
+# small JSON/CSV fixtures remain trackable; materialized event payloads do not.
 *.root
+*.parquet
+*.parquet.crc
+
+# Local plot-configuration caches and fit products
+PlotsConfigurationsRun3/**/.cache/
+PlotsConfigurationsRun3/**/cache/
+PlotsConfigurationsRun3/**/outputs/
 
 # Local scripts and analysis output
 start.sh
