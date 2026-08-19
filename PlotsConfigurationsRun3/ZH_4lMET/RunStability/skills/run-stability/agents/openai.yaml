@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run DY Stability"
+  short_description: "Operate source-first DY RunStability"
+  default_prompt: "Use $run-stability to change the owning JSON or source, validate the exact luminosity-bound DY contract, compile or submit only authorized fresh identities, and reproduce pinned Python stability plots without patching generated artifacts."

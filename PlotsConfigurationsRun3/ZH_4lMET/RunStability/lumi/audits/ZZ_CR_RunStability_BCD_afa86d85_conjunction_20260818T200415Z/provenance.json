@@ -1,0 +1,404 @@
+{
+  "combination_contract": {
+    "component_category_method": "component_positive_trigger_baseline_and_category_path_exposure",
+    "direct_run_path_nominal_absolute_tolerance_fb": 2e-09,
+    "event_not_rules": "not_numerically_defined",
+    "partial_ls_path_nominal_absolute_tolerance_fb": 2e-12,
+    "positive_or_method": "adaptive_validated_unprescaled_union"
+  },
+  "commands": {
+    "adaptive_ledger": "logs/adaptive_byls_commands.tsv",
+    "adaptive_ledger_sha256": "0ddf1c85d6bdfd0e0f143ad4c6aa1d55fa00dadf325420e076b4f23beb0156bf",
+    "aggregate": "LUMI_OUTPUT_ROOT=<path> python3 lumi/scripts/aggregate_results.py",
+    "aggregate_full_year": "LUMI_OUTPUT_ROOT=<path> python3 lumi/scripts/aggregate_full_year_audit.py",
+    "audit_full_year_periods": "LUMI_OUTPUT_ROOT=<path> python3 lumi/scripts/audit_run_periods.py",
+    "brilcalc_ledger": "logs/brilcalc_commands.tsv",
+    "brilcalc_ledger_sha256": "c04a564608ded37da18b7abfd8a5b5096455f97b86e1dd390c34f791f6cb71cd",
+    "build_inputs": "python3 lumi/scripts/build_inputs.py --year-config <path> --output-root <path> --reuse-inventory-from <path>",
+    "full_year_ledger": "logs/full_year_period_audit_commands.tsv",
+    "full_year_ledger_sha256": "ed20c207b98874b632874b1d76f34e77667cc7982117611a71f97ddad8aaa31b",
+    "output_root": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/lumi/audits/ZZ_CR_RunStability_BCD_afa86d85_conjunction_20260818T200415Z",
+    "prepare_adaptive": "LUMI_OUTPUT_ROOT=<path> python3 lumi/scripts/prepare_adaptive_queries.py",
+    "reproduction": "bash --noprofile --rcfile $HOME/.bashrc -ic 'bash lumi/scripts/run_reproducibility_check.sh' && python3 lumi/scripts/check_reproducibility.py",
+    "run_adaptive": "LUMI_OUTPUT_ROOT=<path> bash --noprofile --rcfile $HOME/.bashrc -ic 'bash lumi/scripts/run_adaptive_byls.sh'",
+    "run_brilcalc": "LUMI_OUTPUT_ROOT=<path> bash --noprofile --rcfile $HOME/.bashrc -ic 'bash lumi/scripts/run_brilcalc.sh'",
+    "run_full_year_supplement": "LUMI_OUTPUT_ROOT=<path> bash --noprofile --rcfile $HOME/.bashrc -ic 'bash lumi/scripts/run_full_year_supplement.sh'",
+    "validate": "LUMI_OUTPUT_ROOT=<path> python3 lumi/scripts/validate_results.py",
+    "year_config": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/year_config.json"
+  },
+  "created_utc": "2026-08-18T20:56:08.561160+00:00",
+  "documentation_sha256": {
+    "AGENTS.md": "072c30889b34284523d8f3c64d2ba609b24306612f2ecff024f210168f11713b",
+    "README.md": "95bf3f08d52f1bc91bf39a016c69a26d90e1efde35c8f651387b37327a7ceee1",
+    "REPORT.md": "9c5063b63ea493e72c1eab4b943914f734cbee5f4b90561f0cc1addacbdebb4c",
+    "skills/extract-zzcr-luminosity/SKILL.md": "e2d3dfd296886c540f05769ccbd8508903edec69d8906224e3d46c5b77ea12fe",
+    "skills/extract-zzcr-luminosity/agents/openai.yaml": "5aac49c5880b6e230f42f68d42b38a5b55046d8aff760e7bb3783bcd267be152"
+  },
+  "host": "cmslpc-el9-heavy01.fnal.gov",
+  "inputs": {
+    "adaptive_queries_sha256": "ba7e55556d439329579a59406becd72ca396caf117866d3f2c3af5beadae06ed",
+    "dataset_run_inventory_sha256": "7568b86d621c7c596dcfc4869beca047174c765ab6f4347abf4f002b965d521b",
+    "full_year_period_audit_sha256": "affdd87ee640a9ea55ee1700b10e7f42a36bbe96a03b4a7f571b96435b5a91a1",
+    "golden_jsons": {
+      "2022": {
+        "path": "inputs/golden/Cert_Collisions2022_355100_362760_Golden.json",
+        "sha256": "52148142fc1b129bd94c5b5e17bbaedf31bf618dac0eb2f7d3b80457d11ba7ba"
+      },
+      "2023": {
+        "path": "inputs/golden/Cert_Collisions2023_366442_370790_Golden.json",
+        "sha256": "d763cde312501b11e0bdc9ea0896bdd7c7226abc4c22a57772ae091177ae98cd"
+      },
+      "2024": {
+        "path": "inputs/golden/Cert_Collisions2024_378981_386951_Golden.json",
+        "sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c"
+      }
+    },
+    "info_txt_sha256": "7341a6c7188c928e45a57660e31bcbd3d8a2ef06de465240b47083527fb603d1",
+    "manifest_sha256": "62e24cbe5db00035810f0d6a550a958668b998c65505b9e4fad652caa2ce3ec7",
+    "normtag": {
+      "path": "inputs/normtag/normtag_PHYSICS.json",
+      "sha256": "693ef4b360a1debb2aa667fa4178c3f4dece9539d9cf3ffee1ea60f157823548"
+    },
+    "prompt_txt_sha256": "20c1786a101344110c9efb815e23751237166406bf7514382737be46cc068416",
+    "raw_reuse_adaptive_sha256": "56377c0a2fcba2705391191a6f01fe5bc4b80c5b4c63b413d890fa007d37b951",
+    "raw_reuse_direct_sha256": "3a1d0d778ad31d9aa1ff92bd0130fdfab2c2d3658672939a8f872a32674e0cd9"
+  },
+  "logs_sha256": {
+    "logs/adaptive_byls.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs/adaptive_byls_commands.tsv": "0ddf1c85d6bdfd0e0f143ad4c6aa1d55fa00dadf325420e076b4f23beb0156bf",
+    "logs/brilcalc.log": "aa77303aac98eddf36b60c556bb4f1252b4829be76a80d94853a5a2ecd1f0766",
+    "logs/brilcalc_commands.tsv": "c04a564608ded37da18b7abfd8a5b5096455f97b86e1dd390c34f791f6cb71cd",
+    "logs/full_year_period_audit.log": "32c12b3fb031a61a85b1aa818690b16bc742852824cebbcd87365fc70dab2827",
+    "logs/full_year_period_audit_commands.tsv": "ed20c207b98874b632874b1d76f34e77667cc7982117611a71f97ddad8aaa31b"
+  },
+  "platform": "Linux-5.14.0-687.31.1.el9_8.x86_64-x86_64-with-glibc2.34",
+  "repository": {
+    "branch": "ZH_devel",
+    "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF",
+    "revision": "6f9b4ff164ec985575aa1c4da7c3c73839446001",
+    "status_short": "M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/FILE_GUIDE.md\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/LUMINOSITY_PROPAGATION.md\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/README.md\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/USAGE.MD\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/make_sample_catalog.py\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/production_history/20260818_dy_trigger_stability_production.md\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/skills/run-zzcr-stability/SKILL.md\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/tests/test_year_config.py\n M PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/year_config.json\n?? PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/tests/test_make_sample_catalog.py"
+  },
+  "representative_schema_validation": {
+    "aggregate_checks": {
+      "Trigger_ElMu": {
+        "accepted_entries": 402,
+        "concrete_or_mismatches": 0
+      },
+      "Trigger_dblEl": {
+        "accepted_entries": 11,
+        "concrete_or_mismatches": 0
+      },
+      "Trigger_dblMu": {
+        "accepted_entries": 4004,
+        "concrete_or_mismatches": 0
+      },
+      "Trigger_sngEl": {
+        "accepted_entries": 109,
+        "concrete_or_mismatches": 0
+      },
+      "Trigger_sngMu": {
+        "accepted_entries": 15813,
+        "concrete_or_mismatches": 0
+      }
+    },
+    "branch_types": {
+      "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL": "Bool_t",
+      "HLT_Ele30_WPTight_Gsf": "Bool_t",
+      "HLT_IsoMu24": "Bool_t",
+      "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": "Bool_t",
+      "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8": "Bool_t",
+      "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL": "Bool_t",
+      "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": "Bool_t",
+      "Trigger_ElMu": "Bool_t",
+      "Trigger_dblEl": "Bool_t",
+      "Trigger_dblMu": "Bool_t",
+      "Trigger_sngEl": "Bool_t",
+      "Trigger_sngMu": "Bool_t"
+    },
+    "created_utc": "2026-08-18T20:44:57.932199+00:00",
+    "endpoint": "root://eoscms.cern.ch",
+    "entries": 24377,
+    "limitations": "This is a representative schema/value check, not proof for every configured file or era.",
+    "logical_file": "/store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2022_ReReco_nAODv12_Full2022v12/DATAl2loose2022v12__l2loose/nanoLatino_SingleMuon_Run2022B-ReReco-v1__part0.root",
+    "missing_branches": [],
+    "required_branches": 12,
+    "schema_version": 1,
+    "scope": "one representative processed DATA file",
+    "status": "passed",
+    "tree": "Events"
+  },
+  "reproducibility": {
+    "absolute_tolerance_fb": 5e-09,
+    "analysis_era": "2022",
+    "created_utc": "2026-08-18T20:50:07.282480+00:00",
+    "member_recorded_fb": {
+      "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": 8.069352108098002,
+      "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL": 8.069352108098002,
+      "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ": 8.069352108098002
+    },
+    "muon_member_recorded_fb": {
+      "HLT_IsoMu24": 8.059017164393001,
+      "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8": 8.059017164393001
+    },
+    "nominal_recorded_fb": 8.076828657919002,
+    "raw_sha256": {
+      "reproducibility/raw/HLT_IsoMu24.csv": "9e93a29ac9aefbaac57ab34039239814947cca1f6c5ff92699b509fc016b28c0",
+      "reproducibility/raw/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "2d4f3435c9e9296616667af6441a5607feaf6d14201240d6c785f1c5cd926896",
+      "reproducibility/raw/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "656f98bf65faec061d9d8ba906a54fb20211df39362f269314e43c7c6917193d",
+      "reproducibility/raw/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "2cef7642c15badfec2e7b3758ec501e468781a151ac60ed64b6370bcb88bba63",
+      "reproducibility/raw/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "b7d8a3cbb87477462a027d04438546f826ef79fd020678b1f0d0c741a90eb773",
+      "reproducibility/raw/nominal_2022.csv": "f5d7d3e6e9dd0a5cc26846ba241475d9aaa21afae3febb83bfdcd81815a56e0d"
+    },
+    "schema_version": 1,
+    "status": "passed",
+    "trigger_family": "Trigger_ElMu",
+    "union_recorded_fb": 8.069352108098002
+  },
+  "reproducibility_receipt_sha256": "1d0aa6c005b0694453b059e1103dfe95a3dc69bc2bb26b0fe3ea38aa650a15a6",
+  "results_sha256": {
+    "results/certification_coverage.csv": "1844fc81693ddba7118eb0b70bbddccfd6f68c583b65f46b81ce32471625187c",
+    "results/component_trigger_conjunction_diagnostics.csv": "91915a53db315147bd34e584ae69b3c9691f86f4525f34b70dca1f4d71ef43d9",
+    "results/event_partition_rules.csv": "bc8e781a4928ecab90691120dc18fd0d2b9d053a5078b94d540fa1b326ab1c83",
+    "results/full_year_period_coverage.csv": "ca54eb393c8044cbe3b4bc6eaf4f2e5e44126fa80ae9c89e545d1b63d6297659",
+    "results/luminosity_by_analysis_era.csv": "174bbb740fa5f1dd961064ecb2a3687878e75f6eb66753b30b36a8a77f540e35",
+    "results/luminosity_by_run.csv": "971c47c9baa73982b0adfcc6d877d436ac9c30f2841836bf8e4530730cf9ad78",
+    "results/luminosity_by_run_period.csv": "5e537f53cd2fed276a8daff213a4bda43a102465e0843a559f7c3fbf82cd30fd",
+    "results/luminosity_by_year.csv": "e81eb00981931168c5357d560ffff578f0149dd2a9fcf2c6eb5df7f63b5930c5",
+    "results/representative_schema_validation.json": "9b7afee80e6998363ee5d4b2d1ab7265fbce524df81d41136a7a17d10cdf566e",
+    "results/source_validation.json": "3353eb0e096b1cfb1fc6a7897a858a3ddb7adbf4e243ea8f965208c560757220",
+    "results/summary.json": "dbb3c201b52ee81fba6d7b6cec535e4372d415a030cd0f81f3d8f0411abf8cf0",
+    "results/trigger_combination_diagnostics.csv": "c617aa82a31634c7b0ccfd1de739cf986552bc56b81bd1731a8a44d9c412122a",
+    "results/trigger_combinations_by_era.csv": "fceb515ef18c78936434be795297bee6b8313cc1b7d0c946897ea3fb03f871ad",
+    "results/trigger_combinations_by_run.csv": "ba5ca849af536f50b98da7698cbaedb7e135e5797bda2ee2e029c80549b7d3ac",
+    "results/trigger_combinations_by_year.csv": "2e6350e89b46cc4b9c3df75ef8ba2eb7f5e9c2faf72d8c02d3500a1e7cca85df",
+    "results/trigger_paths_by_era.csv": "74702380b1d9a2fc47264e11edeb9d481df6ddfe62ca245a7a7444497ce57670",
+    "results/trigger_paths_by_run.csv": "accc781d834b0a984696bb2ef406fe597c693257d80ff5a6c533c4f39f0d7e75",
+    "results/trigger_paths_by_year.csv": "caf6c049952775d04cac6d61b7d6b6de74e7b570d8b5566b8ee3ef9e74c2c36f",
+    "results/validation_report.json": "efadd80d3dbeb9c21e9896d3a02e3a5428631a21ab05a3ee1e616d5df96dfb13"
+  },
+  "runtime": {
+    "bril_environment": "/cvmfs/cms-bril.cern.ch/cms-lumi-pog/brilws-docker/brilws-env",
+    "brilcalc_version": "3.9.4",
+    "connection": "web",
+    "granularity": "direct run/fill totals plus adaptive by-LS audits",
+    "precision": "12f",
+    "shell_initialization": "bash --noprofile --rcfile $HOME/.bashrc -ic",
+    "unit": "/fb"
+  },
+  "schema_version": 1,
+  "scripts_sha256": {
+    "scripts/aggregate_full_year_audit.py": "44c36e1dc35ef1000b5b337751dd88fce06e7d51f324ad5c0d1819964488b6ae",
+    "scripts/aggregate_results.py": "9b4c65cbef577343760403653b9cdb0cf882dd56cdca78966d1c7766b245f195",
+    "scripts/audit_run_periods.py": "bbceffa24da21bc364d519be214cba4b4d1fb331920e0b44ab2d0c26e11e1bd0",
+    "scripts/build_inputs.py": "40179a0ebba6ba8bd1826503f60f99453b03172cb173fafdd4f8869c3508628b",
+    "scripts/check_representative_schema.py": "118d34f426713b1bb018a61e5c219ebf596c112630fb095156c67960bdaa7664",
+    "scripts/check_reproducibility.py": "e25811ce18973dbe56427f27e88c22368bfd6e18e9e28297bb56f1c845b7d7e0",
+    "scripts/prepare_adaptive_queries.py": "29835a4b1e9aa4d1aa2b2a8801b5a5b43e5d91bba8af6d05ba81a962822b756e",
+    "scripts/reuse_compatible_raw.py": "ce7091e90bd3a798a3a1e28383c99aefca7032583f59383d250bafdb0faad3c9",
+    "scripts/run_adaptive_byls.sh": "7bb530e4d989312331198db08a7094a03de0b7897930d1f1dd0b679c308284af",
+    "scripts/run_brilcalc.sh": "9a94ee5218ec464bba6637fd3b6cd2846e4b284648c4ac55aec128f74099ffe0",
+    "scripts/run_full_year_supplement.sh": "31a844267f993ffe9796608816530503ce3acaf93290f8ea540e06e1a18480dd",
+    "scripts/run_reproducibility_check.sh": "92babb1a13d3f163ee2dd49248c8614f5a0104517a7fa1432685a7fde1e82f27",
+    "scripts/validate_results.py": "29fab001ed70de370ec2b7284c89fde8612c2625f7ea8f440875387763e5f523"
+  },
+  "source_validation": {
+    "checks": [
+      "Run2022 BCD primary-dataset transition and sample-specific trigger precedence",
+      "per-sample run and trigger override validation",
+      "ordered DATA sample/run filtering",
+      "canonical TrigMaker path equality for every configured era",
+      "configured production/sample coverage for every era",
+      "fresh luminosity manifest/provenance identity and aggregate alignment",
+      "complete run-stability histogram, merge, plotting, covariance, and weighting contracts"
+    ],
+    "collected": 125,
+    "command": "RUN_STABILITY_LUMI_DIR=/uscms_data/d3/mwadud/private/mkShapesRDF_devel/lumi/audits/ZZ_CR_RunStability_BCD_afa86d85_conjunction_20260818T200415Z/results PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q -p no:cacheprovider PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/tests",
+    "created_utc": "2026-08-18T20:54:54Z",
+    "environment": "mkShapesRDF/start.sh",
+    "failed": 0,
+    "limitations": "This source suite establishes executable software and configuration invariants; it does not by itself establish batch production completion or physics agreement.",
+    "passed": 125,
+    "pytest_reported_duration_seconds": 41.1,
+    "repository_revision": "6f9b4ff164ec985575aa1c4da7c3c73839446001",
+    "schema_version": 1,
+    "status": "passed"
+  },
+  "summary": {
+    "adaptive_nominal_ls_queries": 5,
+    "adaptive_path_ls_queries": 28,
+    "all_active_trigger_path_lumisections_unprescaled": true,
+    "analysis_facing_quantity": "recorded luminosity",
+    "certification_coverage": [
+      {
+        "analysis_era": "2022",
+        "analysis_year": 2022,
+        "bril_lumisections": 41330,
+        "bril_minus_cms_lumisections": 0,
+        "bril_runs": 170,
+        "cms_lumisections": 41330,
+        "mask_lumisections": 41330,
+        "mask_minus_bril_lumisections": 0,
+        "mask_runs": 170,
+        "status": "exact_lumisection_coverage"
+      },
+      {
+        "analysis_era": "2022EE",
+        "analysis_year": 2022,
+        "bril_lumisections": 81409,
+        "bril_minus_cms_lumisections": 0,
+        "bril_runs": 190,
+        "cms_lumisections": 81409,
+        "mask_lumisections": 81520,
+        "mask_minus_bril_lumisections": 111,
+        "mask_runs": 190,
+        "status": "selection_difference_recorded"
+      },
+      {
+        "analysis_era": "2023",
+        "analysis_year": 2023,
+        "bril_lumisections": 55797,
+        "bril_minus_cms_lumisections": 0,
+        "bril_runs": 126,
+        "cms_lumisections": 55797,
+        "mask_lumisections": 55797,
+        "mask_minus_bril_lumisections": 0,
+        "mask_runs": 126,
+        "status": "exact_lumisection_coverage"
+      },
+      {
+        "analysis_era": "2023BPix",
+        "analysis_year": 2023,
+        "bril_lumisections": 27868,
+        "bril_minus_cms_lumisections": 0,
+        "bril_runs": 43,
+        "cms_lumisections": 27868,
+        "mask_lumisections": 27868,
+        "mask_minus_bril_lumisections": 0,
+        "mask_runs": 43,
+        "status": "exact_lumisection_coverage"
+      },
+      {
+        "analysis_era": "2024",
+        "analysis_year": 2024,
+        "bril_lumisections": 280894,
+        "bril_minus_cms_lumisections": 14,
+        "bril_runs": 456,
+        "cms_lumisections": 280880,
+        "mask_lumisections": 280971,
+        "mask_minus_bril_lumisections": 77,
+        "mask_runs": 456,
+        "status": "selection_difference_recorded"
+      }
+    ],
+    "configured_lumi_fb": {
+      "2022": 8.0,
+      "2022EE": 26.7,
+      "2023": 17.794,
+      "2023BPix": 9.451,
+      "2024": 109.08
+    },
+    "configured_minus_extracted_fb": {
+      "2022": -0.07682865791900184,
+      "2022EE": 0.028674002840013202,
+      "2023": -0.26865899821900285,
+      "2023BPix": -0.24213003038699732,
+      "2024": -0.6483089747249693
+    },
+    "created_utc": "2026-08-18T20:39:57.951410+00:00",
+    "extracted_recorded_lumi_fb": {
+      "2022": 8.076828657919002,
+      "2022EE": 26.671325997159986,
+      "2023": 18.062658998219003,
+      "2023BPix": 9.693130030386998,
+      "2024": 109.72830897472497
+    },
+    "raw_artifact_sha256": {
+      "raw/adaptive/nominal/2022.csv": "5247ca6905d0ff0b6f5f60d9c20cbcbd1e65f622ba3812285c4454181fec6e14",
+      "raw/adaptive/nominal/2022EE.csv": "ff89f79013e63d0a4448114ae5bad2b1dc59a988ac1cc8ecc8941f229be63e93",
+      "raw/adaptive/nominal/2023.csv": "ac19962fa8abbae3ed6e606c08305146c6c1f49f92b2a714f290ec3b78c2cc17",
+      "raw/adaptive/nominal/2023BPix.csv": "6f36bf59df9740c4adabc91c64de1d60bcbf683ba975c89bbf67c7bc7e3db289",
+      "raw/adaptive/nominal/2024.csv": "3dcdc1e63e615d3c090ea2f48b3ad07d50318298a4e88a07481adef403e13c8b",
+      "raw/adaptive/paths/2022/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "b9f3f104d912fdd506574ae0b8598dff2a20430458d3884dc6db0929a9413493",
+      "raw/adaptive/paths/2022/HLT_Ele30_WPTight_Gsf.csv": "460fc6c1da86237a209fd7cecbf6722af1b74f850f9fd1ea3aeb891f12647944",
+      "raw/adaptive/paths/2022/HLT_IsoMu24.csv": "62c219685170811cb16cc087eb28e5465e1f2f04c8dd5dca93abd13322cfdf3c",
+      "raw/adaptive/paths/2022/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "370e3573e1f31aec33c30deb22398dc349fa49595afb70f56fb09ade7e2bfe4f",
+      "raw/adaptive/paths/2022EE/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "82a82ac74556d666e89e124052bb8291754910508122cfcd55e28bf4eb87e671",
+      "raw/adaptive/paths/2022EE/HLT_Ele30_WPTight_Gsf.csv": "e08c98ac47a590d72a3a25adce16c4a7424aa8305cee99f278104bb30362b140",
+      "raw/adaptive/paths/2022EE/HLT_IsoMu24.csv": "24617d45d64425933ef3fc3bcdc297b5a7f0022a837d2462eb405c16d8863406",
+      "raw/adaptive/paths/2022EE/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "fd46f6d780f9f21a8c72dc1605963f81ab3b9d416606f69444642747cf7fc361",
+      "raw/adaptive/paths/2022EE/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "dcded1416222f3e937ace6e7d550c48653289bd56a063839ccb0afd92667da4c",
+      "raw/adaptive/paths/2022EE/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "e098d70a42f641b6723a5d179e9ae85a9817f495f8f100d54386bbd02fda7b1a",
+      "raw/adaptive/paths/2022EE/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "ecaa922ed728e2c3514751194d8499109d059f95830d4e9ed5d86cbb144ae4ad",
+      "raw/adaptive/paths/2023/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "8775229880e2d1c8d0a5502bd789b2017806e69435790874a59e7844a390f3d5",
+      "raw/adaptive/paths/2023/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "b6ab7fc32c68538be5d3008c8b0a83376aaabb456c0a7123b53c35cd62cec773",
+      "raw/adaptive/paths/2023/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "00d8c8abd6e66ad406f496fd25132740ee0793c05dee0c2388c008d50dbf6f61",
+      "raw/adaptive/paths/2023BPix/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "32eb71cb8e6d290e7d64932bbbc5491adadb0a43e533d1d5053b7e3941aaf711",
+      "raw/adaptive/paths/2023BPix/HLT_Ele30_WPTight_Gsf.csv": "ed57e9d70c7611d4bc8902cff18f918cb5fac2319b5bd7310689ab39c1de50ad",
+      "raw/adaptive/paths/2023BPix/HLT_IsoMu24.csv": "7abb25af190e89fea48a58d41d122f46a9a2e1a2e8240c9ea9c2d8d6584974fc",
+      "raw/adaptive/paths/2023BPix/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "1f44c99d470e2a80d8dd43e0efbbadceb8c9a217dbb584e2540637b32021e6d6",
+      "raw/adaptive/paths/2023BPix/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "6cd644d9ac7de31036334142cc0c9475eea0967670fb6b444a272e47a7ba8b52",
+      "raw/adaptive/paths/2023BPix/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "1bb1c8f40f2b75d2aea30ed610a5bfbed89894be0e5bb25e34a497c29aa8b9a2",
+      "raw/adaptive/paths/2023BPix/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "9efd794a7d8dc5ca9b471ef3e61a6dfb4d9005ca3ef79c10f1841391a9ae6ceb",
+      "raw/adaptive/paths/2024/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "4ee4d217e7f467abed699889003942d6676721848172fb6719ca7802fbea1124",
+      "raw/adaptive/paths/2024/HLT_Ele30_WPTight_Gsf.csv": "2acd7ba381c94c61599f83097e41e718f6944be10870dabba10aed678eeaa2c3",
+      "raw/adaptive/paths/2024/HLT_IsoMu24.csv": "1d73200b2ebff95dddb69c4a8b9dc2a64cbec0a066322a674b7776dd23cc9d7f",
+      "raw/adaptive/paths/2024/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "dfc8da668ce8502d97d73433a49187bf316b43db10bee19a72ef6941a102d704",
+      "raw/adaptive/paths/2024/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "eeb0e14ed5a42ec716d28ef05684e654414cc5e85a4bc3f0646868883cb90994",
+      "raw/adaptive/paths/2024/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "ef802e179489819a2ecaf360767c6ac86764cc105f8574eba58e8940cffecec0",
+      "raw/adaptive/paths/2024/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "eeeee7a0def79187bd9fc1a4997192e786f9f8aeec67861eccd6ef7a62c3d33b",
+      "raw/nominal/2022.csv": "f5d7d3e6e9dd0a5cc26846ba241475d9aaa21afae3febb83bfdcd81815a56e0d",
+      "raw/nominal/2022EE.csv": "bba49c3c5091164419faa4fd309feac8176a272ce1a1918bd3f9940591e09c79",
+      "raw/nominal/2023.csv": "5a9c3a8bf41165def50e5b9135890d7a86bfeb83f98ad872c228c17b13a9987b",
+      "raw/nominal/2023BPix.csv": "e9bf48e33b4b25b4f8abde97df7783b4cb06671dcd4a261fefb3c95301b1c364",
+      "raw/nominal/2024.csv": "14bb7484e4f81dc9722f7f80c9b80520bfdb4dd1a340c3b962fdf810371252d8",
+      "raw/paths/2022/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "e45bab5897e6e2be6cfc7aaa6d581b58a0095c26d68b58b709e7abed923f05dc",
+      "raw/paths/2022/HLT_Ele30_WPTight_Gsf.csv": "e6028b907987af774a5efe14a8c1ddf9d3875269a2d657431ffa376c7b61a437",
+      "raw/paths/2022/HLT_IsoMu24.csv": "9e93a29ac9aefbaac57ab34039239814947cca1f6c5ff92699b509fc016b28c0",
+      "raw/paths/2022/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "2d4f3435c9e9296616667af6441a5607feaf6d14201240d6c785f1c5cd926896",
+      "raw/paths/2022/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "656f98bf65faec061d9d8ba906a54fb20211df39362f269314e43c7c6917193d",
+      "raw/paths/2022/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "2cef7642c15badfec2e7b3758ec501e468781a151ac60ed64b6370bcb88bba63",
+      "raw/paths/2022/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "b7d8a3cbb87477462a027d04438546f826ef79fd020678b1f0d0c741a90eb773",
+      "raw/paths/2022EE/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "9b22abc0ee63c59403ee4bc8d5adeadf0f54b6ab5452949fbdcb2bc8698b01b2",
+      "raw/paths/2022EE/HLT_Ele30_WPTight_Gsf.csv": "650db161ea2b35faf86d10d9a553e6a4c256e83ce53f09e8781c655812b2d423",
+      "raw/paths/2022EE/HLT_IsoMu24.csv": "92eddf9711a70153312f7a8cd034dadb7e3866ffa671e4301578a3725be8a19b",
+      "raw/paths/2022EE/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "73203410a077fa763cb60afb479ee4ff07984f371353427558eceff97da2c207",
+      "raw/paths/2022EE/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "bb8376e88ed3ddff2cca83bd739c21003ba69a60740ac6d440e30a11a6db2e82",
+      "raw/paths/2022EE/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "6dec19208746500c106d93a25542e4e2b3f1f023625635c28f70a806f1124ff3",
+      "raw/paths/2022EE/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "56ca64d2e3297d1c35a88b095e5d49fad00fdab356c1d85db0f3e29ec662b689",
+      "raw/paths/2023/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "81ad2a9411458de34084134487a3e2fb76a8e0e1cd3d2f9ef1f32cac889f8287",
+      "raw/paths/2023/HLT_Ele30_WPTight_Gsf.csv": "c440fe81769355059b65c9cdf226dc6676daca05201027d1352a7f529e63a4d9",
+      "raw/paths/2023/HLT_IsoMu24.csv": "784152fa8f59816679d46d8782a8e6e6d302126497cc77c7ae30f53d24ca6305",
+      "raw/paths/2023/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "da6b7ff8ee01ca2c2280241cc256669c2de28f3404fa6f3ee4fa28b4a01992c8",
+      "raw/paths/2023/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "0c5b72ce4e9dacd298d6b0bcc79c8f091e8162fd6aee6b50b0e8f0b21b8a3967",
+      "raw/paths/2023/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "179a7ce91873407822481679f65e7d0dbb6a830b798322d5dce85761fd520929",
+      "raw/paths/2023/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "6248415a593e504a752a7d8cc31933ec18b715e9bc1cdea18c46b9fb1bcbf964",
+      "raw/paths/2023BPix/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "ef757d015bdf708cb2c2f895df5af6dc2a89e5fafae54f972f5dc119714f3acc",
+      "raw/paths/2023BPix/HLT_Ele30_WPTight_Gsf.csv": "52decf02cc91ef716ac2a58851d620f5a9c5644d763321fb0a9ebd84c106e9b6",
+      "raw/paths/2023BPix/HLT_IsoMu24.csv": "f92b2fbf3ad24916051402db1eeedbbd09472df2a1d4a900cb1f06cc58c31cd9",
+      "raw/paths/2023BPix/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "7ea4b533c9a012a56bf10afbf854ea6f86c5e2b4baca3d66ea03a42d32c34ae8",
+      "raw/paths/2023BPix/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "9658b30dcff5d4c241764e17193bc63160dfbfef25644f753dd383f261bd17bf",
+      "raw/paths/2023BPix/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "52effacda59cfa8bd961313cf94bf5caa01d52dcbaa454a4af35e9f199ac9aed",
+      "raw/paths/2023BPix/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "c90aff99b78664ccee200b0ea3e6232482a6e7e9a5765b3fc5201afe3ce3bf7d",
+      "raw/paths/2024/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "b8f9c3587271dfb87227301256377c5fb5cbe208e885a1ba2b4b13d582d95a04",
+      "raw/paths/2024/HLT_Ele30_WPTight_Gsf.csv": "27b9387b80d28470a85c9149d8683a8a4bd5b03b7ff3f95ef0fb3d4a91ed1e1c",
+      "raw/paths/2024/HLT_IsoMu24.csv": "556600b0933c9e4ffcc62e6c01f74f8230d593f1accf9052895368dc155616ba",
+      "raw/paths/2024/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "4f47349d18107cc98fd2a2e4c6f08c68cc635747b2e94f656c45379c5daaa9dd",
+      "raw/paths/2024/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv": "7e347e9cc89c9fc5a7f4b0145cc0667e298847d63257f30fd589f71d6be720b1",
+      "raw/paths/2024/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv": "b4d992352616ebba2969eacc5a9981d0c8b4377ad8ba195ebffc040f47342dd3",
+      "raw/paths/2024/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv": "6e45b6a1928ca1d5b52dd228581458ab4719fb651d7c82025b394c6c319663b0"
+    },
+    "run_path_classification_counts": {
+      "full_unprescaled": 6229,
+      "inactive": 91,
+      "partial_requires_ls_audit": 575
+    },
+    "schema_version": 1,
+    "trigger_ls_comparison_tolerance_fb": 2e-12,
+    "units": "fb^-1",
+    "year_recorded_lumi_fb": {
+      "2022": 34.748154655078984,
+      "2023": 27.755789028606003,
+      "2024": 109.72830897472497
+    }
+  }
+}

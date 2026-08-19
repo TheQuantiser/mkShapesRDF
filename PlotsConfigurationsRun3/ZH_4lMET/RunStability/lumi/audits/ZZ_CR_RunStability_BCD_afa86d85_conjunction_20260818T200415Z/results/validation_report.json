@@ -1,0 +1,25 @@
+{
+  "absolute_aggregate_tolerance_fb": 5e-09,
+  "checks": {
+    "adaptive_query_matrix_complete": 33,
+    "certification_coverage_differences_recorded": true,
+    "combination_aggregate_identities": true,
+    "component_trigger_category_conjunction_proof": true,
+    "event_not_rules_have_no_numeric_luminosity": true,
+    "finite_nonnegative_numeric_outputs": true,
+    "focused_source_tests": true,
+    "full_year_period_and_lumisection_partition": true,
+    "full_year_supplemental_matrix_complete": 5,
+    "independent_reproduction": true,
+    "info_txt_population_difference_explicit": true,
+    "nominal_aggregate_identities": true,
+    "partial_files": 0,
+    "path_aggregate_identities": true,
+    "positive_or_unprescaled_path_ls_proof": true,
+    "raw_query_matrix_complete": 40,
+    "representative_trigger_schema_and_values": true
+  },
+  "created_utc": "2026-08-18T20:56:08.467071+00:00",
+  "schema_version": 1,
+  "status": "passed"
+}

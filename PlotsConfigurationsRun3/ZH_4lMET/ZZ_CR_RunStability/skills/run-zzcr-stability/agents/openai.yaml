@@ -1,4 +1,0 @@
-interface:
-  display_name: "Run DY Stability"
-  short_description: "Validate complete DATA and luminosity coverage"
-  default_prompt: "Use $run-zzcr-stability to fail closed on incomplete primary-dataset, file, and luminosity provenance before producing DY run-stability results."

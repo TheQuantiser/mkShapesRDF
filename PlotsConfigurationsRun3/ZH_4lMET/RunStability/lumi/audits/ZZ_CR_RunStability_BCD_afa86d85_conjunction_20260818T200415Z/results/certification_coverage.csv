@@ -1,0 +1,6 @@
+analysis_year,analysis_era,mask_runs,mask_lumisections,bril_runs,bril_lumisections,cms_lumisections,mask_minus_bril_lumisections,bril_minus_cms_lumisections,status
+2022,2022,170,41330,170,41330,41330,0,0,exact_lumisection_coverage
+2022,2022EE,190,81520,190,81409,81409,111,0,selection_difference_recorded
+2023,2023,126,55797,126,55797,55797,0,0,exact_lumisection_coverage
+2023,2023BPix,43,27868,43,27868,27868,0,0,exact_lumisection_coverage
+2024,2024,456,280971,456,280894,280880,77,14,selection_difference_recorded

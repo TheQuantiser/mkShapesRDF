@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign": "DYRS_PT35_M60TO120_OBS6_20260819T021244Z",
+  "datasets": [
+    {
+      "era": "2022",
+      "config": "configs/config_26-08-18_21_13_41.pkl",
+      "config_sha256": "5e1b8858659375adba2c683a8b840b7dcad32fd63f429f8f6f841711ffb2549f",
+      "input": "jobs/DYRS_PT35_M60TO120_OBS6_20260819T021244Z/DYRS_2022_pt35_m60to120_obs6_cat48-be24d1ac_20260819T021326317830Z/DYRS_2022_pt35_m60to120_obs6_cat48-be24d1ac_20260819T021326317830Z/mkShapes__DYRS_2022_pt35_m60to120_obs6_cat48-be24d1ac_20260819T021326317830Z.root",
+      "input_sha256": "852508b2c1d2192ed7b37f10d12a99d1e0338ea651fa640d0ff08d423f83888e"
+    },
+    {
+      "era": "2022EE",
+      "config": "configs/config_26-08-18_21_20_27.pkl",
+      "config_sha256": "5c1ebaf35b0db8b1a12f5b48de7c952c5062a3937d642065139d905f82a11050",
+      "input": "jobs/DYRS_PT35_M60TO120_OBS6_20260819T021244Z/DYRS_2022EE_pt35_m60to120_obs6_cat48-be24d1ac_20260819T022010672391Z/DYRS_2022EE_pt35_m60to120_obs6_cat48-be24d1ac_20260819T022010672391Z/mkShapes__DYRS_2022EE_pt35_m60to120_obs6_cat48-be24d1ac_20260819T022010672391Z.root",
+      "input_sha256": "8c4e9f8b659488a80e6b3b50d2d9391fede4ac051bbbcea04fd175b8736a7900"
+    },
+    {
+      "era": "2023",
+      "config": "configs/config_26-08-18_21_27_20.pkl",
+      "config_sha256": "e78c841d41f38c40b0b7077def01a73eabc25fbc2aff5dcd135043c224a81568",
+      "input": "jobs/DYRS_PT35_M60TO120_OBS6_20260819T021244Z/DYRS_2023_pt35_m60to120_obs6_cat48-be24d1ac_20260819T022654108304Z/DYRS_2023_pt35_m60to120_obs6_cat48-be24d1ac_20260819T022654108304Z/mkShapes__DYRS_2023_pt35_m60to120_obs6_cat48-be24d1ac_20260819T022654108304Z.root",
+      "input_sha256": "3519375dae64fa82b2d94d25510c93e0d9f5a76d7f6494911a779c97ae863290"
+    },
+    {
+      "era": "2023BPix",
+      "config": "configs/config_26-08-18_21_33_11.pkl",
+      "config_sha256": "6bb9da23ae1da462f2e2fa2ff1c3c6b59d9ecc01310100392d82b23194dc6551",
+      "input": "jobs/DYRS_PT35_M60TO120_OBS6_20260819T021244Z/DYRS_2023BPix_pt35_m60to120_obs6_cat48-be24d1ac_20260819T023256488564Z/DYRS_2023BPix_pt35_m60to120_obs6_cat48-be24d1ac_20260819T023256488564Z/mkShapes__DYRS_2023BPix_pt35_m60to120_obs6_cat48-be24d1ac_20260819T023256488564Z.root",
+      "input_sha256": "63d59b58cd79e46fc8ef62c5122f323abc13ed4c9c97aa1d64f1aefe0b3cf2b0"
+    },
+    {
+      "era": "2024",
+      "config": "configs/config_26-08-18_21_38_40.pkl",
+      "config_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+      "input": "jobs/DYRS_PT35_M60TO120_OBS6_20260819T021244Z/DYRS_2024_pt35_m60to120_obs6_cat48-be24d1ac_20260819T023826650284Z/DYRS_2024_pt35_m60to120_obs6_cat48-be24d1ac_20260819T023826650284Z/mkShapes__DYRS_2024_pt35_m60to120_obs6_cat48-be24d1ac_20260819T023826650284Z.root",
+      "input_sha256": "6b6a189a71b3c05ef2aad467e42014150a791469591f5d854420b36a213161f9"
+    }
+  ]
+}

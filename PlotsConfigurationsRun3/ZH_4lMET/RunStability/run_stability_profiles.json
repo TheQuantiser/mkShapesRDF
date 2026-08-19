@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "default_production_profile": "dy",
+  "selection_profiles": {
+    "dy": {
+      "z0_pair_pt_mins": [10.0, 10.0],
+      "ordered_2l_pt_mins": [35.0, 35.0],
+      "source": "run_stability_profiles.json",
+      "allowed_analysis_passes": ["RUN_STABILITY"],
+      "target_region": "DY",
+      "description": "Selected-Z definition and ordered DY analysis thresholds"
+    }
+  },
+  "production_profiles": {
+    "dy": {
+      "analysis_pass": "RUN_STABILITY",
+      "region": "DY",
+      "selection_profile": "dy",
+      "observable_selector": "configured",
+      "category_definitions": {
+        "flavors": [
+          {"id": "ZEE", "expression": "Z0_isEE", "label": "Z_{0}#rightarrow ee"},
+          {"id": "ZMM", "expression": "Z0_isMM", "label": "Z_{0}#rightarrow#mu#mu"}
+        ],
+        "streams": [
+          {"id": "STREAM_MUONEG", "expression": "streamPriority_MuonEG", "label": "MuonEG stream"},
+          {"id": "STREAM_MUON", "expression": "streamPriority_Muon", "label": "Muon stream"},
+          {"id": "STREAM_EGAMMA", "expression": "streamPriority_EGamma", "label": "EGamma stream"}
+        ],
+        "trigger_families": [
+          {"id": "TRGFAM_ELMU", "aggregate": "Trigger_ElMu", "trigmaker_family": "EleMu", "label": "e#mu family", "luminosity_source": "trigger_elmu"},
+          {"id": "TRGFAM_SINGLEMU", "aggregate": "Trigger_sngMu", "trigmaker_family": "SingleMu", "label": "single-#mu family", "luminosity_source": "trigger_sngmu"},
+          {"id": "TRGFAM_DOUBLEMU", "aggregate": "Trigger_dblMu", "trigmaker_family": "DoubleMu", "label": "double-#mu family", "luminosity_source": "trigger_dblmu"},
+          {"id": "TRGFAM_SINGLEEL", "aggregate": "Trigger_sngEl", "trigmaker_family": "SingleEle", "label": "single-e family", "luminosity_source": "trigger_sngel"},
+          {"id": "TRGFAM_DOUBLEEL", "aggregate": "Trigger_dblEl", "trigmaker_family": "DoubleEle", "label": "double-e family", "luminosity_source": "trigger_dblel"}
+        ],
+        "concrete_paths": [
+          {"id": "HLT_MU23_ELE12", "aggregate": "Trigger_ElMu", "ordinal": 0, "label": "Mu23_Ele12", "luminosity_source": "hlt_mu23_ele12"},
+          {"id": "HLT_MU12_ELE23", "aggregate": "Trigger_ElMu", "ordinal": 1, "label": "Mu12_Ele23", "luminosity_source": "hlt_mu12_ele23"},
+          {"id": "HLT_MU8_ELE23", "aggregate": "Trigger_ElMu", "ordinal": 2, "label": "Mu8_Ele23", "luminosity_source": "hlt_mu8_ele23"},
+          {"id": "HLT_MU17_MU8", "aggregate": "Trigger_dblMu", "ordinal": 0, "label": "Mu17_Mu8", "luminosity_source": "hlt_mu17_mu8"},
+          {"id": "HLT_ISOMU24", "aggregate": "Trigger_sngMu", "ordinal": 0, "label": "IsoMu24", "luminosity_source": "hlt_isomu24"},
+          {"id": "HLT_ELE23_ELE12", "aggregate": "Trigger_dblEl", "ordinal": 0, "label": "Ele23_Ele12", "luminosity_source": "hlt_ele23_ele12"},
+          {"id": "HLT_ELE30", "aggregate": "Trigger_sngEl", "ordinal": 0, "label": "Ele30", "luminosity_source": "hlt_ele30"}
+        ]
+      },
+      "expected_category_contract": {
+        "count": 48,
+        "selector_sha256": "be24d1ac1df9a8b1f91b05187031c1e83fee2825c10cee0c690e73121f3d03a5"
+      },
+      "observables": [
+        "Z0_mass",
+        "Z0_pt",
+        "lZ1_pt",
+        "lZ2_pt",
+        "lZ1_eta",
+        "lZ2_eta"
+      ],
+      "mass_window_gev": [60.0, 120.0],
+      "mass_window_strict": true,
+      "axes": {
+        "Z0_mass": {
+          "expression": "Z0_mass",
+          "label": "m_{Z_{0}} [GeV]",
+          "uniform": [60, 60.0, 120.0],
+          "fold": 0
+        },
+        "Z0_pt": {
+          "expression": "Z0_pt",
+          "label": "p_{T}^{Z_{0}} [GeV]",
+          "uniform": [20, 0.0, 100.0],
+          "fold": 2
+        },
+        "lZ1_pt": {
+          "expression": "Alt(Lepton_pt, Alt(Z0_idx, 0, -1), -999.f)",
+          "label": "p_{T}(#it{l}_{Z,1}) [GeV]",
+          "uniform": [13, 35.0, 100.0],
+          "fold": 2
+        },
+        "lZ2_pt": {
+          "expression": "Alt(Lepton_pt, Alt(Z0_idx, 1, -1), -999.f)",
+          "label": "p_{T}(#it{l}_{Z,2}) [GeV]",
+          "uniform": [13, 35.0, 100.0],
+          "fold": 2
+        },
+        "lZ1_eta": {
+          "expression": "Alt(Lepton_eta, Alt(Z0_idx, 0, -1), -999.f)",
+          "label": "#eta_{#it{l}_{Z,1}}",
+          "uniform": [50, -2.5, 2.5],
+          "fold": 0
+        },
+        "lZ2_eta": {
+          "expression": "Alt(Lepton_eta, Alt(Z0_idx, 1, -1), -999.f)",
+          "label": "#eta_{#it{l}_{Z,2}}",
+          "uniform": [50, -2.5, 2.5],
+          "fold": 0
+        }
+      },
+      "luminosity_binding": "lumi/run_stability_luminosity_binding.json",
+      "description": "Canonical DY run-stability production: strict pT 35/35 GeV, 60<mll<120 GeV, six observables, and 48 trigger/stream/flavor categories"
+    }
+  }
+}

@@ -1,0 +1,2248 @@
+{
+  "analysis_eras": {
+    "2022": {
+      "analysis_year": 2022,
+      "configured_lumi_fb": 8.0,
+      "run_periods": [
+        "2022B",
+        "2022C",
+        "2022D"
+      ]
+    },
+    "2022EE": {
+      "analysis_year": 2022,
+      "configured_lumi_fb": 26.7,
+      "run_periods": [
+        "2022E",
+        "2022F",
+        "2022G"
+      ]
+    },
+    "2023": {
+      "analysis_year": 2023,
+      "configured_lumi_fb": 17.794,
+      "run_periods": [
+        "2023C_v1",
+        "2023C_v2",
+        "2023C_v3",
+        "2023C_v4"
+      ]
+    },
+    "2023BPix": {
+      "analysis_year": 2023,
+      "configured_lumi_fb": 9.451,
+      "run_periods": [
+        "2023D_v1",
+        "2023D_v2"
+      ]
+    },
+    "2024": {
+      "analysis_year": 2024,
+      "configured_lumi_fb": 109.08,
+      "run_periods": [
+        "2024C",
+        "2024D",
+        "2024E",
+        "2024F",
+        "2024G",
+        "2024H",
+        "2024I_v1",
+        "2024I_v2"
+      ]
+    }
+  },
+  "analysis_revision": "6f9b4ff164ec985575aa1c4da7c3c73839446001",
+  "component_records": [
+    {
+      "analysis_era": "2022",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2022B-ReReco-v1",
+      "n_lumisections": 4633,
+      "n_runs": 19,
+      "path": "inputs/masks/2022/components/MuonEG_Run2022B-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2022C-ReReco-v1",
+      "n_lumisections": 25824,
+      "n_runs": 106,
+      "path": "inputs/masks/2022/components/MuonEG_Run2022C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2022D-ReReco-v1",
+      "n_lumisections": 10873,
+      "n_runs": 45,
+      "path": "inputs/masks/2022/components/MuonEG_Run2022D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && Trigger_sngMu",
+      "key": "SingleMuon_Run2022B-ReReco-v1",
+      "n_lumisections": 4633,
+      "n_runs": 19,
+      "path": "inputs/masks/2022/components/SingleMuon_Run2022B-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && Trigger_sngMu",
+      "key": "SingleMuon_Run2022C-ReReco-v1",
+      "n_lumisections": 6701,
+      "n_runs": 35,
+      "path": "inputs/masks/2022/components/SingleMuon_Run2022C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon_Run2022C-ReReco-v1",
+      "n_lumisections": 19088,
+      "n_runs": 71,
+      "path": "inputs/masks/2022/components/Muon_Run2022C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon_Run2022D-ReReco-v1",
+      "n_lumisections": 10867,
+      "n_runs": 45,
+      "path": "inputs/masks/2022/components/Muon_Run2022D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma_Run2022B-ReReco-v1",
+      "n_lumisections": 4613,
+      "n_runs": 19,
+      "path": "inputs/masks/2022/components/EGamma_Run2022B-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma_Run2022C-ReReco-v1",
+      "n_lumisections": 25812,
+      "n_runs": 106,
+      "path": "inputs/masks/2022/components/EGamma_Run2022C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma_Run2022D-ReReco-v1",
+      "n_lumisections": 10873,
+      "n_runs": 45,
+      "path": "inputs/masks/2022/components/EGamma_Run2022D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2022E-Prompt-v1",
+      "n_lumisections": 21738,
+      "n_runs": 51,
+      "path": "inputs/masks/2022EE/components/MuonEG_Run2022E-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2022F-Prompt-v1",
+      "n_lumisections": 51427,
+      "n_runs": 118,
+      "path": "inputs/masks/2022EE/components/MuonEG_Run2022F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2022G-Prompt-v1",
+      "n_lumisections": 8237,
+      "n_runs": 21,
+      "path": "inputs/masks/2022EE/components/MuonEG_Run2022G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon_Run2022E-Prompt-v1",
+      "n_lumisections": 21782,
+      "n_runs": 51,
+      "path": "inputs/masks/2022EE/components/Muon_Run2022E-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon_Run2022F-Prompt-v1",
+      "n_lumisections": 51493,
+      "n_runs": 118,
+      "path": "inputs/masks/2022EE/components/Muon_Run2022F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon_Run2022G-Prompt-v1",
+      "n_lumisections": 8237,
+      "n_runs": 21,
+      "path": "inputs/masks/2022EE/components/Muon_Run2022G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma_Run2022E-Prompt-v1",
+      "n_lumisections": 21618,
+      "n_runs": 51,
+      "path": "inputs/masks/2022EE/components/EGamma_Run2022E-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma_Run2022F-Prompt-v1",
+      "n_lumisections": 51484,
+      "n_runs": 118,
+      "path": "inputs/masks/2022EE/components/EGamma_Run2022F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma_Run2022G-Prompt-v1",
+      "n_lumisections": 8235,
+      "n_runs": 21,
+      "path": "inputs/masks/2022EE/components/EGamma_Run2022G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2023C-Prompt-v1",
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/components/MuonEG_Run2023C-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2023C-Prompt-v2",
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/components/MuonEG_Run2023C-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2023C-Prompt-v3",
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/components/MuonEG_Run2023C-Prompt-v3.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2023C-Prompt-v4",
+      "n_lumisections": 31436,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/components/MuonEG_Run2023C-Prompt-v4.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2023C-Prompt-v1",
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/components/Muon0_Run2023C-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2023C-Prompt-v2",
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/components/Muon0_Run2023C-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2023C-Prompt-v3",
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/components/Muon0_Run2023C-Prompt-v3.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2023C-Prompt-v4",
+      "n_lumisections": 31437,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/components/Muon0_Run2023C-Prompt-v4.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2023C-Prompt-v1",
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/components/Muon1_Run2023C-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2023C-Prompt-v2",
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/components/Muon1_Run2023C-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2023C-Prompt-v3",
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/components/Muon1_Run2023C-Prompt-v3.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2023C-Prompt-v4",
+      "n_lumisections": 31435,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/components/Muon1_Run2023C-Prompt-v4.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2023C-Prompt-v1",
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/components/EGamma0_Run2023C-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2023C-Prompt-v2",
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/components/EGamma0_Run2023C-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2023C-Prompt-v3",
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/components/EGamma0_Run2023C-Prompt-v3.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2023C-Prompt-v4",
+      "n_lumisections": 31436,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/components/EGamma0_Run2023C-Prompt-v4.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2023C-Prompt-v1",
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/components/EGamma1_Run2023C-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2023C-Prompt-v2",
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/components/EGamma1_Run2023C-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2023C-Prompt-v3",
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/components/EGamma1_Run2023C-Prompt-v3.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2023C-Prompt-v4",
+      "n_lumisections": 31432,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/components/EGamma1_Run2023C-Prompt-v4.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2023D-Prompt-v1",
+      "n_lumisections": 23593,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/components/MuonEG_Run2023D-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2023D-Prompt-v2",
+      "n_lumisections": 4259,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/components/MuonEG_Run2023D-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2023D-Prompt-v1",
+      "n_lumisections": 23601,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/components/Muon0_Run2023D-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2023D-Prompt-v2",
+      "n_lumisections": 4262,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/components/Muon0_Run2023D-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2023D-Prompt-v1",
+      "n_lumisections": 23601,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/components/Muon1_Run2023D-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2023D-Prompt-v2",
+      "n_lumisections": 4262,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/components/Muon1_Run2023D-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2023D-Prompt-v1",
+      "n_lumisections": 23588,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/components/EGamma0_Run2023D-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2023D-Prompt-v2",
+      "n_lumisections": 4259,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/components/EGamma0_Run2023D-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2023D-Prompt-v1",
+      "n_lumisections": 23579,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/components/EGamma1_Run2023D-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2023D-Prompt-v2",
+      "n_lumisections": 4258,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/components/EGamma1_Run2023D-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024C-ReReco-v1",
+      "n_lumisections": 24274,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024D-ReReco-v1",
+      "n_lumisections": 23149,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024E-ReReco-v1",
+      "n_lumisections": 31465,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024E-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024F-Prompt-v1",
+      "n_lumisections": 69837,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024G-Prompt-v1",
+      "n_lumisections": 92219,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024H-Prompt-v1",
+      "n_lumisections": 13037,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024H-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024I-Prompt-v1",
+      "n_lumisections": 13702,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024I-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "Trigger_ElMu",
+      "key": "MuonEG_Run2024I-Prompt-v2",
+      "n_lumisections": 12945,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/components/MuonEG_Run2024I-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_ElMu"
+      ],
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024C-ReReco-v1",
+      "n_lumisections": 24270,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/components/Muon0_Run2024C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024D-ReReco-v1",
+      "n_lumisections": 23184,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/components/Muon0_Run2024D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024E-ReReco-v1",
+      "n_lumisections": 30995,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/components/Muon0_Run2024E-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024F-Prompt-v1",
+      "n_lumisections": 69857,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/components/Muon0_Run2024F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024G-Prompt-v1",
+      "n_lumisections": 92275,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/components/Muon0_Run2024G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024H-Prompt-v1",
+      "n_lumisections": 13034,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/components/Muon0_Run2024H-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024I-Prompt-v1",
+      "n_lumisections": 13702,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/components/Muon0_Run2024I-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon0_Run2024I-Prompt-v2",
+      "n_lumisections": 12977,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/components/Muon0_Run2024I-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024C-ReReco-v1",
+      "n_lumisections": 24281,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/components/Muon1_Run2024C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024D-ReReco-v1",
+      "n_lumisections": 23136,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/components/Muon1_Run2024D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024E-ReReco-v1",
+      "n_lumisections": 31440,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/components/Muon1_Run2024E-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024F-Prompt-v1",
+      "n_lumisections": 69842,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/components/Muon1_Run2024F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024G-Prompt-v1",
+      "n_lumisections": 92274,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/components/Muon1_Run2024G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024H-Prompt-v1",
+      "n_lumisections": 13038,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/components/Muon1_Run2024H-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024I-Prompt-v1",
+      "n_lumisections": 13702,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/components/Muon1_Run2024I-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+      "key": "Muon1_Run2024I-Prompt-v2",
+      "n_lumisections": 12976,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/components/Muon1_Run2024I-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblMu",
+        "Trigger_sngMu"
+      ],
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024C-ReReco-v1",
+      "n_lumisections": 24221,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024D-ReReco-v1",
+      "n_lumisections": 23179,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024E-ReReco-v1",
+      "n_lumisections": 31438,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024E-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024F-Prompt-v1",
+      "n_lumisections": 69774,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024G-Prompt-v1",
+      "n_lumisections": 92247,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024H-Prompt-v1",
+      "n_lumisections": 13024,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024H-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024I-Prompt-v1",
+      "n_lumisections": 13707,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024I-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma0_Run2024I-Prompt-v2",
+      "n_lumisections": 12946,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/components/EGamma0_Run2024I-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024C-ReReco-v1",
+      "n_lumisections": 24299,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024C-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024D-ReReco-v1",
+      "n_lumisections": 23144,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024D-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024E-ReReco-v1",
+      "n_lumisections": 31450,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024E-ReReco-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024F-Prompt-v1",
+      "n_lumisections": 69739,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024F-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024G-Prompt-v1",
+      "n_lumisections": 92244,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024G-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024H-Prompt-v1",
+      "n_lumisections": 13040,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024H-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024I-Prompt-v1",
+      "n_lumisections": 13707,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024I-Prompt-v1.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "component_trigger": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+      "key": "EGamma1_Run2024I-Prompt-v2",
+      "n_lumisections": 12943,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/components/EGamma1_Run2024I-Prompt-v2.json",
+      "positive_trigger_flags": [
+        "Trigger_dblEl",
+        "Trigger_sngEl"
+      ],
+      "stream": "EGamma"
+    }
+  ],
+  "created_utc": "2026-08-18T20:04:47.206298+00:00",
+  "data_stream_triggers": {
+    "EGamma": "!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl)",
+    "Muon": "!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)",
+    "MuonEG": "Trigger_ElMu"
+  },
+  "golden_jsons": {
+    "2022": {
+      "path": "inputs/golden/Cert_Collisions2022_355100_362760_Golden.json",
+      "sha256": "52148142fc1b129bd94c5b5e17bbaedf31bf618dac0eb2f7d3b80457d11ba7ba"
+    },
+    "2023": {
+      "path": "inputs/golden/Cert_Collisions2023_366442_370790_Golden.json",
+      "sha256": "d763cde312501b11e0bdc9ea0896bdd7c7226abc4c22a57772ae091177ae98cd"
+    },
+    "2024": {
+      "path": "inputs/golden/Cert_Collisions2024_378981_386951_Golden.json",
+      "sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c"
+    }
+  },
+  "mask_records": [
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 4613,
+      "n_runs": 19,
+      "path": "inputs/masks/2022/period/2022B/EGamma.json",
+      "run_period": "2022B",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 4633,
+      "n_runs": 19,
+      "path": "inputs/masks/2022/period/2022B/Muon.json",
+      "run_period": "2022B",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 4633,
+      "n_runs": 19,
+      "path": "inputs/masks/2022/period/2022B/MuonEG.json",
+      "run_period": "2022B",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 25812,
+      "n_runs": 106,
+      "path": "inputs/masks/2022/period/2022C/EGamma.json",
+      "run_period": "2022C",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 25789,
+      "n_runs": 106,
+      "path": "inputs/masks/2022/period/2022C/Muon.json",
+      "run_period": "2022C",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 25824,
+      "n_runs": 106,
+      "path": "inputs/masks/2022/period/2022C/MuonEG.json",
+      "run_period": "2022C",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 10873,
+      "n_runs": 45,
+      "path": "inputs/masks/2022/period/2022D/EGamma.json",
+      "run_period": "2022D",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 10867,
+      "n_runs": 45,
+      "path": "inputs/masks/2022/period/2022D/Muon.json",
+      "run_period": "2022D",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "analysis_year": 2022,
+      "n_lumisections": 10873,
+      "n_runs": 45,
+      "path": "inputs/masks/2022/period/2022D/MuonEG.json",
+      "run_period": "2022D",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 21618,
+      "n_runs": 51,
+      "path": "inputs/masks/2022EE/period/2022E/EGamma.json",
+      "run_period": "2022E",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 21782,
+      "n_runs": 51,
+      "path": "inputs/masks/2022EE/period/2022E/Muon.json",
+      "run_period": "2022E",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 21738,
+      "n_runs": 51,
+      "path": "inputs/masks/2022EE/period/2022E/MuonEG.json",
+      "run_period": "2022E",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 51484,
+      "n_runs": 118,
+      "path": "inputs/masks/2022EE/period/2022F/EGamma.json",
+      "run_period": "2022F",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 51493,
+      "n_runs": 118,
+      "path": "inputs/masks/2022EE/period/2022F/Muon.json",
+      "run_period": "2022F",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 51427,
+      "n_runs": 118,
+      "path": "inputs/masks/2022EE/period/2022F/MuonEG.json",
+      "run_period": "2022F",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 8235,
+      "n_runs": 21,
+      "path": "inputs/masks/2022EE/period/2022G/EGamma.json",
+      "run_period": "2022G",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 8237,
+      "n_runs": 21,
+      "path": "inputs/masks/2022EE/period/2022G/Muon.json",
+      "run_period": "2022G",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "analysis_year": 2022,
+      "n_lumisections": 8237,
+      "n_runs": 21,
+      "path": "inputs/masks/2022EE/period/2022G/MuonEG.json",
+      "run_period": "2022G",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/period/2023C_v1/EGamma.json",
+      "run_period": "2023C_v1",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/period/2023C_v1/Muon.json",
+      "run_period": "2023C_v1",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 16282,
+      "n_runs": 41,
+      "path": "inputs/masks/2023/period/2023C_v1/MuonEG.json",
+      "run_period": "2023C_v1",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/period/2023C_v2/EGamma.json",
+      "run_period": "2023C_v2",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/period/2023C_v2/Muon.json",
+      "run_period": "2023C_v2",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 3534,
+      "n_runs": 7,
+      "path": "inputs/masks/2023/period/2023C_v2/MuonEG.json",
+      "run_period": "2023C_v2",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/period/2023C_v3/EGamma.json",
+      "run_period": "2023C_v3",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/period/2023C_v3/Muon.json",
+      "run_period": "2023C_v3",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 4544,
+      "n_runs": 11,
+      "path": "inputs/masks/2023/period/2023C_v3/MuonEG.json",
+      "run_period": "2023C_v3",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 31437,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/period/2023C_v4/EGamma.json",
+      "run_period": "2023C_v4",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 31437,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/period/2023C_v4/Muon.json",
+      "run_period": "2023C_v4",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "analysis_year": 2023,
+      "n_lumisections": 31436,
+      "n_runs": 67,
+      "path": "inputs/masks/2023/period/2023C_v4/MuonEG.json",
+      "run_period": "2023C_v4",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "analysis_year": 2023,
+      "n_lumisections": 23591,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/period/2023D_v1/EGamma.json",
+      "run_period": "2023D_v1",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "analysis_year": 2023,
+      "n_lumisections": 23602,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/period/2023D_v1/Muon.json",
+      "run_period": "2023D_v1",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "analysis_year": 2023,
+      "n_lumisections": 23593,
+      "n_runs": 33,
+      "path": "inputs/masks/2023BPix/period/2023D_v1/MuonEG.json",
+      "run_period": "2023D_v1",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "analysis_year": 2023,
+      "n_lumisections": 4259,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/period/2023D_v2/EGamma.json",
+      "run_period": "2023D_v2",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "analysis_year": 2023,
+      "n_lumisections": 4262,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/period/2023D_v2/Muon.json",
+      "run_period": "2023D_v2",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "analysis_year": 2023,
+      "n_lumisections": 4259,
+      "n_runs": 10,
+      "path": "inputs/masks/2023BPix/period/2023D_v2/MuonEG.json",
+      "run_period": "2023D_v2",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 24304,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/period/2024C/EGamma.json",
+      "run_period": "2024C",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 24314,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/period/2024C/Muon.json",
+      "run_period": "2024C",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 24274,
+      "n_runs": 43,
+      "path": "inputs/masks/2024/period/2024C/MuonEG.json",
+      "run_period": "2024C",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 23186,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/period/2024D/EGamma.json",
+      "run_period": "2024D",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 23190,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/period/2024D/Muon.json",
+      "run_period": "2024D",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 23149,
+      "n_runs": 37,
+      "path": "inputs/masks/2024/period/2024D/MuonEG.json",
+      "run_period": "2024D",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 31471,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/period/2024E/EGamma.json",
+      "run_period": "2024E",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 31507,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/period/2024E/Muon.json",
+      "run_period": "2024E",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 31465,
+      "n_runs": 46,
+      "path": "inputs/masks/2024/period/2024E/MuonEG.json",
+      "run_period": "2024E",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 69865,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/period/2024F/EGamma.json",
+      "run_period": "2024F",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 69871,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/period/2024F/Muon.json",
+      "run_period": "2024F",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 69837,
+      "n_runs": 121,
+      "path": "inputs/masks/2024/period/2024F/MuonEG.json",
+      "run_period": "2024F",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 92276,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/period/2024G/EGamma.json",
+      "run_period": "2024G",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 92308,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/period/2024G/Muon.json",
+      "run_period": "2024G",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 92219,
+      "n_runs": 143,
+      "path": "inputs/masks/2024/period/2024G/MuonEG.json",
+      "run_period": "2024G",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 13043,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/period/2024H/EGamma.json",
+      "run_period": "2024H",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 13043,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/period/2024H/Muon.json",
+      "run_period": "2024H",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 13037,
+      "n_runs": 21,
+      "path": "inputs/masks/2024/period/2024H/MuonEG.json",
+      "run_period": "2024H",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 13711,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/period/2024I_v1/EGamma.json",
+      "run_period": "2024I_v1",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 13707,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/period/2024I_v1/Muon.json",
+      "run_period": "2024I_v1",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 13702,
+      "n_runs": 22,
+      "path": "inputs/masks/2024/period/2024I_v1/MuonEG.json",
+      "run_period": "2024I_v1",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 12947,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/period/2024I_v2/EGamma.json",
+      "run_period": "2024I_v2",
+      "scope": "period_stream",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 12981,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/period/2024I_v2/Muon.json",
+      "run_period": "2024I_v2",
+      "scope": "period_stream",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "analysis_year": 2024,
+      "n_lumisections": 12945,
+      "n_runs": 23,
+      "path": "inputs/masks/2024/period/2024I_v2/MuonEG.json",
+      "run_period": "2024I_v2",
+      "scope": "period_stream",
+      "stream": "MuonEG"
+    }
+  ],
+  "normtag": {
+    "path": "inputs/normtag/normtag_PHYSICS.json",
+    "sha256": "693ef4b360a1debb2aa667fa4178c3f4dece9539d9cf3ffee1ea60f157823548"
+  },
+  "query_specs": [
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/combined.json",
+      "name": "nominal",
+      "output": "raw/nominal/2022.csv",
+      "pattern": "",
+      "scope": "nominal",
+      "stream": "combined"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/MuonEG.json",
+      "name": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2022/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/MuonEG.json",
+      "name": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2022/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/MuonEG.json",
+      "name": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2022/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/Muon.json",
+      "name": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+      "output": "raw/paths/2022/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv",
+      "pattern": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/Muon.json",
+      "name": "HLT_IsoMu24",
+      "output": "raw/paths/2022/HLT_IsoMu24.csv",
+      "pattern": "HLT_IsoMu24_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/EGamma.json",
+      "name": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2022/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022",
+      "mask": "inputs/masks/2022/era/EGamma.json",
+      "name": "HLT_Ele30_WPTight_Gsf",
+      "output": "raw/paths/2022/HLT_Ele30_WPTight_Gsf.csv",
+      "pattern": "HLT_Ele30_WPTight_Gsf_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/combined.json",
+      "name": "nominal",
+      "output": "raw/nominal/2022EE.csv",
+      "pattern": "",
+      "scope": "nominal",
+      "stream": "combined"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/MuonEG.json",
+      "name": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2022EE/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/MuonEG.json",
+      "name": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2022EE/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/MuonEG.json",
+      "name": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2022EE/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/Muon.json",
+      "name": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+      "output": "raw/paths/2022EE/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv",
+      "pattern": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/Muon.json",
+      "name": "HLT_IsoMu24",
+      "output": "raw/paths/2022EE/HLT_IsoMu24.csv",
+      "pattern": "HLT_IsoMu24_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/EGamma.json",
+      "name": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2022EE/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2022EE",
+      "mask": "inputs/masks/2022EE/era/EGamma.json",
+      "name": "HLT_Ele30_WPTight_Gsf",
+      "output": "raw/paths/2022EE/HLT_Ele30_WPTight_Gsf.csv",
+      "pattern": "HLT_Ele30_WPTight_Gsf_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/combined.json",
+      "name": "nominal",
+      "output": "raw/nominal/2023.csv",
+      "pattern": "",
+      "scope": "nominal",
+      "stream": "combined"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/MuonEG.json",
+      "name": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2023/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/MuonEG.json",
+      "name": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2023/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/MuonEG.json",
+      "name": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2023/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/Muon.json",
+      "name": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+      "output": "raw/paths/2023/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv",
+      "pattern": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/Muon.json",
+      "name": "HLT_IsoMu24",
+      "output": "raw/paths/2023/HLT_IsoMu24.csv",
+      "pattern": "HLT_IsoMu24_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/EGamma.json",
+      "name": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2023/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023",
+      "mask": "inputs/masks/2023/era/EGamma.json",
+      "name": "HLT_Ele30_WPTight_Gsf",
+      "output": "raw/paths/2023/HLT_Ele30_WPTight_Gsf.csv",
+      "pattern": "HLT_Ele30_WPTight_Gsf_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/combined.json",
+      "name": "nominal",
+      "output": "raw/nominal/2023BPix.csv",
+      "pattern": "",
+      "scope": "nominal",
+      "stream": "combined"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/MuonEG.json",
+      "name": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2023BPix/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/MuonEG.json",
+      "name": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2023BPix/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/MuonEG.json",
+      "name": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2023BPix/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/Muon.json",
+      "name": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+      "output": "raw/paths/2023BPix/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv",
+      "pattern": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/Muon.json",
+      "name": "HLT_IsoMu24",
+      "output": "raw/paths/2023BPix/HLT_IsoMu24.csv",
+      "pattern": "HLT_IsoMu24_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/EGamma.json",
+      "name": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2023BPix/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2023BPix",
+      "mask": "inputs/masks/2023BPix/era/EGamma.json",
+      "name": "HLT_Ele30_WPTight_Gsf",
+      "output": "raw/paths/2023BPix/HLT_Ele30_WPTight_Gsf.csv",
+      "pattern": "HLT_Ele30_WPTight_Gsf_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/combined.json",
+      "name": "nominal",
+      "output": "raw/nominal/2024.csv",
+      "pattern": "",
+      "scope": "nominal",
+      "stream": "combined"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/MuonEG.json",
+      "name": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2024/HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/MuonEG.json",
+      "name": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2024/HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/MuonEG.json",
+      "name": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "output": "raw/paths/2024/HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ.csv",
+      "pattern": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*",
+      "scope": "hlt_path",
+      "stream": "MuonEG"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/Muon.json",
+      "name": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+      "output": "raw/paths/2024/HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8.csv",
+      "pattern": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/Muon.json",
+      "name": "HLT_IsoMu24",
+      "output": "raw/paths/2024/HLT_IsoMu24.csv",
+      "pattern": "HLT_IsoMu24_v*",
+      "scope": "hlt_path",
+      "stream": "Muon"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/EGamma.json",
+      "name": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "output": "raw/paths/2024/HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL.csv",
+      "pattern": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    },
+    {
+      "analysis_era": "2024",
+      "mask": "inputs/masks/2024/era/EGamma.json",
+      "name": "HLT_Ele30_WPTight_Gsf",
+      "output": "raw/paths/2024/HLT_Ele30_WPTight_Gsf.csv",
+      "pattern": "HLT_Ele30_WPTight_Gsf_v*",
+      "scope": "hlt_path",
+      "stream": "EGamma"
+    }
+  ],
+  "schema_version": 1,
+  "trigger_families": {
+    "Trigger_ElMu": [
+      "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ"
+    ],
+    "Trigger_dblEl": [
+      "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"
+    ],
+    "Trigger_dblMu": [
+      "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8"
+    ],
+    "Trigger_sngEl": [
+      "HLT_Ele30_WPTight_Gsf"
+    ],
+    "Trigger_sngMu": [
+      "HLT_IsoMu24"
+    ]
+  },
+  "trigger_paths": [
+    {
+      "base_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "family": "Trigger_ElMu",
+      "owner_stream": "MuonEG",
+      "pattern": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v*"
+    },
+    {
+      "base_path": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "family": "Trigger_ElMu",
+      "owner_stream": "MuonEG",
+      "pattern": "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*"
+    },
+    {
+      "base_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+      "family": "Trigger_ElMu",
+      "owner_stream": "MuonEG",
+      "pattern": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v*"
+    },
+    {
+      "base_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+      "family": "Trigger_dblMu",
+      "owner_stream": "Muon",
+      "pattern": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_v*"
+    },
+    {
+      "base_path": "HLT_IsoMu24",
+      "family": "Trigger_sngMu",
+      "owner_stream": "Muon",
+      "pattern": "HLT_IsoMu24_v*"
+    },
+    {
+      "base_path": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "family": "Trigger_dblEl",
+      "owner_stream": "EGamma",
+      "pattern": "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v*"
+    },
+    {
+      "base_path": "HLT_Ele30_WPTight_Gsf",
+      "family": "Trigger_sngEl",
+      "owner_stream": "EGamma",
+      "pattern": "HLT_Ele30_WPTight_Gsf_v*"
+    }
+  ],
+  "year_config": {
+    "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/ZZ_CR_RunStability/year_config.json",
+    "sha256": "afa86d851cd46c01b57598c9b865e7d9a8e6cbbb1dd2db7e1aa894e8d6ba3ba2"
+  }
+}

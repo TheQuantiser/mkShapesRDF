@@ -1,0 +1,4 @@
+scope_name,expression,method,status,notes
+EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),not_numerically_defined,event_assignment_rule_not_luminosity_partition,NOT-based DATA de-duplication cannot be converted to exclusive luminosity by subtraction.
+Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),not_numerically_defined,event_assignment_rule_not_luminosity_partition,NOT-based DATA de-duplication cannot be converted to exclusive luminosity by subtraction.
+MuonEG,Trigger_ElMu,not_numerically_defined,event_assignment_rule_not_luminosity_partition,NOT-based DATA de-duplication cannot be converted to exclusive luminosity by subtraction.

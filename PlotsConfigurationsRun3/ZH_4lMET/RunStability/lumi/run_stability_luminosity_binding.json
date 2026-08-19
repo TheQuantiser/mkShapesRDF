@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "run_stability_luminosity_binding",
+  "active_year_config": {
+    "path": "year_config.json",
+    "sha256": "3a6ad5de15c76c2b46d709134be363813d3db7614b63d8b9e995825914cd9e18",
+    "luminosity_projection_sha256": "4331a6c5e6bfc92e1d301f31940d49e7765a24ddb0cca0b79d0ae8a06e3f8b09"
+  },
+  "source_audit": {
+    "path": "lumi/audits/ZZ_CR_RunStability_BCD_afa86d85_conjunction_20260818T200415Z",
+    "manifest_sha256": "62e24cbe5db00035810f0d6a550a958668b998c65505b9e4fad652caa2ce3ec7",
+    "provenance_sha256": "528a25a1167e41eed3c4fd5d880e198b86685fb640f3708e0771b30cacaf2c1c",
+    "luminosity_by_analysis_era_sha256": "174bbb740fa5f1dd961064ecb2a3687878e75f6eb66753b30b36a8a77f540e35"
+  },
+  "status": "active",
+  "note": "Binds the renamed live leaf to an immutable historical BRIL audit without rewriting that audit's original path or bytes."
+}

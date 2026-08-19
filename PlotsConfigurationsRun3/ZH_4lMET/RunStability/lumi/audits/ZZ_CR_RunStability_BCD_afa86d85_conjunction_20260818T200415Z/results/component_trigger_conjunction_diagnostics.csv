@@ -1,0 +1,199 @@
+analysis_era,component,stream,component_trigger,category_path,component_lumisections,category_active_lumisections,baseline_active_lumisections,unsupported_lumisections,status
+2022,MuonEG_Run2022B-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,4633,3378,3378,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022B-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,4633,3378,3378,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022B-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,4633,3378,3378,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022C-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,25824,25824,25824,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022C-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,25824,25824,25824,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022C-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,25824,25824,25824,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022D-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,10873,10873,10873,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022D-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,10873,10873,10873,0,component_baseline_covers_category_exposure
+2022,MuonEG_Run2022D-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,10873,10873,10873,0,component_baseline_covers_category_exposure
+2022,SingleMuon_Run2022B-ReReco-v1,Muon,!Trigger_ElMu && Trigger_sngMu,HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,4633,3378,3378,0,component_baseline_covers_category_exposure
+2022,SingleMuon_Run2022B-ReReco-v1,Muon,!Trigger_ElMu && Trigger_sngMu,HLT_IsoMu24,4633,3378,3378,0,component_baseline_covers_category_exposure
+2022,SingleMuon_Run2022C-ReReco-v1,Muon,!Trigger_ElMu && Trigger_sngMu,HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,6701,6701,6701,0,component_baseline_covers_category_exposure
+2022,SingleMuon_Run2022C-ReReco-v1,Muon,!Trigger_ElMu && Trigger_sngMu,HLT_IsoMu24,6701,6701,6701,0,component_baseline_covers_category_exposure
+2022,Muon_Run2022C-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,19088,19088,19088,0,component_baseline_covers_category_exposure
+2022,Muon_Run2022C-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,19088,19088,19088,0,component_baseline_covers_category_exposure
+2022,Muon_Run2022D-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,10867,10867,10867,0,component_baseline_covers_category_exposure
+2022,Muon_Run2022D-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,10867,10867,10867,0,component_baseline_covers_category_exposure
+2022,EGamma_Run2022B-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,4613,3361,3361,0,component_baseline_covers_category_exposure
+2022,EGamma_Run2022B-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,4613,3361,3361,0,component_baseline_covers_category_exposure
+2022,EGamma_Run2022C-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,25812,25812,25812,0,component_baseline_covers_category_exposure
+2022,EGamma_Run2022C-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,25812,25812,25812,0,component_baseline_covers_category_exposure
+2022,EGamma_Run2022D-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,10873,10873,10873,0,component_baseline_covers_category_exposure
+2022,EGamma_Run2022D-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,10873,10873,10873,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022E-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,21738,21738,21738,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022E-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,21738,21738,21738,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022E-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,21738,21738,21738,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022F-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,51427,51427,51427,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022F-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,51427,51427,51427,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022F-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,51427,51427,51427,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022G-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,8237,8237,8237,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022G-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,8237,8237,8237,0,component_baseline_covers_category_exposure
+2022EE,MuonEG_Run2022G-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,8237,8237,8237,0,component_baseline_covers_category_exposure
+2022EE,Muon_Run2022E-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,21782,21782,21782,0,component_baseline_covers_category_exposure
+2022EE,Muon_Run2022E-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,21782,21782,21782,0,component_baseline_covers_category_exposure
+2022EE,Muon_Run2022F-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,51493,51493,51493,0,component_baseline_covers_category_exposure
+2022EE,Muon_Run2022F-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,51493,51493,51493,0,component_baseline_covers_category_exposure
+2022EE,Muon_Run2022G-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,8237,8237,8237,0,component_baseline_covers_category_exposure
+2022EE,Muon_Run2022G-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,8237,8237,8237,0,component_baseline_covers_category_exposure
+2022EE,EGamma_Run2022E-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,21618,21617,21617,0,component_baseline_covers_category_exposure
+2022EE,EGamma_Run2022E-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,21618,21617,21617,0,component_baseline_covers_category_exposure
+2022EE,EGamma_Run2022F-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,51484,51484,51484,0,component_baseline_covers_category_exposure
+2022EE,EGamma_Run2022F-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,51484,51484,51484,0,component_baseline_covers_category_exposure
+2022EE,EGamma_Run2022G-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,8235,8235,8235,0,component_baseline_covers_category_exposure
+2022EE,EGamma_Run2022G-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,8235,8235,8235,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v3,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v3,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v3,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v4,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,31436,31436,31436,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v4,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,31436,31436,31436,0,component_baseline_covers_category_exposure
+2023,MuonEG_Run2023C-Prompt-v4,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,31436,31436,31436,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v3,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v3,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v4,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,31437,31437,31437,0,component_baseline_covers_category_exposure
+2023,Muon0_Run2023C-Prompt-v4,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,31437,31437,31437,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v3,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v3,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v4,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,31435,31435,31435,0,component_baseline_covers_category_exposure
+2023,Muon1_Run2023C-Prompt-v4,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,31435,31435,31435,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v3,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v3,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v4,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,31436,31436,31436,0,component_baseline_covers_category_exposure
+2023,EGamma0_Run2023C-Prompt-v4,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,31436,31436,31436,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,16282,16282,16282,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,3534,3534,3534,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v3,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v3,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,4544,4544,4544,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v4,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,31432,31432,31432,0,component_baseline_covers_category_exposure
+2023,EGamma1_Run2023C-Prompt-v4,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,31432,31432,31432,0,component_baseline_covers_category_exposure
+2023BPix,MuonEG_Run2023D-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,23593,23593,23593,0,component_baseline_covers_category_exposure
+2023BPix,MuonEG_Run2023D-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,23593,23593,23593,0,component_baseline_covers_category_exposure
+2023BPix,MuonEG_Run2023D-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,23593,23593,23593,0,component_baseline_covers_category_exposure
+2023BPix,MuonEG_Run2023D-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,4259,4259,4259,0,component_baseline_covers_category_exposure
+2023BPix,MuonEG_Run2023D-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,4259,4259,4259,0,component_baseline_covers_category_exposure
+2023BPix,MuonEG_Run2023D-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,4259,4259,4259,0,component_baseline_covers_category_exposure
+2023BPix,Muon0_Run2023D-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,23601,23601,23601,0,component_baseline_covers_category_exposure
+2023BPix,Muon0_Run2023D-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,23601,23601,23601,0,component_baseline_covers_category_exposure
+2023BPix,Muon0_Run2023D-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,4262,4262,4262,0,component_baseline_covers_category_exposure
+2023BPix,Muon0_Run2023D-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,4262,4262,4262,0,component_baseline_covers_category_exposure
+2023BPix,Muon1_Run2023D-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,23601,23601,23601,0,component_baseline_covers_category_exposure
+2023BPix,Muon1_Run2023D-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,23601,23601,23601,0,component_baseline_covers_category_exposure
+2023BPix,Muon1_Run2023D-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,4262,4262,4262,0,component_baseline_covers_category_exposure
+2023BPix,Muon1_Run2023D-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,4262,4262,4262,0,component_baseline_covers_category_exposure
+2023BPix,EGamma0_Run2023D-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,23588,23588,23588,0,component_baseline_covers_category_exposure
+2023BPix,EGamma0_Run2023D-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,23588,23588,23588,0,component_baseline_covers_category_exposure
+2023BPix,EGamma0_Run2023D-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,4259,4259,4259,0,component_baseline_covers_category_exposure
+2023BPix,EGamma0_Run2023D-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,4259,4259,4259,0,component_baseline_covers_category_exposure
+2023BPix,EGamma1_Run2023D-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,23579,23579,23579,0,component_baseline_covers_category_exposure
+2023BPix,EGamma1_Run2023D-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,23579,23579,23579,0,component_baseline_covers_category_exposure
+2023BPix,EGamma1_Run2023D-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,4258,4258,4258,0,component_baseline_covers_category_exposure
+2023BPix,EGamma1_Run2023D-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,4258,4258,4258,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024C-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,24274,22404,22404,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024C-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,24274,22404,22404,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024C-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,24274,22404,22404,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024D-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,23149,23149,23149,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024D-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,23149,23149,23149,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024D-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,23149,23149,23149,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024E-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,31465,31455,31455,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024E-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,31465,31455,31455,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024E-ReReco-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,31465,31455,31455,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024F-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,69837,69832,69832,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024F-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,69837,69832,69832,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024F-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,69837,69832,69832,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024G-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,92219,92209,92209,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024G-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,92219,92209,92209,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024G-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,92219,92209,92209,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024H-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,13037,13037,13037,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024H-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,13037,13037,13037,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024H-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,13037,13037,13037,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024I-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024I-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024I-Prompt-v1,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024I-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL,12945,12945,12945,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024I-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,12945,12945,12945,0,component_baseline_covers_category_exposure
+2024,MuonEG_Run2024I-Prompt-v2,MuonEG,Trigger_ElMu,HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ,12945,12945,12945,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024C-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,24270,22402,22402,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024C-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,24270,22402,22402,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024D-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,23184,23184,23184,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024D-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,23184,23184,23184,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024E-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,30995,30985,30985,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024E-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,30995,30985,30985,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024F-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,69857,69850,69850,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024F-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,69857,69850,69850,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024G-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,92275,92265,92265,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024G-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,92275,92265,92265,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024H-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,13034,13034,13034,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024H-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,13034,13034,13034,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024I-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024I-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024I-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,12977,12977,12977,0,component_baseline_covers_category_exposure
+2024,Muon0_Run2024I-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,12977,12977,12977,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024C-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,24281,22408,22408,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024C-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,24281,22408,22408,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024D-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,23136,23136,23136,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024D-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,23136,23136,23136,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024E-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,31440,31430,31430,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024E-ReReco-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,31440,31430,31430,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024F-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,69842,69835,69835,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024F-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,69842,69835,69835,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024G-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,92274,92265,92265,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024G-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,92274,92265,92265,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024H-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,13038,13038,13038,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024H-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,13038,13038,13038,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024I-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024I-Prompt-v1,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,13702,13702,13702,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024I-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8,12976,12976,12976,0,component_baseline_covers_category_exposure
+2024,Muon1_Run2024I-Prompt-v2,Muon,!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu),HLT_IsoMu24,12976,12976,12976,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024C-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,24221,22353,22353,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024C-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,24221,22353,22353,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024D-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,23179,23179,23179,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024D-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,23179,23179,23179,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024E-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,31438,31428,31428,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024E-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,31438,31428,31428,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024F-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,69774,69769,69769,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024F-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,69774,69769,69769,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024G-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,92247,92237,92237,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024G-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,92247,92237,92237,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024H-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,13024,13024,13024,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024H-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,13024,13024,13024,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024I-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,13707,13707,13707,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024I-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,13707,13707,13707,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024I-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,12946,12946,12946,0,component_baseline_covers_category_exposure
+2024,EGamma0_Run2024I-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,12946,12946,12946,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024C-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,24299,22429,22429,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024C-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,24299,22429,22429,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024D-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,23144,23144,23144,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024D-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,23144,23144,23144,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024E-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,31450,31440,31440,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024E-ReReco-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,31450,31440,31440,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024F-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,69739,69734,69734,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024F-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,69739,69734,69734,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024G-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,92244,92234,92234,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024G-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,92244,92234,92234,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024H-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,13040,13040,13040,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024H-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,13040,13040,13040,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024I-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,13707,13707,13707,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024I-Prompt-v1,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,13707,13707,13707,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024I-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL,12943,12943,12943,0,component_baseline_covers_category_exposure
+2024,EGamma1_Run2024I-Prompt-v2,EGamma,!Trigger_ElMu && !Trigger_sngMu && !Trigger_dblMu && (Trigger_sngEl || Trigger_dblEl),HLT_Ele30_WPTight_Gsf,12943,12943,12943,0,component_baseline_covers_category_exposure

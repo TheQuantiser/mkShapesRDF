@@ -1,0 +1,6 @@
+analysis_year,analysis_era,run_period,run,scope_type,scope_name,trigger_family,owner_stream,expression,method,status,delivered_fb,recorded_fb,n_lumisections,n_runs
+2022,2022,,,nominal,configured_analysis_era,,,,brilcalc_direct,,8.460516267671997,8.076828657919002,41330,170
+2022,2022EE,,,nominal,configured_analysis_era,,,,brilcalc_direct,,27.94061650536,26.671325997159986,81409,190
+2023,2023,,,nominal,configured_analysis_era,,,,brilcalc_direct,,19.011612743060002,18.062658998219003,55797,126
+2023,2023BPix,,,nominal,configured_analysis_era,,,,brilcalc_direct,,10.166303688902,9.693130030386998,27868,43
+2024,2024,,,nominal,configured_analysis_era,,,,brilcalc_direct,,116.5680610654099,109.72830897472497,280880,456
