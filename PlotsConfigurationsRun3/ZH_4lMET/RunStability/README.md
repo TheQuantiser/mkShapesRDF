@@ -15,7 +15,10 @@ those shared services are dependencies, not duplicate analysis configuration.
 Read [ARCHITECTURE.md](ARCHITECTURE.md) for ownership,
 [USAGE.MD](USAGE.MD) for commands, and
 [LUMINOSITY_PROPAGATION.md](LUMINOSITY_PROPAGATION.md) for the statistical
-definitions. The local operational skill is
+definitions. The researched, not-yet-active catalog for possible pileup,
+jet, isolation, recoil, FSR, and trigger-object additions is in
+[OBSERVABLE_CANDIDATES.md](OBSERVABLE_CANDIDATES.md). The local operational
+skill is
 [`skills/run-stability/SKILL.md`](skills/run-stability/SKILL.md).
 The exact luminosity reconstruction sequence is in
 [`lumi/REPRODUCE.md`](lumi/REPRODUCE.md), and dated campaign status is indexed
