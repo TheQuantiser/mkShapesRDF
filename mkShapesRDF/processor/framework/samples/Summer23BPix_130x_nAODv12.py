@@ -168,11 +168,38 @@ Samples['WWGtoLNu2QG'] = {
     'nanoAOD' :'/WWGtoLNu2QG-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
 }
 
-##### WWewk
-
-Samples['WpWmJJ_EWK_noTop'] = {
-    'nanoAOD': '/VBS-OSWWto2L2Nu_noTop_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+##### OS WW EWK + QCD + EWK polarized (all with noTop filter)
+Samples['WpWmJJ_QCD_noTop'] = {
+    'nanoAOD' : '/WWto2L2Nu-2Jets_OS_noTop_QCD_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
 }
+Samples['WpWmJJ_EWK_noTop'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_LL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-LL_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_LT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-LT_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_TL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-TL_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_pol_TT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-TT_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_LL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-LL_WWCM_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_LT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-LT_WWCM_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_TL'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-TL_WWCM_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+Samples['WpWmJJ_EWK_noTop_CMWW_pol_TT'] = {
+    'nanoAOD' : '/VBS-OSWWto2L2Nu_noTop-TT_WWCM_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM'
+}
+
 
 ##### VH
 
