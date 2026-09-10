@@ -90,6 +90,12 @@ _view = os.environ.get(
     "MKSHAPESRDF_LCG_VIEW", "/cvmfs/sft.cern.ch/lcg/views/LCG_109/x86_64-el9-gcc13-opt"
 )
 condorRuntimeSetup = [f"source {shlex.quote(_view.rstrip('/') + '/setup.sh')}"]
+if zptSite == "lpc":
+    # Same trust-store setting as the established RunStability LPC preset.
+    # Workers need it before the framework's voms-proxy-info validation.
+    condorRuntimeSetup.append(
+        "export X509_VOMS_DIR=/cvmfs/grid.cern.ch/etc/grid-security/vomsdir"
+    )
 condorRuntimeIncludes = [
     os.path.join(zptFamilyDir, name) for name in ("runtime.py", "finalize.py")
 ]

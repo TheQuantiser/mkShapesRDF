@@ -38,6 +38,10 @@ def test_sites_keep_cern_inputs(monkeypatch, site, packaged, write):
     assert ns["remoteIO"]["xrdReadEndpoint"] == "root://eoscms.cern.ch"
     assert ns["remoteIO"]["xrdWriteEndpoint"] == "root://" + write
     assert ns["outputFolder"].startswith(str(FAMILY))
+    assert (
+        "export X509_VOMS_DIR=/cvmfs/grid.cern.ch/etc/grid-security/vomsdir"
+        in ns["condorRuntimeSetup"]
+    ) is packaged
 
 
 def test_selection_bounds_discovery_and_preserves_weights(monkeypatch):

@@ -189,12 +189,20 @@ For example, begin a nominal CERN 2022 pass with
 | Input discovery and reading | CERN EOS through `root://eoscms.cern.ch` | Same explicit XRootD endpoint |
 | Output from these scripts | Condor returns ROOT files to `runs/NAME/rootFiles/` | ROOT files in the shared run directory |
 | Optional native remote write endpoint | `root://cmseos.fnal.gov` | `root://eoscms.cern.ch` |
-| CMS proxy | Existing separate proxy transfer | Existing separate proxy transfer |
+| CMS proxy | Existing separate proxy transfer; CVMFS VOMS trust directory for worker validation | Existing separate proxy transfer |
 
 Selecting LPC does not relocate the CERN datasets. No CERN `/eos` mount is
 assumed. The framework's `+JobFlavour` setting is a CERN attribute, not an LPC
 runtime guarantee. Details: [framework Condor/I/O guide](../../docs/condor_remote_io.rst)
 and [LPC batch documentation](https://www.uscms.org/uscms_at_work/computing/setup/batch_systems.shtml).
+
+Use an LPC login node with a compatible site Condor installation. If submission
+reports a missing `classad2` or `htcondor2`, the site wrapper and system Python
+bindings are mismatched; installing packages in the analysis environment cannot
+fix that wrapper. On 2026-09-10, `cmslpc374` had compatible bindings while
+`cmslpc-el9-heavy01` did not. The worker preset uses the same CVMFS VOMS trust
+directory as the existing RunStability LPC configuration, before the framework
+checks the separately transferred proxy.
 
 ## Saved runs and command behavior
 
