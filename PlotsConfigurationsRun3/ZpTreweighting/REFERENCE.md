@@ -111,4 +111,23 @@ upstream tree; this port does not assign a new license to that source.
 
 For custom input selection, another smoke era, different plot variables or remote stage-out, use the configuration directly with the settings above and the [framework I/O guide](../../docs/condor_remote_io.rst). The simple wrapper keeps outputs local and lets Condor return them. It does not expose every native option.
 
+`auto` composes the same preparation, submission, merge, plot and extraction
+functions. It stores no separate campaign manifest; the two native compiled
+configurations and their normal artifacts identify progress. A file lock prevents
+two controllers from advancing the same campaign concurrently. Before applying
+weights it compares the resolved input lists, base weights, cuts, variables,
+nuisances, luminosity and aliases, allowing the intended DY factor to change.
+These are direct comparisons of configuration values, not hash checks.
+
+For completion, the queue must be empty and history must contain every submitted
+job with `JobStatus=4`, `ExitCode=0`, and `ExitBySignal=false`; see the
+[HTCondor job attribute definitions](https://htcondor.readthedocs.io/en/24.x/classad-attributes/job-classad-attributes.html).
+Returned ROOT files must also be readable. The LPC client selects a scheduler
+at submission and reports it in stdout. The controller takes that name from the
+native receipt and passes `-name` to both queue and history queries. It clears
+`FERMIHTC_SCHEDD_OVERRIDE` only in those child processes so a later shell setting
+cannot redirect a recorded campaign. CERN uses the original submit context.
+Scheduler history expiration prevents automatic proof of completion; inspect
+and manage such old campaigns with the individual native steps.
+
 Keep one exact compiled pickle for the campaign and pass it with `-config` for native status/merge operations. Native batch execution regenerates the job directory; never regenerate one with active jobs. `mkPlot` reads `./configs`, so run it where that directory contains only the intended pickle. For the wrapper, that is `runs/RUN/`.

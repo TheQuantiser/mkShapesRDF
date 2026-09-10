@@ -37,6 +37,54 @@ For a one-job Condor preparation, use `./run.sh smoke batch_test --batch`.
 This generates job files without submitting them; `./run.sh submit batch_test`
 is the separate submission command. Use a fresh name for every new run.
 
+## Automate the sequence
+
+To run both passes without a pause for formula editing:
+
+```bash
+./run.sh auto zpt2024 --nominal-only --apply-fitted
+```
+
+This command **submits jobs**. It prepares the baseline, submits and waits for
+its jobs, merges and plots the returned histograms, extracts the correction,
+then prepares, submits, waits for, merges and plots the corrected pass. The
+fitted JSON supplies the formulas directly; it does not edit analysis source.
+Successful extraction is a software requirement, not a physics review of the fit.
+
+To pause after computing the weights, omit `--apply-fitted`:
+
+```bash
+./run.sh auto zpt2024_review --nominal-only
+# Inspect/edit runs/zpt2024_review/baseline/weights/dyZpTrw.json, then resume:
+./run.sh auto zpt2024_review \
+  --weights runs/zpt2024_review/baseline/weights/dyZpTrw.json
+```
+
+Automatic runs keep two independent configurations under
+`runs/NAME/baseline/` and `runs/NAME/corrected/`. A resumed `auto NAME` loads the
+saved settings and continues the existing jobs; it does not submit them twice.
+Use `--era` and `--site` on the first invocation when changing the defaults.
+An explicit `--weights` JSON can also replace a failed or externally performed
+extraction once the baseline histograms are available.
+
+Keep the controller running on the submit host, for example in an existing
+persistent terminal session. If it stops, submitted jobs continue; rerun the
+same `auto NAME` command to resume. By default it waits up to 72 hours per
+histogram pass; change that with `--wait-hours`. It prints scheduler progress
+when the state changes and stops on held/removed/failed jobs, missing outputs,
+incomplete formulas or changes to the input list or analysis between passes.
+
+On LPC, queries target the scheduler named in the native submission receipt.
+Resume from the original site while its scheduler history remains available.
+Existing merged histograms and plots are reopened before reuse. Incomplete
+preparation, merge, plot or fit artifacts are preserved for diagnosis, and are
+not automatically overwritten. Keep source stable during an automatic campaign;
+use a new campaign name for changes to an already prepared correction.
+
+The individual commands below remain available when you want to run each step
+yourself. Their run directories are `runs/baseline/` and `runs/corrected/`,
+independent of the nested directories used by `auto`.
+
 ## Pass 1 — compute the correction
 
 First produce histograms for DATA, DY and the configured backgrounds, with
@@ -152,6 +200,7 @@ and [LPC batch documentation](https://www.uscms.org/uscms_at_work/computing/setu
 
 | Command | Result |
 | --- | --- |
+| `auto NAME` | Run/resume the sequence, pausing for formula review by default; `--apply-fitted` enables both passes without a pause |
 | `prepare NAME` | Compile one configuration and generate the native Condor payload; no submission |
 | `submit NAME` | Submit the prepared JDL once, preserving the native receipt and stderr |
 | `status NAME` | Query the recorded cluster with `condor_q` and `condor_history` |
@@ -159,8 +208,9 @@ and [LPC batch documentation](https://www.uscms.org/uscms_at_work/computing/setu
 | `plot NAME` | Draw `ptll` using that run's saved configuration |
 | `extract NAME` | Fit corrections from a baseline run and write its weights JSON |
 
-Run names cannot be reused. Existing merged outputs and plot/fit directories
-are preserved, and failed submissions are not automatically retried. Keep runs
+New manual runs need fresh names; `auto` reuses its name to resume. Existing
+merged outputs and plot/fit directories are preserved, and failed submissions
+are not automatically retried. Keep runs
 at their original paths. To store them elsewhere, put `--runs-dir /absolute/path`
 before the command on every invocation. `./run.sh --help` lists the options.
 
@@ -174,6 +224,7 @@ artifacts hold the run state.
 ZpTreweighting/
 ├── run.sh                  activate the framework and call workflow.py
 ├── workflow.py             CLI defaults and named-run operations
+├── automation.py           two-pass controller, scheduler waits and resume checks
 ├── runtime.py              site settings, sample selection, payload declarations
 ├── finalize.py             restrict plot/model dictionaries to selected samples
 ├── data/                   shared fake-rate and b-tag calibration inputs
@@ -202,6 +253,9 @@ ZpTreweighting/
     └── weights/            extracted JSON and fit plots
 ```
 
+For `auto`, the same run layout appears twice: under `runs/NAME/baseline/`
+and `runs/NAME/corrected/`.
+
 The execution order is part of the interface. The framework runs these files
 in **one shared Python namespace**:
 
@@ -224,6 +278,7 @@ configuration.py → runtime.py → samples.py → aliases.py → variables.py
 | Luminosity or configuration execution order | `configuration.py` |
 | Fit function, subtraction or normalization method | `extract_Zptrw.py` |
 | Default smoke file or command presets | `workflow.py` |
+| Automatic stage order, scheduler waiting or resume behavior | `automation.py` |
 | Site I/O endpoints or declared worker dependencies | `runtime.py` |
 
 Source changes require a fresh preparation to affect histogram jobs and saved

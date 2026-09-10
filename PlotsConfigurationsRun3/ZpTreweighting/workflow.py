@@ -61,10 +61,62 @@ def parser():
         ("extract", "fit mm-channel DY weights from a full unweighted run"),
     ):
         actions.add_parser(name, help=help_text).add_argument("name")
+    auto = actions.add_parser("auto", help="run or resume the two-pass Condor workflow")
+    auto.add_argument("name")
+    auto.add_argument("--era", choices=ERAS)
+    auto.add_argument("--site", choices=("lpc", "cern"))
+    auto.add_argument("--nominal-only", action="store_const", const=True, default=None)
+    auto.add_argument(
+        "--wait-hours",
+        type=float,
+        default=72,
+        help="maximum wait per histogram pass (default: 72 hours)",
+    )
+    application = auto.add_mutually_exclusive_group()
+    application.add_argument(
+        "--apply-fitted",
+        action="store_true",
+        help="apply fitted formulas without pausing for review",
+    )
+    application.add_argument(
+        "--weights",
+        type=Path,
+        help="resume application using a reviewed or edited JSON",
+    )
     return cli
 
 
+def condor_command(command):
+    # LPC clients are shell/Python wrappers without a shebang. Bash also runs
+    # ordinary CERN executables; every user argument stays a separate argv item.
+    return ["bash", "-c", 'exec "$@"', "zpt-condor", *map(str, command)]
+
+
+def condor_environment():
+    env = dict(os.environ)
+    env.pop("FERMIHTC_SCHEDD_OVERRIDE", None)
+    return env
+
+
+def scheduler_target(config):
+    receipt = (batch_dir(config) / "submit.receipt.txt").read_text()
+    names = set(
+        re.findall(
+            r"^Attempting to submit jobs to ([A-Za-z0-9_.@-]+)\s*$", receipt, re.M
+        )
+    )
+    if len(names) > 1 or (config["zpt"].get("site") == "lpc" and len(names) != 1):
+        raise ValueError(
+            "Cannot identify the LPC scheduler from submit.receipt.txt; inspect the submission"
+        )
+    return ["-name", names.pop()] if names else []
+
+
 def execute(command, run_dir, env=None, timeout=None):
+    if command[0] in ("condor_q", "condor_history"):
+        command = condor_command(command)
+        if env is None:
+            env = condor_environment()
     subprocess.run(
         [str(item) for item in command],
         cwd=run_dir,
@@ -247,8 +299,9 @@ def status(config, run_dir):
             f"Submission state is unknown; inspect {receipt} and submit.stderr.txt"
         )
     cluster = job_range.split(".", 1)[0]
-    execute(["condor_q", cluster], run_dir, timeout=60)
-    execute(["condor_history", cluster], run_dir, timeout=60)
+    target = scheduler_target(config)
+    execute(["condor_q", *target, cluster], run_dir, timeout=60)
+    execute(["condor_history", *target, cluster], run_dir, timeout=60)
     print(
         "Queue/history describe scheduler state. Inspect job errors and returned ROOT files before merging."
     )
@@ -355,7 +408,11 @@ def main(argv=None):
         )
     run_dir = args.runs_dir.expanduser().resolve() / name
     try:
-        if args.action in ("smoke", "prepare"):
+        if args.action == "auto":
+            from automation import run
+
+            run(args, run_dir)
+        elif args.action in ("smoke", "prepare"):
             create_run(args, run_dir)
         else:
             pickle_path, config = load_run(run_dir)
@@ -370,11 +427,19 @@ def main(argv=None):
             else:
                 extract(config, run_dir)
     except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        if isinstance(exc, subprocess.CalledProcessError) and exc.stderr:
+            print(exc.stderr, file=sys.stderr)
         print(
             f"{args.action} failed: {exc}\nRun directory (preserved): {run_dir}",
             file=sys.stderr,
         )
         return 1
+    except KeyboardInterrupt:
+        print(
+            "Controller stopped. Submitted jobs continue; resume with the same auto name.",
+            file=sys.stderr,
+        )
+        return 130
     return 0
 
 

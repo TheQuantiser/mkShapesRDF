@@ -1,5 +1,60 @@
 # Validation record
 
+## Automatic two-pass controller, 2026-09-10
+
+The controller adds `auto`, with an optional formula-review pause and explicit
+`--apply-fitted` mode. The leaf physics sources and framework core are unchanged.
+Validation used the same LPC host and supported Python/ROOT runtime as below.
+
+- **Software: passed within the tested scope.** All 49 focused tests passed.
+  New cases cover both automatic passes, review/edit/resume, duplicate-controller
+  exclusion, repeated completion, changed options and input lists, incomplete
+  extraction, missing ROOT members, missing history/output, held/removed/failed
+  jobs, unknown exits, and scheduler/directory mismatches. Scheduler responses,
+  full-campaign stages and fitting are fixtures, not actual submissions or fits.
+- **Numerical: passed for the identity-correction test.** A fresh native run
+  applied deliberately synthetic `1.0` formulas to the same real 100-event 2024
+  DY input. All 228 histogram contents, errors, entries and axes exactly matched
+  the earlier baseline. The saved configuration explicitly enables reweighting
+  and adds `DY_NLO_ZpTrw` once. This checks application plumbing, not fitted
+  correction quality.
+- **Statistical and physics: not assessed.** No full DATA/MC fit or acceptance
+  study was run. Automatically applying a successful fit does not establish
+  physics validity.
+- **Reproducibility: passed for the bounded identity comparison and fixture
+  resume tests.** Real scheduler completion/transfer, long-lived controller
+  recovery and a complete two-pass production campaign remain unverified.
+
+Black, Flake8 and CLI help passed for the changed Python sources. The controller
+also reopened the earlier real smoke ROOT file and found all 228 nominal members.
+No hash or checksum comparisons were used.
+
+Installed LPC client source inspection established that `condor_submit` chooses
+a scheduler and prints `Attempting to submit jobs to NAME`, while the history
+wrapper requires `-name`. Queue/history now use that target from the existing
+native receipt. The wrappers lack a shebang, so the controller invokes them
+through argument-preserving Bash execution. A shell-wrapper regression test
+checks that spaces and literal command-substitution text remain arguments.
+
+Both native queue and history clients returned the expected two fixture job
+records through the controller's JSON query code. Initial hand-written history
+fixtures lacked the native offset/identity record delimiters and produced empty,
+combined or malformed output. The corrected fixture uses the native record
+format; the production query logic was not relaxed to accept malformed history.
+These are file-backed client tests, not live scheduler queries or job completion.
+
+Evidence is under
+`/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/zpt-auto-20260910_164029/`:
+`identity/` contains the compiled configuration and ROOT output; `identity.json`
+is explicitly a synthetic identity formula fixture; `identity.log` and
+`identity-comparison.txt` record the run and comparison. The `scheduler-fixture`
+and `history-*` files retain the client-format investigation. The native identity
+run used the existing smoke input, one DY component/file, systematics off,
+`ZPT_APPLY_REWEIGHT=1`, the fixture JSON and `-c 1 -o 0 -b 0 -l 100`.
+
+No Condor job was submitted, no remote output was written, and no full automated
+DATA/MC campaign or real extraction fit was executed during this change.
+
 ## Named-run scripts, 2026-09-10
 
 The script redesign was tested on `cmslpc-el9-heavy01.fnal.gov` with this
