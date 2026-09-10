@@ -30,6 +30,8 @@ zpt = {
     "variant": zptVariant,
     "site": zptSite,
     "campaign": zptCampaign,
+    "run_dir": os.environ.get("ZPT_RUN_DIR", ""),
+    "run_mode": os.environ.get("ZPT_RUN_MODE", "direct"),
     "sample": os.environ.get("ZPT_SAMPLE", ""),
     "dataset": os.environ.get("ZPT_DATASET", ""),
     "input_file": os.environ.get("ZPT_INPUT_FILE", ""),
@@ -65,6 +67,12 @@ outputFile = f"mkShapes__{tag}.root"
 outputFolder = os.environ.get("ZPT_OUTPUT", os.path.join(configDir, "rootFiles", tag))
 batchFolder = os.path.join(configDir, "condor")
 plotPath = os.path.join(configDir, "plots", tag)
+if zpt["run_dir"]:
+    zpt["run_dir"] = str(Path(zpt["run_dir"]).resolve())
+    outputFolder = os.path.join(zpt["run_dir"], "rootFiles")
+    batchFolder = os.path.join(zpt["run_dir"], "condor")
+    configsFolder = os.path.join(zpt["run_dir"], "configs")
+    plotPath = os.path.join(zpt["run_dir"], "plots")
 remoteIO = {
     "inputAccessMode": "xrootd",
     "xrdDiscoveryEndpoint": "root://eoscms.cern.ch",
