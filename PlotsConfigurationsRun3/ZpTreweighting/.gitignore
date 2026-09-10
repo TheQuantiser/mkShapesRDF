@@ -1,0 +1,5 @@
+plots/
+*.pdf
+*.png
+# Small upstream calibration inputs are source, not event/histogram output.
+!data/**/*.root
