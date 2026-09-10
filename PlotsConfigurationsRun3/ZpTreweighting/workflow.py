@@ -383,6 +383,8 @@ def extract(config, run_dir):
                 year,
                 "--sample-type",
                 kind,
+                "--lumi",
+                str(config["lumi"]),
             ],
             result,
         )

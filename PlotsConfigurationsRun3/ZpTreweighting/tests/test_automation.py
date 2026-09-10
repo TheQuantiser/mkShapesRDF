@@ -98,10 +98,32 @@ def test_failed_or_unrelated_jobs_stop_before_outputs(
 
 def test_empty_queue_and_history_are_not_completion(auto, submitted, monkeypatch):
     config, _ = submitted
-    monkeypatch.setattr(auto, "query_jobs", Mock(return_value=[]))
+    monkeypatch.setattr(
+        auto.subprocess,
+        "run",
+        Mock(return_value=auto.subprocess.CompletedProcess([], 0, stdout="")),
+    )
     with pytest.raises(TimeoutError, match="not cancelled"):
         auto.wait_for_jobs(config, 0)
     auto.wf.check_root.assert_not_called()
+
+
+def test_native_empty_queue_still_requires_successful_history(
+    auto, submitted, monkeypatch
+):
+    config, ads = submitted
+    monkeypatch.setattr(
+        auto.subprocess,
+        "run",
+        Mock(
+            side_effect=[
+                auto.subprocess.CompletedProcess([], 0, stdout=""),
+                auto.subprocess.CompletedProcess([], 0, stdout=json.dumps(ads)),
+            ]
+        ),
+    )
+    auto.wait_for_jobs(config, 0)
+    assert auto.wf.check_root.call_count == 2
 
 
 def test_successful_jobs_with_missing_output_stop(auto, submitted, monkeypatch):

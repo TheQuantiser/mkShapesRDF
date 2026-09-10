@@ -1,313 +1,282 @@
-# Computing and applying Z-pT weights
+# Z-pT weight computation and application
 
-This configuration supports **two separate passes**: compute a DY Z-pT
-correction, then rerun the histograms using your reviewed or edited formulas.
-You can stop between the passes or supply an existing correction JSON.
+This configuration computes DY Z-pT weights from DATA and MC histograms, then
+reruns the event trees with those weights. Both passes can run automatically,
+or you can stop after computation, edit the formulas, and start application
+separately. **LPC and the 2024 jet-binned configuration are the defaults.**
 
 ```text
-Pass 1: event trees → baseline histograms → fitted correction JSON
-                                             ↓ inspect / edit formulas
-Pass 2: event trees + selected correction JSON → corrected histograms
+Pass 1: event trees → baseline histograms → fit → weights JSON
+                                                   ↓ review / edit
+Pass 2: same event trees + selected weights JSON → corrected histograms
 ```
 
-Use `run.sh` for each step. It activates the installed framework, supplies the
-settings and selects saved runs by name. **LPC and 2024 are the defaults.**
-No manual environment exports are needed. The existing mkShapesRDF runner,
-XRootD handling, runtime packaging and Condor transfers do the processing.
+## Start here: run one year
 
-## Setup and a small test
+Use a checkout with the framework installed through its `./install.sh`, a valid
+CMS proxy, and access to CERN EOS. On LPC, run from a login node with compatible
+site Condor clients; see [LPC versus CERN](#lpc-versus-cern) if submission fails.
 
-The framework must already be installed using `./install.sh` from the
-mkShapesRDF checkout root, and CERN EOS access needs your normal CMS proxy.
 From the development workspace:
 
 ```bash
 cd mkShapesRDF/PlotsConfigurationsRun3/ZpTreweighting
+./run.sh auto zpt2024 --nominal-only --apply-fitted
+```
+
+That is the full sequence. `run.sh` activates the framework and supplies the
+settings; no analysis environment exports are needed. **The command submits
+Condor jobs.** Keep it running in a persistent terminal on the submit host.
+Use a fresh campaign name for a new computation.
+
+The controller performs:
+
+1. Prepare and submit the baseline with the Z-pT correction disabled.
+2. Wait for successful jobs and returned ROOT files, then merge and plot.
+3. Subtract the configured backgrounds and fit the dimuon correction.
+4. Prepare a second pass using the fitted JSON, submit it, then wait, merge
+   and plot again.
+
+`--nominal-only` uses every configured sample, file and event, with systematic
+variations disabled. Omitting it enables the configured systematics.
+`--apply-fitted` applies the fit without a review pause; a successful fit
+execution does not establish that its model describes the data adequately.
+
+For a small installation/I/O test before production:
+
+```bash
 ./run.sh smoke local_test
 ./run.sh plot local_test
 ```
 
-All remaining commands run from this directory. `run.sh` sources `start.sh`
-automatically. The smoke test processes **100 events from one fixed 2024 DY
-file**, with systematics and the Z-pT correction off, and draws three dimuon
-plots. It skips directory discovery. It is a software test, not a sample from
-which to derive the correction.
+This reads the first 100 events of one fixed 2024 DY file, skips directory
+listing, and produces three linear dimuon plots. It cannot determine weights.
+`./run.sh smoke batch_test --batch` prepares the same one-job test for Condor;
+`./run.sh submit batch_test` submits it.
 
-For a one-job Condor preparation, use `./run.sh smoke batch_test --batch`.
-This generates job files without submitting them; `./run.sh submit batch_test`
-is the separate submission command. Use a fresh name for every new run.
+## Stop to edit weights, or resume a campaign
 
-## Automate the sequence
-
-To run both passes without a pause for formula editing:
-
-```bash
-./run.sh auto zpt2024 --nominal-only --apply-fitted
-```
-
-This command **submits jobs**. It prepares the baseline, submits and waits for
-its jobs, merges and plots the returned histograms, extracts the correction,
-then prepares, submits, waits for, merges and plots the corrected pass. The
-fitted JSON supplies the formulas directly; it does not edit analysis source.
-Successful extraction is a software requirement, not a physics review of the fit.
-
-To pause after computing the weights, omit `--apply-fitted`:
+Omit `--apply-fitted` to compute the weights and stop:
 
 ```bash
 ./run.sh auto zpt2024_review --nominal-only
-# Inspect/edit runs/zpt2024_review/baseline/weights/dyZpTrw.json, then resume:
+```
+
+Inspect the fit PDFs and edit the formula strings in
+`runs/zpt2024_review/baseline/weights/dyZpTrw.json`, or make an edited copy.
+For 2024, the keys are `2024_v15/LO_0j`, `LO_1j` and `LO_2j`.
+Then continue with the selected JSON:
+
+```bash
 ./run.sh auto zpt2024_review \
   --weights runs/zpt2024_review/baseline/weights/dyZpTrw.json
 ```
 
-Automatic runs keep two independent configurations under
-`runs/NAME/baseline/` and `runs/NAME/corrected/`. A resumed `auto NAME` loads the
-saved settings and continues the existing jobs; it does not submit them twice.
-Use `--era` and `--site` on the first invocation when changing the defaults.
-An explicit `--weights` JSON can also replace a failed or externally performed
-extraction once the baseline histograms are available.
+The formula variable `x` is evaluated as `gen_Zpt` in the DY event weight.
+`--weights` adds that factor once; enabling it requires no `samples.py` edit.
+**Preparation captures the formulas.** Later JSON edits cannot change an
+already prepared pass. Use a new run name for another formula revision.
+Bundled `dyZpTrw.json` files are upstream placeholders, not approved corrections.
 
-Keep the controller running on the submit host, for example in an existing
-persistent terminal session. If it stops, submitted jobs continue; rerun the
-same `auto NAME` command to resume. By default it waits up to 72 hours per
-histogram pass; change that with `--wait-hours`. It prints scheduler progress
-when the state changes and stops on held/removed/failed jobs, missing outputs,
-incomplete formulas or changes to the input list or analysis between passes.
+If the controller stops, the submitted jobs continue. Rerun its original
+`auto NAME` command from the same source checkout and site to resume; it uses
+the saved configuration, recorded scheduler and existing jobs. It does not
+submit a second copy. The default wait is 72 hours per pass, adjustable with
+`--wait-hours`.
 
-On LPC, queries target the scheduler named in the native submission receipt.
-Resume from the original site while its scheduler history remains available.
-Existing merged histograms and plots are reopened before reuse. Incomplete
-preparation, merge, plot or fit artifacts are preserved for diagnosis, and are
-not automatically overwritten. Keep source stable during an automatic campaign;
-use a new campaign name for changes to an already prepared correction.
+Held, removed or failed jobs, missing history or outputs, incomplete formulas,
+and changed inputs between passes stop the controller. An empty queue alone
+is not completion. Failed artifacts are preserved for diagnosis. Keep source
+stable during a campaign, retain the original run paths, and resume while the
+scheduler history is still available. An explicit `--weights` file can also
+replace a failed or externally performed fit once baseline histograms exist.
 
-The individual commands below remain available when you want to run each step
-yourself. Their run directories are `runs/baseline/` and `runs/corrected/`,
-independent of the nested directories used by `auto`.
+## Find the outputs
 
-## Pass 1 — compute the correction
+For `auto NAME`, the two independent passes are under `runs/NAME/`:
 
-First produce histograms for DATA, DY and the configured backgrounds, with
-the Z-pT correction disabled. Normal event weights, scale factors and luminosity
-normalization remain active.
+| Output | Location |
+| --- | --- |
+| Baseline merged histograms | `baseline/rootFiles/mkShapes__ZpTreweighting_2024_v15_baseline.root` |
+| Computed formulas | `baseline/weights/dyZpTrw.json` |
+| Fit diagnostics | `baseline/weights/*.pdf` |
+| Corrected merged histograms | `corrected/rootFiles/mkShapes__ZpTreweighting_2024_v15_corrected.root` |
+| Before/after DATA–MC plots | `baseline/plots/` and `corrected/plots/` |
+| Exact configurations, job files and logs | Each pass's `configs/` and `condor/` directories |
+
+The ROOT names above are for the default era. Each standard 2024 pass contains
+19 observables in 12 categories for 14 processes; `plot` draws `ptll`, with
+linear and logarithmic versions. Fit-plot luminosity comes from the saved
+configuration, and the event-axis label uses the actual histogram bin width.
+
+The full nominal 2024 campaign executed on 2026-09-10 is retained locally at
+`runs/zpt2024_20260910_1705_r2/`: both passes completed, with 2,788 successful
+jobs each, two merged ROOT files, 48 comparison PNGs and the three fitted
+formulas. For this campaign, use the relabeled fit PDFs in
+`baseline/fit_plots/`; the original PDFs beside the JSON retain the old labels.
+The corrected shapes improve below 50 GeV, but the 0- and 1-jet fits require
+physics review. [The validation record](VALIDATION.md#full-nominal-2024-computation-and-application-2026-09-10)
+gives the numerical comparisons, exact configurations and limitations.
+
+To put generated runs elsewhere, place `--runs-dir /absolute/output/path`
+before `auto` or any other command on every invocation. On a development tree
+with large generated directories, use a source-only checkout and an external
+run directory: the native runtime packager traverses the source checkout.
+
+## LPC versus CERN
+
+Choose `--era` and `--site` when starting a campaign. Resumed `auto` commands
+inherit saved settings.
 
 ```bash
-./run.sh prepare baseline --nominal-only
-# Review the printed submit.jdl and job population before submitting.
-./run.sh submit baseline
-./run.sh status baseline
+./run.sh auto zpt2022_cern --era 2022 --site cern --nominal-only --apply-fitted
 ```
 
-`prepare` resolves all configured samples and files and builds the Condor
-payload. `--nominal-only` omits systematic variations for this first nominal
-comparison; omitting that option enables the configured systematics. It does
-not limit samples or events. Discovery and packaging can take time.
+| Setting | Supported choices |
+| --- | --- |
+| `--era` | `2022`, `2022-inclusive`, `2023`, `2024` (default), `2024-inclusive` |
+| `--site` | `lpc` (default), `cern` |
+| `--weights PATH` | Use selected formulas; mutually exclusive with `--apply-fitted` in `auto` |
 
-After the jobs finish, inspect their errors and ensure the ROOT files have
-returned. An empty queue alone does not establish success. Then:
+| Concern | LPC | CERN |
+| --- | --- | --- |
+| Worker code | Native framework package extracted into worker scratch | Shared checkout visible to workers |
+| Python/ROOT | Existing package shipping and CVMFS LCG setup; no worker installation | Checkout's `start.sh` |
+| Discovery and event reads | `root://eoscms.cern.ch` | `root://eoscms.cern.ch` |
+| Output return | Native Condor transfer to each pass's `rootFiles/` | Shared run directory |
+| CMS proxy | Separate native transfer; CVMFS VOMS trust directory for validation | Separate native transfer |
+| Optional native remote write endpoint | `root://cmseos.fnal.gov` | `root://eoscms.cern.ch` |
+
+The scripts use returned ROOT files; they do not publish them to a remote EOS
+output directory. Selecting LPC does not move the CERN inputs, and no CERN
+`/eos` mount is assumed. The framework's `+JobFlavour` is a CERN attribute, not
+an LPC runtime guarantee. Packaging, XRootD access, authentication and transfers
+all use the existing framework mechanisms.
+
+If LPC submission reports missing `classad2` or `htcondor2`, its site wrapper
+and system Python bindings are mismatched. Installing packages in the analysis
+environment cannot fix that wrapper. On 2026-09-10, `cmslpc374` had compatible
+bindings; `cmslpc-el9-heavy01` did not. The LPC worker setup supplies the same
+CVMFS VOMS trust directory as the established RunStability preset, before native
+proxy validation. Queue/history queries use the scheduler in the submission
+receipt and accept a successful empty response as zero records.
+
+See the [framework Condor/I/O guide](../../docs/condor_remote_io.rst) and
+[LPC batch documentation](https://www.uscms.org/uscms_at_work/computing/setup/batch_systems.shtml).
+
+## Run the stages separately
+
+These commands are useful when you already have weights or want direct control
+over each stage. Run them from this configuration directory. `prepare` builds
+jobs without submitting them; inspect the printed JDL and job population.
 
 ```bash
+# Compute weights.
+./run.sh prepare baseline --nominal-only
+./run.sh submit baseline
+./run.sh status baseline
+# After successful jobs and returned outputs:
 ./run.sh merge baseline
 ./run.sh plot baseline
 ./run.sh extract baseline
-```
 
-`plot` draws the baseline `ptll` DATA/MC comparisons. `extract` separately reads
-the merged histograms, performs the existing background subtraction and fits,
-and writes fit plots under `runs/baseline/weights/`. The formula file is:
-
-```text
-runs/baseline/weights/dyZpTrw.json
-```
-
-Extraction runs locally and does not submit another histogram campaign. It
-fits the mm channel in 0/1/2-jet categories, or only the inclusive category for
-an inclusive configuration. It requires a full run without an applied Z-pT
-correction and checks that all requested formulas were written.
-
-## Pass 2 — edit the formulas and recompute histograms
-
-**Inspect the fits and edit the formula strings before preparing the next run.**
-For the default 2024 configuration, edit `LO_0j`, `LO_1j` and `LO_2j` under
-the `2024_v15` key in the extracted JSON. Keep the JSON keys and ROOT/C++ formula
-syntax; the formula variable `x` is evaluated as `gen_Zpt` when applied to DY.
-You can edit the JSON directly or pass an edited copy.
-
-If the derivation method itself needs changing, edit the selected leaf's
-`extract_Zptrw.py`; it owns the fit function, subtraction and normalization.
-If you already have compatible formulas, skip Pass 1 and supply that JSON here.
-Bundled leaf `dyZpTrw.json` files contain placeholders, not approved corrections.
-
-```bash
+# Apply the selected weights in a new histogram pass.
 ./run.sh prepare corrected --nominal-only \
   --weights runs/baseline/weights/dyZpTrw.json
-# Review the prepared jobs, then submit this separate histogram pass.
 ./run.sh submit corrected
 ./run.sh status corrected
-```
-
-After the corrected jobs finish and their outputs return:
-
-```bash
+# After successful jobs and returned outputs:
 ./run.sh merge corrected
 ./run.sh plot corrected
 ```
 
-`--weights` reads the selected JSON and includes its Z-pT factor once in the DY
-event weight. No manual change to `samples.py` is needed to enable it. This
-pass rereads the event trees and fills new histograms for the full configured
-sample set; the additional correction affects DY. Baseline and corrected
-outputs remain separate under `runs/baseline/` and `runs/corrected/`.
+These manual runs live at `runs/baseline/` and `runs/corrected/`. To inspect a
+pass created by `auto`, point the command at its parent directory, for example:
 
-**Preparation captures the formulas in the saved configuration.** Editing the
-JSON afterward does not update prepared or submitted jobs. For another formula
-revision, prepare a fresh name such as `corrected_v2` with the edited JSON.
-The wrapper's `extract` command is for the baseline pass; it does not fit an
-additional correction from a run that already applied Z-pT weights.
+```bash
+./run.sh --runs-dir runs/zpt2024 status corrected
+```
 
-## Other eras and LPC versus CERN
+With existing compatible weights, skip the first block. Set matching era,
+site and systematics options on both manual `prepare` commands; manual runs
+do not inherit one another's settings. `extract` requires an unweighted full
+baseline and runs locally. It fits the mm 0/1/2-jet regions, or only the
+inclusive region for an inclusive leaf. It does not submit histogram jobs or
+fit an additional correction from an already corrected pass.
 
-Set `--era` and `--site` on each new `prepare` command. Status, merge, plotting
-and extraction then use that run's saved settings. **Use matching era, site and
-systematics options in both passes**; a new `prepare` does not inherit options
-from the run that produced the JSON.
-
-| Option | Choices / behavior |
-| --- | --- |
-| `--era` | `2022`, `2022-inclusive`, `2023`, `2024` (default), `2024-inclusive` |
-| `--site` | `lpc` (default) or `cern`; also accepted by `smoke` |
-| `--nominal-only` | Omit systematic variations; used in both walkthrough passes above |
-| `--weights PATH` | Apply the selected correction JSON; omit for the baseline pass |
-
-For example, begin a nominal CERN 2022 pass with
-`./run.sh prepare baseline2022 --era 2022 --site cern --nominal-only`.
-
-| Concern | LPC: `--site lpc` (default) | CERN: `--site cern` |
-| --- | --- | --- |
-| Worker software | Framework runtime package extracted in worker scratch | Shared checkout, visible to workers |
-| Python and ROOT | Existing package shipping plus CVMFS LCG setup; no worker installation | Checkout's `start.sh` |
-| Input discovery and reading | CERN EOS through `root://eoscms.cern.ch` | Same explicit XRootD endpoint |
-| Output from these scripts | Condor returns ROOT files to `runs/NAME/rootFiles/` | ROOT files in the shared run directory |
-| Optional native remote write endpoint | `root://cmseos.fnal.gov` | `root://eoscms.cern.ch` |
-| CMS proxy | Existing separate proxy transfer; CVMFS VOMS trust directory for worker validation | Existing separate proxy transfer |
-
-Selecting LPC does not relocate the CERN datasets. No CERN `/eos` mount is
-assumed. The framework's `+JobFlavour` setting is a CERN attribute, not an LPC
-runtime guarantee. Details: [framework Condor/I/O guide](../../docs/condor_remote_io.rst)
-and [LPC batch documentation](https://www.uscms.org/uscms_at_work/computing/setup/batch_systems.shtml).
-
-Use an LPC login node with a compatible site Condor installation. If submission
-reports a missing `classad2` or `htcondor2`, the site wrapper and system Python
-bindings are mismatched; installing packages in the analysis environment cannot
-fix that wrapper. On 2026-09-10, `cmslpc374` had compatible bindings while
-`cmslpc-el9-heavy01` did not. The worker preset uses the same CVMFS VOMS trust
-directory as the existing RunStability LPC configuration, before the framework
-checks the separately transferred proxy.
-
-## Saved runs and command behavior
-
-| Command | Result |
-| --- | --- |
-| `auto NAME` | Run/resume the sequence, pausing for formula review by default; `--apply-fitted` enables both passes without a pause |
-| `prepare NAME` | Compile one configuration and generate the native Condor payload; no submission |
-| `submit NAME` | Submit the prepared JDL once, preserving the native receipt and stderr |
-| `status NAME` | Query the recorded cluster with `condor_q` and `condor_history` |
-| `merge NAME` | Require all expected returned ROOT files to be readable, merge them, and reopen the result |
-| `plot NAME` | Draw `ptll` using that run's saved configuration |
-| `extract NAME` | Fit corrections from a baseline run and write its weights JSON |
-
-New manual runs need fresh names; `auto` reuses its name to resume. Existing
-merged outputs and plot/fit directories are preserved, and failed submissions
-are not automatically retried. Keep runs
-at their original paths. To store them elsewhere, put `--runs-dir /absolute/path`
-before the command on every invocation. `./run.sh --help` lists the options.
-
-There are **no hash/checksum-based checks and no extra logging or manifest
-layer** in these scripts. The native pickle and normal framework/Condor
-artifacts hold the run state.
+New manual preparations need fresh names. Merge, plot and fit commands preserve
+existing results rather than overwriting them. `./run.sh --help` lists commands.
+There is no added hash-check, logging or manifest layer: state is held by native
+pickles, submission receipts, normal job logs and outputs.
 
 ## Configuration and architecture map
 
 ```text
 ZpTreweighting/
-├── run.sh                  activate the framework and call workflow.py
-├── workflow.py             CLI defaults and named-run operations
-├── automation.py           two-pass controller, scheduler waits and resume checks
-├── runtime.py              site settings, sample selection, payload declarations
-├── finalize.py             restrict plot/model dictionaries to selected samples
+├── run.sh                  activate the framework; invoke workflow.py
+├── workflow.py             CLI, named runs, submit/merge/plot/extract commands
+├── automation.py           two-pass sequence, scheduler waits and resume checks
+├── runtime.py              site presets, sample resolution, worker dependencies
+├── finalize.py             align plot/model dictionaries with selected samples
 ├── data/                   shared fake-rate and b-tag calibration inputs
-├── 2022_v12/               complete era configurations
+├── 2022_v12/               complete era leaves
 ├── 2022_v12_incl/
 ├── 2023_v12/
-├── 2024_v15/               default leaf; each leaf has the files below
-│   ├── configuration.py    luminosity, execution order, serialized variables
-│   ├── samples.py          datasets, tree directories, weights, job splitting
-│   ├── aliases.py          objects, derived quantities, correction expressions
-│   ├── cuts.py             preselection and event categories
-│   ├── variables.py        observables and histogram binning
-│   ├── plot.py             groups, colors, labels, DATA/MC presentation
-│   ├── nuisances.py        systematic variations and their sample mappings
-│   ├── structure.py        process roles for model/datacard consumers
-│   ├── dyZpTrw.json         upstream reference formulas
-│   ├── extract_Zptrw.py    background subtraction, normalization and fitting
-│   └── macros/             era-specific C++ helpers, where needed
+├── 2024_v15/               default leaf; files described below
 ├── 2024_v15_incl/
-├── tests/                  small software tests
-└── runs/NAME/              generated state, ignored by Git
-    ├── configs/            exactly one native compiled pickle, plus config.json
-    ├── condor/TAG/         native JDL, scripts, package, submission receipt, job logs
-    ├── rootFiles/          returned job files and merged ROOT output
-    ├── plots/              ptll PNGs
-    └── weights/            extracted JSON and fit plots
+├── tests/                  focused software tests
+└── runs/                   generated artifacts, ignored by Git
 ```
 
-For `auto`, the same run layout appears twice: under `runs/NAME/baseline/`
-and `runs/NAME/corrected/`.
-
-The execution order is part of the interface. The framework runs these files
-in **one shared Python namespace**:
+Each leaf is compiled in **one shared Python namespace**, in this order:
 
 ```text
 configuration.py → runtime.py → samples.py → aliases.py → variables.py
   → cuts.py → plot.py → nuisances.py → structure.py → finalize.py
-  → compiled pickle → native RDataFrame runner → ROOT histograms
+  → saved pickle → native RDataFrame runner → per-job ROOT files
   → native merge → mkPlot / extract_Zptrw.py
 ```
 
-| To change… | Edit… |
+| To change… | Owning file |
 | --- | --- |
-| The correction formulas used in the second pass | The JSON passed to `--weights`, before preparation |
-| Samples, processed-tree campaign, nominal weights or files per job | The selected leaf's `samples.py` |
-| Lepton/jet definitions, scale factors or DY correction application | `aliases.py`; nominal weight composition also lives in `samples.py` |
-| Selection thresholds or jet regions | `cuts.py`, and the relevant definitions in `aliases.py` |
-| Observable expressions, ranges or bin widths | `variables.py` |
-| Plot grouping, labels or colors | `plot.py` |
-| Systematics | `nuisances.py`; use `--nominal-only` to disable them for a run |
-| Luminosity or configuration execution order | `configuration.py` |
-| Fit function, subtraction or normalization method | `extract_Zptrw.py` |
-| Default smoke file or command presets | `workflow.py` |
-| Automatic stage order, scheduler waiting or resume behavior | `automation.py` |
-| Site I/O endpoints or declared worker dependencies | `runtime.py` |
+| Formulas used for application | JSON passed to `--weights`, before preparation |
+| Datasets, tree campaigns, nominal weights, files per job | Leaf `samples.py` |
+| Objects, scale factors, derived quantities, DY correction expression | Leaf `aliases.py`; C++ helpers in `macros/` where present |
+| Preselection and jet categories | Leaf `cuts.py`, with object definitions in `aliases.py` |
+| Histogram expressions and binning | Leaf `variables.py` |
+| Colors, groups and DATA/MC presentation | Leaf `plot.py` |
+| Systematic variations | Leaf `nuisances.py` |
+| Process roles for datacards/model consumers | Leaf `structure.py` |
+| Luminosity, execution order and saved variables | Leaf `configuration.py` |
+| Background subtraction, fit model and normalization | Leaf `extract_Zptrw.py` |
+| Site endpoints and packaged dependencies | Shared `runtime.py` |
+| Smoke input, command defaults and stage operations | Shared `workflow.py` |
+| Automatic sequencing and scheduler handling | Shared `automation.py` |
 
-Source changes require a fresh preparation to affect histogram jobs and saved
-plot settings. For CERN shared-checkout jobs, keep source and runtime stable
-until the jobs finish. Extraction uses the leaf's current `extract_Zptrw.py`;
-review changes to that method before fitting an existing baseline run.
+Prepare a fresh run after changing source to update histogram jobs and saved
+plot settings. Extraction reads the leaf's current `extract_Zptrw.py`; review
+method changes before fitting an existing baseline. For CERN shared-checkout
+jobs, keep both source and runtime stable until the jobs finish.
 
-## Analysis notes and further reading
+## Method and interpretation
 
-This adapts [CodexForster's ZpTreweighting configuration](https://github.com/CodexForster/PlotsConfigurationsRun3/tree/482bac950792bf2056a414b8759576177ec0a282/ZpTreweighting)
+This adapts [CodexForster's configuration](https://github.com/CodexForster/PlotsConfigurationsRun3/tree/482bac950792bf2056a414b8759576177ec0a282/ZpTreweighting)
 and consumes processed event trees; it does not run `mkPostProc`.
 
+The standard extraction normalizes DY to DATA minus the retained MC backgrounds
+below 50 GeV, then fits their reconstructed `ptll` ratio with the inherited
+error-function-plus-quadratic model. The formula is constant above 50 GeV and
+is applied at generator Z pT, using reconstructed jet categories. The fitted
+shape weights do not include the overall DATA/DY normalization factor. Inspect
+both fit residuals and the new event-level histograms before accepting a result.
+
+- The retained 2022/2024 subtraction omits the configured `Fake` histogram.
+- Inclusive `0j` contains every jet multiplicity and overlaps `1j`/`2j`.
+- Luminosities and selections are inherited; software completion does not audit
+  certification coverage, global duplicate events or physics acceptance.
 - The upstream 2023 `_OLD` MC directory was unavailable on 2026-09-10 and needs
   a reviewed input update before production.
-- In inclusive leaves, `0j` includes all jet multiplicities and overlaps
-  `1j`/`2j`; do not add those categories together.
-- The retained 2022/2024 extractor does not subtract the configured `Fake`
-  histogram. Review that method choice and fit quality before applying weights.
-- Luminosities and selections are inherited. The bounded software tests do not
-  establish full dataset coverage, fit validity or physics acceptance.
 
-[REFERENCE.md](REFERENCE.md) covers scientific definitions and direct native
-framework options. [VALIDATION.md](VALIDATION.md) records the executed small
-tests and their limits.
+[REFERENCE.md](REFERENCE.md) describes scientific definitions and native options.
+[VALIDATION.md](VALIDATION.md) records executed workflows, output evidence and
+limitations, including the full nominal 2024 campaign.

@@ -26,6 +26,7 @@ parser.add_argument('--year', default='2022', help="Year key in the DYrew dict w
 parser.add_argument('--sample-type', default='LO', help="Sample-type key in the DYrew dict written to dyZpTrw.json (default: 'LO')")
 parser.add_argument('--plot-xrange', type=float, default=80, help='maximum X-axis range for the plots (default: 80)')
 parser.add_argument('--fit-xrange', type=float, default=50, help='maximum X-axis range for the fits (default: 50)')
+parser.add_argument('--lumi', type=float, default=None, help='Integrated luminosity in inverse femtobarns for the plot label; omitted when unspecified.')
 args = parser.parse_args()
 
 root_file = ROOT.TFile(args.input)
@@ -99,7 +100,7 @@ for fitfunc, initguess, savename in zip(fitting_functions, initial_guesses, save
     pad1.SetLogy()   # if you want log-y
 
     histo_DY.SetTitle("")
-    histo_DY.GetYaxis().SetTitle("Events / 5 GeV")
+    histo_DY.GetYaxis().SetTitle(f"Events / {histo_DY.GetBinWidth(1):g} GeV")
     histo_DY.GetXaxis().SetLabelSize(0)
     histo_DY.GetYaxis().SetTitleSize(0.06)
     histo_DY.GetYaxis().SetTitleOffset(0.8)
@@ -122,7 +123,12 @@ for fitfunc, initguess, savename in zip(fitting_functions, initial_guesses, save
     label.SetNDC(True)
     label.SetTextSize(0.040)
     label.DrawLatex(0.12, 0.92, "#bf{CMS} #it{Preliminary}")
-    label.DrawLatex(0.55, 0.92, "L = 8.2 fb^{-1} (#sqrt{s} = 13.6 TeV)")
+    lumi_label = "#sqrt{s} = 13.6 TeV"
+    if args.lumi is not None:
+        lumi_label = f"L = {args.lumi:g} fb^{{-1}} (" + lumi_label + ")"
+    label.SetTextAlign(31)
+    label.DrawLatex(0.90, 0.92, lumi_label)
+    label.SetTextAlign(11)
     label.DrawLatex(0.15, 0.2, f"num(DY) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DY:.3f}")
     label.DrawLatex(0.15, 0.15, f"num(DATA) events in ({fit_range[0]},{fit_range[1]}) GeV = {integral_histo_DATA:.3f}")
     if args.n == 2:

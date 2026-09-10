@@ -1,5 +1,168 @@
 # Validation record
 
+## Full nominal 2024 computation and application, 2026-09-10
+
+**Both passes completed on LPC.** This is a real DATA/MC campaign using every
+configured `2024_v15` sample/file and no event limit, with systematic variations
+disabled. It supersedes the earlier software-only execution limits below; those
+sections remain historical records of their respective changes.
+
+The campaign is `runs/zpt2024_20260910_1705_r2/` in this configuration family.
+Its `EXECUTION.md`, `resume.sh`, native configurations, job logs, output files and
+inspection scripts are local generated artifacts, excluded from Git. The full
+path starts at
+`/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZpTreweighting/`.
+
+The automatic command was `auto zpt2024_20260910_1705_r2 --nominal-only
+--apply-fitted`, with the absolute family `runs/` passed to `--runs-dir`.
+`resume.sh` records the exact invocation and environment. A source-only worktree
+at `codex_analysis/zpt2024-production-source-r2` avoided traversing the large
+generated development tree during native packaging. Its base revision was
+`05648c4`, plus the controller's empty-query fix included with this record.
+The framework core and histogram physics definitions were unchanged.
+
+Runtime: `cmslpc374.fnal.gov`, native Condor 25.0.12, the existing framework
+`start.sh`, Python 3.13.11, ROOT 6.38.00 and LCG 109 / EL9 / GCC 13. No dependency
+installation or upgrade was needed. Workers used the existing package builder,
+CVMFS runtime and separate proxy transfer. Inputs were discovered/read through
+`root://eoscms.cern.ch`; ROOT files returned through Condor to the shared run
+directories. No remote EOS output publication was performed.
+
+| Pass | Exact pickle in its `configs/` directory | Cluster on `lpcschedd6.fnal.gov` | Result |
+| --- | --- | --- | --- |
+| Real worker pilot | `config_26-09-10_17_23_35.pkl` | `85436867.0` | Successful exit and transfer; 100 fixed DY events |
+| Baseline | `config_26-09-10_17_24_41.pkl` | `85436884.0–2787` | All 2,788 jobs successful; merged and plotted |
+| Corrected | `config_26-09-10_18_02_27.pkl` | `85436965.0–2787` | All 2,788 jobs successful; merged and plotted |
+
+Independent final queue/history queries found no queued jobs and exactly the
+expected process IDs, working directories, JobStatus 4, ExitCode 0 and
+ExitBySignal false for all three clusters. All task-created proxy copies were
+removed after terminal-state and output verification; the original proxy was
+preserved. Retained JDLs require a current proxy before any new submission.
+
+The full population contains 14 processes, 19 observables and 12 categories,
+including all 35 configured DATA components for Run C–I. The saved input list
+has 9,965 distinct DATA file URLs and 9,002 DY files, plus all configured
+backgrounds. Some file populations are intentionally reused for different
+process definitions, such as DATA/Fake and WZ/WZS. The configured luminosity is
+109.08 fb^-1; this is not an independent full-year luminosity audit.
+
+### Output and numerical checks
+
+- Both merged ROOT files were independently reopened and contained exactly
+  3,192 expected TH1 objects with finite contents/errors, including flow bins.
+  Each pass had exactly 2,788 expected returned worker files, without missing
+  or extra job outputs, and 24 readable comparison PNGs.
+- All 2,964 DATA/background histograms were **exactly identical** between passes
+  in bin contents and errors. All histogram entries and axes were unchanged,
+  including DY; all 228 DY histograms changed in contents/errors.
+- The compiled configurations had identical input ordering, base sample weights,
+  selections, variables, nuisances, luminosity and unaffected aliases. The DY
+  event weight gained `DY_NLO_ZpTrw` exactly once.
+- For each pass, all 336 `events`/`ptll` histograms were independently summed
+  from every worker file and compared with the merge, including flow bins and
+  sum-of-squared-weight uncertainties. Entries matched exactly. With relative
+  tolerance 1e-9 and absolute tolerance 1e-8 for floating-point accumulation,
+  all sums agreed. Maximum absolute content/variance differences were
+  4.47e-8 / 1.30e-8 for baseline and 1.49e-8 / 3.35e-8 for corrected.
+- Every worker stderr was inspected. The only non-timing lines were the five
+  known unused EDM metadata dictionary warnings, repeated in every job.
+- The worker pilot's 228 histograms exactly matched the earlier local execution
+  on the same first 100 DY events. Bounded DATA and Fake pilots are retained in
+  the initial attempt directory; they test their actual event/weight paths.
+
+The merged files are
+`baseline/rootFiles/mkShapes__ZpTreweighting_2024_v15_baseline.root`
+(2,677,523 bytes) and
+`corrected/rootFiles/mkShapes__ZpTreweighting_2024_v15_corrected.root`
+(2,677,499 bytes). The fitted JSON is `baseline/weights/dyZpTrw.json`.
+Before/after plots are under each pass's `plots/` directory.
+
+`inspect_outputs.py` and `compare_passes.py` retain the independent inspection
+code. Run them from the framework checkout after sourcing `start.sh`;
+`INSPECT_ZPT_PASS=baseline` or `corrected` selects the first script's input.
+The resulting records are `baseline-inspection.log`, `corrected-inspection.log`
+and `comparison.log`; scheduler and stderr summaries are beside them.
+
+### Fit results and interpretation
+
+The inherited extraction used dimuon `ptll`, normalization method 2, and the
+error-function-plus-quadratic fit below 50 GeV with a constant tail. It wrote
+`2024_v15/LO_0j`, `LO_1j` and `LO_2j`; the second pass applied those exact
+formulas at `gen_Zpt`. Numerical checks found positive finite weights on a
+0.01 GeV grid from 0 to 50 GeV and at selected tail points through 10 TeV.
+
+| Dimuon region | DATA-minus-background / DY normalization below 50 GeV | Reported fit chi2/ndf |
+| --- | --- | --- |
+| 0 jets | 0.919457675 | 159.153 |
+| 1 jet | 0.783756423 | 11.162 |
+| At least 2 jets | 0.732999114 | 1.275 |
+
+**The 0- and 1-jet fits are poor descriptions at the available precision.**
+Automatic application was executed as requested, but these are candidate
+corrections requiring method review. The overall normalization factors above
+are not part of the shape-weight formulas, so corrected native DATA/MC plots
+retain normalization offsets. The 0-jet high-pT discrepancy also remains.
+
+For a descriptive shape comparison, each pass was independently normalized to
+DATA minus the extractor's MC backgrounds in `0 <= ptll < 50 GeV`. The table
+shows the unweighted RMS of `(DATA-BG)/(normalized DY) - 1` across those 25 bins.
+It is not a chi-square test or an uncertainty-calibrated acceptance criterion;
+both passes share the same events and the dimuon data also determined the fits.
+
+| Region | Baseline RMS | Corrected RMS |
+| --- | --- | --- |
+| Zee, 0 jets | 7.209% | 1.109% |
+| Zee, 1 jet | 6.785% | 0.897% |
+| Zee, at least 2 jets | 7.592% | 0.898% |
+| Zmm, 0 jets | 7.061% | 1.304% |
+| Zmm, 1 jet | 6.613% | 1.121% |
+| Zmm, at least 2 jets | 7.799% | 0.853% |
+
+All three fitted dimuon plots and representative before/after dimuon and
+electron comparison plots were visually inspected. That inspection exposed
+inherited fit labels claiming 8.2 fb^-1 and 5 GeV bins. All five extractors now
+accept the luminosity supplied from the saved configuration and derive the
+bin-width label from the histogram. Six PDFs were regenerated for this campaign
+under **`baseline/fit_plots/`**, showing 109.08 fb^-1 and 2 GeV bins. Original
+PDFs in `baseline/weights/` remain as evidence of the old labels. Refitting for
+those regenerated plots reproduced the same normalizations and chi2/ndf;
+the JSON and formulas already used by the corrected pass were preserved.
+
+Physics limitations remain: the inherited subtraction omits Fake; the fit uses
+reconstructed pT but application uses generator pT; no systematic variation
+campaign or uncertainty calibration was performed. The DATA producer source
+includes the repository-owned Golden JSON filter and the sample definitions
+retain trigger precedence. Certification coverage, global duplicate-event
+handling and the configured luminosity were not independently audited on the
+external processed trees. This is successful software execution and a measured
+shape comparison, not physics acceptance.
+
+### Operational fixes and focused tests
+
+The initial attempt on `cmslpc-el9-heavy01` could not submit because the site's
+wrapper required missing system `classad2`/`htcondor2` bindings. The next attempt
+submitted cluster 85436866, whose workers failed VOMS issuer validation; all
+2,788 jobs were removed and terminal state was verified. Their configs/logs are
+preserved under the initial and `_r1` campaign names, and their task-created
+proxy copies were removed. The replacement campaign used the existing
+RunStability LPC CVMFS VOMS trust setting before native proxy validation.
+Authentication checks and framework shipping/I/O code were preserved.
+
+Real successful empty queue responses then exposed the controller's assumption
+that native JSON output always contained `[]`. It now accepts empty stdout only
+when the client exits successfully, while still requiring complete successful
+history and readable outputs. A focused regression checks that empty queue and
+empty history cannot establish completion.
+
+All **50 focused tests passed**, including the luminosity argument supplied to
+extraction. Syntax checks passed for all five extractors; Black and Flake8 passed
+for the changed orchestration/test sources, and `auto --help` was checked.
+No broad framework test suite was run. The controller and these output
+inspections use no hash-based checks. Generated ROOT files, plots, job payloads,
+logs and credentials are not committed. The sections below describe earlier,
+narrower validation only.
+
 ## Automatic two-pass controller, 2026-09-10
 
 The controller adds `auto`, with an optional formula-review pause and explicit

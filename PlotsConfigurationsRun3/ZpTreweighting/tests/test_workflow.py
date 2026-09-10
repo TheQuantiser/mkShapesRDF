@@ -26,6 +26,7 @@ def config(run_dir, mode="production", variant="2024_v15"):
             "apply_reweight": False,
         },
         "tag": "test",
+        "lumi": 17.3,
         "batchFolder": str(run_dir / "condor"),
         "outputFolder": str(run_dir / "rootFiles"),
         "outputFile": "merged.root",
@@ -189,6 +190,7 @@ def test_extraction_keys_and_result_directory(
 
     def fake_fit(argv, cwd):
         # Formula is a software fixture, never a fit or a physics expectation.
+        assert argv[argv.index("--lumi") + 1] == str(saved["lumi"])
         jet = int(argv[argv.index("-nj") + 1])
         seen.append(jet)
         path = Path(argv[argv.index("--write-json") + 1])

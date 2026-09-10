@@ -47,7 +47,9 @@ def query_jobs(client, cluster, folder, count, target=()):
         timeout=60,
         check=True,
     )
-    ads = json.loads(result.stdout)
+    # Native Condor clients may print nothing for an empty successful query.
+    # Missing history still cannot establish completion in wait_for_jobs.
+    ads = json.loads(result.stdout) if result.stdout.strip() else []
     if not isinstance(ads, list) or any(not isinstance(ad, dict) for ad in ads):
         raise ValueError(f"{client} did not return a JSON job list")
     return ads
