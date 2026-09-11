@@ -1,8 +1,7 @@
-"""Pairing-only codes and ZH/ZZ inventory resolved from ZH4l common."""
+"""pairing-only codes and ZH/ZZ inventory resolved from ZH4l common."""
 
 from __future__ import annotations
 
-import os
 import sys
 from functools import lru_cache
 from pathlib import Path

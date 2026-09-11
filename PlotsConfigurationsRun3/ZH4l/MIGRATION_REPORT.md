@@ -1,5 +1,9 @@
 # ZH4l migration report
 
+Historical record: this report predates the 2026-09-10 naming and nominal-output
+migration. See the family ARCHITECTURE.md and NAMING.md for current supported
+interfaces; the evidence below is not a rerun of the new implementation.
+
 ## Revision and scope
 
 - Starting SHA: `3659c2e930d58b8a3df387ca9080c9443bb528e8`

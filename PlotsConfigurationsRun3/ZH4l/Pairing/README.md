@@ -9,8 +9,8 @@ and cached per-event study results.
 The two denominators are `PAIRING_OBJECT_BASE` and `PAIRING_PHYS_BASE`.
 Topologies and algorithm choices are histogram axes rather than multiplied cut
 categories. Raw, signed, and absolute counts are booked from one event graph.
-That per-variable scalar/vector weight requirement is why `runner.py` is
-retained; native RunAnalysis has one normal weight column per graph.
+The small `runner.py` entry point delegates scalar/vector weight booking and
+snapshots to `common.runner`, which subclasses native RunAnalysis.
 
 ```bash
 source start.sh
@@ -26,3 +26,12 @@ PlotsConfigurationsRun3/ZH4l/Pairing/run_all_eras.sh plots
 `make_summary.py` keeps the historical JSON field names where consumers depend
 on them. Detailed algorithm/truth definitions and interpretation guidance are
 in [PAIRING_STUDY.md](PAIRING_STUDY.md).
+
+`ZH4L_OUTPUT_MODE=trees` or `both` enables event snapshots for both denominators.
+They retain `pairing_quartet_lepton_index`, candidate-choice and selected-mass
+vectors, `weight_raw`, `weight_nominal`, and `weight_abs_nominal`; the default
+exported `weight` is `weight_nominal`. Vector entries share an event and are
+not independent flattened rows. `SAMPLE_FILTER` accepts an exact subset of the
+resolved ZH/ZZ inventory for bounded checks; it does not redefine that inventory.
+Use [NAMING.md](../NAMING.md) for current alias/output names. Historical study
+results and stable summary JSON keys retain their recorded vocabulary.

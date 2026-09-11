@@ -1,7 +1,7 @@
 """Selected Z/X objects and common ZH4l predicates.
 
-This is the only Python owner of the nominal Z/X definition.  The C++ helper
-contains mechanics; the returned dictionary is the analyst-facing RDF API.
+This builds the established complete Z/X alias preset. Flexible studies use
+common.presets with explicit definition graphs and the same C++ mechanics.
 """
 
 from pathlib import Path
@@ -11,12 +11,36 @@ from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP, MuonWP
 
 PUBLIC_OBJECT_ALIASES = frozenset(
     {
-        "Z_idx", "X_idx", "validZ", "validX", "validZX",
-        "passLeading2Tight", "passZPt", "pass4lPt", "veto5l",
-        "nLepton10", "isZee", "isZmm", "isXee", "isXmm", "isXSF",
-        "isXDF", "mZ", "ptZ", "etaZ", "phiZ", "mX", "ptX",
-        "etaX", "phiX", "m4l", "pt4l", "phi4l", "minMll4l", "q4l",
-        "noJetInHorn",
+        "z_lepton_index",
+        "x_lepton_index",
+        "z_is_valid",
+        "x_is_valid",
+        "zx_is_valid",
+        "event_pass_leading_lepton_tight",
+        "z_pass_ordered_pt",
+        "zx_pass_ordered_pt",
+        "event_pass_extra_lepton_veto",
+        "veto_lepton_count",
+        "z_is_ee",
+        "z_is_mumu",
+        "x_is_ee",
+        "x_is_mumu",
+        "x_is_same_flavor",
+        "x_is_different_flavor",
+        "z_mass",
+        "z_pt",
+        "z_eta",
+        "z_phi",
+        "x_mass",
+        "x_pt",
+        "x_eta",
+        "x_phi",
+        "zx_mass",
+        "zx_pt",
+        "zx_phi",
+        "zx_min_pair_mass",
+        "zx_charge",
+        "event_pass_jet_horn_veto",
     }
 )
 
@@ -32,11 +56,13 @@ def _available_wps(kind, era, available_branches):
 
 
 def _selected_wp(kind, preferred, candidates, available_branches):
-    if not available_branches or f"Lepton_isTight{kind}_{preferred}" in available_branches:
+    if (
+        not available_branches
+        or f"Lepton_isTight{kind}_{preferred}" in available_branches
+    ):
         return preferred
-    return next(
-        (wp for wp in candidates if f"Lepton_isTight{kind}_{wp}" in available_branches),
-        preferred,
+    raise ValueError(
+        f"Requested Lepton_isTight{kind}_{preferred} is absent; select a supported WP explicitly"
     )
 
 
@@ -47,8 +73,8 @@ def _leading_tight_expr(era, ele_wps, mu_wps):
             *(f"Alt(Lepton_isTightMuon_{wp}, {index}, 0) > 0.5" for wp in mu_wps),
         ]
 
-    i0 = "FourLepton::productionGateIndex(ZH4l_prodPt, 0)"
-    i1 = "FourLepton::productionGateIndex(ZH4l_prodPt, 1)"
+    i0 = "FourLepton::productionGateIndex(zh4l_internal_production_lepton_pt, 0)"
+    i1 = "FourLepton::productionGateIndex(zh4l_internal_production_lepton_pt, 1)"
     return f"nLepton > 1 && ({' || '.join(terms(i0))}) && ({' || '.join(terms(i1))})"
 
 
@@ -73,7 +99,7 @@ def build_object_aliases(era_cfg, family_dir, available_branches=None):
     ordered4 = tuple(float(x) for x in profile["ordered_4l_pt_mins"])
 
     aliases = {
-        "ZH4l_prodPt": {
+        "zh4l_internal_production_lepton_pt": {
             "linesToAdd": include,
             "expr": (
                 "FourLepton::productionAlignedPt(Lepton_eta, Lepton_phi, "
@@ -81,16 +107,16 @@ def build_object_aliases(era_cfg, family_dir, available_branches=None):
                 "VetoLepton_pdgId)"
             ),
         },
-        "ZH4l_prodPdgId": {
+        "zh4l_internal_production_lepton_pdg_id": {
             "expr": (
                 "FourLepton::productionAlignedPdgId(Lepton_eta, Lepton_phi, "
                 "VetoLepton_eta, VetoLepton_phi, VetoLepton_pdgId)"
             )
         },
-        "passLeading2Tight": {
+        "event_pass_leading_lepton_tight": {
             "expr": _leading_tight_expr(l2_era, ele_wps, mu_wps)
         },
-        "Z_idx": {
+        "z_lepton_index": {
             "expr": (
                 "FourLepton::bestZ0IdxWithID(Lepton_pt, Lepton_eta, Lepton_phi, "
                 f"Lepton_pdgId, Lepton_isTightElectron_{ele_wp}, "
@@ -98,51 +124,91 @@ def build_object_aliases(era_cfg, family_dir, available_branches=None):
                 f"{zpt[0]:g}, {zpt[1]:g})"
             )
         },
-        "X_idx": {
+        "x_lepton_index": {
             "expr": (
-                "FourLepton::xPairIdxWithID(Z_idx, Lepton_pt, Lepton_pdgId, "
+                "FourLepton::xPairIdxWithID(z_lepton_index, Lepton_pt, Lepton_pdgId, "
                 f"Lepton_isTightElectron_{ele_wp}, Lepton_isTightMuon_{mu_wp}, "
                 f"{int(lep['x_min_pass'])}, {xpt[0]:g}, {xpt[1]:g})"
             )
         },
-        "validZ": {"expr": "Alt(Z_idx,0,-1) >= 0 && Alt(Z_idx,1,-1) >= 0"},
-        "validX": {"expr": "Alt(X_idx,0,-1) >= 0 && Alt(X_idx,1,-1) >= 0"},
-        "validZX": {
-            "expr": "validZ && validX && FourLepton::fourSelectedIndicesDistinct(Z_idx, X_idx, Lepton_pt.size())"
+        "z_is_valid": {
+            "expr": "Alt(z_lepton_index,0,-1) >= 0 && Alt(z_lepton_index,1,-1) >= 0"
         },
-        "passZPt": {
-            "expr": f"FourLepton::passesOrdered2lPtThresholdsFromPair(Lepton_pt, Z_idx, {ordered2[0]:g}, {ordered2[1]:g})"
+        "x_is_valid": {
+            "expr": "Alt(x_lepton_index,0,-1) >= 0 && Alt(x_lepton_index,1,-1) >= 0"
         },
-        "pass4lPt": {
+        "zx_is_valid": {
+            "expr": "z_is_valid && x_is_valid && FourLepton::fourSelectedIndicesDistinct(z_lepton_index, x_lepton_index, Lepton_pt.size())"
+        },
+        "z_pass_ordered_pt": {
+            "expr": f"FourLepton::passesOrdered2lPtThresholdsFromPair(Lepton_pt, z_lepton_index, {ordered2[0]:g}, {ordered2[1]:g})"
+        },
+        "zx_pass_ordered_pt": {
             "expr": (
                 "FourLepton::passesOrdered4lPtThresholdsFromPairs(Lepton_pt, "
-                f"Z_idx, X_idx, {ordered4[0]:g}, {ordered4[1]:g}, "
+                f"z_lepton_index, x_lepton_index, {ordered4[0]:g}, {ordered4[1]:g}, "
                 f"{ordered4[2]:g}, {ordered4[3]:g})"
             )
         },
-        "nLepton10": {"expr": "Sum(Lepton_pt >= 10.f)"},
-        "veto5l": {"expr": "FourLepton::fifthLeptonVeto(Lepton_pt, 10.f)"},
-        "isZee": {"expr": "FourLepton::pairFlavor(Lepton_pdgId, Z_idx) == 11"},
-        "isZmm": {"expr": "FourLepton::pairFlavor(Lepton_pdgId, Z_idx) == 13"},
-        "isXee": {"expr": "FourLepton::pairFlavor(Lepton_pdgId, X_idx) == 11"},
-        "isXmm": {"expr": "FourLepton::pairFlavor(Lepton_pdgId, X_idx) == 13"},
-        "isXSF": {"expr": "isXee || isXmm"},
-        "isXDF": {"expr": "!isXee && !isXmm"},
-        "noJetInHorn": {
+        "veto_lepton_count": {"expr": "Sum(Lepton_pt >= 10.f)"},
+        "event_pass_extra_lepton_veto": {
+            "expr": "FourLepton::fifthLeptonVeto(Lepton_pt, 10.f)"
+        },
+        "z_is_ee": {
+            "expr": "FourLepton::pairFlavor(Lepton_pdgId, z_lepton_index) == 11"
+        },
+        "z_is_mumu": {
+            "expr": "FourLepton::pairFlavor(Lepton_pdgId, z_lepton_index) == 13"
+        },
+        "x_is_ee": {
+            "expr": "FourLepton::pairFlavor(Lepton_pdgId, x_lepton_index) == 11"
+        },
+        "x_is_mumu": {
+            "expr": "FourLepton::pairFlavor(Lepton_pdgId, x_lepton_index) == 13"
+        },
+        "x_is_same_flavor": {"expr": "x_is_ee || x_is_mumu"},
+        "x_is_different_flavor": {"expr": "!x_is_ee && !x_is_mumu"},
+        "event_pass_jet_horn_veto": {
             "expr": "Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.5 && abs(CleanJet_eta) < 3.0) == 0"
         },
     }
-    aliases["mZ"] = {"expr": "FourLepton::pairMass(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx)"}
-    aliases["ptZ"] = {"expr": "FourLepton::pairPt(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx)"}
-    aliases["etaZ"] = {"expr": "FourLepton::pairEta(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx)"}
-    aliases["phiZ"] = {"expr": "FourLepton::pairPhi(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx)"}
-    aliases["mX"] = {"expr": "FourLepton::pairMass(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,X_idx)"}
-    aliases["ptX"] = {"expr": "FourLepton::pairPt(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,X_idx)"}
-    aliases["etaX"] = {"expr": "FourLepton::pairEta(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,X_idx)"}
-    aliases["phiX"] = {"expr": "FourLepton::pairPhi(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,X_idx)"}
-    aliases["m4l"] = {"expr": "FourLepton::fourLeptonMassFromPairs(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx,X_idx)"}
-    aliases["pt4l"] = {"expr": "FourLepton::fourLeptonPtFromPairs(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx,X_idx)"}
-    aliases["phi4l"] = {"expr": "FourLepton::fourLeptonPhiFromPairs(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx,X_idx)"}
-    aliases["minMll4l"] = {"expr": "FourLepton::minimumSelectedPairMass(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,Z_idx,X_idx)"}
-    aliases["q4l"] = {"expr": "FourLepton::sumLeptonChargeFromPairs(Lepton_pdgId,Z_idx,X_idx)"}
+    aliases["z_mass"] = {
+        "expr": "FourLepton::pairMass(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index)"
+    }
+    aliases["z_pt"] = {
+        "expr": "FourLepton::pairPt(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index)"
+    }
+    aliases["z_eta"] = {
+        "expr": "FourLepton::pairEta(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index)"
+    }
+    aliases["z_phi"] = {
+        "expr": "FourLepton::pairPhi(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index)"
+    }
+    aliases["x_mass"] = {
+        "expr": "FourLepton::pairMass(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,x_lepton_index)"
+    }
+    aliases["x_pt"] = {
+        "expr": "FourLepton::pairPt(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,x_lepton_index)"
+    }
+    aliases["x_eta"] = {
+        "expr": "FourLepton::pairEta(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,x_lepton_index)"
+    }
+    aliases["x_phi"] = {
+        "expr": "FourLepton::pairPhi(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,x_lepton_index)"
+    }
+    aliases["zx_mass"] = {
+        "expr": "FourLepton::fourLeptonMassFromPairs(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index,x_lepton_index)"
+    }
+    aliases["zx_pt"] = {
+        "expr": "FourLepton::fourLeptonPtFromPairs(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index,x_lepton_index)"
+    }
+    aliases["zx_phi"] = {
+        "expr": "FourLepton::fourLeptonPhiFromPairs(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index,x_lepton_index)"
+    }
+    aliases["zx_min_pair_mass"] = {
+        "expr": "FourLepton::minimumSelectedPairMass(Lepton_pt,Lepton_eta,Lepton_phi,Lepton_pdgId,z_lepton_index,x_lepton_index)"
+    }
+    aliases["zx_charge"] = {
+        "expr": "FourLepton::sumLeptonChargeFromPairs(Lepton_pdgId,z_lepton_index,x_lepton_index)"
+    }
     return aliases, {"electron_wp": ele_wp, "muon_wp": mu_wp}

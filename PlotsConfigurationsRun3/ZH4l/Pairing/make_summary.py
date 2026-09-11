@@ -137,7 +137,9 @@ class RootReader:
         try:
             import ROOT
         except ImportError as exc:  # pragma: no cover - environment diagnostic
-            raise RuntimeError("PyROOT is required; source the repository start.sh") from exc
+            raise RuntimeError(
+                "PyROOT is required; source the repository start.sh"
+            ) from exc
         ROOT.gROOT.SetBatch(True)
         self.ROOT = ROOT
         self.warnings = warnings
@@ -179,10 +181,14 @@ class RootReader:
                 self.warnings.append(message)
                 self.cache[cache_key] = None
                 return None
-            result = [float(histogram.GetBinContent(index + 1)) for index in range(expected)]
+            result = [
+                float(histogram.GetBinContent(index + 1)) for index in range(expected)
+            ]
         elif histogram.GetDimension() == len(shape):
             actual = tuple(
-                (histogram.GetNbinsX(), histogram.GetNbinsY(), histogram.GetNbinsZ())[axis]
+                (histogram.GetNbinsX(), histogram.GetNbinsY(), histogram.GetNbinsZ())[
+                    axis
+                ]
                 for axis in range(len(shape))
             )
             if actual != tuple(shape):
@@ -214,7 +220,9 @@ class RootReader:
     def aggregate(self, year, baseline, variable, samples, shape, required=False):
         arrays = []
         for sample in samples:
-            array = self.read(year, baseline, variable, sample, shape, required=required)
+            array = self.read(
+                year, baseline, variable, sample, shape, required=required
+            )
             if array is not None:
                 arrays.append(array)
         if not arrays:
@@ -266,14 +274,20 @@ def _parse_input_specs(specs):
             raise ValueError(f"ERA={year} was supplied more than once")
         if not path.startswith("root://") and not Path(path).expanduser().is_file():
             raise FileNotFoundError(f"ERA={year} input does not exist: {path}")
-        result[year] = str(Path(path).expanduser().resolve()) if not path.startswith("root://") else path
+        result[year] = (
+            str(Path(path).expanduser().resolve())
+            if not path.startswith("root://")
+            else path
+        )
     return result
 
 
 def _config_inventory(year, root_path):
     live = load_pairing_year(year)
     campaign = None
-    match = re.match(rf"mkShapes__PairingStudy_{re.escape(year)}_(.+)\.root$", Path(root_path).name)
+    match = re.match(
+        rf"mkShapes__PairingStudy_{re.escape(year)}_(.+)\.root$", Path(root_path).name
+    )
     if match:
         campaign = match.group(1)
     metadata = None
@@ -288,7 +302,8 @@ def _config_inventory(year, root_path):
         by_name = {}
         if metadata:
             by_name = {
-                item["logical_sample"]: item for item in metadata["families"].get(family, [])
+                item["logical_sample"]: item
+                for item in metadata["families"].get(family, [])
             }
         for sample in live["inventory"][family]:
             recorded = by_name.get(sample)
@@ -304,7 +319,9 @@ def _config_inventory(year, root_path):
                 {
                     "logical_sample": sample,
                     "file_count": recorded.get("file_count") if recorded else None,
-                    "available_file_count": recorded.get("available_file_count") if recorded else None,
+                    "available_file_count": (
+                        recorded.get("available_file_count") if recorded else None
+                    ),
                     "components": components,
                 }
             )
@@ -317,7 +334,11 @@ def _config_inventory(year, root_path):
         "steps": live["steps"],
         "lumi_fb": live["lumi_fb"],
         "families": families,
-        "metadata_source": "compiled config.json" if metadata else "live configuration; file counts unavailable",
+        "metadata_source": (
+            "compiled config.json"
+            if metadata
+            else "live configuration; file counts unavailable"
+        ),
     }
 
 
@@ -341,13 +362,20 @@ def _truth_counts(reader, year, baseline, family, samples, topology):
     )
     indices = tuple(_topology_indices(topology))
     n_total = _sum(total_hist[index] for index in indices) if total_hist else None
-    statuses = {
-        TRUTH_STATUS[status]: _sum(_cell(status_hist, (7, 5), status, index) for index in indices)
-        for status in TRUTH_STATUS
-    } if status_hist else {}
+    statuses = (
+        {
+            TRUTH_STATUS[status]: _sum(
+                _cell(status_hist, (7, 5), status, index) for index in indices
+            )
+            for status in TRUTH_STATUS
+        }
+        if status_hist
+        else {}
+    )
     n_direct = (
         _sum(_cell(direct_hist, (2, 5), 1, index) for index in indices)
-        if direct_hist else None
+        if direct_hist
+        else None
     )
     n_record_ambiguous = None
     if family == "ZZ" and topology == "ALL":
@@ -402,17 +430,26 @@ def _efficiency_rows(reader, inputs, inventories, family, baselines, warnings):
                             "topology_code": topology,
                             "baseline": baseline,
                             "N_total": _json_number(n_total),
-                            "N_truth_direct_Zll" if family == "ZH" else "N_truth_direct_4l": _json_number(n_direct),
-                            "N_truth_recoverable" if family == "ZH" else "N_partition_valid": None,
+                            (
+                                "N_truth_direct_Zll"
+                                if family == "ZH"
+                                else "N_truth_direct_4l"
+                            ): _json_number(n_direct),
+                            (
+                                "N_truth_recoverable"
+                                if family == "ZH"
+                                else "N_partition_valid"
+                            ): None,
                             "N_record_ambiguous": (
-                                _json_number(n_record_ambiguous) if family == "ZZ" else None
+                                _json_number(n_record_ambiguous)
+                                if family == "ZZ"
+                                else None
                             ),
                             "record_ambiguity_scope": (
                                 "all topologies from dedicated truth flag"
                                 if family == "ZZ" and topology == "ALL"
                                 else (
-                                    "not booked by topology"
-                                    if family == "ZZ" else None
+                                    "not booked by topology" if family == "ZZ" else None
                                 )
                             ),
                             "N_correct": None,
@@ -429,7 +466,9 @@ def _efficiency_rows(reader, inputs, inventories, family, baselines, warnings):
                                 "absolute": "absolute_weight",
                             }[convention]
                             if cube is None:
-                                wrong = correct = unavailable_truth = unavailable_algorithm = None
+                                wrong = correct = unavailable_truth = (
+                                    unavailable_algorithm
+                                ) = None
                             else:
                                 wrong = _sum(
                                     _cell(cube, EFF_SHAPE, algorithm, index, 2)
@@ -451,15 +490,25 @@ def _efficiency_rows(reader, inputs, inventories, family, baselines, warnings):
                             row[f"{prefix}_wrong"] = _json_number(wrong)
                             row[f"{prefix}_correct"] = _json_number(correct)
                             row[f"{prefix}_denominator"] = _json_number(denominator)
-                            row[f"{prefix}_truth_unavailable"] = _json_number(unavailable_truth)
-                            row[f"{prefix}_algorithm_unavailable"] = _json_number(unavailable_algorithm)
-                            row[f"{prefix}_efficiency"] = _json_number(_ratio(correct, denominator))
+                            row[f"{prefix}_truth_unavailable"] = _json_number(
+                                unavailable_truth
+                            )
+                            row[f"{prefix}_algorithm_unavailable"] = _json_number(
+                                unavailable_algorithm
+                            )
+                            row[f"{prefix}_efficiency"] = _json_number(
+                                _ratio(correct, denominator)
+                            )
                         # The truth-valid population is algorithm independent.
                         # The cube denominator can be smaller for an unavailable
                         # comparator, so retain both quantities explicitly.
-                        row["N_truth_recoverable" if family == "ZH" else "N_partition_valid"] = _json_number(
-                            statuses.get("recoverable")
-                        )
+                        row[
+                            (
+                                "N_truth_recoverable"
+                                if family == "ZH"
+                                else "N_partition_valid"
+                            )
+                        ] = _json_number(statuses.get("recoverable"))
                         row["N_correct"] = row["raw_correct"]
                         rows.append(row)
                         if sample_label == f"ALL_{family}":
@@ -475,9 +524,13 @@ def _efficiency_rows(reader, inputs, inventories, family, baselines, warnings):
         template["year"] = "ALL_RUN3"
         template["sample"] = f"ALL_{family}"
         for field in list(template):
-            if field.startswith(("raw_", "signed_weight_", "absolute_weight_")) and not field.endswith("efficiency"):
+            if field.startswith(
+                ("raw_", "signed_weight_", "absolute_weight_")
+            ) and not field.endswith("efficiency"):
                 values = [row[field] for row in group]
-                template[field] = None if any(value is None for value in values) else _sum(values)
+                template[field] = (
+                    None if any(value is None for value in values) else _sum(values)
+                )
         for prefix in ("raw", "signed_weight", "absolute_weight"):
             template[f"{prefix}_efficiency"] = _json_number(
                 _ratio(template[f"{prefix}_correct"], template[f"{prefix}_denominator"])
@@ -490,7 +543,9 @@ def _efficiency_rows(reader, inputs, inventories, family, baselines, warnings):
             "N_correct",
         ):
             values = [row.get(field) for row in group]
-            template[field] = None if any(value is None for value in values) else _sum(values)
+            template[field] = (
+                None if any(value is None for value in values) else _sum(values)
+            )
         rows.append(template)
     return rows
 
@@ -527,8 +582,17 @@ def _aggregate_metric_rows(reader, inputs, inventories, baselines):
         for family in ("ZH", "ZZ"):
             for sample_label, samples in _sample_groups(inventories[year], family):
                 for baseline in baselines:
-                    for matrix, variable, shape, labels, offset, convention in matrix_specs:
-                        cube = reader.aggregate(year, baseline, variable, samples, shape)
+                    for (
+                        matrix,
+                        variable,
+                        shape,
+                        labels,
+                        offset,
+                        convention,
+                    ) in matrix_specs:
+                        cube = reader.aggregate(
+                            year, baseline, variable, samples, shape
+                        )
                         if cube is None:
                             continue
                         for algorithm, algorithm_name in ALGORITHMS.items():
@@ -549,8 +613,12 @@ def _aggregate_metric_rows(reader, inputs, inventories, baselines):
                                         "algorithm_code": algorithm,
                                         "weight_convention": convention,
                                         "N_total": _json_number(total),
-                                        "N_agree_with_nearest_mZ": _json_number(diagonal),
-                                        "agreement_fraction": _json_number(_ratio(diagonal, total)),
+                                        "N_agree_with_nearest_mZ": _json_number(
+                                            diagonal
+                                        ),
+                                        "agreement_fraction": _json_number(
+                                            _ratio(diagonal, total)
+                                        ),
                                     }
                                 )
                             for from_index in range(shape[1]):
@@ -568,7 +636,15 @@ def _aggregate_metric_rows(reader, inputs, inventories, baselines):
                                         "from_label": labels[from_index + offset],
                                         "to_code": to_index + offset,
                                         "to_label": labels[to_index + offset],
-                                        "yield": _json_number(_cell(cube, shape, algorithm, from_index, to_index)),
+                                        "yield": _json_number(
+                                            _cell(
+                                                cube,
+                                                shape,
+                                                algorithm,
+                                                from_index,
+                                                to_index,
+                                            )
+                                        ),
                                     }
                                     migrations.append(row)
                                     if sample_label == f"ALL_{family}":
@@ -603,13 +679,17 @@ def _aggregate_metric_rows(reader, inputs, inventories, baselines):
     agreement_groups = defaultdict(list)
     for row in agreement:
         if row["sample"] == f"ALL_{row['family']}":
-            agreement_groups[(row["family"], row["baseline"], row["algorithm_code"])].append(row)
+            agreement_groups[
+                (row["family"], row["baseline"], row["algorithm_code"])
+            ].append(row)
     for group in agreement_groups.values():
         row = dict(group[0])
         row["year"] = "ALL_RUN3"
         row["sample"] = f"ALL_{row['family']}"
         row["N_total"] = _sum(item["N_total"] for item in group)
-        row["N_agree_with_nearest_mZ"] = _sum(item["N_agree_with_nearest_mZ"] for item in group)
+        row["N_agree_with_nearest_mZ"] = _sum(
+            item["N_agree_with_nearest_mZ"] for item in group
+        )
         row["agreement_fraction"] = _json_number(
             _ratio(row["N_agree_with_nearest_mZ"], row["N_total"])
         )
@@ -664,15 +744,16 @@ def _gain_loss_rows(reader, inputs, inventories, baselines):
                                 "absolute": "absolute_weight",
                             }[convention]
                             values = [
-                                _cell(cube, (6, 6), algorithm, outcome)
-                                if cube is not None else None
+                                (
+                                    _cell(cube, (6, 6), algorithm, outcome)
+                                    if cube is not None
+                                    else None
+                                )
                                 for outcome in range(6)
                             ]
                             for field, value in zip(outcome_fields, values):
                                 row[f"{prefix}_{field}"] = _json_number(value)
-                            valid = (
-                                None if values[2] is None else _sum(values[2:])
-                            )
+                            valid = None if values[2] is None else _sum(values[2:])
                             row[f"{prefix}_truth_valid"] = _json_number(valid)
                             row[f"{prefix}_net_gain"] = _json_number(
                                 None if values[3] is None else values[4] - values[3]
@@ -695,7 +776,9 @@ def _gain_loss_rows(reader, inputs, inventories, baselines):
             for field in (*outcome_fields, "truth_valid", "net_gain"):
                 key = f"{prefix}_{field}"
                 values = [item[key] for item in group]
-                row[key] = None if any(value is None for value in values) else _sum(values)
+                row[key] = (
+                    None if any(value is None for value in values) else _sum(values)
+                )
             row[f"{prefix}_gain_fraction"] = _json_number(
                 _ratio(row[f"{prefix}_gain"], row[f"{prefix}_truth_valid"])
             )
@@ -715,7 +798,11 @@ def _truth_diagnostics(reader, inputs, inventories, baselines):
             for sample_label, samples in _sample_groups(inventories[year], family):
                 for baseline in baselines:
                     status = reader.aggregate(
-                        year, baseline, f"{family.lower()}_truth_status_topology", samples, (7, 5)
+                        year,
+                        baseline,
+                        f"{family.lower()}_truth_status_topology",
+                        samples,
+                        (7, 5),
                     )
                     if status is not None:
                         for status_code, status_label in TRUTH_STATUS.items():
@@ -730,7 +817,12 @@ def _truth_diagnostics(reader, inputs, inventories, baselines):
                                         "status": status_label,
                                         "topology_code": topology_code,
                                         "topology": topology_label,
-                                        "raw_events": _cell(status, (7, 5), status_code, topology_code - 1),
+                                        "raw_events": _cell(
+                                            status,
+                                            (7, 5),
+                                            status_code,
+                                            topology_code - 1,
+                                        ),
                                     }
                                 )
                     signs = reader.aggregate(
@@ -747,7 +839,9 @@ def _truth_diagnostics(reader, inputs, inventories, baselines):
                                 "negative_raw_events": negative,
                                 "positive_raw_events": positive,
                                 "zero_raw_events": zero,
-                                "negative_fraction": _json_number(_ratio(negative, negative + positive + zero)),
+                                "negative_fraction": _json_number(
+                                    _ratio(negative, negative + positive + zero)
+                                ),
                                 "source": "categorical event_weight_sign histogram",
                             }
                         )
@@ -763,7 +857,9 @@ def _truth_diagnostics(reader, inputs, inventories, baselines):
                         "fsr_scores": "fsr_scores_valid",
                     }
                     counters = {
-                        label: reader.aggregate(year, baseline, histogram, samples, (2,))
+                        label: reader.aggregate(
+                            year, baseline, histogram, samples, (2,)
+                        )
                         for label, histogram in counter_names.items()
                     }
                     family_counter_name = (
@@ -774,7 +870,9 @@ def _truth_diagnostics(reader, inputs, inventories, baselines):
                     family_counter = reader.aggregate(
                         year, baseline, family_counter_name, samples, (2,)
                     )
-                    if status is not None or any(value is not None for value in counters.values()):
+                    if status is not None or any(
+                        value is not None for value in counters.values()
+                    ):
                         n_recoverable = (
                             _sum(
                                 _cell(status, (7, 5), 4, topology_code - 1)
@@ -801,14 +899,18 @@ def _truth_diagnostics(reader, inputs, inventories, baselines):
                         if family_counter is not None:
                             family_true = family_counter[1]
                             if family == "ZH":
-                                quality["N_hww_complement_valid"] = _json_number(family_true)
-                                quality["hww_complement_fraction_of_recoverable"] = _json_number(
-                                    _ratio(family_true, n_recoverable)
+                                quality["N_hww_complement_valid"] = _json_number(
+                                    family_true
+                                )
+                                quality["hww_complement_fraction_of_recoverable"] = (
+                                    _json_number(_ratio(family_true, n_recoverable))
                                 )
                             else:
-                                quality["N_record_ambiguous"] = _json_number(family_true)
-                                quality["record_ambiguous_fraction_of_recoverable"] = _json_number(
-                                    _ratio(family_true, n_recoverable)
+                                quality["N_record_ambiguous"] = _json_number(
+                                    family_true
+                                )
+                                quality["record_ambiguous_fraction_of_recoverable"] = (
+                                    _json_number(_ratio(family_true, n_recoverable))
                                 )
                         matching_quality.append(quality)
 
@@ -886,16 +988,20 @@ def _x_ranking(reader, inputs, inventories, baselines):
         for family in ("ZH", "ZZ"):
             for sample_label, samples in _sample_groups(inventories[year], family):
                 for baseline in baselines:
-                    identity = reader.aggregate(year, baseline, "x_complement_identical", samples, (2,))
-                    reasons = reader.aggregate(year, baseline, "x_difference_reason", samples, (4,))
-                    closure = reader.aggregate(year, baseline, "xflavor_closure", samples, (6, 3, 3))
+                    identity = reader.aggregate(
+                        year, baseline, "x_complement_identical", samples, (2,)
+                    )
+                    reasons = reader.aggregate(
+                        year, baseline, "x_difference_reason", samples, (4,)
+                    )
+                    closure = reader.aggregate(
+                        year, baseline, "xflavor_closure", samples, (6, 3, 3)
+                    )
                     if identity is None and reasons is None and closure is None:
                         continue
                     n_total = _sum(identity) if identity else None
                     valid_z_total = (
-                        _sum(reasons[index] for index in (0, 1, 2))
-                        if reasons
-                        else None
+                        _sum(reasons[index] for index in (0, 1, 2)) if reasons else None
                     )
                     record = {
                         "year": year,
@@ -917,17 +1023,23 @@ def _x_ranking(reader, inputs, inventories, baselines):
                             else None
                         ),
                         "identity_fraction_scope": "events with a valid nearest-mZ candidate",
-                        "difference_reasons": {
-                            "identical": reasons[0],
-                            "live_x_invalid_or_not_two": reasons[1],
-                            "different_pair": reasons[2],
-                            "no_valid_nearest_z": reasons[3],
-                        } if reasons else None,
+                        "difference_reasons": (
+                            {
+                                "identical": reasons[0],
+                                "live_x_invalid_or_not_two": reasons[1],
+                                "different_pair": reasons[2],
+                                "no_valid_nearest_z": reasons[3],
+                            }
+                            if reasons
+                            else None
+                        ),
                     }
                     if closure:
                         off_diagonal = _physical_xflavor_offdiagonal(closure)
                         record["x_flavor_off_diagonal_raw"] = off_diagonal
-                        record["fixed_quartet_xsf_xdf_diagonal"] = abs(off_diagonal) < 1e-12
+                        record["fixed_quartet_xsf_xdf_diagonal"] = (
+                            abs(off_diagonal) < 1e-12
+                        )
                     records.append(record)
 
     # Aggregate only the already family-combined rows.  This keeps unlike ZH
@@ -1002,7 +1114,7 @@ def _plot_data(reader, inputs, inventories, baselines):
         "ptz_response": [],
     }
     curve_specs = (
-        ("ZH", "zh_correct_vs_truth_ptz", "efficiency_vs_truth_ptz", 60, 0.0, 300.0),
+        ("ZH", "zh_correct_vs_truth_z_pt", "efficiency_vs_truth_ptz", 60, 0.0, 300.0),
         ("ZZ", "zz_score_gap_correctness", "efficiency_vs_score_gap", 80, 0.0, 40.0),
     )
     for year in inputs:
@@ -1012,13 +1124,19 @@ def _plot_data(reader, inputs, inventories, baselines):
                 for curve_family, variable, destination, bins, low, high in curve_specs:
                     if family != curve_family:
                         continue
-                    cube = reader.aggregate(year, baseline, variable, samples, (6, bins, 4))
+                    cube = reader.aggregate(
+                        year, baseline, variable, samples, (6, bins, 4)
+                    )
                     if cube:
                         width = (high - low) / bins
                         for algorithm, algorithm_name in ALGORITHMS.items():
                             for axis_bin in range(bins):
-                                wrong = _cell(cube, (6, bins, 4), algorithm, axis_bin, 2)
-                                correct = _cell(cube, (6, bins, 4), algorithm, axis_bin, 3)
+                                wrong = _cell(
+                                    cube, (6, bins, 4), algorithm, axis_bin, 2
+                                )
+                                correct = _cell(
+                                    cube, (6, bins, 4), algorithm, axis_bin, 3
+                                )
                                 data[destination].append(
                                     {
                                         "year": year,
@@ -1031,40 +1149,76 @@ def _plot_data(reader, inputs, inventories, baselines):
                                         "x_high": low + (axis_bin + 1) * width,
                                         "wrong": wrong,
                                         "correct": correct,
-                                        "efficiency": _json_number(_ratio(correct, wrong + correct)),
+                                        "efficiency": _json_number(
+                                            _ratio(correct, wrong + correct)
+                                        ),
                                     }
                                 )
-                multiplicity = reader.aggregate(year, baseline, "candidate_multiplicity", samples, (7,))
+                multiplicity = reader.aggregate(
+                    year, baseline, "candidate_multiplicity", samples, (7,)
+                )
                 if multiplicity:
                     for code, value in enumerate(multiplicity):
                         data["candidate_multiplicity"].append(
-                            {"year": year, "family": family, "baseline": baseline, "multiplicity": code, "raw_events": value}
+                            {
+                                "year": year,
+                                "family": family,
+                                "baseline": baseline,
+                                "multiplicity": code,
+                                "raw_events": value,
+                            }
                         )
-                selected_mx = reader.aggregate(year, baseline, "selected_mx", samples, (6, 100))
-                if selected_mx:
+                selected_x_mass = reader.aggregate(
+                    year, baseline, "selected_x_mass", samples, (6, 100)
+                )
+                if selected_x_mass:
                     for algorithm, algorithm_name in ALGORITHMS.items():
                         for axis_bin in range(100):
                             data["selected_mx"].append(
                                 {
-                                    "year": year, "family": family, "baseline": baseline,
-                                    "algorithm": algorithm_name, "algorithm_code": algorithm,
-                                    "x_low": axis_bin * 2.0, "x_high": (axis_bin + 1) * 2.0,
-                                    "signed_yield": _cell(selected_mx, (6, 100), algorithm, axis_bin),
+                                    "year": year,
+                                    "family": family,
+                                    "baseline": baseline,
+                                    "algorithm": algorithm_name,
+                                    "algorithm_code": algorithm,
+                                    "x_low": axis_bin * 2.0,
+                                    "x_high": (axis_bin + 1) * 2.0,
+                                    "signed_yield": _cell(
+                                        selected_x_mass, (6, 100), algorithm, axis_bin
+                                    ),
                                 }
                             )
-                response = reader.aggregate(year, baseline, f"{family.lower()}_ptz_response", samples, (6, 80, 4))
+                response = reader.aggregate(
+                    year,
+                    baseline,
+                    f"{family.lower()}_z_pt_response",
+                    samples,
+                    (6, 80, 4),
+                )
                 if response:
                     for algorithm, algorithm_name in ALGORITHMS.items():
                         for axis_bin in range(80):
-                            for correct_index, correctness in ((2, "wrong"), (3, "correct")):
+                            for correct_index, correctness in (
+                                (2, "wrong"),
+                                (3, "correct"),
+                            ):
                                 data["ptz_response"].append(
                                     {
-                                        "year": year, "family": family, "baseline": baseline,
-                                        "algorithm": algorithm_name, "algorithm_code": algorithm,
+                                        "year": year,
+                                        "family": family,
+                                        "baseline": baseline,
+                                        "algorithm": algorithm_name,
+                                        "algorithm_code": algorithm,
                                         "correctness": correctness,
                                         "x_low": -2.0 + axis_bin * 0.05,
                                         "x_high": -2.0 + (axis_bin + 1) * 0.05,
-                                        "signed_yield": _cell(response, (6, 80, 4), algorithm, axis_bin, correct_index),
+                                        "signed_yield": _cell(
+                                            response,
+                                            (6, 80, 4),
+                                            algorithm,
+                                            axis_bin,
+                                            correct_index,
+                                        ),
                                     }
                                 )
     return data
@@ -1098,20 +1252,29 @@ def _parser():
         description="Summarize merged ZH/ZZ PairingStudy ROOT files without mixing truth domains."
     )
     parser.add_argument(
-        "inputs", nargs="*", metavar="ERA=ROOT",
+        "inputs",
+        nargs="*",
+        metavar="ERA=ROOT",
         help="explicit merged input; may be repeated (also accepted via --input)",
     )
-    parser.add_argument("-i", "--input", action="append", default=[], metavar="ERA=ROOT")
     parser.add_argument(
-        "--input-root", default=os.environ.get("PAIRING_OUTPUT_ROOT"),
+        "-i", "--input", action="append", default=[], metavar="ERA=ROOT"
+    )
+    parser.add_argument(
+        "--input-root",
+        default=os.environ.get("PAIRING_OUTPUT_ROOT"),
         help="campaign directory to auto-discover when no ERA=ROOT is supplied",
     )
     parser.add_argument("-o", "--output-dir", default=str(HERE / "summary"))
     parser.add_argument(
-        "--baseline", action="append", choices=BASELINES,
+        "--baseline",
+        action="append",
+        choices=BASELINES,
         help="baseline to summarize; repeatable (default: both)",
     )
-    parser.add_argument("--strict", action="store_true", help="fail on every missing optional histogram")
+    parser.add_argument(
+        "--strict", action="store_true", help="fail on every missing optional histogram"
+    )
     return parser
 
 
@@ -1139,9 +1302,15 @@ def main(argv=None):
 
     reader = RootReader(inputs, warnings, strict=args.strict)
     try:
-        zh_rows = _efficiency_rows(reader, inputs, inventories, "ZH", baselines, warnings)
-        zz_rows = _efficiency_rows(reader, inputs, inventories, "ZZ", baselines, warnings)
-        agreement, migrations = _aggregate_metric_rows(reader, inputs, inventories, baselines)
+        zh_rows = _efficiency_rows(
+            reader, inputs, inventories, "ZH", baselines, warnings
+        )
+        zz_rows = _efficiency_rows(
+            reader, inputs, inventories, "ZZ", baselines, warnings
+        )
+        agreement, migrations = _aggregate_metric_rows(
+            reader, inputs, inventories, baselines
+        )
         truth = _truth_diagnostics(reader, inputs, inventories, baselines)
         x_ranking = _x_ranking(reader, inputs, inventories, baselines)
         plot_data = _plot_data(reader, inputs, inventories, baselines)
@@ -1153,16 +1322,37 @@ def main(argv=None):
         "years_present": list(inputs),
         "complete_run3": tuple(inputs) == tuple(SUPPORTED_ERAS),
         "all_run3_aggregation": "sum numerators and denominators, then divide",
-        "correctness_axis": {"-2": "algorithm unavailable", "-1": "truth unavailable", "0": "wrong", "1": "correct"},
+        "correctness_axis": {
+            "-2": "algorithm unavailable",
+            "-1": "truth unavailable",
+            "0": "wrong",
+            "1": "correct",
+        },
         "baselines": list(baselines),
     }
     _write_csv(output / "zh_pairing_efficiency.csv", zh_rows)
-    _write_json(output / "zh_pairing_efficiency.json", {**common_metadata, "truth_contract": "unique associated-Z label correctness", "rows": zh_rows})
+    _write_json(
+        output / "zh_pairing_efficiency.json",
+        {
+            **common_metadata,
+            "truth_contract": "unique associated-Z label correctness",
+            "rows": zh_rows,
+        },
+    )
     _write_csv(output / "zz_partition_efficiency.csv", zz_rows)
-    _write_json(output / "zz_partition_efficiency.json", {**common_metadata, "truth_contract": "label-invariant two-boson partition fidelity", "rows": zz_rows})
+    _write_json(
+        output / "zz_partition_efficiency.json",
+        {
+            **common_metadata,
+            "truth_contract": "label-invariant two-boson partition fidelity",
+            "rows": zz_rows,
+        },
+    )
     _write_csv(output / "algorithm_agreement.csv", agreement)
     _write_csv(output / "migration_matrix.csv", migrations)
-    _write_json(output / "truth_matching_diagnostics.json", {**common_metadata, **truth})
+    _write_json(
+        output / "truth_matching_diagnostics.json", {**common_metadata, **truth}
+    )
     _write_json(output / "x_ranking_redundancy.json", {**common_metadata, **x_ranking})
     _write_json(output / "plot_data.json", {**common_metadata, **plot_data})
     _write_json(
@@ -1172,23 +1362,31 @@ def main(argv=None):
             "inputs": inputs,
             "warnings": sorted(set(warnings)),
             "products": [
-                "sample_inventory.json", "zh_pairing_efficiency.csv", "zh_pairing_efficiency.json",
-                "zz_partition_efficiency.csv", "zz_partition_efficiency.json",
-                "algorithm_agreement.csv", "migration_matrix.csv",
-                "truth_matching_diagnostics.json", "x_ranking_redundancy.json", "plot_data.json",
+                "sample_inventory.json",
+                "zh_pairing_efficiency.csv",
+                "zh_pairing_efficiency.json",
+                "zz_partition_efficiency.csv",
+                "zz_partition_efficiency.json",
+                "algorithm_agreement.csv",
+                "migration_matrix.csv",
+                "truth_matching_diagnostics.json",
+                "x_ranking_redundancy.json",
+                "plot_data.json",
             ],
-                "weight_availability": {
-                    "efficiency": ["raw", "signed", "absolute"],
-                    "event_level_gain_loss": ["raw", "signed", "absolute"],
-                    "candidate_migration_and_agreement": ["raw"],
-                    "region_migration": ["raw", "signed", "absolute"],
+            "weight_availability": {
+                "efficiency": ["raw", "signed", "absolute"],
+                "event_level_gain_loss": ["raw", "signed", "absolute"],
+                "candidate_migration_and_agreement": ["raw"],
+                "region_migration": ["raw", "signed", "absolute"],
                 "truth_and_x_ranking": ["raw"],
             },
         },
     )
     print(f"Wrote PairingStudy summaries to {output}")
     if warnings:
-        print(f"Recorded {len(set(warnings))} non-fatal warning(s) in summary_manifest.json")
+        print(
+            f"Recorded {len(set(warnings))} non-fatal warning(s) in summary_manifest.json"
+        )
     return 0
 
 

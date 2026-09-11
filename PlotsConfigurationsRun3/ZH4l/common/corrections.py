@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+from .runtime import common_import_statement
 
 from .eras import (
     resolve_btag_efficiency_map,
@@ -12,7 +13,14 @@ from .eras import (
 
 
 PUBLIC_CORRECTION_ALIASES = frozenset(
-    {"LepSF_Z", "LepSF_ZX", "TriggerSF_Z", "TriggerSF_ZX", "bVeto", "bVetoSF"}
+    {
+        "sf_lepton_z",
+        "sf_lepton_zx",
+        "sf_trigger_z",
+        "sf_trigger_zx",
+        "event_pass_b_veto",
+        "sf_b_veto",
+    }
 )
 
 
@@ -28,9 +36,13 @@ def _bool_env(name, default=True):
     raise ValueError(f"{name} must be boolean, received {value!r}")
 
 
-def build_correction_aliases(era_cfg, family_dir, samples, selected_wps, *, systematics=True):
+def build_correction_aliases(
+    era_cfg, family_dir, samples, selected_wps, *, systematics=True
+):
     family_dir = Path(family_dir).resolve()
-    data_samples = [name for name, cfg in samples.items() if "isData" in cfg]
+    data_samples = [
+        name for name, cfg in samples.items() if bool(cfg.get("isData", False))
+    ]
     mc_samples = [name for name in samples if name not in data_samples]
     objects_include = [f'#include "{family_dir / "common/macros/objects.cc"}"']
     aliases = {"genWeight": {"expr": "0.f", "samples": data_samples}}
@@ -46,66 +58,107 @@ def build_correction_aliases(era_cfg, family_dir, samples, selected_wps, *, syst
 
     aliases.update(
         {
-            "LepSF_Z": {"expr": f"FourLepton::selectedLeptonSFProduct(Lepton_pdgId,Z_idx,{ele},{mu},0)"},
-            "LepSF_Z_Up": {"expr": f"FourLepton::selectedLeptonSFProduct(Lepton_pdgId,Z_idx,{ele}_Up,{mu},0)"},
-            "LepSF_Z_Down": {"expr": f"FourLepton::selectedLeptonSFProduct(Lepton_pdgId,Z_idx,{ele}_Down,{mu},0)"},
-            "LepSF_ZX": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele},{mu})"},
-            "LepSF_ZX_Up": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele}_Up,{mu})"},
-            "LepSF_ZX_Down": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele}_Down,{mu})"},
-            "LepSF_ZX_EleUp": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele}_Up,{mu})"},
-            "LepSF_ZX_EleDown": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele}_Down,{mu})"},
-            "LepSF_ZX_MuUp": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele},{mu}_Up)"},
-            "LepSF_ZX_MuDown": {"expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx,{ele},{mu}_Down)"},
+            "sf_lepton_z": {
+                "expr": f"FourLepton::selectedLeptonSFProduct(Lepton_pdgId,z_lepton_index,{ele},{mu},0)"
+            },
+            "sf_lepton_z_up": {
+                "expr": f"FourLepton::selectedLeptonSFProduct(Lepton_pdgId,z_lepton_index,{ele}_Up,{mu},0)"
+            },
+            "sf_lepton_z_down": {
+                "expr": f"FourLepton::selectedLeptonSFProduct(Lepton_pdgId,z_lepton_index,{ele}_Down,{mu},0)"
+            },
+            "sf_lepton_zx": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele},{mu})"
+            },
+            "sf_lepton_zx_up": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele}_Up,{mu})"
+            },
+            "sf_lepton_zx_down": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele}_Down,{mu})"
+            },
+            "sf_lepton_zx_electron_up": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele}_Up,{mu})"
+            },
+            "sf_lepton_zx_electron_down": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele}_Down,{mu})"
+            },
+            "sf_lepton_zx_muon_up": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele},{mu}_Up)"
+            },
+            "sf_lepton_zx_muon_down": {
+                "expr": f"FourLepton::selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index,{ele},{mu}_Down)"
+            },
         }
     )
 
     trigger_era = era_cfg["l2tight_era"]
     common_dir = family_dir / "common"
     declare = (
-        "import sys; "
-        f"sys.path.insert(0, {str(family_dir)!r}) if {str(family_dir)!r} not in sys.path else None; "
-        "from common.selected_trigger_adapter import declare_canonical_trigger; "
+        common_import_statement(common_dir)
+        + "from common.selected_trigger_adapter import declare_canonical_trigger; "
         f"declare_canonical_trigger({trigger_era!r})"
     )
-    aliases["ZH4l_triggerDeclared"] = {"linesToProcess": [declare], "expr": "1.f"}
+    aliases["zh4l_internal_trigger_declared"] = {
+        "linesToProcess": [declare],
+        "expr": "1.f",
+    }
     trigger_include = [f'#include "{family_dir / "common/macros/trigger.cc"}"']
-    args = "ZH4l_prodPt,Lepton_eta,Lepton_phi,ZH4l_prodPdgId"
-    aliases["ZH4l_triggerResultZ"] = {
+    args = "zh4l_internal_production_lepton_pt,Lepton_eta,Lepton_phi,zh4l_internal_production_lepton_pdg_id"
+    aliases["zh4l_internal_trigger_z_result"] = {
         "linesToAdd": trigger_include,
-        "expr": f"SelectedTrigger::selectedPairResult({args},Z_idx,PV_npvsGood,static_cast<int>(run_period))",
+        "expr": f"SelectedTrigger::selectedPairResult({args},z_lepton_index,PV_npvsGood,static_cast<int>(run_period))",
     }
-    aliases["ZH4l_triggerResultZX"] = {
-        "expr": f"SelectedTrigger::selectedFourResult({args},Z_idx,X_idx,PV_npvsGood,static_cast<int>(run_period))"
+    aliases["zh4l_internal_trigger_zx_result"] = {
+        "expr": f"SelectedTrigger::selectedFourResult({args},z_lepton_index,x_lepton_index,PV_npvsGood,static_cast<int>(run_period))"
     }
-    for domain, result in (("Z", "ZH4l_triggerResultZ"), ("ZX", "ZH4l_triggerResultZX")):
-        aliases[f"TriggerSF_{domain}"] = {"expr": f"genWeight == 0.f ? 1.f : SelectedTrigger::at({result},4)"}
-        aliases[f"TriggerSF_{domain}_Down"] = {"expr": f"genWeight == 0.f ? 1.f : SelectedTrigger::at({result},5)"}
-        aliases[f"TriggerSF_{domain}_Up"] = {"expr": f"genWeight == 0.f ? 1.f : SelectedTrigger::at({result},6)"}
+    for domain, result in (
+        ("z", "zh4l_internal_trigger_z_result"),
+        ("zx", "zh4l_internal_trigger_zx_result"),
+    ):
+        aliases[f"sf_trigger_{domain}"] = {
+            "expr": f"genWeight == 0.f ? 1.f : SelectedTrigger::at({result},4)"
+        }
+        aliases[f"sf_trigger_{domain}_down"] = {
+            "expr": f"genWeight == 0.f ? 1.f : SelectedTrigger::at({result},5)"
+        }
+        aliases[f"sf_trigger_{domain}_up"] = {
+            "expr": f"genWeight == 0.f ? 1.f : SelectedTrigger::at({result},6)"
+        }
 
     bcfg = era_cfg["btag"]
-    wp = resolve_btag_working_point(bcfg["correction_file"], bcfg["correction_prefix"], "L")
+    wp = resolve_btag_working_point(
+        bcfg["correction_file"], bcfg["correction_prefix"], "L"
+    )
     if abs(wp - float(bcfg["veto_wp"])) > 5.0e-5:
         raise RuntimeError("Configured and official BTV loose working points disagree")
     binclude = [f'#include "{family_dir / "common/macros/btag.cc"}"']
     jet_tag = f"Jet_{bcfg['algo']}"
-    aliases["bVeto"] = {
+    aliases["event_pass_b_veto"] = {
         "linesToAdd": binclude,
         "expr": f"FixedWPBTag::veto(CleanJet_pt,CleanJet_eta,CleanJet_jetIdx,{jet_tag},{wp},20.f)",
     }
-    aliases["bVeto30"] = {
+    aliases["event_pass_b_veto_pt30"] = {
         "expr": f"FixedWPBTag::veto(CleanJet_pt,CleanJet_eta,CleanJet_jetIdx,{jet_tag},{wp},30.f)"
     }
     aliases["Jet_hadronFlavour"] = {
-        "expr": "ROOT::VecOps::RVec<int>(Jet_pt.size(),0)", "samples": data_samples
+        "expr": "ROOT::VecOps::RVec<int>(Jet_pt.size(),0)",
+        "samples": data_samples,
     }
     efficiency = resolve_btag_efficiency_map(bcfg["efficiency_map"])
     payload = resolve_btag_sf_payload(bcfg["correction_file"])
     shifts = ["central"]
     if systematics and _bool_env("ENABLE_SYSTEMATICS", True):
-        shifts += ["up_correlated", "down_correlated", "up_uncorrelated", "down_uncorrelated"]
+        shifts += [
+            "up_correlated",
+            "down_correlated",
+            "up_uncorrelated",
+            "down_uncorrelated",
+        ]
     for flavor, group in (("bc", 1), ("light", 0)):
         for shift in shifts:
-            name = f"ZH4l_btagSF{flavor}" + ("" if shift == "central" else f"_{shift}")
+            name = f"zh4l_internal_sf_btag_{flavor}" + (
+                "" if shift == "central" else f"_{shift}"
+            )
             expr = (
                 "FixedWPBTag::eventSF(CleanJet_pt,CleanJet_eta,CleanJet_jetIdx,"
                 f"Jet_hadronFlavour,{jet_tag},{json.dumps(efficiency)},{json.dumps(payload)},"
@@ -114,5 +167,18 @@ def build_correction_aliases(era_cfg, family_dir, samples, selected_wps, *, syst
             aliases[name] = {"expr": f"genWeight == 0.f ? 1.f : {expr}"}
             if shift != "central":
                 aliases[name]["samples"] = mc_samples
-    aliases["bVetoSF"] = {"expr": "ZH4l_btagSFbc*ZH4l_btagSFlight"}
+    aliases["sf_b_veto"] = {
+        "expr": "zh4l_internal_sf_btag_bc*zh4l_internal_sf_btag_light"
+    }
+    if not systematics:
+        for definition in aliases.values():
+            prefix = "genWeight == 0.f ? 1.f : "
+            if definition.get("expr", "").startswith(prefix):
+                definition["expr"] = definition["expr"][len(prefix) :]
+                definition["dataExpr"] = "1.f"
+        aliases = {
+            name: definition
+            for name, definition in aliases.items()
+            if not name.endswith(("_Up", "_Down", "_up", "_down"))
+        }
     return aliases

@@ -15,13 +15,13 @@ FORBIDDEN_NATIVE_COLLISIONS = frozenset(
     {"mll", "TriggerSFWeight_2l", "TriggerSFWeight_4l"}
 )
 
-# The common implementation deliberately supplies the standard physical loose
-# 20-GeV veto semantics.  This is an identical-semantic reuse, not an overload.
-INTENTIONAL_IDENTICAL_REUSE = frozenset({"bVeto"})
+# Derived public names now have their own vocabulary; upstream spellings are
+# retained only for literal branch adapters, never repurposed physics aliases.
+INTENTIONAL_IDENTICAL_REUSE = frozenset()
 
 
 def classify_alias(name):
-    if name.startswith("ZH4l_"):
+    if name.startswith("zh4l_internal_"):
         return "family-private"
     if name in FORBIDDEN_NATIVE_COLLISIONS:
         return "collision/error"

@@ -5,7 +5,9 @@ def _one_event(ROOT, definitions, results):
     for name, expression in results.items():
         frame = frame.Define(name, expression)
     return {
-        name: frame.Take["bool" if name.startswith("pass") else "float"](name).GetValue()[0]
+        name: frame.Take["bool" if name.startswith("pass") else "float"](
+            name
+        ).GetValue()[0]
         for name in results
     }
 
@@ -19,7 +21,10 @@ def test_zx_candidate_and_boundary_semantics(ROOT):
             ("phi", "ROOT::RVecF{0.f,3.14159265f,0.5f,2.5f,1.f}"),
             ("pdg", "ROOT::RVecI{-11,11,-13,13,11}"),
             ("tight", "ROOT::RVecB{true,true,true,true,false}"),
-            ("z", "FourLepton::bestZ0IdxWithID(pt,eta,phi,pdg,tight,tight,2,25.f,10.f)"),
+            (
+                "z",
+                "FourLepton::bestZ0IdxWithID(pt,eta,phi,pdg,tight,tight,2,25.f,10.f)",
+            ),
             ("x", "FourLepton::xPairIdxWithID(z,pt,pdg,tight,tight,2,10.f,10.f)"),
         ),
         {
@@ -61,7 +66,9 @@ def test_selected_correction_domains_are_explicit_in_alias_sources():
     from common.corrections import build_correction_aliases
 
     source = __import__("inspect").getsource(build_correction_aliases)
-    assert "selectedLeptonSFProduct(Lepton_pdgId,Z_idx" in source
-    assert "selectedLeptonSFProduct4(Lepton_pdgId,Z_idx,X_idx" in source
+    assert "selectedLeptonSFProduct(Lepton_pdgId,z_lepton_index" in source
+    assert (
+        "selectedLeptonSFProduct4(Lepton_pdgId,z_lepton_index,x_lepton_index" in source
+    )
     assert "selectedPairResult" in source and "selectedFourResult" in source
-    assert 'aliases["bVeto"]' in source and ",20.f)" in source
+    assert 'aliases["event_pass_b_veto"]' in source and ",20.f)" in source

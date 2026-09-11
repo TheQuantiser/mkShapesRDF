@@ -19,7 +19,7 @@ def _config_dir():
         path = Path(candidate).resolve()
         if (path / "pairing_config.py").exists() or path.name == "Pairing":
             return path
-    raise RuntimeError("Cannot resolve Pairing configuration directory")
+    raise RuntimeError("Cannot resolve pairing configuration directory")
 
 
 CONFIG_DIR = _config_dir()
@@ -32,7 +32,7 @@ _ELECTRON_WP = _SELECTED_WPS["electron_wp"]
 _MUON_WP = _SELECTED_WPS["muon_wp"]
 _MACRO = CONFIG_DIR / "macros" / "pairing.cc"
 
-aliases["PairingTightMask"] = {
+aliases["zh4l_internal_pairing_tight_mask"] = {
     "linesToAdd": [f'#include "{_MACRO}"'],
     "expr": (
         "PairingStudy::combineTightMask("
@@ -42,10 +42,10 @@ aliases["PairingTightMask"] = {
     ),
 }
 
-aliases["PairingEvent"] = {
+aliases["zh4l_internal_pairing_result"] = {
     "expr": (
         "PairingStudy::analyzeEvent("
-        "Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, PairingTightMask, "
+        "Lepton_pt, Lepton_eta, Lepton_phi, Lepton_pdgId, zh4l_internal_pairing_tight_mask, "
         "VetoLepton_pt, VetoLepton_eta, VetoLepton_phi, VetoLepton_pdgId, "
         "VetoLepton_electronIdx, VetoLepton_muonIdx, "
         "Electron_pt, Electron_eta, Electron_energyErr, "
@@ -59,105 +59,113 @@ aliases["PairingEvent"] = {
 }
 
 _scalar_fields = {
-    "PairingObjectBase": "PairingEvent.objectBase",
-    "PairingPhysBase": "PairingEvent.physBase",
-    "PairingQuartetValid": "PairingEvent.quartetValid",
-    "PairingSourceAlignmentValid": "PairingEvent.sourceAlignmentValid",
-    "PairingSourceAlignmentFailure": "PairingEvent.sourceAlignmentFailure",
-    "PairingResolutionScoresValid": "PairingEvent.resolutionScoresValid",
-    "PairingFSRScoresValid": "PairingEvent.fsrScoresValid",
-    "PairingXComplementIdentical": "PairingEvent.xComplementIdentical",
-    "PairingXDifferenceReason": "PairingEvent.xDifferenceReason",
-    "QuartetTopology": "PairingEvent.topology",
-    "PairingCandidateMultiplicity": "PairingEvent.nValidCandidates",
-    "PairingDistinctPartitions": "PairingEvent.nDistinctPartitions",
-    "PairingMinPairMass": "PairingEvent.minPairMass",
-    "PairingM4l": "PairingEvent.m4l",
-    "ZHTruthStatus": "PairingEvent.zhTruth.status",
-    "ZZTruthStatus": "PairingEvent.zzTruth.status",
-    "ZHTruthPtZ": "PairingEvent.zhTruth.referencePt",
-    "ZZTruthPtZ": "PairingEvent.zzTruth.referencePt",
-    "ZHTruthRecoverable": "PairingEvent.zhTruth.recoverable",
-    "ZZTruthRecoverable": "PairingEvent.zzTruth.partitionValid",
-    "ZHTruthDirect": "PairingEvent.zhTruth.direct",
-    "ZZTruthDirect": "PairingEvent.zzTruth.direct",
-    "ZHHWWComplementValid": "PairingEvent.zhTruth.hwwComplementValid",
-    "ZZTruthIdenticalFlavorConvention": "PairingEvent.zzTruth.identicalFlavorConvention",
-    "ZZTruthRecordAmbiguous": "PairingEvent.zzTruth.recordAmbiguous",
+    "pairing_pass_object_base": "zh4l_internal_pairing_result.objectBase",
+    "pairing_pass_physics_base": "zh4l_internal_pairing_result.physBase",
+    "pairing_quartet_is_valid": "zh4l_internal_pairing_result.quartetValid",
+    "pairing_source_alignment_is_valid": "zh4l_internal_pairing_result.sourceAlignmentValid",
+    "pairing_source_alignment_failure": "zh4l_internal_pairing_result.sourceAlignmentFailure",
+    "pairing_resolution_scores_are_valid": "zh4l_internal_pairing_result.resolutionScoresValid",
+    "pairing_fsr_scores_are_valid": "zh4l_internal_pairing_result.fsrScoresValid",
+    "pairing_x_complement_is_identical": "zh4l_internal_pairing_result.xComplementIdentical",
+    "pairing_x_difference_reason": "zh4l_internal_pairing_result.xDifferenceReason",
+    "pairing_quartet_topology": "zh4l_internal_pairing_result.topology",
+    "pairing_candidate_multiplicity": "zh4l_internal_pairing_result.nValidCandidates",
+    "pairing_distinct_partitions": "zh4l_internal_pairing_result.nDistinctPartitions",
+    "pairing_quartet_min_pair_mass": "zh4l_internal_pairing_result.minPairMass",
+    "pairing_quartet_mass": "zh4l_internal_pairing_result.m4l",
+    "zh_truth_status": "zh4l_internal_pairing_result.zhTruth.status",
+    "zz_truth_status": "zh4l_internal_pairing_result.zzTruth.status",
+    "zh_truth_z_pt": "zh4l_internal_pairing_result.zhTruth.referencePt",
+    "zz_truth_z_pt": "zh4l_internal_pairing_result.zzTruth.referencePt",
+    "zh_truth_is_recoverable": "zh4l_internal_pairing_result.zhTruth.recoverable",
+    "zz_truth_is_recoverable": "zh4l_internal_pairing_result.zzTruth.partitionValid",
+    "zh_truth_is_direct": "zh4l_internal_pairing_result.zhTruth.direct",
+    "zz_truth_is_direct": "zh4l_internal_pairing_result.zzTruth.direct",
+    "zh_hww_complement_is_valid": "zh4l_internal_pairing_result.zhTruth.hwwComplementValid",
+    "zz_truth_identical_flavor_convention": "zh4l_internal_pairing_result.zzTruth.identicalFlavorConvention",
+    "zz_truth_record_is_ambiguous": "zh4l_internal_pairing_result.zzTruth.recordAmbiguous",
 }
 for name, expression in _scalar_fields.items():
     aliases[name] = {"expr": expression}
 
 aliases.update(
     {
-        "AlgorithmAxis": {"expr": "PairingStudy::algorithmAxis()"},
-        "QuartetTopologyAxis": {
-            "expr": "PairingStudy::constantWeights(static_cast<float>(QuartetTopology))"
+        "algorithm_axis": {"expr": "PairingStudy::algorithmAxis()"},
+        "quartet_topology_axis": {
+            "expr": "PairingStudy::constantWeights(static_cast<float>(pairing_quartet_topology))"
         },
-        "AlgorithmValidAxis": {
-            "expr": "PairingStudy::intToFloat(PairingEvent.algorithmValid)"
+        "algorithm_valid_axis": {
+            "expr": "PairingStudy::intToFloat(zh4l_internal_pairing_result.algorithmValid)"
         },
-        "ZHCorrectAxis": {
-            "expr": "PairingStudy::correctnessAxis(PairingEvent, true)"
+        "zh_correct_axis": {
+            "expr": "PairingStudy::correctnessAxis(zh4l_internal_pairing_result, true)"
         },
-        "ZZCorrectAxis": {
-            "expr": "PairingStudy::correctnessAxis(PairingEvent, false)"
+        "zz_correct_axis": {
+            "expr": "PairingStudy::correctnessAxis(zh4l_internal_pairing_result, false)"
         },
-        "ZHGainLossAxis": {
-            "expr": "PairingStudy::gainLossAxis(PairingEvent, true)"
+        "zh_gain_loss_axis": {
+            "expr": "PairingStudy::gainLossAxis(zh4l_internal_pairing_result, true)"
         },
-        "ZZGainLossAxis": {
-            "expr": "PairingStudy::gainLossAxis(PairingEvent, false)"
+        "zz_gain_loss_axis": {
+            "expr": "PairingStudy::gainLossAxis(zh4l_internal_pairing_result, false)"
         },
-        "PairingSelectedCandidateAxis": {
-            "expr": "PairingStudy::intToFloat(PairingEvent.selectedCandidate)"
+        "pairing_selected_candidate_axis": {
+            "expr": "PairingStudy::intToFloat(zh4l_internal_pairing_result.selectedCandidate)"
         },
-        "PairingSelectedZFlavorAxis": {
-            "expr": "PairingStudy::intToFloat(PairingEvent.selectedZFlavor)"
+        "pairing_selected_z_flavor_axis": {
+            "expr": "PairingStudy::intToFloat(zh4l_internal_pairing_result.selectedZFlavor)"
         },
-        "PairingBestScoreAxis": {"expr": "PairingEvent.selectedScore"},
-        "PairingSecondScoreAxis": {"expr": "PairingEvent.secondScore"},
-        "PairingMZAxis": {"expr": "PairingEvent.selectedMZ"},
-        "PairingMXAxis": {"expr": "PairingEvent.selectedMX"},
-        "PairingPtZAxis": {"expr": "PairingEvent.selectedPtZ"},
-        "PairingPtXAxis": {"expr": "PairingEvent.selectedPtX"},
-        "PairingDrZAxis": {"expr": "PairingEvent.selectedDrZ"},
-        "PairingDrXAxis": {"expr": "PairingEvent.selectedDrX"},
-        "PairingScoreGapAxis": {"expr": "PairingEvent.scoreGap"},
-        "PairingRegionAxis": {
-            "expr": "PairingStudy::intToFloat(PairingEvent.region)"
+        "pairing_best_score_axis": {
+            "expr": "zh4l_internal_pairing_result.selectedScore"
         },
-        "PairingXFlavorAxis": {
-            "expr": "PairingStudy::intToFloat(PairingEvent.selectedXFlavor)"
+        "pairing_second_score_axis": {
+            "expr": "zh4l_internal_pairing_result.secondScore"
         },
-        "ZHTruthPtZAxis": {"expr": "PairingStudy::truthPtAxis(PairingEvent, true)"},
-        "ZZTruthPtZAxis": {"expr": "PairingStudy::truthPtAxis(PairingEvent, false)"},
-        "ZHPtZResponseAxis": {
-            "expr": "PairingStudy::responsePtZ(PairingEvent, true)"
+        "pairing_z_mass_axis": {"expr": "zh4l_internal_pairing_result.selectedMZ"},
+        "pairing_x_mass_axis": {"expr": "zh4l_internal_pairing_result.selectedMX"},
+        "pairing_z_pt_axis": {"expr": "zh4l_internal_pairing_result.selectedPtZ"},
+        "pairing_x_pt_axis": {"expr": "zh4l_internal_pairing_result.selectedPtX"},
+        "pairing_z_delta_r_axis": {"expr": "zh4l_internal_pairing_result.selectedDrZ"},
+        "pairing_x_delta_r_axis": {"expr": "zh4l_internal_pairing_result.selectedDrX"},
+        "pairing_score_gap_axis": {"expr": "zh4l_internal_pairing_result.scoreGap"},
+        "pairing_region_axis": {
+            "expr": "PairingStudy::intToFloat(zh4l_internal_pairing_result.region)"
         },
-        "ZZPtZResponseAxis": {
-            "expr": "PairingStudy::responsePtZ(PairingEvent, false)"
+        "pairing_x_flavor_axis": {
+            "expr": "PairingStudy::intToFloat(zh4l_internal_pairing_result.selectedXFlavor)"
         },
-        "ZHTruthStatusAxis": {
-            "expr": "PairingStudy::constantWeights(static_cast<float>(ZHTruthStatus))"
+        "zh_truth_z_pt_axis": {
+            "expr": "PairingStudy::truthPtAxis(zh4l_internal_pairing_result, true)"
         },
-        "ZZTruthStatusAxis": {
-            "expr": "PairingStudy::constantWeights(static_cast<float>(ZZTruthStatus))"
+        "zz_truth_z_pt_axis": {
+            "expr": "PairingStudy::truthPtAxis(zh4l_internal_pairing_result, false)"
         },
-        "BaselineCandidateAxis": {
-            "expr": "PairingStudy::constantWeights(static_cast<float>(PairingEvent.selectedCandidate[0]))"
+        "zh_z_pt_response_axis": {
+            "expr": "PairingStudy::responsePtZ(zh4l_internal_pairing_result, true)"
         },
-        "BaselineRegionAxis": {
-            "expr": "PairingStudy::constantWeights(static_cast<float>(PairingEvent.region[0]))"
+        "zz_z_pt_response_axis": {
+            "expr": "PairingStudy::responsePtZ(zh4l_internal_pairing_result, false)"
         },
-        "BaselineXFlavorAxis": {
-            "expr": "PairingStudy::constantWeights(static_cast<float>(PairingEvent.selectedXFlavor[0]))"
+        "zh_truth_status_axis": {
+            "expr": "PairingStudy::constantWeights(static_cast<float>(zh_truth_status))"
+        },
+        "zz_truth_status_axis": {
+            "expr": "PairingStudy::constantWeights(static_cast<float>(zz_truth_status))"
+        },
+        "baseline_candidate_axis": {
+            "expr": "PairingStudy::constantWeights(static_cast<float>(zh4l_internal_pairing_result.selectedCandidate[0]))"
+        },
+        "baseline_region_axis": {
+            "expr": "PairingStudy::constantWeights(static_cast<float>(zh4l_internal_pairing_result.region[0]))"
+        },
+        "baseline_x_flavor_axis": {
+            "expr": "PairingStudy::constantWeights(static_cast<float>(zh4l_internal_pairing_result.selectedXFlavor[0]))"
         },
     }
 )
 
-aliases["StudyRawWeight"] = {"expr": "1.f", "afterNuis": True}
-aliases["StudySignedWeight"] = {
+aliases["weight_raw"] = {"expr": "1.f", "afterNuis": True}
+aliases["weight_nominal"] = {
     # `weight` carries luminosity, component source normalization, and any
     # configured component factor.  XS/PU are explicit here so the core
     # nonzero-weight prefilter cannot erase literal raw events.
@@ -167,23 +175,23 @@ aliases["StudySignedWeight"] = {
     ),
     "afterNuis": True,
 }
-aliases["StudyAbsWeight"] = {
-    "expr": "abs(StudySignedWeight)",
+aliases["weight_abs_nominal"] = {
+    "expr": "abs(weight_nominal)",
     "afterNuis": True,
 }
-aliases["StudyRawWeightVec"] = {
+aliases["pairing_weight_raw"] = {
     "expr": "PairingStudy::constantWeights(1.f)",
     "afterNuis": True,
 }
-aliases["StudySignedWeightVec"] = {
-    "expr": "PairingStudy::constantWeights(StudySignedWeight)",
+aliases["pairing_weight_nominal"] = {
+    "expr": "PairingStudy::constantWeights(weight_nominal)",
     "afterNuis": True,
 }
-aliases["StudyAbsWeightVec"] = {
-    "expr": "PairingStudy::constantWeights(StudyAbsWeight)",
+aliases["pairing_weight_abs_nominal"] = {
+    "expr": "PairingStudy::constantWeights(weight_abs_nominal)",
     "afterNuis": True,
 }
-aliases["StudyWeightSign"] = {
-    "expr": "StudySignedWeight < 0.f ? -1.f : (StudySignedWeight > 0.f ? 1.f : 0.f)",
+aliases["event_weight_sign"] = {
+    "expr": "weight_nominal < 0.f ? -1.f : (weight_nominal > 0.f ? 1.f : 0.f)",
     "afterNuis": True,
 }

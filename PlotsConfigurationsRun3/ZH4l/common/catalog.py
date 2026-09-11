@@ -8,6 +8,7 @@ import os
 
 from mkShapesRDF.lib.remote_io import resolve_input_uri
 from mkShapesRDF.lib.search_files import SearchFiles
+from common.samples import pinned_file_list
 
 if "load_selected_era" not in globals():
     raise RuntimeError("Load ZH4l/common/eras.py before common/catalog.py")
@@ -123,12 +124,14 @@ def makeDataDirectory(dataset_name, stream_tag):
 
 
 def nanoGetSampleFiles(path, name):
-    files = searchFiles.searchFiles(
-        path,
-        name,
-        redirector=redirector,
-        read_redirector=readRedirector,
-    )
+    files = pinned_file_list(globals().get("PINNED_FILES"), name)
+    if files is None:
+        files = searchFiles.searchFiles(
+            path,
+            name,
+            redirector=redirector,
+            read_redirector=readRedirector,
+        )
 
     if not files:
         if _remote_discovery_enabled:
@@ -160,6 +163,8 @@ def nanoGetSampleFilesWithFallback(paths, name):
       - some years use <reco>_<stream>/<steps>
       - others use <reco>/<steps>
     """
+    if globals().get("PINNED_FILES") is not None:
+        return nanoGetSampleFiles(paths[0], name)
     for path in paths:
         files = searchFiles.searchFiles(
             path,

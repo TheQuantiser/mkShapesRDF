@@ -22,7 +22,9 @@ os.environ["ERA"] = ERA
 ENABLE_SYSTEMATICS = False
 HISTOGRAMS = True
 CLOSURE_PROFILE = os.environ.get("CLOSURE_PROFILE", "default").strip().lower()
-CLOSURE_SAMPLE_PROFILE = os.environ.get("CLOSURE_SAMPLE_PROFILE", "full").strip().lower()
+CLOSURE_SAMPLE_PROFILE = (
+    os.environ.get("CLOSURE_SAMPLE_PROFILE", "full").strip().lower()
+)
 if CLOSURE_PROFILE not in ("default", "focused_cross"):
     raise ValueError("CLOSURE_PROFILE must be default or focused_cross")
 if CLOSURE_SAMPLE_PROFILE not in ("major", "full"):
@@ -33,7 +35,9 @@ os.environ["SAMPLE_PROFILE"] = "presentation"
 _, ERA_CONFIG, _ = load_selected_era()
 lumi = float(ERA_CONFIG["lumi_fb"])
 
-campaign = os.environ.get("CLOSURE_CAMPAIGN", datetime.now(timezone.utc).strftime("closure_%Y%m%d_%H%M%S")).strip()
+campaign = os.environ.get(
+    "CLOSURE_CAMPAIGN", datetime.now(timezone.utc).strftime("closure_%Y%m%d_%H%M%S")
+).strip()
 if not campaign or "/" in campaign:
     raise ValueError("CLOSURE_CAMPAIGN must be a nonempty path-safe token")
 tag = f"ZH4l_Closure_{ERA}_{CLOSURE_SAMPLE_PROFILE}_{CLOSURE_PROFILE}_{campaign}"
@@ -48,15 +52,47 @@ remoteIO = remote_io_from_env()
 globals().update(batch_runtime_from_env())
 
 imports = ["os", "math", ("collections", "OrderedDict"), "ROOT"]
-filesToExec = ["samples.py", "aliases.py", "cuts.py", "variables.py", "plot.py", "nuisances.py", "structure.py"]
+filesToExec = [
+    "samples.py",
+    "aliases.py",
+    "cuts.py",
+    "variables.py",
+    "plot.py",
+    "nuisances.py",
+    "structure.py",
+]
 varsToKeep = [
-    "batchVars", "outputFolder", "batchFolder", "configsFolder", "outputFile", "runnerFile", "tag",
-    "samples", "aliases", "variables", "CATEGORY_VARIABLES", "HISTOGRAM_ACTION_COUNT", "CATEGORY_METADATA",
+    "batchVars",
+    "outputFolder",
+    "batchFolder",
+    "configsFolder",
+    "outputFile",
+    "runnerFile",
+    "tag",
+    "samples",
+    "aliases",
+    "variables",
+    "CATEGORY_VARIABLES",
+    "HISTOGRAM_ACTION_COUNT",
+    "CATEGORY_METADATA",
     ("cuts", {"cuts": "cuts", "preselections": "preselections"}),
     ("plot", {"plot": "plot", "groupPlot": "groupPlot", "legend": "legend"}),
-    "nuisances", "structure", "lumi", "mountEOS", "remoteIO", "condorRuntimePackage",
-    "condorRuntimePackageName", "condorRuntimeIncludes", "condorRuntimeSetup", "useX509Proxy", "useEOSUserOutput",
-    "CLOSURE_SAMPLE_PROFILE", "CLOSURE_SAMPLE_INVENTORY", "CLOSURE_PROFILE", "ERA",
+    "nuisances",
+    "structure",
+    "lumi",
+    "mountEOS",
+    "remoteIO",
+    "condorRuntimePackage",
+    "condorRuntimePackageName",
+    "condorRuntimeIncludes",
+    "zh4lCommonPath",
+    "condorRuntimeSetup",
+    "useX509Proxy",
+    "useEOSUserOutput",
+    "CLOSURE_SAMPLE_PROFILE",
+    "CLOSURE_SAMPLE_INVENTORY",
+    "CLOSURE_PROFILE",
+    "ERA",
 ]
-batchVars = varsToKeep[varsToKeep.index("samples"):]
+batchVars = varsToKeep[varsToKeep.index("samples") :]
 varsToKeep += ["plotPath"]

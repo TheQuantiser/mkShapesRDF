@@ -1,1 +1,1 @@
-"""Pairing test package."""
+"""pairing test package."""

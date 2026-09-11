@@ -1,9 +1,11 @@
 """Compact histogram registry for the ZH/ZZ pairing comparison."""
 
+from common.outputs import branches, with_tree_outputs
+
 variables = {}
 
 
-def _hist(name, expression, axis, weight="StudySignedWeight", fold=0):
+def _hist(name, expression, axis, weight="weight_nominal", fold=0):
     variables[name] = {
         "name": expression,
         "range": axis,
@@ -32,252 +34,275 @@ REGION = (4, -0.5, 3.5)
 XFLAVOR = (3, -0.5, 2.5)
 CANDIDATE = (8, -1.5, 6.5)
 
-for process, correct in (("zh", "ZHCorrectAxis"), ("zz", "ZZCorrectAxis")):
+for process, correct in (("zh", "zh_correct_axis"), ("zz", "zz_correct_axis")):
     for convention, weight in (
-        ("raw", "StudyRawWeightVec"),
-        ("signed", "StudySignedWeightVec"),
-        ("absolute", "StudyAbsWeightVec"),
+        ("raw", "pairing_weight_raw"),
+        ("signed", "pairing_weight_nominal"),
+        ("absolute", "pairing_weight_abs_nominal"),
     ):
         _cube(
             f"{process}_efficiency_{convention}",
-            f"AlgorithmAxis:QuartetTopologyAxis:{correct}",
+            f"algorithm_axis:quartet_topology_axis:{correct}",
             ALGO + TOPO + CORRECT,
             weight,
         )
 
-for process, outcome in (("zh", "ZHGainLossAxis"), ("zz", "ZZGainLossAxis")):
+for process, outcome in (("zh", "zh_gain_loss_axis"), ("zz", "zz_gain_loss_axis")):
     for convention, weight in (
-        ("raw", "StudyRawWeightVec"),
-        ("signed", "StudySignedWeightVec"),
-        ("absolute", "StudyAbsWeightVec"),
+        ("raw", "pairing_weight_raw"),
+        ("signed", "pairing_weight_nominal"),
+        ("absolute", "pairing_weight_abs_nominal"),
     ):
         _cube(
             f"{process}_gain_loss_{convention}",
-            f"AlgorithmAxis:{outcome}",
+            f"algorithm_axis:{outcome}",
             ALGO + GAINLOSS,
             weight,
         )
 
 _hist(
     "zh_truth_status_topology",
-    "ZHTruthStatus:QuartetTopology",
+    "zh_truth_status:pairing_quartet_topology",
     STATUS + TOPO,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "zz_truth_status_topology",
-    "ZZTruthStatus:QuartetTopology",
+    "zz_truth_status:pairing_quartet_topology",
     STATUS + TOPO,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "zh_truth_direct_topology",
-    "ZHTruthDirect:QuartetTopology",
+    "zh_truth_is_direct:pairing_quartet_topology",
     VALID + TOPO,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "zz_truth_direct_topology",
-    "ZZTruthDirect:QuartetTopology",
+    "zz_truth_is_direct:pairing_quartet_topology",
     VALID + TOPO,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "algorithm_validity",
-    "AlgorithmAxis:AlgorithmValidAxis",
+    "algorithm_axis:algorithm_valid_axis",
     ALGO + VALID,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
     "candidate_multiplicity",
-    "PairingCandidateMultiplicity",
+    "pairing_candidate_multiplicity",
     (7, -0.5, 6.5),
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "distinct_partition_multiplicity",
-    "PairingDistinctPartitions",
+    "pairing_distinct_partitions",
     (4, -0.5, 3.5),
-    "StudyRawWeight",
+    "weight_raw",
 )
-_hist("quartet_topology", "QuartetTopology", TOPO, "StudyRawWeight")
+_hist("quartet_topology", "pairing_quartet_topology", TOPO, "weight_raw")
 _hist(
     "minimum_pair_mass",
-    "PairingMinPairMass",
+    "pairing_quartet_min_pair_mass",
     (80, 0.0, 160.0),
-    "StudySignedWeight",
+    "weight_nominal",
 )
-_hist("m4l", "PairingM4l", (100, 60.0, 560.0), "StudySignedWeight")
+_hist(
+    "pairing_quartet_mass", "pairing_quartet_mass", (100, 60.0, 560.0), "weight_nominal"
+)
 _hist(
     "source_alignment_valid",
-    "PairingSourceAlignmentValid",
+    "pairing_source_alignment_is_valid",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "source_alignment_failure",
-    "PairingSourceAlignmentFailure",
+    "pairing_source_alignment_failure",
     (4, -0.5, 3.5),
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "resolution_scores_valid",
-    "PairingResolutionScoresValid",
+    "pairing_resolution_scores_are_valid",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "fsr_scores_valid",
-    "PairingFSRScoresValid",
+    "pairing_fsr_scores_are_valid",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "x_complement_identical",
-    "PairingXComplementIdentical",
+    "pairing_x_complement_is_identical",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "x_difference_reason",
-    "PairingXDifferenceReason",
+    "pairing_x_difference_reason",
     (4, -0.5, 3.5),
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "zh_hww_complement_valid",
-    "ZHHWWComplementValid",
+    "zh_hww_complement_is_valid",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "zz_identical_flavor_convention",
-    "ZZTruthIdenticalFlavorConvention",
+    "zz_truth_identical_flavor_convention",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "zz_record_ambiguous",
-    "ZZTruthRecordAmbiguous",
+    "zz_truth_record_is_ambiguous",
     VALID,
-    "StudyRawWeight",
+    "weight_raw",
 )
 
 for name, expression, bins in (
-    ("selected_mz", "PairingMZAxis", (100, 0.0, 200.0)),
-    ("selected_mx", "PairingMXAxis", (100, 0.0, 200.0)),
-    ("selected_ptz", "PairingPtZAxis", (80, 0.0, 400.0)),
-    ("selected_ptx", "PairingPtXAxis", (80, 0.0, 400.0)),
-    ("selected_drz", "PairingDrZAxis", (60, 0.0, 6.0)),
-    ("selected_drx", "PairingDrXAxis", (60, 0.0, 6.0)),
-    ("score_gap", "PairingScoreGapAxis", (80, 0.0, 40.0)),
+    ("selected_z_mass", "pairing_z_mass_axis", (100, 0.0, 200.0)),
+    ("selected_x_mass", "pairing_x_mass_axis", (100, 0.0, 200.0)),
+    ("selected_z_pt", "pairing_z_pt_axis", (80, 0.0, 400.0)),
+    ("selected_x_pt", "pairing_x_pt_axis", (80, 0.0, 400.0)),
+    ("selected_z_delta_r", "pairing_z_delta_r_axis", (60, 0.0, 6.0)),
+    ("selected_x_delta_r", "pairing_x_delta_r_axis", (60, 0.0, 6.0)),
+    ("score_gap", "pairing_score_gap_axis", (80, 0.0, 40.0)),
 ):
     _hist(
         name,
-        f"AlgorithmAxis:{expression}",
+        f"algorithm_axis:{expression}",
         ALGO + bins,
-        "StudySignedWeightVec",
+        "pairing_weight_nominal",
     )
 
 _hist(
     "selected_z_flavor",
-    "AlgorithmAxis:PairingSelectedZFlavorAxis",
+    "algorithm_axis:pairing_selected_z_flavor_axis",
     ALGO + (14, -0.5, 13.5),
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 for name, expression in (
-    ("best_score", "PairingBestScoreAxis"),
-    ("second_best_score", "PairingSecondScoreAxis"),
+    ("best_score", "pairing_best_score_axis"),
+    ("second_best_score", "pairing_second_score_axis"),
 ):
     _hist(
         name,
-        f"AlgorithmAxis:{expression}",
+        f"algorithm_axis:{expression}",
         ALGO + (120, 0.0, 120.0),
-        "StudyRawWeightVec",
+        "pairing_weight_raw",
         fold=2,
     )
 
 _hist(
-    "zh_correct_vs_truth_ptz",
-    "AlgorithmAxis:ZHTruthPtZAxis:ZHCorrectAxis",
+    "zh_correct_vs_truth_z_pt",
+    "algorithm_axis:zh_truth_z_pt_axis:zh_correct_axis",
     ALGO + (60, 0.0, 300.0) + CORRECT,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
-    "zz_correct_vs_truth_ptz",
-    "AlgorithmAxis:ZZTruthPtZAxis:ZZCorrectAxis",
+    "zz_correct_vs_truth_z_pt",
+    "algorithm_axis:zz_truth_z_pt_axis:zz_correct_axis",
     ALGO + (60, 0.0, 300.0) + CORRECT,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
-    "zh_ptz_response",
-    "AlgorithmAxis:ZHPtZResponseAxis:ZHCorrectAxis",
+    "zh_z_pt_response",
+    "algorithm_axis:zh_z_pt_response_axis:zh_correct_axis",
     ALGO + (80, -2.0, 2.0) + CORRECT,
-    "StudySignedWeightVec",
+    "pairing_weight_nominal",
 )
 _hist(
-    "zz_ptz_response",
-    "AlgorithmAxis:ZZPtZResponseAxis:ZZCorrectAxis",
+    "zz_z_pt_response",
+    "algorithm_axis:zz_z_pt_response_axis:zz_correct_axis",
     ALGO + (80, -2.0, 2.0) + CORRECT,
-    "StudySignedWeightVec",
+    "pairing_weight_nominal",
 )
 _hist(
     "candidate_migration",
-    "AlgorithmAxis:BaselineCandidateAxis:PairingSelectedCandidateAxis",
+    "algorithm_axis:baseline_candidate_axis:pairing_selected_candidate_axis",
     ALGO + CANDIDATE + CANDIDATE,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
     "region_migration",
-    "AlgorithmAxis:BaselineRegionAxis:PairingRegionAxis",
+    "algorithm_axis:baseline_region_axis:pairing_region_axis",
     ALGO + REGION + REGION,
-    "StudySignedWeightVec",
+    "pairing_weight_nominal",
 )
 _hist(
     "region_migration_raw",
-    "AlgorithmAxis:BaselineRegionAxis:PairingRegionAxis",
+    "algorithm_axis:baseline_region_axis:pairing_region_axis",
     ALGO + REGION + REGION,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
     "region_migration_absolute",
-    "AlgorithmAxis:BaselineRegionAxis:PairingRegionAxis",
+    "algorithm_axis:baseline_region_axis:pairing_region_axis",
     ALGO + REGION + REGION,
-    "StudyAbsWeightVec",
+    "pairing_weight_abs_nominal",
 )
 _hist(
     "xflavor_closure",
-    "AlgorithmAxis:BaselineXFlavorAxis:PairingXFlavorAxis",
+    "algorithm_axis:baseline_x_flavor_axis:pairing_x_flavor_axis",
     ALGO + XFLAVOR + XFLAVOR,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
     "selected_region",
-    "AlgorithmAxis:PairingRegionAxis",
+    "algorithm_axis:pairing_region_axis",
     ALGO + REGION,
-    "StudySignedWeightVec",
+    "pairing_weight_nominal",
 )
 _hist(
     "zh_score_gap_correctness",
-    "AlgorithmAxis:PairingScoreGapAxis:ZHCorrectAxis",
+    "algorithm_axis:pairing_score_gap_axis:zh_correct_axis",
     ALGO + (80, 0.0, 40.0) + CORRECT,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
     "zz_score_gap_correctness",
-    "AlgorithmAxis:PairingScoreGapAxis:ZZCorrectAxis",
+    "algorithm_axis:pairing_score_gap_axis:zz_correct_axis",
     ALGO + (80, 0.0, 40.0) + CORRECT,
-    "StudyRawWeightVec",
+    "pairing_weight_raw",
 )
 _hist(
     "signed_event_weight",
-    "StudySignedWeight",
+    "weight_nominal",
     (100, -0.1, 0.1),
-    "StudyRawWeight",
+    "weight_raw",
 )
 _hist(
     "event_weight_sign",
-    "StudyWeightSign",
+    "event_weight_sign",
     (3, -1.5, 1.5),
-    "StudyRawWeight",
+    "weight_raw",
+)
+
+# Event projections use the same cached pairing result and physical weights.
+
+variables = with_tree_outputs(
+    variables,
+    globals().get("cuts", {}),
+    branches(
+        "identity",
+        "source",
+        extra={
+            "pairing_quartet_lepton_index": "zh4l_internal_pairing_result.quartet",
+            "pairing_candidate_choice": "zh4l_internal_pairing_result.selectedCandidate",
+            "pairing_candidate_z_mass": "zh4l_internal_pairing_result.selectedMZ",
+            "pairing_candidate_x_mass": "zh4l_internal_pairing_result.selectedMX",
+            "weight_raw": "weight_raw",
+            "weight_nominal": "weight_nominal",
+            "weight_abs_nominal": "weight_abs_nominal",
+        },
+    ),
+    tree_weight="weight_nominal",
 )

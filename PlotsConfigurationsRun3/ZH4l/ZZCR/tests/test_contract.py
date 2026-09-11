@@ -18,9 +18,9 @@ def test_regions_are_physical_and_compact():
         "SR_XSF",
         "SR_XDF",
     )
-    assert all("bVeto" in expression for expression in cuts.values())
+    assert all("event_pass_b_veto" in expression for expression in cuts.values())
     assert all(
-        "LepSF" not in expression and "TriggerSF" not in expression
+        "sf_lepton_" not in expression and "sf_trigger_" not in expression
         for expression in cuts.values()
     )
 
@@ -36,18 +36,18 @@ def test_compact_histogram_contract_and_native_runner():
 
 def test_retained_observables_preserve_validated_legacy_axes_and_folds():
     expected = {
-        "mZ": ((30, 40, 60, 80, 85, 90, 95, 100, 120), 3),
-        "mX": ((30, 40, 60, 80, 85, 90, 95, 100, 120), 3),
-        "m4l": ((60, 80, 100, 120, 140, 160, 180, 200, 250, 300, 400, 600), 3),
-        "ptZ": (
+        "z_mass": ((30, 40, 60, 80, 85, 90, 95, 100, 120), 3),
+        "x_mass": ((30, 40, 60, 80, 85, 90, 95, 100, 120), 3),
+        "zx_mass": ((60, 80, 100, 120, 140, 160, 180, 200, 250, 300, 400, 600), 3),
+        "z_pt": (
             (0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120),
             3,
         ),
-        "ptX": (
+        "x_pt": (
             (0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120),
             3,
         ),
-        "pt4l": ((0, 20, 40, 60, 80, 100, 150, 200, 300, 400), 2),
+        "zx_pt": ((0, 20, 40, 60, 80, 100, 150, 200, 300, 400), 2),
         "PuppiMET_pt": ((0, 10, 20, 30, 40, 50, 80, 100, 120), 3),
     }
     for name, (edges, fold) in expected.items():
@@ -73,4 +73,4 @@ def test_equivalence_validator_tracks_every_nominal_axis_and_supported_era():
 
 def test_nominal_weight_has_exact_selected_zx_domain():
     source = (HERE / "samples.py").read_text()
-    assert "puWeight*LepSF_ZX*TriggerSF_ZX*bVetoSF" in source
+    assert "puWeight*sf_lepton_zx*sf_trigger_zx*sf_b_veto" in source

@@ -4,6 +4,7 @@ import math
 import os
 
 from mkShapesRDF.lib.search_files import SearchFiles
+from common.samples import pinned_file_list
 
 
 if "load_pairing_year" not in globals():
@@ -31,6 +32,19 @@ if not xrdDiscoveryEndpoint.startswith("root://"):
 
 searchFiles = SearchFiles()
 samples = {}
+_all_samples = set(PAIRING_ERA["inventory"]["ZH"] + PAIRING_ERA["inventory"]["ZZ"])
+_filter = (
+    globals().get("SAMPLE_FILTER", os.environ.get("SAMPLE_FILTER", "")) or ""
+).strip()
+_selected_samples = (
+    {name.strip() for name in _filter.split(",") if name.strip()}
+    if _filter
+    else _all_samples
+)
+if not _selected_samples <= _all_samples:
+    raise ValueError(
+        f"Samples outside the pairing inventory: {sorted(_selected_samples - _all_samples)}"
+    )
 PAIRING_SAMPLE_INVENTORY = {
     "era": ERA,
     "production": PAIRING_ERA["production"],
@@ -53,12 +67,14 @@ def _component_directory(component):
 def _discover(component):
     source = component["source_alias"]
     directory = _component_directory(component)
-    files = searchFiles.searchFiles(
-        directory,
-        source,
-        redirector=xrdDiscoveryEndpoint,
-        read_redirector=xrdReadEndpoint,
-    )
+    files = pinned_file_list(globals().get("PINNED_FILES"), source)
+    if files is None:
+        files = searchFiles.searchFiles(
+            directory,
+            source,
+            redirector=xrdDiscoveryEndpoint,
+            read_redirector=xrdReadEndpoint,
+        )
     if not files:
         raise RuntimeError(
             f"ERA={ERA} found no files for source={source!r} under {directory!r}"
@@ -75,6 +91,8 @@ def _discover(component):
 
 for _family in ("ZH", "ZZ"):
     for _logical_sample in PAIRING_ERA["inventory"][_family]:
+        if _logical_sample not in _selected_samples:
+            continue
         _sample_components = []
         _inventory_components = []
         for _component in PAIRING_ERA["logical_components"][_logical_sample]:
@@ -98,15 +116,10 @@ for _family in ("ZH", "ZZ"):
 
         samples[_logical_sample] = {
             "name": _sample_components,
-            # The local runner books raw, signed, and absolute diagnostics
-            # from one graph.  Keep METFilter_Common out of the core `weight`
-            # column so its nonzero-weight prefilter does not erase events
-            # from raw counts; StudySignedWeight applies it exactly once.
-            # Keep the runner's mandatory `abs(weight)>0` prefilter neutral so
-            # StudyRawWeight is a literal event count.  The signed study alias
-            # applies XSWeight*puWeight*METFilter_Common exactly once; the
-            # runner still folds luminosity and the component source factor
-            # above into its `weight` column.
+            # The common runner preserves zero-weight rows. This leaf's
+            # normalization carrier includes luminosity/component factors;
+            # weight_nominal applies XSWeight*puWeight*METFilter_Common once,
+            # while weight_raw remains a literal event count.
             "weight": "1.0",
             "FilesPerJob": filesPerJob,
         }
@@ -121,9 +134,7 @@ for _family in ("ZH", "ZZ"):
             }
         )
 
-if set(samples) != set(
-    PAIRING_ERA["inventory"]["ZH"] + PAIRING_ERA["inventory"]["ZZ"]
-):
+if set(samples) != _selected_samples:
     raise RuntimeError("Resolved samples differ from the fail-closed study inventory")
 
 PAIRING_ESTIMATED_JOBS = sum(
@@ -133,10 +144,9 @@ PAIRING_ESTIMATED_JOBS = sum(
     for component in logical["components"]
 )
 
-print(f"[Pairing] ERA={ERA}")
+print(f"[pairing] ERA={ERA}")
 print(
-    f"[Pairing] production={PAIRING_ERA['production']} "
-    f"steps={PAIRING_ERA['steps']}"
+    f"[pairing] production={PAIRING_ERA['production']} " f"steps={PAIRING_ERA['steps']}"
 )
 for _family in ("ZH", "ZZ"):
     _aliases = tuple(PAIRING_ERA["inventory"][_family])

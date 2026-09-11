@@ -20,7 +20,7 @@ for _path in (HERE, FAMILY_DIR):
         sys.path.insert(0, str(_path))
 
 from common.eras import resolve_sample_selection  # noqa: E402
-from study_config import SUPPORTED_ERAS, build_categories, load_live_json  # noqa: E402
+from study_config import SUPPORTED_ERAS, load_live_json  # noqa: E402
 
 
 def _inventory(year, profile):
@@ -34,11 +34,17 @@ def _inventory(year, profile):
             for sample in definition.get("samples", ()):
                 owners[sample] = group
         keep = {"DY", "ZZ", "WZ", "Vg", "VgS", "top", "ttV_tZ"}
-        outputs = [sample for sample in outputs if sample == "DATA" or owners.get(sample) in keep]
+        outputs = [
+            sample
+            for sample in outputs
+            if sample == "DATA" or owners.get(sample) in keep
+        ]
     return outputs
 
 
-def inspect(year, profile="full", closure_profile="default", files_per_job=10, config_json=None):
+def inspect(
+    year, profile="full", closure_profile="default", files_per_job=10, config_json=None
+):
     if year not in SUPPORTED_ERAS:
         raise ValueError(f"Unsupported era {year}")
     if profile not in ("major", "full"):
@@ -48,7 +54,9 @@ def inspect(year, profile="full", closure_profile="default", files_per_job=10, c
     # the generic module names ``cuts`` and ``variables``; importing by name
     # can otherwise pick a sibling leaf in a combined test/session.
     cuts = SimpleNamespace(**runpy.run_path(str(HERE / "cuts.py")))
-    variables = SimpleNamespace(**runpy.run_path(str(HERE / "variables.py")))
+    variables = SimpleNamespace(
+        **runpy.run_path(str(HERE / "variables.py"), init_globals={"cuts": cuts.cuts})
+    )
 
     inputs = None
     if config_json:
@@ -94,7 +102,9 @@ def inspect(year, profile="full", closure_profile="default", files_per_job=10, c
         "actions_by_study_family": dict(sorted(families.items())),
         "files_per_job": files_per_job,
         "estimated_jobs": None if inputs is None else math.ceil(inputs / files_per_job),
-        "no_trees": not any("tree" in definition for definition in variables.variables.values()),
+        "no_trees": not any(
+            "tree" in definition for definition in variables.variables.values()
+        ),
         "nonprompt_fake_background_included": False,
     }
 
@@ -103,12 +113,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", choices=SUPPORTED_ERAS, default="2024")
     parser.add_argument("--sample-profile", choices=("major", "full"), default="full")
-    parser.add_argument("--closure-profile", choices=("default", "focused_cross"), default="default")
+    parser.add_argument(
+        "--closure-profile", choices=("default", "focused_cross"), default="default"
+    )
     parser.add_argument("--files-per-job", type=int, default=10)
     parser.add_argument("--config-json")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
-    result = inspect(args.year, args.sample_profile, args.closure_profile, args.files_per_job, args.config_json)
+    result = inspect(
+        args.year,
+        args.sample_profile,
+        args.closure_profile,
+        args.files_per_job,
+        args.config_json,
+    )
     if args.json:
         print(json.dumps(result, indent=2, sort_keys=True))
     else:

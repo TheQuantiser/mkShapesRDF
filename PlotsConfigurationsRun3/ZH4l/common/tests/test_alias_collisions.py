@@ -30,13 +30,17 @@ def _literal_alias_assignments(path):
 
 
 def test_common_owners_are_disjoint_and_forbidden_native_names_are_absent():
-    owners = (PUBLIC_OBJECT_ALIASES, PUBLIC_CORRECTION_ALIASES, PUBLIC_OBSERVABLE_ALIASES)
+    owners = (
+        PUBLIC_OBJECT_ALIASES,
+        PUBLIC_CORRECTION_ALIASES,
+        PUBLIC_OBSERVABLE_ALIASES,
+    )
     for index, left in enumerate(owners):
-        for right in owners[index + 1:]:
+        for right in owners[index + 1 :]:
             assert left.isdisjoint(right)
     assert COMMON_PUBLIC_ALIASES.isdisjoint(FORBIDDEN_NATIVE_COLLISIONS)
-    assert classify_alias("bVeto") == "intentional-identical-reuse"
-    assert classify_alias("ZH4l_sourceIdx") == "family-private"
+    assert classify_alias("event_pass_b_veto") == "safe"
+    assert classify_alias("zh4l_internal_source_index") == "family-private"
     assert classify_alias("mll") == "collision/error"
 
 

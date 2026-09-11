@@ -56,23 +56,23 @@ for _key, _nuisance_name, _nominal, _up, _down in (
     (
         "electron_efficiency",
         f"CMS_eff_e_{ERA}",
-        "LepSF_ZX",
-        "LepSF_ZX_EleUp",
-        "LepSF_ZX_EleDown",
+        "sf_lepton_zx",
+        "sf_lepton_zx_electron_up",
+        "sf_lepton_zx_electron_down",
     ),
     (
         "muon_efficiency",
         f"CMS_eff_m_{ERA}",
-        "LepSF_ZX",
-        "LepSF_ZX_MuUp",
-        "LepSF_ZX_MuDown",
+        "sf_lepton_zx",
+        "sf_lepton_zx_muon_up",
+        "sf_lepton_zx_muon_down",
     ),
     (
         "event_trigger",
         f"CMS_eff_hwwtrigger_{ERA}",
-        "TriggerSF_ZX",
-        "TriggerSF_ZX_Up",
-        "TriggerSF_ZX_Down",
+        "sf_trigger_zx",
+        "sf_trigger_zx_up",
+        "sf_trigger_zx_down",
     ),
 ):
     _shape_weight(
@@ -93,12 +93,12 @@ for _flavor in ("bc", "light"):
             f"btagSF{_flavor}_{_correlation}",
             _public_name,
             _ratio(
-                f"ZH4l_btagSF{_flavor}_up_{_correlation}",
-                f"ZH4l_btagSF{_flavor}",
+                f"zh4l_internal_sf_btag_{_flavor}_up_{_correlation}",
+                f"zh4l_internal_sf_btag_{_flavor}",
             ),
             _ratio(
-                f"ZH4l_btagSF{_flavor}_down_{_correlation}",
-                f"ZH4l_btagSF{_flavor}",
+                f"zh4l_internal_sf_btag_{_flavor}_down_{_correlation}",
+                f"zh4l_internal_sf_btag_{_flavor}",
             ),
         )
 

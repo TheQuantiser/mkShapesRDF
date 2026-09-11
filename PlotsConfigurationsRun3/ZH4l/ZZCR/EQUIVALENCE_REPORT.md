@@ -1,5 +1,9 @@
 # ZZCR legacy-to-ZH4l equivalence report
 
+Historical record: this report predates the 2026-09-10 naming and nominal-output
+migration. See the family ARCHITECTURE.md and NAMING.md for current supported
+interfaces; the evidence below is not a rerun of the new implementation.
+
 Validation completed on 2026-08-12 with
 `validate_equivalence.py --events 10000`. The validator copied the protected
 legacy source into ignored temporary space, ran legacy and new configurations

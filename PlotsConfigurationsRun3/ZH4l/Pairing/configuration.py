@@ -11,7 +11,7 @@ for _path in (CONFIG_DIR, FAMILY_DIR):
     if str(_path) not in os.sys.path:
         os.sys.path.insert(0, str(_path))
 
-from pairing_config import (  # noqa: E402
+from pairing_config import (  # noqa: E402,F401 - shared with samples.py
     DEFAULT_XRD_ENDPOINT,
     SUPPORTED_ERAS,
     load_pairing_year,
@@ -42,9 +42,7 @@ outputFile = f"mkShapes__{tag}.root"
 outputFolder = os.environ.get(
     "PAIRING_OUTPUT_FOLDER", f"rootFiles/{PAIRING_CAMPAIGN}/{ERA}"
 )
-batchFolder = os.environ.get(
-    "PAIRING_BATCH_FOLDER", f"condor/{PAIRING_CAMPAIGN}/{ERA}"
-)
+batchFolder = os.environ.get("PAIRING_BATCH_FOLDER", f"condor/{PAIRING_CAMPAIGN}/{ERA}")
 configsFolder = os.environ.get(
     "PAIRING_CONFIGS_FOLDER", f"configs/{PAIRING_CAMPAIGN}/{ERA}"
 )
@@ -97,6 +95,7 @@ varsToKeep = [
     "condorRuntimePackage",
     "condorRuntimePackageName",
     "condorRuntimeIncludes",
+    "zh4lCommonPath",
     "condorRuntimeSetup",
     "useX509Proxy",
     "useEOSUserOutput",

@@ -11,6 +11,7 @@ if str(FAMILY_DIR) not in os.sys.path:
 
 from common.eras import load_selected_era  # noqa: E402
 from common.runtime import batch_runtime_from_env, remote_io_from_env  # noqa: E402
+from common.outputs import output_mode  # noqa: E402
 
 ERA, ERA_CONFIG, _FULL_CONFIG = load_selected_era()
 os.environ["ERA"] = ERA
@@ -34,6 +35,11 @@ if not campaign or "/" in campaign:
 
 tag = f"ZH4l_ZZCR_{ERA}_{campaign}"
 runnerFile = "default"
+ZH4L_OUTPUT_MODE = output_mode()
+if ZH4L_OUTPUT_MODE != "histograms" and ENABLE_SYSTEMATICS:
+    raise ValueError("Tree output currently requires ENABLE_SYSTEMATICS=0")
+if not ENABLE_SYSTEMATICS:
+    runnerFile = "runner.py"
 outputFile = f"mkShapes__{tag}.root"
 outputFolder = os.environ.get("ZH4L_OUTPUT_FOLDER", f"rootFiles/{campaign}/{ERA}")
 batchFolder = os.environ.get("ZH4L_BATCH_FOLDER", f"condor/{campaign}/{ERA}")
@@ -84,6 +90,7 @@ varsToKeep = [
     "condorRuntimePackage",
     "condorRuntimePackageName",
     "condorRuntimeIncludes",
+    "zh4lCommonPath",
     "condorRuntimeSetup",
     "useX509Proxy",
     "useEOSUserOutput",

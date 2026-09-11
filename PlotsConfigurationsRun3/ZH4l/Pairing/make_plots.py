@@ -101,26 +101,39 @@ class PlotBook:
             figure.savefig(path, dpi=180 if extension == "png" else None)
             files.append(path.name)
         self.plt.close(figure)
-        self.records.append({"product": name, "status": "generated", "files": files, "note": note})
+        self.records.append(
+            {"product": name, "status": "generated", "files": files, "note": note}
+        )
 
     def skip(self, name, reason):
         self.records.append({"product": name, "status": "skipped", "reason": reason})
 
     def finish(self):
         expected = [
-            "01_zh_efficiency_by_algorithm", "02_zh_efficiency_by_year",
-            "03_zh_efficiency_by_topology", "04_zz_partition_efficiency_by_algorithm",
-            "05_zz_partition_efficiency_by_year", "06_zz_partition_efficiency_by_topology",
-            "07_zh_efficiency_vs_truth_pTZ", "08_zz_efficiency_vs_score_gap",
-            "09_candidate_multiplicity_by_process", "10_mX_response_zh",
-            "11_mX_response_zz", "12_pTZ_response_zh",
-            "13_algorithm_candidate_migration", "14_region_migration_zh",
-            "15_region_migration_zz", "16_fsr_resolution_gain_loss",
+            "01_zh_efficiency_by_algorithm",
+            "02_zh_efficiency_by_year",
+            "03_zh_efficiency_by_topology",
+            "04_zz_partition_efficiency_by_algorithm",
+            "05_zz_partition_efficiency_by_year",
+            "06_zz_partition_efficiency_by_topology",
+            "07_zh_efficiency_vs_truth_pTZ",
+            "08_zz_efficiency_vs_score_gap",
+            "09_candidate_multiplicity_by_process",
+            "10_mX_response_zh",
+            "11_mX_response_zz",
+            "12_pTZ_response_zh",
+            "13_algorithm_candidate_migration",
+            "14_region_migration_zh",
+            "15_region_migration_zz",
+            "16_fsr_resolution_gain_loss",
         ]
         seen = {record["product"] for record in self.records}
         for product in expected:
             if product not in seen:
-                self.skip(product, "No plotting implementation or supported source metric was available.")
+                self.skip(
+                    product,
+                    "No plotting implementation or supported source metric was available.",
+                )
         payload = {
             "generated_at_utc": datetime.now(timezone.utc).isoformat(),
             "summary_metadata": self.metadata,
@@ -135,18 +148,24 @@ class PlotBook:
 def _primary_rows(rows, family, baseline):
     expected_sample = f"ALL_{family}"
     return [
-        row for row in rows
+        row
+        for row in rows
         if row.get("sample") == expected_sample and row.get("baseline") == baseline
     ]
 
 
 def _eff_by_algorithm(book, rows, family, number, title, baseline):
     selected = [
-        row for row in _primary_rows(rows, family, baseline)
+        row
+        for row in _primary_rows(rows, family, baseline)
         if row.get("year") == "ALL_RUN3" and row.get("topology") == "ALL"
     ]
     lookup = {row["algorithm"]: row for row in selected}
-    available = [algorithm for algorithm in ALGORITHMS if _number(lookup.get(algorithm, {}).get("raw_denominator"))]
+    available = [
+        algorithm
+        for algorithm in ALGORITHMS
+        if _number(lookup.get(algorithm, {}).get("raw_denominator"))
+    ]
     name = f"{number}_{'zh_efficiency' if family == 'ZH' else 'zz_partition_efficiency'}_by_algorithm"
     if not available:
         book.skip(name, "No nonzero raw truth denominator in ALL_RUN3.")
@@ -154,16 +173,30 @@ def _eff_by_algorithm(book, rows, family, number, title, baseline):
     fig, ax = book.plt.subplots(figsize=(8.0, 4.8))
     x = list(range(len(available)))
     for offset, (prefix, label, marker) in enumerate(
-        (("raw", "raw", "o"), ("signed_weight", "signed weight", "s"), ("absolute_weight", "absolute weight", "^"))
+        (
+            ("raw", "raw", "o"),
+            ("signed_weight", "signed weight", "s"),
+            ("absolute_weight", "absolute weight", "^"),
+        )
     ):
-        values = [_number(lookup[algorithm].get(f"{prefix}_efficiency")) for algorithm in available]
-        valid = [(index, value) for index, value in enumerate(values) if value is not None]
+        values = [
+            _number(lookup[algorithm].get(f"{prefix}_efficiency"))
+            for algorithm in available
+        ]
+        valid = [
+            (index, value) for index, value in enumerate(values) if value is not None
+        ]
         if valid:
             ax.plot(
                 [index + (offset - 1) * 0.08 for index, _ in valid],
-                [value for _, value in valid], marker=marker, linestyle="none", label=label,
+                [value for _, value in valid],
+                marker=marker,
+                linestyle="none",
+                label=label,
             )
-    ax.set_xticks(x, [ALGORITHM_LABELS[item] for item in available], rotation=25, ha="right")
+    ax.set_xticks(
+        x, [ALGORITHM_LABELS[item] for item in available], rotation=25, ha="right"
+    )
     ax.set_ylabel("Correct assignment / truth-valid")
     ax.set_ylim(0.0, 1.08)
     ax.set_title(title + " — yield-summed Run 3")
@@ -173,13 +206,18 @@ def _eff_by_algorithm(book, rows, family, number, title, baseline):
 
 def _eff_by_year(book, rows, family, number, title, baseline):
     selected = [
-        row for row in _primary_rows(rows, family, baseline)
+        row
+        for row in _primary_rows(rows, family, baseline)
         if row.get("year") in YEARS and row.get("topology") == "ALL"
     ]
     lookup = {(row["year"], row["algorithm"]): row for row in selected}
     algorithms = [
-        algorithm for algorithm in ALGORITHMS
-        if any((_number(lookup.get((year, algorithm), {}).get("raw_denominator")) or 0) > 0 for year in YEARS)
+        algorithm
+        for algorithm in ALGORITHMS
+        if any(
+            (_number(lookup.get((year, algorithm), {}).get("raw_denominator")) or 0) > 0
+            for year in YEARS
+        )
     ]
     name = f"{number}_{'zh_efficiency' if family == 'ZH' else 'zz_partition_efficiency'}_by_year"
     if not algorithms:
@@ -194,7 +232,12 @@ def _eff_by_year(book, rows, family, number, title, baseline):
             if value is not None:
                 points.append((index, value))
         if points:
-            ax.plot([x for x, _ in points], [y for _, y in points], marker="o", label=ALGORITHM_LABELS[algorithm])
+            ax.plot(
+                [x for x, _ in points],
+                [y for _, y in points],
+                marker="o",
+                label=ALGORITHM_LABELS[algorithm],
+            )
     ax.set_xticks(range(len(YEARS)), YEARS)
     ax.set_ylabel("Raw correctness efficiency")
     ax.set_ylim(0.0, 1.08)
@@ -205,13 +248,19 @@ def _eff_by_year(book, rows, family, number, title, baseline):
 
 def _eff_by_topology(book, rows, family, number, title, baseline):
     selected = [
-        row for row in _primary_rows(rows, family, baseline)
+        row
+        for row in _primary_rows(rows, family, baseline)
         if row.get("year") == "ALL_RUN3" and row.get("topology") in TOPOLOGIES
     ]
     lookup = {(row["topology"], row["algorithm"]): row for row in selected}
     algorithms = [
-        algorithm for algorithm in ALGORITHMS
-        if any((_number(lookup.get((topology, algorithm), {}).get("raw_denominator")) or 0) > 0 for topology in TOPOLOGIES)
+        algorithm
+        for algorithm in ALGORITHMS
+        if any(
+            (_number(lookup.get((topology, algorithm), {}).get("raw_denominator")) or 0)
+            > 0
+            for topology in TOPOLOGIES
+        )
     ]
     name = f"{number}_{'zh_efficiency' if family == 'ZH' else 'zz_partition_efficiency'}_by_topology"
     if not algorithms:
@@ -225,7 +274,12 @@ def _eff_by_topology(book, rows, family, number, title, baseline):
             if value is not None:
                 points.append((index, value))
         if points:
-            ax.plot([x for x, _ in points], [y for _, y in points], marker="o", label=ALGORITHM_LABELS[algorithm])
+            ax.plot(
+                [x for x, _ in points],
+                [y for _, y in points],
+                marker="o",
+                label=ALGORITHM_LABELS[algorithm],
+            )
     ax.set_xticks(range(len(TOPOLOGIES)), TOPOLOGIES)
     ax.set_ylabel("Raw correctness efficiency")
     ax.set_ylim(0.0, 1.08)
@@ -260,14 +314,22 @@ def _curve_plot(book, name, curves, xlabel, title):
         book.skip(name, "No nonempty truth-valid curve bins are available.")
         return
     if all(len(points) < 2 for points in curves.values()):
-        book.skip(name, "Only one populated x bin is available; a curve would be trivial.")
+        book.skip(
+            name, "Only one populated x bin is available; a curve would be trivial."
+        )
         return
     fig, ax = book.plt.subplots(figsize=(7.4, 4.8))
     for algorithm in ALGORITHMS:
         points = curves.get(algorithm)
         if not points:
             continue
-        ax.plot([x for x, _, _ in points], [y for _, y, _ in points], marker="o", markersize=3, label=ALGORITHM_LABELS[algorithm])
+        ax.plot(
+            [x for x, _, _ in points],
+            [y for _, y, _ in points],
+            marker="o",
+            markersize=3,
+            label=ALGORITHM_LABELS[algorithm],
+        )
     ax.set_xlabel(xlabel)
     ax.set_ylabel("Raw correctness efficiency")
     ax.set_ylim(0.0, 1.08)
@@ -280,7 +342,9 @@ def _candidate_multiplicity(book, records, baseline):
     grouped = defaultdict(float)
     for row in records:
         if row.get("baseline") == baseline:
-            grouped[(row["family"], int(row["multiplicity"]))] += float(row["raw_events"])
+            grouped[(row["family"], int(row["multiplicity"]))] += float(
+                row["raw_events"]
+            )
     name = "09_candidate_multiplicity_by_process"
     if not grouped or all(abs(value) < 1e-15 for value in grouped.values()):
         book.skip(name, "Candidate-multiplicity histograms are empty or unavailable.")
@@ -304,7 +368,12 @@ def _ptz_response(book, records, baseline):
     grouped = defaultdict(float)
     for row in records:
         if row.get("family") == "ZH" and row.get("baseline") == baseline:
-            key = (row["algorithm"], row["correctness"], float(row["x_low"]), float(row["x_high"]))
+            key = (
+                row["algorithm"],
+                row["correctness"],
+                float(row["x_low"]),
+                float(row["x_high"]),
+            )
             grouped[key] += float(row["signed_yield"])
     name = "12_pTZ_response_zh"
     if not grouped or all(abs(value) < 1e-15 for value in grouped.values()):
@@ -315,14 +384,22 @@ def _ptz_response(book, records, baseline):
     for axis, correctness in zip(axes, ("correct", "wrong")):
         for algorithm in ALGORITHMS:
             points = sorted(
-                ((0.5 * (low + high), value) for (algo, state, low, high), value in grouped.items() if algo == algorithm and state == correctness),
+                (
+                    (0.5 * (low + high), value)
+                    for (algo, state, low, high), value in grouped.items()
+                    if algo == algorithm and state == correctness
+                ),
                 key=lambda item: item[0],
             )
             norm = _sum(abs(value) for _, value in points)
             if norm <= 1e-15:
                 continue
             drew = True
-            axis.plot([x for x, _ in points], [y / norm for _, y in points], label=ALGORITHM_LABELS[algorithm])
+            axis.plot(
+                [x for x, _ in points],
+                [y / norm for _, y in points],
+                label=ALGORITHM_LABELS[algorithm],
+            )
         axis.set_title(correctness.capitalize() + " assignment")
         axis.set_xlabel(r"$(p_T^{reco}(Z)-p_T^{truth}(Z))/p_T^{truth}(Z)$")
     if not drew:
@@ -332,7 +409,11 @@ def _ptz_response(book, records, baseline):
     axes[0].set_ylabel("Signed yield / sum absolute yield")
     axes[1].legend(frameon=False, fontsize=7)
     fig.suptitle("ZH associated-Z transverse-momentum response")
-    book.save(name, fig, note="Curves use signed yields normalized by their sum of absolute bin yields.")
+    book.save(
+        name,
+        fig,
+        note="Curves use signed yields normalized by their sum of absolute bin yields.",
+    )
 
 
 def _matrix_records(rows, matrix, family, baseline, weight_convention):
@@ -345,7 +426,9 @@ def _matrix_records(rows, matrix, family, baseline, weight_convention):
             and row.get("matrix") == matrix
             and row.get("weight_convention") == weight_convention
         ):
-            grouped[(row["algorithm"], int(row["from_code"]), int(row["to_code"]))] += float(row["yield"])
+            grouped[
+                (row["algorithm"], int(row["from_code"]), int(row["to_code"]))
+            ] += float(row["yield"])
     return grouped
 
 
@@ -363,9 +446,7 @@ def _heatmap_grid(
 ):
     comparisons = ALGORITHMS[1:]
     matrices = {
-        family: _matrix_records(
-            rows, matrix, family, baseline, weight_convention
-        )
+        family: _matrix_records(rows, matrix, family, baseline, weight_convention)
         for family in families
     }
     if not any(matrices[family] for family in families):
@@ -430,8 +511,12 @@ def _heatmap_grid(
                     vmin=0.0,
                     vmax=family_scale,
                 )
-            axis.set_xticks(range(len(labels)), labels, rotation=45, ha="right", fontsize=7)
-            axis.set_yticks(range(len(labels)), labels if column == 0 else [], fontsize=7)
+            axis.set_xticks(
+                range(len(labels)), labels, rotation=45, ha="right", fontsize=7
+            )
+            axis.set_yticks(
+                range(len(labels)), labels if column == 0 else [], fontsize=7
+            )
             axis.set_title(ALGORITHM_LABELS[algorithm], fontsize=9)
             if column == 0:
                 axis.set_ylabel(f"{family}: nearest $m_Z$")
@@ -456,7 +541,14 @@ def _heatmap_grid(
 def _region_migration(book, rows, family, baseline, number):
     name = f"{number}_region_migration_{family.lower()}"
     _heatmap_grid(
-        book, name, rows, "region", (family,), REGION_LABELS, 0, baseline,
+        book,
+        name,
+        rows,
+        "region",
+        (family,),
+        REGION_LABELS,
+        0,
+        baseline,
         "signed",
         f"{family} region migration relative to nearest $m_Z$ (signed yield)",
     )
@@ -494,20 +586,29 @@ def _gain_loss_plot(book, rows, baseline):
             axis.bar(
                 [value - width / 2 for value in x],
                 [value or 0.0 for value in gain],
-                width, label="gain: baseline wrong, comparator correct", color="#2a9d8f",
+                width,
+                label="gain: baseline wrong, comparator correct",
+                color="#2a9d8f",
             )
             axis.bar(
                 [value + width / 2 for value in x],
                 [value or 0.0 for value in loss],
-                width, label="loss: baseline correct, comparator wrong", color="#e76f51",
+                width,
+                label="loss: baseline correct, comparator wrong",
+                color="#e76f51",
             )
         axis.axhline(0.0, color="black", linewidth=0.8)
-        axis.set_xticks(x, [ALGORITHM_LABELS[item] for item in algorithms], rotation=20, ha="right")
+        axis.set_xticks(
+            x, [ALGORITHM_LABELS[item] for item in algorithms], rotation=20, ha="right"
+        )
         axis.set_title(family)
         axis.set_xlabel(r"Comparator relative to nearest $m_Z$")
     if not drew:
         book.plt.close(fig)
-        book.skip(name, "Exact event-level cubes exist but all truth-valid denominators are empty.")
+        book.skip(
+            name,
+            "Exact event-level cubes exist but all truth-valid denominators are empty.",
+        )
         return
     axes[0].set_ylabel("Raw event fraction of truth-valid denominator")
     axes[1].legend(frameon=False, fontsize=8)
@@ -520,15 +621,19 @@ def _gain_loss_plot(book, rows, baseline):
 
 
 def _parser():
-    parser = argparse.ArgumentParser(description="Plot PairingStudy summary products as PNG/PDF.")
+    parser = argparse.ArgumentParser(
+        description="Plot PairingStudy summary products as PNG/PDF."
+    )
     parser.add_argument("--summary-dir", default=str(HERE / "summary"))
     parser.add_argument("-o", "--output-dir", default=str(HERE / "plots"))
     parser.add_argument(
-        "--baseline", default="PAIRING_PHYS_BASE",
+        "--baseline",
+        default="PAIRING_PHYS_BASE",
         choices=("PAIRING_OBJECT_BASE", "PAIRING_PHYS_BASE"),
     )
     parser.add_argument(
-        "--formats", default="png,pdf",
+        "--formats",
+        default="png,pdf",
         help="comma-separated output formats (default: png,pdf)",
     )
     return parser
@@ -536,19 +641,28 @@ def _parser():
 
 def main(argv=None):
     args = _parser().parse_args(argv)
-    formats = tuple(item.strip().lower() for item in args.formats.split(",") if item.strip())
+    formats = tuple(
+        item.strip().lower() for item in args.formats.split(",") if item.strip()
+    )
     unsupported = set(formats) - {"png", "pdf"}
     if not formats or unsupported:
-        raise ValueError(f"Formats must be png and/or pdf; invalid={sorted(unsupported)}")
+        raise ValueError(
+            f"Formats must be png and/or pdf; invalid={sorted(unsupported)}"
+        )
     summary = Path(args.summary_dir).expanduser().resolve()
     required = (
-        "zh_pairing_efficiency.json", "zz_partition_efficiency.json",
-        "algorithm_agreement.csv", "migration_matrix.csv", "plot_data.json",
+        "zh_pairing_efficiency.json",
+        "zz_partition_efficiency.json",
+        "algorithm_agreement.csv",
+        "migration_matrix.csv",
+        "plot_data.json",
         "summary_manifest.json",
     )
     missing = [name for name in required if not (summary / name).is_file()]
     if missing:
-        raise FileNotFoundError(f"Missing summary products in {summary}: {missing}; run make_summary.py first")
+        raise FileNotFoundError(
+            f"Missing summary products in {summary}: {missing}; run make_summary.py first"
+        )
 
     zh = _read_json(summary / "zh_pairing_efficiency.json")
     zz = _read_json(summary / "zz_partition_efficiency.json")
@@ -556,41 +670,73 @@ def main(argv=None):
     agreement = _read_csv(summary / "algorithm_agreement.csv")
     migrations = _read_csv(summary / "migration_matrix.csv")
     manifest = _read_json(summary / "summary_manifest.json")
-    book = PlotBook(Path(args.output_dir).expanduser().resolve(), formats, {
-        "years_present": manifest.get("years_present", []),
-        "complete_run3": manifest.get("complete_run3", False),
-        "baseline": args.baseline,
-    })
+    book = PlotBook(
+        Path(args.output_dir).expanduser().resolve(),
+        formats,
+        {
+            "years_present": manifest.get("years_present", []),
+            "complete_run3": manifest.get("complete_run3", False),
+            "baseline": args.baseline,
+        },
+    )
 
-    _eff_by_algorithm(book, zh["rows"], "ZH", "01", "ZH associated-Z correctness", args.baseline)
-    _eff_by_year(book, zh["rows"], "ZH", "02", "ZH associated-Z correctness", args.baseline)
-    _eff_by_topology(book, zh["rows"], "ZH", "03", "ZH associated-Z correctness", args.baseline)
-    _eff_by_algorithm(book, zz["rows"], "ZZ", "04", "ZZ two-boson partition fidelity", args.baseline)
-    _eff_by_year(book, zz["rows"], "ZZ", "05", "ZZ two-boson partition fidelity", args.baseline)
-    _eff_by_topology(book, zz["rows"], "ZZ", "06", "ZZ two-boson partition fidelity", args.baseline)
-    _curve_plot(
-        book, "07_zh_efficiency_vs_truth_pTZ",
-        _summed_curve(plot_data.get("efficiency_vs_truth_ptz", []), "ZH", args.baseline),
-        r"truth $p_T(Z)$ [GeV]", "ZH associated-Z correctness versus truth kinematics",
+    _eff_by_algorithm(
+        book, zh["rows"], "ZH", "01", "ZH associated-Z correctness", args.baseline
+    )
+    _eff_by_year(
+        book, zh["rows"], "ZH", "02", "ZH associated-Z correctness", args.baseline
+    )
+    _eff_by_topology(
+        book, zh["rows"], "ZH", "03", "ZH associated-Z correctness", args.baseline
+    )
+    _eff_by_algorithm(
+        book, zz["rows"], "ZZ", "04", "ZZ two-boson partition fidelity", args.baseline
+    )
+    _eff_by_year(
+        book, zz["rows"], "ZZ", "05", "ZZ two-boson partition fidelity", args.baseline
+    )
+    _eff_by_topology(
+        book, zz["rows"], "ZZ", "06", "ZZ two-boson partition fidelity", args.baseline
     )
     _curve_plot(
-        book, "08_zz_efficiency_vs_score_gap",
-        _summed_curve(plot_data.get("efficiency_vs_score_gap", []), "ZZ", args.baseline),
-        "best–second score gap", "ZZ partition fidelity versus score separation",
+        book,
+        "07_zh_efficiency_vs_truth_pTZ",
+        _summed_curve(
+            plot_data.get("efficiency_vs_truth_ptz", []), "ZH", args.baseline
+        ),
+        r"truth $p_T(Z)$ [GeV]",
+        "ZH associated-Z correctness versus truth kinematics",
     )
-    _candidate_multiplicity(book, plot_data.get("candidate_multiplicity", []), args.baseline)
+    _curve_plot(
+        book,
+        "08_zz_efficiency_vs_score_gap",
+        _summed_curve(
+            plot_data.get("efficiency_vs_score_gap", []), "ZZ", args.baseline
+        ),
+        "best–second score gap",
+        "ZZ partition fidelity versus score separation",
+    )
+    _candidate_multiplicity(
+        book, plot_data.get("candidate_multiplicity", []), args.baseline
+    )
     book.skip(
         "10_mX_response_zh",
-        "No truth-mX response histogram is booked; selected_mx is not a response and is not relabeled.",
+        "No truth-mX response histogram is booked; selected_x_mass is not a response and is not relabeled.",
     )
     book.skip(
         "11_mX_response_zz",
-        "No truth-mX response histogram is booked; selected_mx is not a response and is not relabeled.",
+        "No truth-mX response histogram is booked; selected_x_mass is not a response and is not relabeled.",
     )
     _ptz_response(book, plot_data.get("ptz_response", []), args.baseline)
     _heatmap_grid(
-        book, "13_algorithm_candidate_migration", migrations, "candidate", ("ZH", "ZZ"),
-        CANDIDATE_LABELS, -1, args.baseline,
+        book,
+        "13_algorithm_candidate_migration",
+        migrations,
+        "candidate",
+        ("ZH", "ZZ"),
+        CANDIDATE_LABELS,
+        -1,
+        args.baseline,
         "raw",
         "Candidate migration relative to nearest $m_Z$ (raw events)",
     )
