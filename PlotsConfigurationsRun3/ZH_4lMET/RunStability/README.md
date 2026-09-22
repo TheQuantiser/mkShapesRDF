@@ -15,8 +15,11 @@ those shared services are dependencies, not duplicate analysis configuration.
 Read [ARCHITECTURE.md](ARCHITECTURE.md) for ownership,
 [USAGE.MD](USAGE.MD) for commands, and
 [LUMINOSITY_PROPAGATION.md](LUMINOSITY_PROPAGATION.md) for the statistical
-definitions. The researched, not-yet-active catalog for possible pileup,
-jet, isolation, recoil, FSR, and trigger-object additions is in
+definitions. The raw electron, muon, reconstruction, identification,
+isolation, prompt-MVA, and trigger-efficiency correction inventory is in
+[LEPTON_SCALE_FACTORS.md](LEPTON_SCALE_FACTORS.md). The researched,
+not-yet-active catalog for possible pileup, jet, isolation, recoil, FSR, and
+trigger-object additions is in
 [OBSERVABLE_CANDIDATES.md](OBSERVABLE_CANDIDATES.md). The local operational
 skill is
 [`skills/run-stability/SKILL.md`](skills/run-stability/SKILL.md).

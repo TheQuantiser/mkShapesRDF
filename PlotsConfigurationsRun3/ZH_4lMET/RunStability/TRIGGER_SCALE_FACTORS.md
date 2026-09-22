@@ -5,6 +5,13 @@ exactly the two leptons selected as `Z0_idx`. The generic all-lepton result and
 stored leading-lepton branches are diagnostics, not nominal weights. This
 leaf is DY-only; no four-lepton ZZCR or SR trigger-weight contract is public.
 
+For the complete cross-component inventory—including reconstruction,
+electron and muon ID/isolation, prompt-MVA residuals, the seven unique trigger
+leg efficiency maps, angular terms, and active/inactive status—see
+[LEPTON_SCALE_FACTORS.md](LEPTON_SCALE_FACTORS.md). This document remains the
+authority for how RunStability combines the trigger inputs for the selected Z
+pair.
+
 ## Ownership and implementation
 
 | File | Responsibility |

@@ -91,6 +91,8 @@ Python plotting packages through `plot_run_stability.py`.
 | `CONFIGURATION.md` | Resolved physics/configuration contract |
 | `USAGE.MD` | Bounded validation, batch preparation, and plot reproduction commands |
 | `LUMINOSITY_PROPAGATION.md` | Denominator, scaling, covariance, uncertainty, and chi-square semantics |
+| `LEPTON_SCALE_FACTORS.md` | Raw electron, muon, reconstruction, ID/isolation, prompt-MVA, and trigger-efficiency component inventory |
+| `TRIGGER_SCALE_FACTORS.md` | Selected-Z trigger adapter, event-efficiency algebra, and nominal weight placement |
 | `production_history/README.md` | Status index separating failed, superseded, retained, and current-source evidence |
 | `production_history/*.md` | Immutable campaign evidence; old paths and identities remain historical facts |
 | `development/` | Historical design/audit evidence, not the current public interface |
