@@ -79,6 +79,19 @@ RunStability aliases use this stored array for both `L2TightLeading2` and
 `bestZ0IdxWithID`, so this event fails the leading-two gate and has no valid
 historical Z candidate.
 
+The same HWW event retains `VetoLepton_muonIdx = [0, 1, 2]`, the ordering
+before HLT-safe removal. Its recomputed tight statuses are `[false, true,
+true]`, whose first two bits equal the stored retained vector `[false,
+true]`. In an HWW-only audit of the 508 paired Muon C/I `IsoMu24` events
+selected only by Coffea and failing the historical leading-two gate, 503
+stored vectors disagree with the tight statuses at the retained raw-muon
+indices. In 507 of the 508 events, the stored vector equals the prefix of
+the tight-status vector in `VetoLepton_muonIdx` order. Both conditions hold
+in 502 events. These are comparisons of branches within the retained HWW
+files and strongly identify stale prefilter positional indexing in those
+records; they do not require assuming that the central NanoAOD muon contents
+match another file.
+
 The current `LeptonMaker.py` sorts the original combined lepton collection by
 `pT`. The current `LeptonSel.py` defines the propagated tight arrays on that
 collection, then applies the HLT-safe mask to only six core `Lepton_*` arrays
