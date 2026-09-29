@@ -74,6 +74,77 @@ observable axes, empty run-axis flows, and one copy of the luminosity metadata.
 The MC-only output must contain ordinary one-dimensional histograms and no
 DATA run-resolved hierarchy.
 
+## Pinned central NanoAOD producer diagnostic on LPC
+
+`local_producer_diagnostic.py` is an opt-in, local diagnostic for the six-role
+2024 paired low-pT input manifest. It applies the live processor `Steps_cfg`
+DATA `__l2loose` or DY MC `__l2tight` chain to one manifest role and one
+half-open range of original NanoAOD `Events` entries. The final snapshot is
+written locally as `events.root`; it does not submit jobs or stage out files.
+The output is an Events-only diagnostic tree, not a complete production
+HWWNano file. The runner retains all nominal RDataFrame columns plus
+`diagnostic_source_entry` and writes `entry_ledger.json.gz` with each input
+`(source entry, run, luminosityBlock, event)` key and the surviving source
+entries after each step. The `receipt.json` records source and output hashes,
+ROOT UUID, event counts, chain, and per-step counts.
+
+Use the frozen manifest whose LFNs have been independently matched to the
+historical HWW parents. From the mkShapesRDF checkout:
+
+```bash
+cd /path/to/mkShapesRDF
+source start.sh
+sha256sum /path/to/coffea/docs/diagnostics/paired-2024-lowpt/inputs.json
+python PlotsConfigurationsRun3/ZH_4lMET/RunStability/local_producer_diagnostic.py \
+  /path/to/coffea/docs/diagnostics/paired-2024-lowpt/inputs.json \
+  --manifest-sha256 <exact-sha256> --role muon_c \
+  --output-dir /absolute/new/local/diagnostic/muon_c
+```
+
+For `dy_ee` or `dy_mumu`, also supply `--normalization-receipt` and
+`--normalization-sha256`. The hashed JSON receipt must name the same processor
+sample and central dataset and have `schema_version: 1`,
+`status: "verified"`, and a nonzero `gen_event_sumw`. Supported methods are:
+
+- `Runs.genEventSumw`, with at least two complete source LFNs, matching
+  per-file sums, and the pinned `source_file_inventory_hash`; or
+- `retained_hww_baseW`, with `matched_input_lfn`,
+  `historical_hww_part0_uri`, `historical_compiled_pickle_sha256`,
+  `parent_pair_evidence_sha256`,
+  `historical_hww_baseW`, and `cross_section_pb`.
+
+The runner verifies receipt identity, hash, source membership or parent LFN,
+catalog cross section, and the `baseW = 1000 * cross_section_pb /
+gen_event_sumw` relation. The receipt's scientific verification, including
+the historical HWW branch read and full-source denominator provenance, must
+be completed independently before use. The runner never derives MC
+normalization from the selected file's `Runs` tree. It rejects an existing
+output directory, changed manifest SHA or producer-package tree relative to
+the manifest's pinned mkShapesRDF revision, mismatched source
+ROOT UUID or entry count, and a DATA Golden JSON hash mismatch. A real file
+execution and comparison to retained HWW contents are still required before
+claiming producer equivalence.
+
+On 2026-09-29, one bounded `muon_c` pass failed before creating an Events
+output: the live DATA step requests `Regrouped_*` JES uncertainties under
+`Summer24Prompt24_V2_DATA`, while the configured 2025-12-02
+`jet_jerc.json.gz` payload (SHA-256
+`ff3f656858d24f349438cc67c4bea0ea32f2bd89fb8d8e18b0b1e7667640ab2a`)
+has those keys only under the MC tag. An empty JES list allows the nominal
+calculator to construct, but that would depart from
+the configured chain and was not used for this diagnostic. Two DY MC passes
+over the frozen first 80,000 entries did complete: 34,538 ee and 31,989
+mumu Events survived. Every output event key occurred in its independently
+matched historical HWW part0. On the first 20 matched keys per role,
+`baseW` and `CleanJet_pt` agreed in all 20 within `rtol=atol=1e-6`, while
+`Lepton_pt` agreed in none; `mll` agreed in 8 ee cases (including sentinel
+values) and 0 mumu cases. The live MC lepton smearing source draws random
+values, which plausibly contributes to the difference; historical producer
+version and payload differences remain unexcluded. The historical HWW
+producer Git revision is not recorded by this diagnostic. Preserve the
+historical HWW product as the authority for the original campaign's lepton
+values.
+
 ## Validate the leaf
 
 ```bash
