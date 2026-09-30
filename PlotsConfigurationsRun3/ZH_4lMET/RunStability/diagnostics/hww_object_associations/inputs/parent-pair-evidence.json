@@ -1,0 +1,226 @@
+{
+  "central_read_endpoint": "root://cmsxrootd.fnal.gov",
+  "checked_date_utc": "2026-09-29",
+  "frozen_fileset_hash": "0b0b2e24724b56dac136c9d6401cc54e06e10d065667eb6d2b19d576fd9ec875",
+  "frozen_fileset_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/coffea/artifacts/studies/run3-2024-trigger-probe-btv-v5/fileset.json",
+  "frozen_fileset_sha256": "92e36a63ddc927069fddf299dcea7bab9e47736c610a1e6271a256d8f8c5f552",
+  "hww_campaign": "DYRS_PT35_M60TO120_OBS6_20260819T021244Z",
+  "hww_exact_compiled_pickle_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/RunStability/configs/config_26-08-18_21_38_40.pkl",
+  "hww_exact_compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+  "kind": "paired_2024_lowpt_parent_pair_evidence",
+  "limits": [
+    "Evidence establishes these six specific HWW part0 to central NanoAOD parent pairs; it does not map every part or prove full-source production equivalence.",
+    "The HWW Events branch inventories retain run, luminosityBlock and event, but no explicit source LFN or original entry field. Original entry indices were not reconstructed.",
+    "HWW MetaData.ProcessHistory was present but Uproot could not decode its memberwise edm::ProcessHistory serialization; no parent LFN claim relies on it.",
+    "The selected DATA files cover Muon0 and EGamma0 C and I Prompt-v1 only; Muon1, EGamma1 and I Prompt-v2 are outside this six-file diagnostic.",
+    "DATA certification, global duplicate ownership, normalization, and scientific closure were not tested here."
+  ],
+  "method": [
+    "Read the six source records and exact LFNs from the frozen Coffea v5 fileset; verify every selected LFN is a member of its declared source.",
+    "Read HWW part0 PFNs from the exact historical compiled pickle string opcodes and analysis contract; reopen one HWW ROOT file per selected source.",
+    "For MC, match HWW part0 Runs.genEventCount uniquely to frozen source-file Events entries; independently reopen the selected central file and compare Runs.genEventCount and Runs.genEventSumw.",
+    "For DATA, query DAS for one first-retained HWW event run/lumisection within the exact dataset; each bounded query returned one LFN. Independently reopen each central file and compare the complete LuminosityBlocks (run,luminosityBlock) sets.",
+    "For all six pairs, confirm that the first three HWW (run,luminosityBlock,event) keys occur in the selected central Events tree."
+  ],
+  "pairs": [
+    {
+      "central_adler32_frozen": "1fd4401f",
+      "central_bytes": 331753915,
+      "central_events_entries": 158487,
+      "central_lfn": "/store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+      "central_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+      "event_key_sample": {
+        "fields": [
+          "run",
+          "luminosityBlock",
+          "event"
+        ],
+        "found_in_central": 3,
+        "hww_first_n": 3
+      },
+      "hww_events_entries": 68421,
+      "hww_part_index": 0,
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+      "mc_runs_match": {
+        "frozen_source_files_with_matching_entries": 1,
+        "genEventCount_central": 158487,
+        "genEventCount_hww": 158487,
+        "genEventSumw_central": 2825907206.276002,
+        "genEventSumw_hww": 2825907206.276002
+      },
+      "role": "dy_ee",
+      "sample": "DYto2E-2Jets_MLL-50",
+      "source_dataset": "/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v4/NANOAODSIM",
+      "source_file_inventory_hash": "2d2974d81df8c25945425457a6459c8dbd1d62199f1b64103538ebe2cf33eff2",
+      "source_id": "bd8731e6fe600d168a1861928b70238ccf850de3c6e41599fbd2153a581e1fa8"
+    },
+    {
+      "central_adler32_frozen": "236909d2",
+      "central_bytes": 390128647,
+      "central_events_entries": 222331,
+      "central_lfn": "/store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+      "central_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+      "event_key_sample": {
+        "fields": [
+          "run",
+          "luminosityBlock",
+          "event"
+        ],
+        "found_in_central": 3,
+        "hww_first_n": 3
+      },
+      "hww_events_entries": 88692,
+      "hww_part_index": 0,
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root",
+      "mc_runs_match": {
+        "frozen_source_files_with_matching_entries": 1,
+        "genEventCount_central": 222331,
+        "genEventCount_hww": 222331,
+        "genEventSumw_central": 3974341240.883998,
+        "genEventSumw_hww": 3974341240.883998
+      },
+      "role": "dy_mumu",
+      "sample": "DYto2Mu-2Jets_MLL-50",
+      "source_dataset": "/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v6/NANOAODSIM",
+      "source_file_inventory_hash": "366bda7fc8c42e9bf6e67cf24050544af03af90cc2388b2fe714ee4610cbec11",
+      "source_id": "be66d4331c02d5ef9adfc61e644248665296758dc71f6a23e9c6eab5db6a5139"
+    },
+    {
+      "central_adler32_frozen": "6a890ff0",
+      "central_bytes": 1859604277,
+      "central_events_entries": 1354629,
+      "central_lfn": "/store/data/Run2024C/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/677e3bb0-8199-4ffb-83af-165410a7b7a6.root",
+      "central_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/677e3bb0-8199-4ffb-83af-165410a7b7a6.root",
+      "data_lumisection_match": {
+        "central_unique_pairs": 407,
+        "fields": [
+          "run",
+          "luminosityBlock"
+        ],
+        "full_sets_equal": true,
+        "hww_unique_pairs": 407,
+        "targeted_das_file_query_result_count": 1
+      },
+      "event_key_sample": {
+        "fields": [
+          "run",
+          "luminosityBlock",
+          "event"
+        ],
+        "found_in_central": 3,
+        "hww_first_n": 3
+      },
+      "hww_events_entries": 316341,
+      "hww_part_index": 0,
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root",
+      "role": "muon_c",
+      "sample": "Muon0_Run2024C-ReReco-v1",
+      "source_dataset": "/Muon0/Run2024C-MINIv6NANOv15-v1/NANOAOD",
+      "source_file_inventory_hash": "224c7d39dff3a9d53eb4370b871b113e0be50007cf555ef7ca0b5d088d85ad71",
+      "source_id": "6c504cd504354be724014e5c6b953f377812e0c5bbb4970339bac839f5133b16"
+    },
+    {
+      "central_adler32_frozen": "f1b8e616",
+      "central_bytes": 988285504,
+      "central_events_entries": 731745,
+      "central_lfn": "/store/data/Run2024I/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/7417bff0-941a-492c-abcf-d35be0645afe.root",
+      "central_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/7417bff0-941a-492c-abcf-d35be0645afe.root",
+      "data_lumisection_match": {
+        "central_unique_pairs": 107,
+        "fields": [
+          "run",
+          "luminosityBlock"
+        ],
+        "full_sets_equal": true,
+        "hww_unique_pairs": 107,
+        "targeted_das_file_query_result_count": 1
+      },
+      "event_key_sample": {
+        "fields": [
+          "run",
+          "luminosityBlock",
+          "event"
+        ],
+        "found_in_central": 3,
+        "hww_first_n": 3
+      },
+      "hww_events_entries": 163180,
+      "hww_part_index": 0,
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024I-Prompt-v1__part0.root",
+      "role": "muon_i",
+      "sample": "Muon0_Run2024I-Prompt-v1",
+      "source_dataset": "/Muon0/Run2024I-MINIv6NANOv15-v1/NANOAOD",
+      "source_file_inventory_hash": "29d778d1758201e346dc1ad9f19b95b237f5fc529a63cd7fab540f3bda19f34c",
+      "source_id": "64f1179be098e8d1c99803e739a8e2bbe59e7308f5244d710afecd2ce5a92286"
+    },
+    {
+      "central_adler32_frozen": "314ad6ee",
+      "central_bytes": 1072103816,
+      "central_events_entries": 704556,
+      "central_lfn": "/store/data/Run2024C/EGamma0/NANOAOD/MINIv6NANOv15-v1/2540000/3151ab41-a5bd-48f1-be40-449b760a60e6.root",
+      "central_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/EGamma0/NANOAOD/MINIv6NANOv15-v1/2540000/3151ab41-a5bd-48f1-be40-449b760a60e6.root",
+      "data_lumisection_match": {
+        "central_unique_pairs": 130,
+        "fields": [
+          "run",
+          "luminosityBlock"
+        ],
+        "full_sets_equal": true,
+        "hww_unique_pairs": 130,
+        "targeted_das_file_query_result_count": 1
+      },
+      "event_key_sample": {
+        "fields": [
+          "run",
+          "luminosityBlock",
+          "event"
+        ],
+        "found_in_central": 3,
+        "hww_first_n": 3
+      },
+      "hww_events_entries": 49200,
+      "hww_part_index": 0,
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root",
+      "role": "egamma_c",
+      "sample": "EGamma0_Run2024C-ReReco-v1",
+      "source_dataset": "/EGamma0/Run2024C-MINIv6NANOv15-v1/NANOAOD",
+      "source_file_inventory_hash": "acd005dfa72af7328a9434a7a47f6c93d80d522db014a35b5a3baf5d29a1427a",
+      "source_id": "ea9e9070242fddf52377d6750fc05399ae648053c5b69f4ad99ee3ad43895656"
+    },
+    {
+      "central_adler32_frozen": "9b70cff6",
+      "central_bytes": 1034260131,
+      "central_events_entries": 657356,
+      "central_lfn": "/store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+      "central_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+      "data_lumisection_match": {
+        "central_unique_pairs": 66,
+        "fields": [
+          "run",
+          "luminosityBlock"
+        ],
+        "full_sets_equal": true,
+        "hww_unique_pairs": 66,
+        "targeted_das_file_query_result_count": 1
+      },
+      "event_key_sample": {
+        "fields": [
+          "run",
+          "luminosityBlock",
+          "event"
+        ],
+        "found_in_central": 3,
+        "hww_first_n": 3
+      },
+      "hww_events_entries": 44596,
+      "hww_part_index": 0,
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root",
+      "role": "egamma_i",
+      "sample": "EGamma0_Run2024I-Prompt-v1",
+      "source_dataset": "/EGamma0/Run2024I-MINIv6NANOv15-v1/NANOAOD",
+      "source_file_inventory_hash": "b2771e7ba175469322c08c1f36821395e188754c4935f72a4434f4981f944da5",
+      "source_id": "edcadc7f836259760d92116e91655478164683833af7947a3648fc0143a4a347"
+    }
+  ],
+  "schema_version": 1
+}

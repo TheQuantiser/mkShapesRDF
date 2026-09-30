@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "verified",
+  "method": "retained_hww_baseW",
+  "sample": "DYto2E-2Jets_MLL-50",
+  "dataset": "/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v4/NANOAODSIM",
+  "matched_input_lfn": "/store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+  "historical_hww_part0_uri": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+  "historical_hww_events_entries": 68421,
+  "historical_hww_baseW": 2.407703618700907e-07,
+  "observed_first_three_baseW": [
+    2.407703618700907e-07,
+    2.407703618700907e-07,
+    2.407703618700907e-07
+  ],
+  "cross_section_pb": 2091.7,
+  "gen_event_sumw": 8687531072153.27,
+  "historical_compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+  "parent_pair_evidence_sha256": "a49c3c2bddda0a0d006114933cdca43125cfaf24d05996944ea66997dcad7f6b",
+  "parent_pair_evidence_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/coffea/.worktrees/paired-lowpt-diagnostic/diagnostics/paired-2024-lowpt/parent-pair-evidence.json",
+  "source_manifest_sha256": "c47bc8fde91a4c06aeead3c488115585df85194331d5886024f6f74333d8ee98",
+  "selected_central_file_genEventSumw_for_contrast_only": 2825907206.276002,
+  "historical_producer_git_revision": "unresolved",
+  "derivation": "gen_event_sumw = current processor catalog cross_section_pb * 1000 / observed historical HWW part0 baseW; selected central file Runs sum is not used"
+}

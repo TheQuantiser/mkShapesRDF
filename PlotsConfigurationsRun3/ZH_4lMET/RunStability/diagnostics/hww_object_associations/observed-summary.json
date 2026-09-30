@@ -1,0 +1,1063 @@
+{
+  "kind": "bounded_2024_hww_object_association_demo",
+  "schema_version": 1,
+  "producer_revision": "4f48e7308270d17cdcc96b3fcde5e9fb74d0fa04",
+  "producer_package_tree": "bcab8f23edc62ff87ef6bea172d85c0459a8f66f",
+  "python_hash_seed": "0",
+  "pinned_manifest_sha256": "c47bc8fde91a4c06aeead3c488115585df85194331d5886024f6f74333d8ee98",
+  "parent_pair_evidence_sha256": "a49c3c2bddda0a0d006114933cdca43125cfaf24d05996944ea66997dcad7f6b",
+  "scope": "Few exact events, actual historical HWW part0, current isolated lepton modules; not full-year prevalence or full DATA producer success.",
+  "witnesses": [
+    {
+      "role": "muon_c",
+      "source_entry": 234,
+      "key": [
+        379416,
+        147,
+        131724611
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/677e3bb0-8199-4ffb-83af-165410a7b7a6.root",
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root",
+      "source_uuid": "e1152dcc-0522-11f0-a444-8ccce183beef",
+      "hww_uuid": "bcc9d2f0-3579-11f1-a0a2-a4bf01606976",
+      "hww_entry": 65,
+      "hww_present": true,
+      "live_prefilter_indices": {
+        "electron": [
+          -1,
+          -1,
+          -1
+        ],
+        "muon": [
+          0,
+          1,
+          2
+        ]
+      },
+      "live_retained_indices": {
+        "electron": [
+          -1,
+          -1
+        ],
+        "muon": [
+          1,
+          2
+        ]
+      },
+      "live_tight_vectors": {
+        "electron": [
+          false,
+          false,
+          false
+        ],
+        "muon": [
+          false,
+          true,
+          true
+        ]
+      },
+      "live_retained_position_checks": [
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "muon",
+          "phi_associated": true,
+          "position": 0,
+          "prefilter_position": 1,
+          "raw_index": 1,
+          "stored_position_tight": false
+        },
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "muon",
+          "phi_associated": true,
+          "position": 1,
+          "prefilter_position": 2,
+          "raw_index": 2,
+          "stored_position_tight": true
+        }
+      ],
+      "historical": {
+        "retained": {
+          "Lepton_pt": [
+            45.92918014526367,
+            45.21227264404297
+          ],
+          "Lepton_eta": [
+            -0.7153167724609375,
+            -1.0579376220703125
+          ],
+          "Lepton_phi": [
+            -1.561309814453125,
+            1.6826629638671875
+          ],
+          "Lepton_electronIdx": [
+            -1,
+            -1
+          ],
+          "Lepton_muonIdx": [
+            1,
+            2
+          ],
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+            false,
+            false
+          ],
+          "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+            false,
+            true
+          ]
+        },
+        "raw_named_tight": {
+          "Electron": [],
+          "Muon": [
+            false,
+            true,
+            true
+          ]
+        },
+        "association_checks": [
+          {
+            "position": 0,
+            "flavor": "Muon",
+            "raw_index": 1,
+            "stored_tight": false,
+            "raw_named_tight": true,
+            "tight_match": false,
+            "stored_eta": -0.7153167724609375,
+            "raw_eta": -0.7153167724609375,
+            "eta_match": true,
+            "stored_phi": -1.561309814453125,
+            "raw_phi": -1.561309814453125,
+            "phi_match": true
+          },
+          {
+            "position": 1,
+            "flavor": "Muon",
+            "raw_index": 2,
+            "stored_tight": true,
+            "raw_named_tight": true,
+            "tight_match": true,
+            "stored_eta": -1.0579376220703125,
+            "raw_eta": -1.0579376220703125,
+            "eta_match": true,
+            "stored_phi": 1.6826629638671875,
+            "raw_phi": 1.6826629638671875,
+            "phi_match": true
+          }
+        ],
+        "invariant": {
+          "tight": false,
+          "eta": true,
+          "phi": true,
+          "tight_vector_lengths": true
+        }
+      }
+    },
+    {
+      "role": "egamma_c",
+      "source_entry": 20774,
+      "key": [
+        379729,
+        907,
+        1396820419
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/EGamma0/NANOAOD/MINIv6NANOv15-v1/2540000/3151ab41-a5bd-48f1-be40-449b760a60e6.root",
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root",
+      "source_uuid": "aec70578-04ed-11f0-afd0-0a8ed380beef",
+      "hww_uuid": "ebce4a80-358e-11f1-aade-3cecef951668",
+      "hww_entry": 991,
+      "hww_present": true,
+      "live_prefilter_indices": {
+        "electron": [
+          -1,
+          0,
+          1,
+          -1,
+          2
+        ],
+        "muon": [
+          0,
+          -1,
+          -1,
+          1,
+          -1
+        ]
+      },
+      "live_retained_indices": {
+        "electron": [
+          0,
+          1
+        ],
+        "muon": [
+          -1,
+          -1
+        ]
+      },
+      "live_tight_vectors": {
+        "electron": [
+          false,
+          true,
+          true,
+          false,
+          false
+        ],
+        "muon": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "live_retained_position_checks": [
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 0,
+          "prefilter_position": 1,
+          "raw_index": 0,
+          "stored_position_tight": false
+        },
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 1,
+          "prefilter_position": 2,
+          "raw_index": 1,
+          "stored_position_tight": true
+        }
+      ],
+      "historical": {
+        "retained": {
+          "Lepton_pt": [
+            54.1286735534668,
+            44.030338287353516
+          ],
+          "Lepton_eta": [
+            -0.7418212890625,
+            -1.0224609375
+          ],
+          "Lepton_phi": [
+            -0.18115234375,
+            2.21875
+          ],
+          "Lepton_electronIdx": [
+            0,
+            1
+          ],
+          "Lepton_muonIdx": [
+            -1,
+            -1
+          ],
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+            false,
+            true
+          ],
+          "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+            false,
+            false
+          ]
+        },
+        "raw_named_tight": {
+          "Electron": [
+            true,
+            true,
+            false
+          ],
+          "Muon": [
+            false,
+            false
+          ]
+        },
+        "association_checks": [
+          {
+            "position": 0,
+            "flavor": "Electron",
+            "raw_index": 0,
+            "stored_tight": false,
+            "raw_named_tight": true,
+            "tight_match": false,
+            "stored_eta": -0.7418212890625,
+            "raw_eta": -0.7418212890625,
+            "eta_match": true,
+            "stored_phi": -0.18115234375,
+            "raw_phi": -0.18115234375,
+            "phi_match": true
+          },
+          {
+            "position": 1,
+            "flavor": "Electron",
+            "raw_index": 1,
+            "stored_tight": true,
+            "raw_named_tight": true,
+            "tight_match": true,
+            "stored_eta": -1.0224609375,
+            "raw_eta": -1.0224609375,
+            "eta_match": true,
+            "stored_phi": 2.21875,
+            "raw_phi": 2.21875,
+            "phi_match": true
+          }
+        ],
+        "invariant": {
+          "tight": false,
+          "eta": true,
+          "phi": true,
+          "tight_vector_lengths": true
+        }
+      }
+    },
+    {
+      "role": "egamma_i",
+      "source_entry": 27025,
+      "key": [
+        386509,
+        159,
+        333332716
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root",
+      "source_uuid": "95bbdcc8-0738-11f0-8110-d42411acbeef",
+      "hww_uuid": "904011a4-359c-11f1-9867-7cc2559e8508",
+      "hww_entry": 1936,
+      "hww_present": true,
+      "live_prefilter_indices": {
+        "electron": [
+          0,
+          1
+        ],
+        "muon": [
+          -1,
+          -1
+        ]
+      },
+      "live_retained_indices": {
+        "electron": [
+          0,
+          1
+        ],
+        "muon": [
+          -1,
+          -1
+        ]
+      },
+      "live_tight_vectors": {
+        "electron": [
+          true,
+          true
+        ],
+        "muon": [
+          false,
+          false
+        ]
+      },
+      "live_retained_position_checks": [
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 0,
+          "prefilter_position": 0,
+          "raw_index": 0,
+          "stored_position_tight": true
+        },
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 1,
+          "prefilter_position": 1,
+          "raw_index": 1,
+          "stored_position_tight": true
+        }
+      ],
+      "historical": {
+        "retained": {
+          "Lepton_pt": [
+            39.22800827026367,
+            38.37687301635742
+          ],
+          "Lepton_eta": [
+            -2.05712890625,
+            -0.93359375
+          ],
+          "Lepton_phi": [
+            -1.22802734375,
+            1.9677734375
+          ],
+          "Lepton_electronIdx": [
+            0,
+            1
+          ],
+          "Lepton_muonIdx": [
+            -1,
+            -1
+          ],
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+            true,
+            true
+          ],
+          "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+            false,
+            false
+          ]
+        },
+        "raw_named_tight": {
+          "Electron": [
+            true,
+            true
+          ],
+          "Muon": []
+        },
+        "association_checks": [
+          {
+            "position": 0,
+            "flavor": "Electron",
+            "raw_index": 0,
+            "stored_tight": true,
+            "raw_named_tight": true,
+            "tight_match": true,
+            "stored_eta": -2.05712890625,
+            "raw_eta": -0.93359375,
+            "eta_match": false,
+            "stored_phi": -1.22802734375,
+            "raw_phi": -1.22802734375,
+            "phi_match": true
+          },
+          {
+            "position": 1,
+            "flavor": "Electron",
+            "raw_index": 1,
+            "stored_tight": true,
+            "raw_named_tight": true,
+            "tight_match": true,
+            "stored_eta": -0.93359375,
+            "raw_eta": -2.05712890625,
+            "eta_match": false,
+            "stored_phi": 1.9677734375,
+            "raw_phi": 1.9677734375,
+            "phi_match": true
+          }
+        ],
+        "invariant": {
+          "tight": true,
+          "eta": false,
+          "phi": true,
+          "tight_vector_lengths": true
+        }
+      },
+      "current_isolated_correction": {
+        "original_permutation": {
+          "Lepton_newPt": [
+            38.37687301635742,
+            39.22800827026367
+          ],
+          "Lepton_sorting": [
+            1,
+            0
+          ]
+        },
+        "loop_column_order": [
+          "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet",
+          "Lepton_eta",
+          "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+          "Lepton_newPt",
+          "Lepton_isTightElectron_testrecipes",
+          "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+          "Lepton_electronIdx",
+          "Lepton_muonIdx",
+          "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW",
+          "Lepton_isTightMuon_cut_Tight_HWW",
+          "Lepton_pdgId",
+          "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+          "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+          "Lepton_sorting",
+          "Lepton_rochesterSF",
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+          "Lepton_isTightElectron_wp90iso",
+          "Lepton_isTightMuon_cut_TightID_POG",
+          "Lepton_pt",
+          "Lepton_phi"
+        ],
+        "corrected": {
+          "Lepton_electronIdx": [
+            1,
+            0
+          ],
+          "Lepton_eta": [
+            -2.05712890625,
+            -0.93359375
+          ],
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+            true,
+            true
+          ],
+          "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+            false,
+            false
+          ],
+          "Lepton_muonIdx": [
+            -1,
+            -1
+          ],
+          "Lepton_phi": [
+            -1.22802734375,
+            1.9677734375
+          ],
+          "Lepton_pt": [
+            39.22800827026367,
+            38.37687301635742
+          ]
+        },
+        "position_checks": [
+          {
+            "eta_associated": true,
+            "phi_associated": false,
+            "position": 0,
+            "raw_electron_index": 1
+          },
+          {
+            "eta_associated": true,
+            "phi_associated": false,
+            "position": 1,
+            "raw_electron_index": 0
+          }
+        ],
+        "stage_limit": "Actual leptonScale_data module ran directly after LeptonSel, without preceding JME. This is not a full DATA chain or snapshot; interpretation depends on the recorded permutation and loop order."
+      },
+      "lepton_columns_after_lepton_sel": [
+        "Lepton_electronIdx",
+        "Lepton_eta",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+        "Lepton_isTightElectron_testrecipes",
+        "Lepton_isTightElectron_wp90iso",
+        "Lepton_isTightMuon_cut_TightID_POG",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+        "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_Tight_HWW",
+        "Lepton_muonIdx",
+        "Lepton_pdgId",
+        "Lepton_phi",
+        "Lepton_pt",
+        "VetoLepton_electronIdx",
+        "VetoLepton_eta",
+        "VetoLepton_muonIdx",
+        "VetoLepton_pdgId",
+        "VetoLepton_phi",
+        "VetoLepton_pt"
+      ],
+      "lepton_columns_after_isolated_correction": [
+        "Lepton_electronIdx",
+        "Lepton_eta",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+        "Lepton_isTightElectron_testrecipes",
+        "Lepton_isTightElectron_wp90iso",
+        "Lepton_isTightMuon_cut_TightID_POG",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+        "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_Tight_HWW",
+        "Lepton_muonIdx",
+        "Lepton_pdgId",
+        "Lepton_phi",
+        "Lepton_pt",
+        "Lepton_rochesterSF",
+        "VetoLepton_electronIdx",
+        "VetoLepton_eta",
+        "VetoLepton_muonIdx",
+        "VetoLepton_pdgId",
+        "VetoLepton_phi",
+        "VetoLepton_pt"
+      ]
+    },
+    {
+      "role": "egamma_i",
+      "source_entry": 46209,
+      "key": [
+        386509,
+        735,
+        1539152813
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root",
+      "source_uuid": "95bbdcc8-0738-11f0-8110-d42411acbeef",
+      "hww_uuid": "904011a4-359c-11f1-9867-7cc2559e8508",
+      "hww_entry": 3325,
+      "hww_present": true,
+      "live_prefilter_indices": {
+        "electron": [
+          -1,
+          0,
+          1
+        ],
+        "muon": [
+          0,
+          -1,
+          -1
+        ]
+      },
+      "live_retained_indices": {
+        "electron": [
+          0,
+          1
+        ],
+        "muon": [
+          -1,
+          -1
+        ]
+      },
+      "live_tight_vectors": {
+        "electron": [
+          false,
+          true,
+          true
+        ],
+        "muon": [
+          false,
+          false,
+          false
+        ]
+      },
+      "live_retained_position_checks": [
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 0,
+          "prefilter_position": 1,
+          "raw_index": 0,
+          "stored_position_tight": false
+        },
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 1,
+          "prefilter_position": 2,
+          "raw_index": 1,
+          "stored_position_tight": true
+        }
+      ],
+      "historical": {
+        "retained": {
+          "Lepton_pt": [
+            39.51831817626953,
+            38.97809600830078
+          ],
+          "Lepton_eta": [
+            1.73095703125,
+            0.6126708984375
+          ],
+          "Lepton_phi": [
+            1.408203125,
+            -1.76171875
+          ],
+          "Lepton_electronIdx": [
+            0,
+            1
+          ],
+          "Lepton_muonIdx": [
+            -1,
+            -1
+          ],
+          "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+            false,
+            true
+          ],
+          "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+            false,
+            false
+          ]
+        },
+        "raw_named_tight": {
+          "Electron": [
+            true,
+            true
+          ],
+          "Muon": [
+            false
+          ]
+        },
+        "association_checks": [
+          {
+            "position": 0,
+            "flavor": "Electron",
+            "raw_index": 0,
+            "stored_tight": false,
+            "raw_named_tight": true,
+            "tight_match": false,
+            "stored_eta": 1.73095703125,
+            "raw_eta": 0.6126708984375,
+            "eta_match": false,
+            "stored_phi": 1.408203125,
+            "raw_phi": 1.408203125,
+            "phi_match": true
+          },
+          {
+            "position": 1,
+            "flavor": "Electron",
+            "raw_index": 1,
+            "stored_tight": true,
+            "raw_named_tight": true,
+            "tight_match": true,
+            "stored_eta": 0.6126708984375,
+            "raw_eta": 1.73095703125,
+            "eta_match": false,
+            "stored_phi": -1.76171875,
+            "raw_phi": -1.76171875,
+            "phi_match": true
+          }
+        ],
+        "invariant": {
+          "tight": false,
+          "eta": false,
+          "phi": true,
+          "tight_vector_lengths": true
+        }
+      }
+    },
+    {
+      "role": "dy_ee",
+      "source_entry": 174,
+      "key": [
+        1,
+        384532,
+        2060318616
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+      "source_uuid": "39e98d54-0b1c-11f0-ae78-630b10acbeef",
+      "hww_uuid": "c183f92c-3747-11f1-be55-3cecef0de5e4",
+      "hww_entry": null,
+      "hww_present": false,
+      "live_prefilter_indices": {
+        "electron": [
+          0,
+          -1,
+          1
+        ],
+        "muon": [
+          -1,
+          0,
+          -1
+        ]
+      },
+      "live_retained_indices": {
+        "electron": [
+          0,
+          1
+        ],
+        "muon": [
+          -1,
+          -1
+        ]
+      },
+      "live_tight_vectors": {
+        "electron": [
+          true,
+          false,
+          true
+        ],
+        "muon": [
+          false,
+          false,
+          false
+        ]
+      },
+      "live_retained_position_checks": [
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 0,
+          "prefilter_position": 0,
+          "raw_index": 0,
+          "stored_position_tight": true
+        },
+        {
+          "eta_associated": true,
+          "expected_tight": true,
+          "flavor": "electron",
+          "phi_associated": true,
+          "position": 1,
+          "prefilter_position": 2,
+          "raw_index": 1,
+          "stored_position_tight": false
+        }
+      ],
+      "historical": {
+        "status": "absent_from_pinned_part0",
+        "part0_entries": 68421
+      },
+      "isolated_l2tight_pass": false,
+      "fresh_current_mc_chain_through_l2tight": {
+        "configured_chain": "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight",
+        "first_failing_step": "l2tight",
+        "key": [
+          1,
+          384532,
+          2060318616
+        ],
+        "normalization_receipt_sha256": "557e7e75c054099e303e0e0258a1dd0170f601ba2752c13656aeb473e76efa4a",
+        "role": "dy_ee",
+        "scope": "One-entry current configured MC chain through l2tight; no correction or snapshot executed.",
+        "source_entry": 174,
+        "source_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+        "stages": [
+          {
+            "retained": true,
+            "step": "chain_selection"
+          },
+          {
+            "retained": true,
+            "step": "leptonMaker"
+          },
+          {
+            "retained": true,
+            "step": "lepSel"
+          },
+          {
+            "retained": true,
+            "step": "jetIDMaker"
+          },
+          {
+            "retained": true,
+            "step": "JES_modules_reducedv15_MC"
+          },
+          {
+            "retained": true,
+            "step": "jetSelMask"
+          },
+          {
+            "retained": true,
+            "step": "PromptParticlesGenVars"
+          },
+          {
+            "retained": true,
+            "step": "GenVar"
+          },
+          {
+            "retained": true,
+            "step": "GenLeptonMatch"
+          },
+          {
+            "retained": true,
+            "step": "HiggsGenVars"
+          },
+          {
+            "retained": true,
+            "step": "TopGenVars"
+          },
+          {
+            "retained": true,
+            "step": "WGammaStar"
+          },
+          {
+            "retained": true,
+            "step": "DressedLeptons"
+          },
+          {
+            "retained": true,
+            "step": "baseW"
+          },
+          {
+            "retained": true,
+            "step": "trigMC"
+          },
+          {
+            "retained": true,
+            "step": "leptonSF"
+          },
+          {
+            "retained": true,
+            "step": "puW"
+          },
+          {
+            "retained": true,
+            "step": "formulasMC"
+          },
+          {
+            "retained": false,
+            "step": "l2tight"
+          }
+        ]
+      }
+    },
+    {
+      "role": "dy_mumu",
+      "source_entry": 127,
+      "key": [
+        1,
+        260002,
+        1443526502
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+      "hww_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root",
+      "source_uuid": "2bd9db6c-1b32-11f0-bdb6-9dbfe183beef",
+      "hww_uuid": "d4c93ad6-37e9-11f1-98cc-3cecef0ddda8",
+      "hww_entry": null,
+      "hww_present": false,
+      "live_prefilter_indices": {
+        "electron": [
+          -1,
+          -1
+        ],
+        "muon": [
+          0,
+          1
+        ]
+      },
+      "live_retained_indices": {
+        "electron": [
+          -1
+        ],
+        "muon": [
+          0
+        ]
+      },
+      "live_tight_vectors": {
+        "electron": [
+          false,
+          false
+        ],
+        "muon": [
+          false,
+          false
+        ]
+      },
+      "live_retained_position_checks": [
+        {
+          "eta_associated": true,
+          "expected_tight": false,
+          "flavor": "muon",
+          "phi_associated": true,
+          "position": 0,
+          "prefilter_position": 0,
+          "raw_index": 0,
+          "stored_position_tight": false
+        }
+      ],
+      "historical": {
+        "status": "absent_from_pinned_part0",
+        "part0_entries": 88692
+      },
+      "isolated_l2tight_pass": false,
+      "fresh_current_mc_chain_through_l2tight": {
+        "configured_chain": "MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight",
+        "first_failing_step": "l2tight",
+        "key": [
+          1,
+          260002,
+          1443526502
+        ],
+        "normalization_receipt_sha256": "366729024becd971f5205c511fb13325d3bb26823b86b02da0d0b6a3c7b77eba",
+        "role": "dy_mumu",
+        "scope": "One-entry current configured MC chain through l2tight; no correction or snapshot executed.",
+        "source_entry": 127,
+        "source_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+        "stages": [
+          {
+            "retained": true,
+            "step": "chain_selection"
+          },
+          {
+            "retained": true,
+            "step": "leptonMaker"
+          },
+          {
+            "retained": true,
+            "step": "lepSel"
+          },
+          {
+            "retained": true,
+            "step": "jetIDMaker"
+          },
+          {
+            "retained": true,
+            "step": "JES_modules_reducedv15_MC"
+          },
+          {
+            "retained": true,
+            "step": "jetSelMask"
+          },
+          {
+            "retained": true,
+            "step": "PromptParticlesGenVars"
+          },
+          {
+            "retained": true,
+            "step": "GenVar"
+          },
+          {
+            "retained": true,
+            "step": "GenLeptonMatch"
+          },
+          {
+            "retained": true,
+            "step": "HiggsGenVars"
+          },
+          {
+            "retained": true,
+            "step": "TopGenVars"
+          },
+          {
+            "retained": true,
+            "step": "WGammaStar"
+          },
+          {
+            "retained": true,
+            "step": "DressedLeptons"
+          },
+          {
+            "retained": true,
+            "step": "baseW"
+          },
+          {
+            "retained": true,
+            "step": "trigMC"
+          },
+          {
+            "retained": true,
+            "step": "leptonSF"
+          },
+          {
+            "retained": true,
+            "step": "puW"
+          },
+          {
+            "retained": true,
+            "step": "formulasMC"
+          },
+          {
+            "retained": false,
+            "step": "l2tight"
+          }
+        ]
+      }
+    }
+  ]
+}
