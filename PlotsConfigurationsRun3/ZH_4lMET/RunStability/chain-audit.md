@@ -61,6 +61,12 @@ The revised [mkShapesRDF issue report][hww-issues] explicitly **rules out an ear
 
 ## Primary-source links
 
+The source references used above are also listed here for direct browsing.
+
+- mkShapesRDF: [HWWNano issues][hww-issues] · [categories][mk-categories] · [2024 year configuration][mk-year] · [producer steps][mk-steps] · [Z-pair helper][mk-pair] · [aliases][mk-aliases] · [analysis profile][mk-profile] · [period plotting][mk-plot].
+- Coffea configuration and processing: [v1 configuration][c-v1-config] · [v2 configuration][c-v2-config] · [DATA routing][c-routing] · [object construction][c-objects] · [processor][c-processor] · [candidate selection][c-candidates] · [source finalization][c-finalize] · [plotting][c-plot] · [selection guide][c-selections].
+- Coffea results and diagnostics: [full-year yields][c-yields] · [period comparison][c-period] · [paired-event diagnostic][c-paired].
+
 [hww-issues]: https://github.com/TheQuantiser/mkShapesRDF/blob/c0649272854fdd03812af19b6677fc82d6855091/PlotsConfigurationsRun3/ZH_4lMET/RunStability/KNOWN_HWWNANO_ISSUES.md
 [mk-categories]: https://github.com/TheQuantiser/mkShapesRDF/blob/c0649272854fdd03812af19b6677fc82d6855091/PlotsConfigurationsRun3/ZH_4lMET/RunStability/category_config.py
 [mk-year]: https://github.com/TheQuantiser/mkShapesRDF/blob/c0649272854fdd03812af19b6677fc82d6855091/PlotsConfigurationsRun3/ZH_4lMET/RunStability/year_config.json
