@@ -82,6 +82,7 @@ SELECTED_WP_FIELDS = (
     "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
     "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
 )
+ELECTRON_TIGHT = SELECTED_WP_FIELDS[0]
 
 
 def sha256(path):
@@ -258,7 +259,40 @@ def signed_event_to_uint64(value):
     return number & (2**64 - 1)
 
 
-def replay(config, pair, central, categories, leaf, output_root):
+def aligned_electron_tight(df, ROOT):
+    """Recompute the compiled pair WP on HWW raw electrons, then retain-index it."""
+    from mkShapesRDF.processor.data.LeptonSel_cfg import ElectronWP
+
+    cuts = ElectronWP["Full2024v15"]["TightObjWP"]["mvaWinter22V2Iso_WP90_tthMVA_Run3"][
+        "cuts"
+    ]
+    ROOT.gInterpreter.Declare(
+        "#include <ROOT/RVec.hxx>\n#include <stdexcept>\n"
+        "namespace hww_electron_counterfactual {\n"
+        "template <class Indices, class Bits>\n"
+        "Bits align(Indices const& indices, Bits const& raw) {\n"
+        " Bits result; result.reserve(indices.size());\n"
+        " for (int i : indices) {\n"
+        "  if (i < -1 || i >= static_cast<int>(raw.size())) "
+        'throw std::out_of_range("Electron index outside raw collection");\n'
+        "  result.push_back(i < 0 ? false : raw[i]);\n"
+        " } return result; } }\n"
+    )
+    df = df.Define("diag_electron_tight_raw", "ROOT::RVecB(Electron_pt.size(), true)")
+    for guard, ingredients in cuts.items():
+        expression = " && ".join(f"({ingredient})" for ingredient in ingredients)
+        df = df.Redefine(
+            "diag_electron_tight_raw",
+            f"diag_electron_tight_raw && (!({guard}) || ({expression}))",
+        )
+    df = df.Define(
+        "diag_electron_tight_aligned",
+        "hww_electron_counterfactual::align(Lepton_electronIdx, diag_electron_tight_raw)",
+    )
+    return df.Redefine(ELECTRON_TIGHT, "diag_electron_tight_aligned")
+
+
+def replay(config, pair, central, categories, leaf, output_root, counterfactual=None):
     import ROOT
     from run_stability_runner import RunAnalysis
 
@@ -308,6 +342,8 @@ def replay(config, pair, central, categories, leaf, output_root):
     )
     matched = only_df.Filter(expression, "central-prefix-key")
     runner.raw_actions = take_columns(matched, ROW_FIELDS)
+    if counterfactual in ("aligned_electron_tight", "aligned_electron_tight_no_gate"):
+        matched = aligned_electron_tight(matched, ROOT)
     runner.dfs[name][0]["df"] = matched
     runner.run()
     graph_runs = int(only_df.GetNRuns())
@@ -391,7 +427,7 @@ def DiagnosticRunAnalysis(base, categories, *args, **kwargs):
     return _Diagnostic()
 
 
-def ledger(raw, full, pre, selected, central, categories):
+def ledger(raw, full, pre, selected, central, categories, counterfactual=None):
     raw_map = unique_keys(raw, "matched HWW")
     full_map = unique_keys(full, "full historical alias stage")
     pre_map = unique_keys(pre, "historical preselection")
@@ -421,7 +457,12 @@ def ledger(raw, full, pre, selected, central, categories):
             for gate in (
                 "trigger_or",
                 "two_leptons",
-                "leading_two_tight",
+                *(
+                    ()
+                    if counterfactual
+                    in ("no_leading_two_gate", "aligned_electron_tight_no_gate")
+                    else ("leading_two_tight",)
+                ),
                 "no_horn_jet",
                 "nonzero_weight",
             )
@@ -480,6 +521,15 @@ def main(argv=None):
     parser.add_argument("--role", choices=TARGET_CATEGORIES, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--include-all", action="store_true", help="also book DY_ALL")
+    parser.add_argument(
+        "--counterfactual",
+        choices=(
+            "aligned_electron_tight",
+            "no_leading_two_gate",
+            "aligned_electron_tight_no_gate",
+        ),
+        help="opt-in historical selection counterfactual; baseline is unchanged",
+    )
     args = parser.parse_args(argv)
     if args.output_dir.exists():
         parser.error(
@@ -507,6 +557,11 @@ def main(argv=None):
     if evidence["hww_exact_compiled_pickle_sha256"] != PICKLE_SHA256:
         raise ValueError("Parent evidence refers to a different historical pickle")
     config = load_compiled(pickle_path)
+    if args.counterfactual in ("no_leading_two_gate", "aligned_electron_tight_no_gate"):
+        original = config["cuts"]["preselections"]
+        if original.count(" && L2TightLeading2") != 1:
+            raise ValueError("Historical leading-two clause changed")
+        config["cuts"]["preselections"] = original.replace(" && L2TightLeading2", "", 1)
     leaf = Path(__file__).resolve().parent
     categories = TARGET_CATEGORIES[args.role] + (
         ("DY_ALL",) if args.include_all else ()
@@ -515,15 +570,18 @@ def main(argv=None):
     args.output_dir.mkdir(parents=True, exist_ok=False)
     root_path = args.output_dir / "historical_histograms.root"
     raw, full, pre, selected, hww_types, unavailable, graph_runs = replay(
-        config, pair, central, categories, leaf, root_path
+        config, pair, central, categories, leaf, root_path, args.counterfactual
     )
-    rows, cutflow = ledger(raw, full, pre, selected, central, categories)
+    rows, cutflow = ledger(
+        raw, full, pre, selected, central, categories, args.counterfactual
+    )
     rows_path = args.output_dir / "historical_rows.jsonl"
     with rows_path.open("x") as output:
         for row in rows:
             output.write(json.dumps(row, sort_keys=True) + "\n")
     receipt = {
         "kind": "historical_hww_paired_prefix_diagnostic",
+        "counterfactual": args.counterfactual,
         "role": args.role,
         "central_lfn": pair["central_lfn"],
         "hww_pfn": pair["hww_pfn"],

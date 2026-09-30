@@ -113,3 +113,41 @@ entry ledger is needed to identify the first upstream divergence. The replay
 does not establish complete DATA certification, global stream deduplication,
 full-catalog normalization, or physics equivalence of central and HWW
 producers.
+
+## Electron counterfactuals on the pinned 2024 prefixes
+
+The optional `--counterfactual` modes operate on the same hash-checked
+compiled pickle and the same retained HWW `part0` file. They modify an
+in-memory RDataFrame or cut string; neither the historical file nor the
+compiled pickle is rewritten:
+
+- `aligned_electron_tight` recomputes the named
+  `mvaWinter22V2Iso_WP90_tthMVA_Run3` decision from the raw HWW `Electron`
+  branches using the current `Full2024v15` producer cut expressions, maps it
+  through retained `Lepton_electronIdx`, and replaces only that stored tight
+  vector before the compiled aliases run. Both `L2TightLeading2` and the
+  global best-Z builder therefore see the replacement.
+- `no_leading_two_gate` deletes only the exact `&& L2TightLeading2` clause
+  from the compiled preselection. It leaves the stored tight vector and Z
+  builder untouched.
+- `aligned_electron_tight_no_gate` combines those two changes solely to
+  measure an interaction that neither single change can recover.
+
+Use a fresh output directory for every mode and role. The generated receipt
+records the mode, hashes, cutflow, selected rows and ROOT histogram. In the
+paired EGamma C/I prefixes, the separate modes identify both a positional
+tight-vector mismatch and a distinct `ProductionLeptonPt` matching failure
+in historical I events whose stored electron eta/phi/index vectors do not
+describe coherent raw objects. The completed numerical attribution and exact
+event examples are in the Coffea sibling report
+`docs/2024-paired-lowpt-electron-diagnostic-20260929.md` and its compact
+`docs/diagnostics/paired-2024-lowpt/electron-*.json` evidence.
+
+No producer correction is applied by this diagnostic branch. In retained
+EGamma C source entry 20774, prefilter electron indices
+`[-1, 0, 1, -1, 2]` become `[0, 1]`, while the stored tight vector has
+the prefilter prefix `[false, true]` rather than the aligned decisions
+`[true, true]`. The historical files remain unchanged. The exact historical
+dirty-worktree producer revision is unavailable, so a source fix requires a
+separate change and validation. The separate current DATA JEC `Regrouped_*`
+failure is outside this diagnostic.
