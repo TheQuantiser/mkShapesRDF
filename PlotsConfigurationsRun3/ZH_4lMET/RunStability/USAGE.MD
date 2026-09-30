@@ -2,8 +2,8 @@
 
 Before using retained or newly produced HWWNano for this leaf, read
 [Known HWWNano object-association issues](KNOWN_HWWNANO_ISSUES.md) for the
-audited historical failures, visible source defects, and campaign-specific
-limits.
+audited historical failures, conditional source risks, ruled-out active-chain
+concerns, and campaign-specific limits.
 
 This leaf has one public workflow: nominal DY run stability. The default
 production profile resolves the strict 35/35 GeV selected-lepton thresholds,
