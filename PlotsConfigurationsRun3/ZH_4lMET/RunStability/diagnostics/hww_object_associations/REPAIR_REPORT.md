@@ -57,13 +57,15 @@ not defect fractions or correction factors for full campaigns.
 | `demo/2024-hwwnano-object-associations`, pinned at [`69ff2dad`][original-revision] | Original producer, historical witnesses and complete-file gate reference. |
 | `fix-demo/2024-hwwnano-object-associations`, measured at [`9a0e9be`][repaired-revision] | Repaired producer used to write the six outputs. |
 | Repair branch evidence at [`8d940ab`][evidence-revision] | Scripts, tests, reports and numerical evidence for the executed demonstration. |
-| `ZH_devel`, checked at [`44bd978`][inspected-zh-revision] before this update | Documentation. The four relevant producer files still have the original blobs. |
+| `ZH_devel`, checked at [`de9a616`][inspected-zh-revision] before the final evidence-link update | Documentation and direct historical ROOT inspection. The four relevant producer files still have the original blobs. |
 
 The four checked files are `LeptonSel.py`, `L2TightSelection.py`,
-`LeptonScaleSmearing.py` and `Steps_cfg.py`. The diagnostic scripts and
-JSON evidence linked here remain on the repair branch; they are not
-installed in this `ZH_devel` directory. Its [README][repair-readme] gives
-the executable reproduction commands. The
+`LeptonScaleSmearing.py` and `Steps_cfg.py`. The producer repair, repair
+audit/replay scripts and detailed repair JSON evidence remain on the
+repair branch. Its [README][repair-readme] gives the executable repair
+reproduction commands. For a direct reread of the historical files,
+`ZH_devel` now has the [ROOT inspection guide](ROOT_INSPECTION.md),
+[script](root_inspect.py), pinned input manifest and actual transcript. The
 [consolidated issues guide](../../KNOWN_HWWNANO_ISSUES.md) maps the earlier
 branches, tests and investigations.
 
@@ -119,6 +121,15 @@ Ordinary production cuts are separate from these defects.
 
 ## Direct evidence in historical ntuples
 
+For the simplest reproduction, follow [ROOT_INSPECTION.md](ROOT_INSPECTION.md)
+and run [root_inspect.py](root_inspect.py) in the existing ROOT runtime. It
+prints central and historical HWW objects for four fixed DATA events,
+two MC singleton events and one retained MC wrong-bit event. The
+[committed transcript](root-inspection-transcript.txt) records a fresh ROOT
+reread reproducing all seven observations. The raw central/HWW cut inputs
+agree in all seven cases; the incorrect properties are the stored retained
+associations. This display does not run the producer or the Z replay.
+
 ### Tight decisions are attached to the wrong retained objects
 
 At retained position `i`, a muon tight bit must describe the raw muon
@@ -129,15 +140,24 @@ The following events were read from actual historical paired `part0`
 files. The complete named WPs were recomputed from raw inputs **inside the
 same HWW records**, not inferred from a single primitive ID flag.
 
-| DATA witness | Retained raw indices | Expected named tight bits | Stored named tight bits |
+| Historical witness | Retained raw indices | Expected named tight bits | Stored named tight bits |
 | --- | --- | --- | --- |
 | Muon C: central entry 234, HWW entry 65; key `(379416,147,131724611)` | Muons `[1,2]` | `[true,true]` | **`[false,true]`** |
 | EGamma C: central entry 20774, HWW entry 991; key `(379729,907,1396820419)` | Electrons `[0,1]` | `[true,true]` | **`[false,true]`** |
+| DY→ee MC: central entry 1480, HWW entry 632; key `(1,404199,2165694222)` | Electrons `[0,2]` | `[false,true]` | **`[false,false]`** |
 
 The named columns are:
 
 - `Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67`
 - `Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3`
+
+In the MC witness, the prefilter electrons `[0,1,2]` have named decisions
+`[false,false,true]`. Retaining `[0,2]` requires `[false,true]`, but the
+historical output stores `[false,false]`. Raw electron 2 passes every cut
+in the named WP. Its raw pT is 16.26 GeV, so this directly demonstrates a
+stored MC ID error without establishing that the event passes the 35/35 GeV
+Z selection. The singleton witnesses demonstrate a separate gate problem;
+their remaining leptons' requested named bits agree with the raw inputs.
 
 The muon event exposes the positional error:
 
@@ -862,7 +882,7 @@ provides the wider source and consumer context.
 [original-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0
 [repaired-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/9a0e9be35c27e2907e6201460d0a5de58a091651
 [evidence-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/8d940abcf429f753074121a250db3717434eb2f6
-[inspected-zh-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/44bd97884666a3cb8262a2e4727e58198ba1893e
+[inspected-zh-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/de9a616e713729a33358fc6c7aaa98026b3827b6
 [jec-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/68a082c29b08d85978e9af33e9d194610b19f8a6
 [repair-readme]: https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/README.md#repair-demonstration-on-this-branch
 [executed-report]: https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/REPAIR_REPORT.md
