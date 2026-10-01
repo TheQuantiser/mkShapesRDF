@@ -16,8 +16,9 @@ These are offline working-point decisions, not HLT bits.
 The script uses the original fixed events: Muon C entry **234**, EGamma C
 entry **20774**, and EGamma I entries **27025** and **46209**. Their original
 full event keys and historical HWW entries are checked before displaying
-the arrays. The committed transcript contains the actual ROOT rereads of
-all four; the additional MC witness did not replace them.
+the arrays. The [four-event transcript](original-four-transcript.txt)
+contains their newly executed direct ROOT reads. The additional MC witness
+is separate from this command.
 
 After activating the existing ROOT runtime, display just those four events:
 
@@ -31,6 +32,24 @@ in the full named WP, but the first stored tight bit is **false**. Entry
 27025 demonstrates a different error: both tight bits are correct, while
 the stored eta values belong to the other indexed electron. The
 [actual observations](#actual-observations) below show these exact failures.
+
+**Executed on 2026-10-01**, from `ZH_devel` revision
+`864dca0d6e09b1e28803098e096a132171b7b505`, with the unchanged script and
+pinned manifest. The command above completed with exit code **0** in
+**102.57 seconds** wall time (50.17 seconds user CPU, 0.54 seconds system
+CPU), ending with:
+
+```text
+PASS: all 4 fixed observations reproduced; elapsed=100.90s
+```
+
+All four raw-input comparisons were exactly equal between central NanoAOD
+and historical HWW. Their complete event-display sections also match the
+earlier seven-case run exactly. The new transcript trims only trailing
+table padding. [original-four-stderr.txt](original-four-stderr.txt) preserves
+ROOT's auxiliary CMS metadata dictionary warnings. The local run directory is
+`/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/original-four-root-inspection-20261001-EZYiXR/`;
+it also retains timing, exit status and the executed script.
 
 ## One-command reproduction
 
@@ -72,6 +91,51 @@ it prints each URL and UUID. Older prefix limits and paths in the copied
 manifest are provenance, not dependencies or processing instructions here.
 The [parent-pair evidence](https://github.com/TheQuantiser/mkShapesRDF/blob/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/inputs/parent-pair-evidence.json)
 records the original lineage checks.
+
+### Explicit historical HWWNano filenames and paths
+
+The file configuration is [inputs/inputs.json](inputs/inputs.json).
+For each `files[]` record, **`hww_part0_pfn` is the literal historical
+HWWNano read URL**; `pfn` is its central NanoAOD parent. The script opens
+`hww_part0_pfn` directly and reads the `Events` tree. It does not discover
+another file, choose a newly repaired snapshot or expand a sample wildcard.
+These names and URLs are copied below from the manifest.
+
+| Manifest role | Historical HWWNano filename | Manifest field |
+| --- | --- | --- |
+| `dy_ee` | `nanoLatino_DYto2E-2Jets_MLL-50__part0.root` | `files[].hww_part0_pfn` |
+| `dy_mumu` | `nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root` | `files[].hww_part0_pfn` |
+| `muon_c` | `nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root` | `files[].hww_part0_pfn` |
+| `muon_i` | `nanoLatino_Muon0_Run2024I-Prompt-v1__part0.root` | `files[].hww_part0_pfn` |
+| `egamma_c` | `nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root` | `files[].hww_part0_pfn` |
+| `egamma_i` | `nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root` | `files[].hww_part0_pfn` |
+
+Exact full read URLs:
+
+```text
+dy_ee:
+root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root
+
+dy_mumu:
+root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root
+
+muon_c:
+root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root
+
+muon_i:
+root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024I-Prompt-v1__part0.root
+
+egamma_c:
+root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root
+
+egamma_i:
+root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root
+```
+
+The four-event command opens `muon_c`, `egamma_c` and `egamma_i` only.
+`muon_i` remains in the original six-file manifest but is not part of that
+command. MC examples use the separately listed `dy_ee` and `dy_mumu` files.
+The pinned manifest itself is preserved byte for byte.
 
 **Entries are zero-based TTree positions; they are not event numbers.**
 
