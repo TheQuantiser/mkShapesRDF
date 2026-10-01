@@ -30,6 +30,13 @@ The [repair README][repair-readme] owns the exact producer/audit/replay
 commands. The [chain audit](chain-audit.md) explains the broader
 Coffea–mkShapes selection, source and weighting differences.
 
+For a simple stored-file demonstration, use the
+[direct ROOT event inspection](diagnostics/hww_object_associations/ROOT_INSPECTION.md).
+One standalone PyROOT command displays four DATA witnesses, two historical
+MC singletons and a retained MC wrong-bit example from the actual paired
+central/HWW files. It needs no producer replay, Coffea, calibration payloads
+or compiled analysis configuration; its actual terminal transcript is included.
+
 ## Contents
 
 - [Branch and document map](#branch-and-document-map)
@@ -50,7 +57,7 @@ branch's future HEAD reproduces the measured source.
 
 | Branch / pinned revision | Purpose and contents | Start here |
 | --- | --- | --- |
-| `ZH_devel`; inspected at [`d036a257`][zh-inspected] | Consolidated issue/repair documentation and the current RunStability leaf. The four relevant producer files remain unrepaired. Historical replay and demo scripts are **not installed here**. | This page; [repair report](diagnostics/hww_object_associations/REPAIR_REPORT.md); [chain audit](chain-audit.md); [USAGE.MD](USAGE.MD). |
+| `ZH_devel`; producer inspected at [`d036a257`][zh-inspected] | Consolidated issue/repair documentation and the current RunStability leaf. The four relevant producer files remain unrepaired. The standalone read-only ROOT display is available here; the full historical replay and producer-demo harnesses remain on the investigation branches. | This page; [direct ROOT inspection](diagnostics/hww_object_associations/ROOT_INSPECTION.md); [repair report](diagnostics/hww_object_associations/REPAIR_REPORT.md); [chain audit](chain-audit.md); [USAGE.MD](USAGE.MD). |
 | `codex/2024-electron-diagnostic`; [`7843a7f`][electron-commit] | Historical compiled-HWW replay, local producer stage ledger, electron alignment/gate-removal counterfactuals and diagnostic tests. **No producer repair.** | [HISTORICAL_HWW_DIAGNOSTIC.md][historical-guide]. |
 | `demo/2024-hwwnano-object-associations`; [`69ff2dad`][original-commit] | Original producer unchanged; six historical/live witnesses, one-entry MC stage traces, complete two-file membership join and original-versus-aligned MC gate comparison. | [Original README][original-readme], [observed summary][observations], [complete gate results][complete-results], [join receipt][join-receipt]. |
 | `fix-demo/2024-hwwnano-object-associations`; [`8d940ab`][repair-evidence-commit] | Actual producer repairs, regression tests, six newly written/reopened nominal Events outputs, exact MC gate closure and historical-policy Z replay. Measured producer revision is [`9a0e9be`][repair-producer-commit]. | [Repair README][repair-readme], [executed report][executed-report], [environment][environment], [results][repair-results], [witnesses][repair-witnesses]. |
@@ -483,6 +490,19 @@ and selected-pair TrigObj requirements remain separate choices. The
 histogram totals is not sufficient evidence of correctness.
 
 ## Reproduce the diagnostics
+
+### Direct historical-file display, without producer execution
+
+Start with [ROOT_INSPECTION.md](diagnostics/hww_object_associations/ROOT_INSPECTION.md)
+for the simplest route. Activate the existing ROOT runtime and run its one
+PyROOT command from `ZH_devel`. The script reads the actual historical
+part0s, validates fixed event keys and prints indexed raw versus retained
+coordinates and full named tight decisions. The copied manifest and
+successful seven-event transcript are included here. This route needs remote
+file access; corrections, Golden JSON, companion checkouts and compiled
+analysis configuration are unnecessary for this display. It reproduces
+stored-file observations; it does not repair files
+or establish the exact operation in the unavailable historical dirty producer.
 
 ### Prerequisites and revision selection
 
