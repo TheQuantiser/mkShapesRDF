@@ -1,0 +1,5403 @@
+{
+  "roles": {
+    "dy_ee": {
+      "evidence": {
+        "aggregate_audit": {
+          "bytes": 185198,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-dy_ee/audit.json",
+          "sha256": "633c76930e2e035e412fa759deef80128615c22eb5399c227ab71d8eb4230315"
+        },
+        "auditor": {
+          "bytes": 45670,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_audit.py",
+          "sha256": "f2084876b9f7049460f5444e73f51c76d60e5299cf5a53edcb271258f0b23a69"
+        },
+        "kind": "hww_repair_exact_local_witness_rows",
+        "production_artifacts": [
+          {
+            "bytes": 126918,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/production.json",
+            "sha256": "3b8c73dfc93c67650220b3a6281a133ef08d081bf12f2e0e15f1a5783631ce43"
+          },
+          {
+            "bytes": 147837341,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/dy_ee-repaired.root",
+            "sha256": "4d2a49989496e4b58201ef23c8593c937a2fa94fc5e98369a9447f76d3b3f93c"
+          },
+          {
+            "bytes": 529410,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/input-identity.npz",
+            "sha256": "981d135a19e16ed3001ce4050faf1a71a681f3bc60f63bab99fc2a7fa3054ad2"
+          },
+          {
+            "bytes": 988393,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/gate-ledger.npz",
+            "sha256": "955dd32d5ed478d9bdbe5342f48f3ecdb9ae72eb098d6e4ebfd1e21f0abedbc4"
+          }
+        ],
+        "reference_artifacts": [
+          {
+            "bytes": 35975,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_ee/dy_ee-complete-gate.json",
+            "sha256": "d109f52afa25d00f46cadf6cb20518f0a0c71ddde64bfdbca42bf69a15099ccf"
+          },
+          {
+            "bytes": 429360,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_ee/reference-gate-entries.npz",
+            "sha256": "1b61ca20c8a7081d2a24245ac28137c92f532956ee2d6a40eab4bdc7146eb812"
+          }
+        ],
+        "role": "dy_ee",
+        "schema_version": 1,
+        "scope": "Local snapshot source-entry lookup and exact selected row reads only. No producer execution, source NanoAOD scan, or original final snapshot. All SF associations are covered by the aggregate audit; three named nominal SF vectors are included here for compact examples.",
+        "status": "passed",
+        "witness_selection": "Requested rescued/false-accepted/legitimate-rejection examples plus first audited real nonidentity permutation; full sidecar remains local under recorded receipt hash.",
+        "witnesses": [
+          {
+            "absent_snapshot_stage_reason": "No repaired final row exists; original reference indices and flags and saved repaired pregate arrays are retained without inventing unavailable original corrected kinematics.",
+            "key": [
+              1,
+              384532,
+              2060317109
+            ],
+            "original_gate_reference": {
+              "genWeight": 26780.01171875,
+              "historical_hww_entry": 2,
+              "key": [
+                1,
+                384532,
+                2060317109
+              ],
+              "outcome": "accepted_only_by_actual",
+              "prefilter_electronIdx": [
+                0,
+                1
+              ],
+              "prefilter_muonIdx": [
+                -1,
+                -1
+              ],
+              "prefilter_positions_for_retained": [
+                0
+              ],
+              "retained_electronIdx": [
+                0
+              ],
+              "retained_muonIdx": [
+                -1
+              ],
+              "source_entry": 8,
+              "wp_vectors": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": {
+                  "actual_prefilter": [
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_testrecipes": {
+                  "actual_prefilter": [
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_wp90iso": {
+                  "actual_prefilter": [
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_POG": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_Tight_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                }
+              }
+            },
+            "origins": [
+              "independent_original_gate_reference"
+            ],
+            "present_after_repaired_chain": false,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                0
+              ],
+              "Lepton_muonIdx": [
+                -1
+              ],
+              "Lepton_pt": [
+                38.44690704345703
+              ],
+              "VetoLepton_electronIdx": [
+                0,
+                1
+              ],
+              "VetoLepton_muonIdx": [
+                -1,
+                -1
+              ],
+              "aligned_pass": false,
+              "original_pass": true
+            },
+            "snapshot_entry": null,
+            "snapshot_stages": null,
+            "source_entry": 8
+          },
+          {
+            "key": [
+              1,
+              384532,
+              2060318616
+            ],
+            "original_gate_reference": {
+              "genWeight": 26780.01171875,
+              "historical_hww_entry": null,
+              "key": [
+                1,
+                384532,
+                2060318616
+              ],
+              "outcome": "rejected_only_by_actual",
+              "prefilter_electronIdx": [
+                0,
+                -1,
+                1
+              ],
+              "prefilter_muonIdx": [
+                -1,
+                0,
+                -1
+              ],
+              "prefilter_positions_for_retained": [
+                0,
+                2
+              ],
+              "retained_electronIdx": [
+                0,
+                1
+              ],
+              "retained_muonIdx": [
+                -1,
+                -1
+              ],
+              "source_entry": 174,
+              "wp_vectors": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_testrecipes": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightElectron_wp90iso": {
+                  "actual_prefilter": [
+                    1,
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_POG": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_Tight_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                }
+              }
+            },
+            "origins": [
+              "pinned_observed_summary",
+              "independent_original_gate_reference"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                0,
+                1
+              ],
+              "Lepton_muonIdx": [
+                -1,
+                -1
+              ],
+              "Lepton_pt": [
+                59.30455780029297,
+                36.84537124633789
+              ],
+              "VetoLepton_electronIdx": [
+                0,
+                -1,
+                1
+              ],
+              "VetoLepton_muonIdx": [
+                -1,
+                0,
+                -1
+              ],
+              "aligned_pass": true,
+              "original_pass": false
+            },
+            "snapshot_entry": 45,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_RecoSF": [
+                  0.9760771989822388,
+                  0.9777727723121643
+                ],
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -2.341796875,
+                  -2.35009765625
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -2.14892578125,
+                  0.8883056640625
+                ],
+                "Lepton_pt": [
+                  60.494415283203125,
+                  37.836082458496094
+                ],
+                "Lepton_rochesterSF": [
+                  1.0200635194778442,
+                  1.026888370513916
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  0.8706831932067871,
+                  0.8857685923576355
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  1.0,
+                  1.0
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  0,
+                  -1,
+                  1
+                ],
+                "Lepton_eta": [
+                  -2.341796875,
+                  -1.6580963134765625,
+                  -2.35009765625
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  0,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -13,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -2.14892578125,
+                  -0.9964752197265625,
+                  0.8883056640625
+                ],
+                "Lepton_pt": [
+                  59.30455780029297,
+                  47.541072845458984,
+                  36.84537124633789
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  false,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -2.341796875,
+                  -2.35009765625
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -2.14892578125,
+                  0.8883056640625
+                ],
+                "Lepton_pt": [
+                  59.30455780029297,
+                  36.84537124633789
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -2.341796875,
+                  -2.35009765625
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -2.14892578125,
+                  0.8883056640625
+                ],
+                "Lepton_pt": [
+                  59.30455780029297,
+                  36.84537124633789
+                ]
+              },
+              "precorrection_sf_examples": {
+                "Lepton_RecoSF": [
+                  0.9760771989822388,
+                  0.9777727723121643
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  0.8706831932067871,
+                  0.8857685923576355
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  1.0,
+                  1.0
+                ]
+              },
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  -2.341796875,
+                  -2.35009765625
+                ],
+                "Electron_pdgId": [
+                  11,
+                  -11
+                ],
+                "Electron_phi": [
+                  -2.14892578125,
+                  0.8883056640625
+                ],
+                "Electron_pt": [
+                  59.30455780029297,
+                  36.84537124633789
+                ],
+                "Muon_eta": [
+                  -1.6580963134765625
+                ],
+                "Muon_pdgId": [
+                  -13
+                ],
+                "Muon_phi": [
+                  -0.9964752197265625
+                ],
+                "Muon_pt": [
+                  47.541072845458984
+                ]
+              }
+            },
+            "source_entry": 174
+          },
+          {
+            "key": [
+              1,
+              384532,
+              2060318835
+            ],
+            "origins": [
+              "audited_nonidentity_permutation"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                0,
+                1
+              ],
+              "Lepton_muonIdx": [
+                -1,
+                -1
+              ],
+              "Lepton_pt": [
+                49.94783401489258,
+                49.33938980102539
+              ],
+              "VetoLepton_electronIdx": [
+                0,
+                1
+              ],
+              "VetoLepton_muonIdx": [
+                -1,
+                -1
+              ],
+              "aligned_pass": true,
+              "original_pass": true
+            },
+            "snapshot_entry": 54,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_RecoSF": [
+                  0.9760771989822388,
+                  0.9841333031654358
+                ],
+                "Lepton_electronIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_eta": [
+                  -2.205078125,
+                  -0.832763671875
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -0.9747314453125,
+                  2.1015625
+                ],
+                "Lepton_pt": [
+                  51.006195068359375,
+                  49.984153747558594
+                ],
+                "Lepton_rochesterSF": [
+                  1.0337824821472168,
+                  1.0007271766662598
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  0.8857685923576355,
+                  0.9334637522697449
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  1.0,
+                  1.0
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.832763671875,
+                  -2.205078125
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  2.1015625,
+                  -0.9747314453125
+                ],
+                "Lepton_pt": [
+                  49.94783401489258,
+                  49.33938980102539
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.832763671875,
+                  -2.205078125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  2.1015625,
+                  -0.9747314453125
+                ],
+                "Lepton_pt": [
+                  49.94783401489258,
+                  49.33938980102539
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.832763671875,
+                  -2.205078125
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  2.1015625,
+                  -0.9747314453125
+                ],
+                "Lepton_pt": [
+                  49.94783401489258,
+                  49.33938980102539
+                ]
+              },
+              "precorrection_sf_examples": {
+                "Lepton_RecoSF": [
+                  0.9841333031654358,
+                  0.9760771989822388
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  0.9334637522697449,
+                  0.8857685923576355
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  1.0,
+                  1.0
+                ]
+              },
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  -0.832763671875,
+                  -2.205078125
+                ],
+                "Electron_pdgId": [
+                  11,
+                  -11
+                ],
+                "Electron_phi": [
+                  2.1015625,
+                  -0.9747314453125
+                ],
+                "Electron_pt": [
+                  49.94783401489258,
+                  49.33938980102539
+                ],
+                "Muon_eta": [],
+                "Muon_pdgId": [],
+                "Muon_phi": [],
+                "Muon_pt": []
+              }
+            },
+            "source_entry": 200
+          }
+        ]
+      },
+      "receipt_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/witnesses-final-dy_ee/witnesses.json",
+      "receipt_sha256": "33fe5304e29144697d6f7961db646d098e5428f0a3c04d01275e29a6819021d2"
+    },
+    "dy_mumu": {
+      "evidence": {
+        "aggregate_audit": {
+          "bytes": 185909,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-dy_mumu/audit.json",
+          "sha256": "00f384bd5c65882b8b396d115470bbce8be133b8bb0c67bd731d79833d070b11"
+        },
+        "auditor": {
+          "bytes": 45670,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_audit.py",
+          "sha256": "f2084876b9f7049460f5444e73f51c76d60e5299cf5a53edcb271258f0b23a69"
+        },
+        "kind": "hww_repair_exact_local_witness_rows",
+        "production_artifacts": [
+          {
+            "bytes": 126946,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/production.json",
+            "sha256": "5d50348a9aa09ca2c0b4ec59f084bb445465f00d08cde7d1e647a86d3b38ad9f"
+          },
+          {
+            "bytes": 300606593,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/dy_mumu-repaired.root",
+            "sha256": "c0a951ebf32c86454fbdb24dac71c6754b12d262c3969dcb1fb0382129e90dbb"
+          },
+          {
+            "bytes": 742277,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/input-identity.npz",
+            "sha256": "f82f0b1f8bc16d76c83172523ac8fa9926bf2c75d956a77c58348664f3a06243"
+          },
+          {
+            "bytes": 1624724,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/gate-ledger.npz",
+            "sha256": "effc35d4ade62d0ca6035e311c84ce0db496bc63031cf2179886a538fa5fcf52"
+          }
+        ],
+        "reference_artifacts": [
+          {
+            "bytes": 35327,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_mumu/dy_mumu-complete-gate.json",
+            "sha256": "cf4508910c54a8038ba660a69feb3314a849431c6771324ae628947c080628fc"
+          },
+          {
+            "bytes": 670352,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_mumu/reference-gate-entries.npz",
+            "sha256": "0c3236e3d8c44d5de456d5528dbb4fb1eb3e3f604821f57f78eced6ddc5c1363"
+          }
+        ],
+        "role": "dy_mumu",
+        "schema_version": 1,
+        "scope": "Local snapshot source-entry lookup and exact selected row reads only. No producer execution, source NanoAOD scan, or original final snapshot. All SF associations are covered by the aggregate audit; three named nominal SF vectors are included here for compact examples.",
+        "status": "passed",
+        "witness_selection": "Requested rescued/false-accepted/legitimate-rejection examples plus first audited real nonidentity permutation; full sidecar remains local under recorded receipt hash.",
+        "witnesses": [
+          {
+            "key": [
+              1,
+              260002,
+              1443525631
+            ],
+            "original_gate_reference": {
+              "genWeight": 26780.01171875,
+              "historical_hww_entry": null,
+              "key": [
+                1,
+                260002,
+                1443525631
+              ],
+              "outcome": "rejected_only_by_actual",
+              "prefilter_electronIdx": [
+                -1,
+                -1,
+                -1
+              ],
+              "prefilter_muonIdx": [
+                0,
+                1,
+                2
+              ],
+              "prefilter_positions_for_retained": [
+                1,
+                2
+              ],
+              "retained_electronIdx": [
+                -1,
+                -1
+              ],
+              "retained_muonIdx": [
+                1,
+                2
+              ],
+              "source_entry": 5,
+              "wp_vectors": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_testrecipes": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_wp90iso": {
+                  "actual_prefilter": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0,
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_POG": {
+                  "actual_prefilter": [
+                    0,
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": {
+                  "actual_prefilter": [
+                    0,
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_Tight_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    1,
+                    1
+                  ],
+                  "aligned_retained": [
+                    1,
+                    1
+                  ]
+                }
+              }
+            },
+            "origins": [
+              "independent_original_gate_reference"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                -1,
+                -1
+              ],
+              "Lepton_muonIdx": [
+                1,
+                2
+              ],
+              "Lepton_pt": [
+                46.31939697265625,
+                44.15204620361328
+              ],
+              "VetoLepton_electronIdx": [
+                -1,
+                -1,
+                -1
+              ],
+              "VetoLepton_muonIdx": [
+                0,
+                1,
+                2
+              ],
+              "aligned_pass": true,
+              "original_pass": false
+            },
+            "snapshot_entry": 0,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_RecoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.7593841552734375,
+                  1.3972015380859375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.9995269775390625,
+                  1.308197021484375
+                ],
+                "Lepton_pt": [
+                  47.369903564453125,
+                  43.800872802734375
+                ],
+                "Lepton_rochesterSF": [
+                  1.0226795673370361,
+                  0.9920462965965271
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  0.9997841119766235,
+                  0.985138475894928
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.3916015625,
+                  1.7593841552734375,
+                  1.3972015380859375
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  1.3438262939453125,
+                  -1.9995269775390625,
+                  1.308197021484375
+                ],
+                "Lepton_pt": [
+                  178.8914337158203,
+                  46.31939697265625,
+                  44.15204620361328
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  true,
+                  true
+                ],
+                "isLoose": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.7593841552734375,
+                  1.3972015380859375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.9995269775390625,
+                  1.308197021484375
+                ],
+                "Lepton_pt": [
+                  46.31939697265625,
+                  44.15204620361328
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.7593841552734375,
+                  1.3972015380859375
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.9995269775390625,
+                  1.308197021484375
+                ],
+                "Lepton_pt": [
+                  46.31939697265625,
+                  44.15204620361328
+                ]
+              },
+              "precorrection_sf_examples": {
+                "Lepton_RecoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  0.9997841119766235,
+                  0.985138475894928
+                ]
+              },
+              "raw_nanoaod_fields": {
+                "Electron_eta": [],
+                "Electron_pdgId": [],
+                "Electron_phi": [],
+                "Electron_pt": [],
+                "Muon_eta": [
+                  1.3916015625,
+                  1.7593841552734375,
+                  1.3972015380859375
+                ],
+                "Muon_pdgId": [
+                  13,
+                  -13,
+                  13
+                ],
+                "Muon_phi": [
+                  1.3438262939453125,
+                  -1.9995269775390625,
+                  1.308197021484375
+                ],
+                "Muon_pt": [
+                  178.8914337158203,
+                  46.31939697265625,
+                  44.15204620361328
+                ]
+              }
+            },
+            "source_entry": 5
+          },
+          {
+            "absent_snapshot_stage_reason": "No repaired final row exists; original reference indices and flags and saved repaired pregate arrays are retained without inventing unavailable original corrected kinematics.",
+            "key": [
+              1,
+              260002,
+              1443526295
+            ],
+            "original_gate_reference": {
+              "genWeight": 26780.01171875,
+              "historical_hww_entry": 39,
+              "key": [
+                1,
+                260002,
+                1443526295
+              ],
+              "outcome": "accepted_only_by_actual",
+              "prefilter_electronIdx": [
+                -1,
+                0
+              ],
+              "prefilter_muonIdx": [
+                0,
+                -1
+              ],
+              "prefilter_positions_for_retained": [
+                0
+              ],
+              "retained_electronIdx": [
+                -1
+              ],
+              "retained_muonIdx": [
+                0
+              ],
+              "source_entry": 102,
+              "wp_vectors": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_testrecipes": {
+                  "actual_prefilter": [
+                    0,
+                    1
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_wp90iso": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_POG": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_Tight_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                }
+              }
+            },
+            "origins": [
+              "independent_original_gate_reference"
+            ],
+            "present_after_repaired_chain": false,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                -1
+              ],
+              "Lepton_muonIdx": [
+                0
+              ],
+              "Lepton_pt": [
+                45.76756286621094
+              ],
+              "VetoLepton_electronIdx": [
+                -1,
+                0
+              ],
+              "VetoLepton_muonIdx": [
+                0,
+                -1
+              ],
+              "aligned_pass": false,
+              "original_pass": true
+            },
+            "snapshot_entry": null,
+            "snapshot_stages": null,
+            "source_entry": 102
+          },
+          {
+            "absent_snapshot_stage_reason": "No repaired final row exists; original reference indices and flags and saved repaired pregate arrays are retained without inventing unavailable original corrected kinematics.",
+            "key": [
+              1,
+              260002,
+              1443526502
+            ],
+            "original_gate_reference": {
+              "genWeight": 26780.01171875,
+              "historical_hww_entry": null,
+              "key": [
+                1,
+                260002,
+                1443526502
+              ],
+              "outcome": "rejected_both",
+              "prefilter_electronIdx": [
+                -1,
+                -1
+              ],
+              "prefilter_muonIdx": [
+                0,
+                1
+              ],
+              "prefilter_positions_for_retained": [
+                0
+              ],
+              "retained_electronIdx": [
+                -1
+              ],
+              "retained_muonIdx": [
+                0
+              ],
+              "source_entry": 127,
+              "wp_vectors": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_testrecipes": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightElectron_wp90iso": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_POG": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": {
+                  "actual_prefilter": [
+                    0,
+                    0
+                  ],
+                  "aligned_retained": [
+                    0
+                  ]
+                },
+                "Lepton_isTightMuon_cut_Tight_HWW": {
+                  "actual_prefilter": [
+                    1,
+                    0
+                  ],
+                  "aligned_retained": [
+                    1
+                  ]
+                }
+              }
+            },
+            "origins": [
+              "pinned_observed_summary",
+              "independent_original_gate_reference"
+            ],
+            "present_after_repaired_chain": false,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                -1
+              ],
+              "Lepton_muonIdx": [
+                0
+              ],
+              "Lepton_pt": [
+                25.173851013183594
+              ],
+              "VetoLepton_electronIdx": [
+                -1,
+                -1
+              ],
+              "VetoLepton_muonIdx": [
+                0,
+                1
+              ],
+              "aligned_pass": false,
+              "original_pass": false
+            },
+            "snapshot_entry": null,
+            "snapshot_stages": null,
+            "source_entry": 127
+          },
+          {
+            "key": [
+              1,
+              260002,
+              1443530480
+            ],
+            "origins": [
+              "audited_nonidentity_permutation"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 26780.01171875,
+            "saved_repaired_pregate": {
+              "Lepton_electronIdx": [
+                -1,
+                -1
+              ],
+              "Lepton_muonIdx": [
+                0,
+                1
+              ],
+              "Lepton_pt": [
+                37.40733337402344,
+                37.271175384521484
+              ],
+              "VetoLepton_electronIdx": [
+                -1,
+                -1
+              ],
+              "VetoLepton_muonIdx": [
+                0,
+                1
+              ],
+              "aligned_pass": true,
+              "original_pass": true
+            },
+            "snapshot_entry": 253,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_RecoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.172149658203125,
+                  1.2979583740234375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.2220001220703125,
+                  2.02130126953125
+                ],
+                "Lepton_pt": [
+                  37.296566009521484,
+                  37.227142333984375
+                ],
+                "Lepton_rochesterSF": [
+                  1.0006812810897827,
+                  0.995182991027832
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  0.9626355171203613,
+                  0.9737219214439392
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.2979583740234375,
+                  -0.172149658203125
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13
+                ],
+                "Lepton_phi": [
+                  2.02130126953125,
+                  -1.2220001220703125
+                ],
+                "Lepton_pt": [
+                  37.40733337402344,
+                  37.271175384521484
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.2979583740234375,
+                  -0.172149658203125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13
+                ],
+                "Lepton_phi": [
+                  2.02130126953125,
+                  -1.2220001220703125
+                ],
+                "Lepton_pt": [
+                  37.40733337402344,
+                  37.271175384521484
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.2979583740234375,
+                  -0.172149658203125
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13
+                ],
+                "Lepton_phi": [
+                  2.02130126953125,
+                  -1.2220001220703125
+                ],
+                "Lepton_pt": [
+                  37.40733337402344,
+                  37.271175384521484
+                ]
+              },
+              "precorrection_sf_examples": {
+                "Lepton_RecoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_tightElectron_testrecipes_IdIsoSF": [
+                  1.0,
+                  1.0
+                ],
+                "Lepton_tightMuon_cut_Tight_HWW_IdIsoSF": [
+                  0.9737219214439392,
+                  0.9626355171203613
+                ]
+              },
+              "raw_nanoaod_fields": {
+                "Electron_eta": [],
+                "Electron_pdgId": [],
+                "Electron_phi": [],
+                "Electron_pt": [],
+                "Muon_eta": [
+                  1.2979583740234375,
+                  -0.172149658203125
+                ],
+                "Muon_pdgId": [
+                  13,
+                  -13
+                ],
+                "Muon_phi": [
+                  2.02130126953125,
+                  -1.2220001220703125
+                ],
+                "Muon_pt": [
+                  37.40733337402344,
+                  37.271175384521484
+                ]
+              }
+            },
+            "source_entry": 617
+          }
+        ]
+      },
+      "receipt_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/witnesses-final-dy_mumu/witnesses.json",
+      "receipt_sha256": "231e41841981df9da6850e7420b43a02392ed59bc04fe1070c922e61a1cd5818"
+    },
+    "egamma_c": {
+      "evidence": {
+        "aggregate_audit": {
+          "bytes": 127380,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-egamma_c/audit.json",
+          "sha256": "ce6e4e45ffa1ba56ec2d1d0fa2ec509e20bd8c9d502495290d0969df19292a70"
+        },
+        "auditor": {
+          "bytes": 45670,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_audit.py",
+          "sha256": "f2084876b9f7049460f5444e73f51c76d60e5299cf5a53edcb271258f0b23a69"
+        },
+        "kind": "hww_repair_exact_local_witness_rows",
+        "production_artifacts": [
+          {
+            "bytes": 98800,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/production.json",
+            "sha256": "1cb36f555b32604db797b91c1dcb81e3feabeebd3f7e15b0e857accfd7f84445"
+          },
+          {
+            "bytes": 8162945,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/egamma_c-repaired.root",
+            "sha256": "e8b2dd9af5c9ab385dd09d8c6deb399917e8cfdc64a499b06dee2c57df8424af"
+          },
+          {
+            "bytes": 250642,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/input-identity.npz",
+            "sha256": "5418d7dcb10b15f20089f011c2d0537efd3d92528b6175e9390c809d0528dae9"
+          }
+        ],
+        "reference_artifacts": [],
+        "role": "egamma_c",
+        "schema_version": 1,
+        "scope": "Local snapshot source-entry lookup and exact selected row reads only. No producer execution, source NanoAOD scan, or original final snapshot. All SF associations are covered by the aggregate audit; three named nominal SF vectors are included here for compact examples.",
+        "status": "passed",
+        "witnesses": [
+          {
+            "key": [
+              379729,
+              907,
+              1396820419
+            ],
+            "origins": [
+              "pinned_observed_summary"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 991,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.7418212890625,
+                  -1.0224609375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -0.18115234375,
+                  2.21875
+                ],
+                "Lepton_pt": [
+                  54.1286735534668,
+                  44.030338287353516
+                ],
+                "Lepton_rochesterSF": [
+                  0.9965630173683167,
+                  1.0027976036071777
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  0,
+                  1,
+                  -1,
+                  2
+                ],
+                "Lepton_eta": [
+                  1.6501922607421875,
+                  -0.7418212890625,
+                  -1.0224609375,
+                  2.3858642578125,
+                  -2.12109375
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  -1,
+                  -1,
+                  1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -11,
+                  11,
+                  -13,
+                  11
+                ],
+                "Lepton_phi": [
+                  1.4344940185546875,
+                  -0.18115234375,
+                  2.21875,
+                  0.385986328125,
+                  1.644287109375
+                ],
+                "Lepton_pt": [
+                  119.47681427001953,
+                  54.31535339355469,
+                  43.907501220703125,
+                  11.37389087677002,
+                  5.466329574584961
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  true,
+                  true,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.7418212890625,
+                  -1.0224609375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -0.18115234375,
+                  2.21875
+                ],
+                "Lepton_pt": [
+                  54.31535339355469,
+                  43.907501220703125
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.7418212890625,
+                  -1.0224609375
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -0.18115234375,
+                  2.21875
+                ],
+                "Lepton_pt": [
+                  54.31535339355469,
+                  43.907501220703125
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  -0.7418212890625,
+                  -1.0224609375,
+                  -2.12109375
+                ],
+                "Electron_pdgId": [
+                  -11,
+                  11,
+                  11
+                ],
+                "Electron_phi": [
+                  -0.18115234375,
+                  2.21875,
+                  1.644287109375
+                ],
+                "Electron_pt": [
+                  54.31535339355469,
+                  43.907501220703125,
+                  5.466329574584961
+                ],
+                "Muon_eta": [
+                  1.6501922607421875,
+                  2.3858642578125
+                ],
+                "Muon_pdgId": [
+                  13,
+                  -13
+                ],
+                "Muon_phi": [
+                  1.4344940185546875,
+                  0.385986328125
+                ],
+                "Muon_pt": [
+                  119.47681427001953,
+                  11.37389087677002
+                ]
+              }
+            },
+            "source_entry": 20774
+          },
+          {
+            "key": [
+              379729,
+              907,
+              1396346568
+            ],
+            "origins": [
+              "audited_nonidentity_permutation"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 1105,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_eta": [
+                  0.82275390625,
+                  -0.528564453125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  2.529296875,
+                  0.232666015625
+                ],
+                "Lepton_pt": [
+                  39.35709762573242,
+                  39.337276458740234
+                ],
+                "Lepton_rochesterSF": [
+                  1.0079448223114014,
+                  0.9988307952880859
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.528564453125,
+                  0.82275390625
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  0.232666015625,
+                  2.529296875
+                ],
+                "Lepton_pt": [
+                  39.383323669433594,
+                  39.046878814697266
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.528564453125,
+                  0.82275390625
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  0.232666015625,
+                  2.529296875
+                ],
+                "Lepton_pt": [
+                  39.383323669433594,
+                  39.046878814697266
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.528564453125,
+                  0.82275390625
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  0.232666015625,
+                  2.529296875
+                ],
+                "Lepton_pt": [
+                  39.383323669433594,
+                  39.046878814697266
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  -0.528564453125,
+                  0.82275390625
+                ],
+                "Electron_pdgId": [
+                  11,
+                  -11
+                ],
+                "Electron_phi": [
+                  0.232666015625,
+                  2.529296875
+                ],
+                "Electron_pt": [
+                  39.383323669433594,
+                  39.046878814697266
+                ],
+                "Muon_eta": [],
+                "Muon_pdgId": [],
+                "Muon_phi": [],
+                "Muon_pt": []
+              }
+            },
+            "source_entry": 22125
+          }
+        ]
+      },
+      "receipt_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/witnesses-final-egamma_c/witnesses.json",
+      "receipt_sha256": "6739fc8e3b116776b47adaf913efc960048467712bbcd3aea4438aa52da192c2"
+    },
+    "egamma_i": {
+      "evidence": {
+        "aggregate_audit": {
+          "bytes": 129861,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-egamma_i/audit.json",
+          "sha256": "57a8c6b3b19628d17498a5a98ba317a014bc820bbc95b479212d7976384b9544"
+        },
+        "auditor": {
+          "bytes": 45670,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_audit.py",
+          "sha256": "f2084876b9f7049460f5444e73f51c76d60e5299cf5a53edcb271258f0b23a69"
+        },
+        "kind": "hww_repair_exact_local_witness_rows",
+        "production_artifacts": [
+          {
+            "bytes": 100681,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/production.json",
+            "sha256": "1b76f1e3df106eeb8c314a367add41e606f5a2ff6bb255971e4f79c1b3f942cc"
+          },
+          {
+            "bytes": 9060941,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/egamma_i-repaired.root",
+            "sha256": "5d19f26ee8ccad6976ea921fcfb465a0f8d275a5bd9e85bd451a7124ebc53349"
+          },
+          {
+            "bytes": 253180,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/input-identity.npz",
+            "sha256": "3041401bbaec5d829bf6fb74e98f75a7f322da7c72f26732f4ff9f754830c091"
+          }
+        ],
+        "reference_artifacts": [],
+        "role": "egamma_i",
+        "schema_version": 1,
+        "scope": "Local snapshot source-entry lookup and exact selected row reads only. No producer execution, source NanoAOD scan, or original final snapshot. All SF associations are covered by the aggregate audit; three named nominal SF vectors are included here for compact examples.",
+        "status": "passed",
+        "witnesses": [
+          {
+            "key": [
+              386509,
+              157,
+              328269399
+            ],
+            "origins": [
+              "audited_nonidentity_permutation"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 164,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_eta": [
+                  2.30224609375,
+                  1.918212890625
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  2.57470703125,
+                  -0.752685546875
+                ],
+                "Lepton_pt": [
+                  53.938236236572266,
+                  53.73644256591797
+                ],
+                "Lepton_rochesterSF": [
+                  1.0308853387832642,
+                  1.0261517763137817
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  1.918212890625,
+                  2.30224609375
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -0.752685546875,
+                  2.57470703125
+                ],
+                "Lepton_pt": [
+                  52.3669548034668,
+                  52.32224655151367
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  1.918212890625,
+                  2.30224609375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -0.752685546875,
+                  2.57470703125
+                ],
+                "Lepton_pt": [
+                  52.3669548034668,
+                  52.32224655151367
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  1.918212890625,
+                  2.30224609375
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  -0.752685546875,
+                  2.57470703125
+                ],
+                "Lepton_pt": [
+                  52.3669548034668,
+                  52.32224655151367
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  1.918212890625,
+                  2.30224609375
+                ],
+                "Electron_pdgId": [
+                  11,
+                  -11
+                ],
+                "Electron_phi": [
+                  -0.752685546875,
+                  2.57470703125
+                ],
+                "Electron_pt": [
+                  52.3669548034668,
+                  52.32224655151367
+                ],
+                "Muon_eta": [],
+                "Muon_pdgId": [],
+                "Muon_phi": [],
+                "Muon_pt": []
+              }
+            },
+            "source_entry": 2493
+          },
+          {
+            "key": [
+              386509,
+              159,
+              333332716
+            ],
+            "origins": [
+              "pinned_observed_summary"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 1936,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_eta": [
+                  -2.05712890625,
+                  -0.93359375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  1.9677734375,
+                  -1.22802734375
+                ],
+                "Lepton_pt": [
+                  39.22800827026367,
+                  38.37687301635742
+                ],
+                "Lepton_rochesterSF": [
+                  1.0434728860855103,
+                  1.006575345993042
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.93359375,
+                  -2.05712890625
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -1.22802734375,
+                  1.9677734375
+                ],
+                "Lepton_pt": [
+                  38.12617874145508,
+                  37.59370040893555
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.93359375,
+                  -2.05712890625
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -1.22802734375,
+                  1.9677734375
+                ],
+                "Lepton_pt": [
+                  38.12617874145508,
+                  37.59370040893555
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  -0.93359375,
+                  -2.05712890625
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -1.22802734375,
+                  1.9677734375
+                ],
+                "Lepton_pt": [
+                  38.12617874145508,
+                  37.59370040893555
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  -0.93359375,
+                  -2.05712890625
+                ],
+                "Electron_pdgId": [
+                  -11,
+                  11
+                ],
+                "Electron_phi": [
+                  -1.22802734375,
+                  1.9677734375
+                ],
+                "Electron_pt": [
+                  38.12617874145508,
+                  37.59370040893555
+                ],
+                "Muon_eta": [],
+                "Muon_pdgId": [],
+                "Muon_phi": [],
+                "Muon_pt": []
+              }
+            },
+            "source_entry": 27025
+          },
+          {
+            "key": [
+              386509,
+              735,
+              1539152813
+            ],
+            "origins": [
+              "pinned_observed_summary"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 3325,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_eta": [
+                  1.73095703125,
+                  0.6126708984375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -11,
+                  11
+                ],
+                "Lepton_phi": [
+                  -1.76171875,
+                  1.408203125
+                ],
+                "Lepton_pt": [
+                  39.51831817626953,
+                  38.97809600830078
+                ],
+                "Lepton_rochesterSF": [
+                  1.018836498260498,
+                  0.9983659386634827
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  0.3637428283691406,
+                  0.6126708984375,
+                  1.73095703125
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  2.56329345703125,
+                  1.408203125,
+                  -1.76171875
+                ],
+                "Lepton_pt": [
+                  108.35409545898438,
+                  39.041893005371094,
+                  38.78769302368164
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  0.6126708984375,
+                  1.73095703125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  1.408203125,
+                  -1.76171875
+                ],
+                "Lepton_pt": [
+                  39.041893005371094,
+                  38.78769302368164
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_eta": [
+                  0.6126708984375,
+                  1.73095703125
+                ],
+                "Lepton_muonIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_pdgId": [
+                  11,
+                  -11
+                ],
+                "Lepton_phi": [
+                  1.408203125,
+                  -1.76171875
+                ],
+                "Lepton_pt": [
+                  39.041893005371094,
+                  38.78769302368164
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [
+                  0.6126708984375,
+                  1.73095703125
+                ],
+                "Electron_pdgId": [
+                  11,
+                  -11
+                ],
+                "Electron_phi": [
+                  1.408203125,
+                  -1.76171875
+                ],
+                "Electron_pt": [
+                  39.041893005371094,
+                  38.78769302368164
+                ],
+                "Muon_eta": [
+                  0.3637428283691406
+                ],
+                "Muon_pdgId": [
+                  -13
+                ],
+                "Muon_phi": [
+                  2.56329345703125
+                ],
+                "Muon_pt": [
+                  108.35409545898438
+                ]
+              }
+            },
+            "source_entry": 46209
+          }
+        ]
+      },
+      "receipt_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/witnesses-final-egamma_i/witnesses.json",
+      "receipt_sha256": "f5f3e9fc6eb15f4d4fb31489998addf0dd4b130a12d7be6f80b18f4e0ca950e5"
+    },
+    "muon_c": {
+      "evidence": {
+        "aggregate_audit": {
+          "bytes": 122599,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-muon_c/audit.json",
+          "sha256": "da1aa9a7b302a648c14e3b187c8553b8754c98c46b72aef560019d92e26d1b33"
+        },
+        "auditor": {
+          "bytes": 45670,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_audit.py",
+          "sha256": "f2084876b9f7049460f5444e73f51c76d60e5299cf5a53edcb271258f0b23a69"
+        },
+        "kind": "hww_repair_exact_local_witness_rows",
+        "production_artifacts": [
+          {
+            "bytes": 99673,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/production.json",
+            "sha256": "d0c3092830578f0679ec3c671ae7c0aa5f383f4f66826396228b0795cc0e542d"
+          },
+          {
+            "bytes": 21732138,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/muon_c-repaired.root",
+            "sha256": "cc8e4742f6f8ecbd11d28670ee898f4d0fd76e9f74843bd1878b0bd4a37c8ddf"
+          },
+          {
+            "bytes": 257104,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/input-identity.npz",
+            "sha256": "226ae73b6653050592201446d4b849ee696078097834edd441dcb3bacc5b1c06"
+          }
+        ],
+        "reference_artifacts": [],
+        "role": "muon_c",
+        "schema_version": 1,
+        "scope": "Local snapshot source-entry lookup and exact selected row reads only. No producer execution, source NanoAOD scan, or original final snapshot. All SF associations are covered by the aggregate audit; three named nominal SF vectors are included here for compact examples.",
+        "status": "passed",
+        "witnesses": [
+          {
+            "key": [
+              379416,
+              147,
+              131724611
+            ],
+            "origins": [
+              "pinned_observed_summary"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 65,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.7153167724609375,
+                  -1.0579376220703125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.561309814453125,
+                  1.6826629638671875
+                ],
+                "Lepton_pt": [
+                  45.92918014526367,
+                  45.21227264404297
+                ],
+                "Lepton_rochesterSF": [
+                  1.0021264553070068,
+                  1.001059651374817
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -1.0763702392578125,
+                  -0.7153167724609375,
+                  -1.0579376220703125
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  1.7279510498046875,
+                  -1.561309814453125,
+                  1.6826629638671875
+                ],
+                "Lepton_pt": [
+                  83.15931701660156,
+                  45.83171844482422,
+                  45.16441345214844
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  false,
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  false,
+                  true,
+                  true
+                ],
+                "isLoose": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.7153167724609375,
+                  -1.0579376220703125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.561309814453125,
+                  1.6826629638671875
+                ],
+                "Lepton_pt": [
+                  45.83171844482422,
+                  45.16441345214844
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.7153167724609375,
+                  -1.0579376220703125
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.561309814453125,
+                  1.6826629638671875
+                ],
+                "Lepton_pt": [
+                  45.83171844482422,
+                  45.16441345214844
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [],
+                "Electron_pdgId": [],
+                "Electron_phi": [],
+                "Electron_pt": [],
+                "Muon_eta": [
+                  -1.0763702392578125,
+                  -0.7153167724609375,
+                  -1.0579376220703125
+                ],
+                "Muon_pdgId": [
+                  13,
+                  -13,
+                  13
+                ],
+                "Muon_phi": [
+                  1.7279510498046875,
+                  -1.561309814453125,
+                  1.6826629638671875
+                ],
+                "Muon_pt": [
+                  83.15931701660156,
+                  45.83171844482422,
+                  45.16441345214844
+                ]
+              }
+            },
+            "source_entry": 234
+          },
+          {
+            "key": [
+              379416,
+              212,
+              270212832
+            ],
+            "origins": [
+              "audited_nonidentity_permutation"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 8358,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  1.9103851318359375,
+                  -0.7994003295898438
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13
+                ],
+                "Lepton_phi": [
+                  -1.596160888671875,
+                  1.2414398193359375
+                ],
+                "Lepton_pt": [
+                  21.521833419799805,
+                  21.50786590576172
+                ],
+                "Lepton_rochesterSF": [
+                  1.0042574405670166,
+                  1.001834750175476
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.7994003295898438,
+                  1.9103851318359375
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  1.2414398193359375,
+                  -1.596160888671875
+                ],
+                "Lepton_pt": [
+                  21.468477249145508,
+                  21.430593490600586
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.7994003295898438,
+                  1.9103851318359375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  1.2414398193359375,
+                  -1.596160888671875
+                ],
+                "Lepton_pt": [
+                  21.468477249145508,
+                  21.430593490600586
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -0.7994003295898438,
+                  1.9103851318359375
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  1.2414398193359375,
+                  -1.596160888671875
+                ],
+                "Lepton_pt": [
+                  21.468477249145508,
+                  21.430593490600586
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [],
+                "Electron_pdgId": [],
+                "Electron_phi": [],
+                "Electron_pt": [],
+                "Muon_eta": [
+                  -0.7994003295898438,
+                  1.9103851318359375
+                ],
+                "Muon_pdgId": [
+                  -13,
+                  13
+                ],
+                "Muon_phi": [
+                  1.2414398193359375,
+                  -1.596160888671875
+                ],
+                "Muon_pt": [
+                  21.468477249145508,
+                  21.430593490600586
+                ]
+              }
+            },
+            "source_entry": 35046
+          }
+        ]
+      },
+      "receipt_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/witnesses-final-muon_c/witnesses.json",
+      "receipt_sha256": "e786a512385bc8d7991490019d1c03af47512d8e25c9a2953483d8058db6816d"
+    },
+    "muon_i": {
+      "evidence": {
+        "aggregate_audit": {
+          "bytes": 128348,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-muon_i/audit.json",
+          "sha256": "a22ab5daaaaac6134556de03e7b4ad7df22b914032b43772995b95f11616ae27"
+        },
+        "auditor": {
+          "bytes": 45670,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_audit.py",
+          "sha256": "f2084876b9f7049460f5444e73f51c76d60e5299cf5a53edcb271258f0b23a69"
+        },
+        "kind": "hww_repair_exact_local_witness_rows",
+        "production_artifacts": [
+          {
+            "bytes": 100673,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/production.json",
+            "sha256": "755f855de07a7090c9373a14a14879b1391dc7555ad035424e935fb6b09d684d"
+          },
+          {
+            "bytes": 20348216,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/muon_i-repaired.root",
+            "sha256": "461682af1fa0ba155a09365cee790bef2a5e1e06a4aac8fbdeb23146b41b26de"
+          },
+          {
+            "bytes": 255483,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/input-identity.npz",
+            "sha256": "fdbfb696fb04b2f7c440bb6b21a36c2776d0e97687a5e139adaafe35c752aa9a"
+          }
+        ],
+        "reference_artifacts": [],
+        "role": "muon_i",
+        "schema_version": 1,
+        "scope": "Local snapshot source-entry lookup and exact selected row reads only. No producer execution, source NanoAOD scan, or original final snapshot. All SF associations are covered by the aggregate audit; three named nominal SF vectors are included here for compact examples.",
+        "status": "passed",
+        "witnesses": [
+          {
+            "key": [
+              386592,
+              144,
+              215228286
+            ],
+            "origins": [
+              "audited_nonidentity_permutation"
+            ],
+            "present_after_repaired_chain": true,
+            "raw_genWeight": 1.0,
+            "snapshot_entry": 636,
+            "snapshot_stages": {
+              "final": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -2.014892578125,
+                  -1.40618896484375
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  1,
+                  0
+                ],
+                "Lepton_pdgId": [
+                  13,
+                  -13
+                ],
+                "Lepton_phi": [
+                  1.1477508544921875,
+                  -1.9184417724609375
+                ],
+                "Lepton_pt": [
+                  41.15721130371094,
+                  41.15711975097656
+                ],
+                "Lepton_rochesterSF": [
+                  1.0025014877319336,
+                  1.0015350580215454
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "maker": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -1.40618896484375,
+                  -2.014892578125,
+                  0.27508544921875
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1,
+                  2
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.9184417724609375,
+                  1.1477508544921875,
+                  -1.3321533203125
+                ],
+                "Lepton_pt": [
+                  41.09403991699219,
+                  41.05451202392578,
+                  3.831752300262451
+                ]
+              },
+              "original_defining_stage_wp": {
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true,
+                  false
+                ],
+                "isLoose": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "post_selection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -1.40618896484375,
+                  -2.014892578125
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_testrecipes": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightElectron_wp90iso": [
+                  false,
+                  false
+                ],
+                "Lepton_isTightMuon_cut_TightID_POG": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67": [
+                  true,
+                  true
+                ],
+                "Lepton_isTightMuon_cut_Tight_HWW": [
+                  true,
+                  true
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.9184417724609375,
+                  1.1477508544921875
+                ],
+                "Lepton_pt": [
+                  41.09403991699219,
+                  41.05451202392578
+                ],
+                "isLoose": [
+                  1,
+                  1
+                ]
+              },
+              "precorrection": {
+                "Lepton_electronIdx": [
+                  -1,
+                  -1
+                ],
+                "Lepton_eta": [
+                  -1.40618896484375,
+                  -2.014892578125
+                ],
+                "Lepton_muonIdx": [
+                  0,
+                  1
+                ],
+                "Lepton_pdgId": [
+                  -13,
+                  13
+                ],
+                "Lepton_phi": [
+                  -1.9184417724609375,
+                  1.1477508544921875
+                ],
+                "Lepton_pt": [
+                  41.09403991699219,
+                  41.05451202392578
+                ]
+              },
+              "precorrection_sf_examples": {},
+              "raw_nanoaod_fields": {
+                "Electron_eta": [],
+                "Electron_pdgId": [],
+                "Electron_phi": [],
+                "Electron_pt": [],
+                "Muon_eta": [
+                  -1.40618896484375,
+                  -2.014892578125,
+                  0.27508544921875
+                ],
+                "Muon_pdgId": [
+                  -13,
+                  13,
+                  13
+                ],
+                "Muon_phi": [
+                  -1.9184417724609375,
+                  1.1477508544921875,
+                  -1.3321533203125
+                ],
+                "Muon_pt": [
+                  41.09403991699219,
+                  41.05451202392578,
+                  3.831752300262451
+                ]
+              }
+            },
+            "source_entry": 2789
+          }
+        ]
+      },
+      "receipt_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/witnesses-final-muon_i/witnesses.json",
+      "receipt_sha256": "74121b6f99ccfb4fe88d78a014ac51febbac7a6d018dcef65581eefe47c1bedf"
+    }
+  },
+  "scope": "Compact witnesses re-read from final repaired ROOT snapshots, saved input/gate ledgers and original gate reference. No fresh NanoAOD scan. Historical original-final arrays are not invented."
+}

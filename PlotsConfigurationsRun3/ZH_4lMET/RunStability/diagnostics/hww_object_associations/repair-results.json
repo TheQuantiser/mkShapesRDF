@@ -1,0 +1,2387 @@
+{
+  "base_revision": "69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0",
+  "environment": "repair-environment.json",
+  "limitations": [
+    "Historical dirty producer source unavailable; exact historical eta-only operation unresolved.",
+    "Sequential smearing and shared TrigMaker gRandom variates not held equal between original and repaired acceptance. Final yield comparisons are descriptive.",
+    "Real persistence nominal only; systematic association assertions synthetic, not full variation production.",
+    "Auxiliary ROOT keys and remote stage-out are outside this local Events snapshot demonstration.",
+    "Native uint64 high-bit snapshot bridge limitation recorded separately; the six executed ranges (four DATA0:50000 prefixes and two complete MC files) have no high-bit keys.",
+    "Nominal Snapshot wildcard selection follows unchanged serialization exclusions: BeamSpot_type, Electron_seediEtaOriX and Photon_seediEtaOriX in these inputs."
+  ],
+  "local_output_root": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930",
+  "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+  "roles": {
+    "dy_ee": {
+      "audit_receipt": {
+        "bytes": 185198,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-dy_ee/audit.json",
+        "sha256": "633c76930e2e035e412fa759deef80128615c22eb5399c227ab71d8eb4230315"
+      },
+      "audited_flat_array_count": 186,
+      "audited_sf_array_count": 159,
+      "elapsed_seconds": 748.6600164868869,
+      "executed_range": [
+        0,
+        158487
+      ],
+      "gate_comparison": {
+        "aligned_gate_pass": 43338,
+        "cross_tab_by_current_and_historical_nLepton": [
+          {
+            "current_pre_gate_nLepton": 1,
+            "events": 25638,
+            "historical_nLepton": 1,
+            "outcome": "accepted_only_by_actual",
+            "sumw": 449047236.5,
+            "sumw2": 18386779531054.457
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 51,
+            "historical_nLepton": 2,
+            "outcome": "accepted_only_by_actual",
+            "sumw": 669500.29296875,
+            "sumw2": 36575620410.47575
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 42541,
+            "historical_nLepton": 2,
+            "outcome": "passes_both",
+            "sumw": 774986759.1289062,
+            "sumw2": 30509087605530.375
+          },
+          {
+            "current_pre_gate_nLepton": 3,
+            "events": 185,
+            "historical_nLepton": 3,
+            "outcome": "passes_both",
+            "sumw": 2919021.27734375,
+            "sumw2": 132676270116.43166
+          },
+          {
+            "current_pre_gate_nLepton": 4,
+            "events": 6,
+            "historical_nLepton": 4,
+            "outcome": "passes_both",
+            "sumw": 160680.0703125,
+            "sumw2": 4303014165.938324
+          },
+          {
+            "current_pre_gate_nLepton": 1,
+            "events": 5850,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_both",
+            "sumw": 100478603.96875,
+            "sumw2": 4195438811789.8657
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 61,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_both",
+            "sumw": 1097980.48046875,
+            "sumw2": 43747310687.03963
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 601,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_only_by_actual",
+            "sumw": 10042504.39453125,
+            "sumw2": 431018585621.4888
+          },
+          {
+            "current_pre_gate_nLepton": 3,
+            "events": 5,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_only_by_actual",
+            "sumw": 133900.05859375,
+            "sumw2": 3585845138.2819366
+          }
+        ],
+        "expected_counts": [
+          42732,
+          606,
+          25689,
+          5911
+        ],
+        "historical": {
+          "entries": 68421,
+          "historical_one_lepton_rows": 25638,
+          "join_report": {
+            "bytes": 2072,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_ee-join.json",
+            "sha256": "db97f5a81c7c46e6345e8a7b4aba8589d26336aa8302e89cba8cc53822ecd358"
+          },
+          "mapping": {
+            "bytes": 591810,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_ee-source-entry-map.tsv.gz",
+            "sha256": "5a3361a93bc3a0aecc5a38be452cbe6975b6d408c1ce1cd8470f7e24f3020450"
+          },
+          "read_columns": [
+            "run",
+            "luminosityBlock",
+            "event",
+            "nLepton",
+            "Lepton_electronIdx",
+            "Lepton_muonIdx"
+          ],
+          "uuid": "c183f92c-3747-11f1-be55-3cecef0de5e4"
+        },
+        "observed_counts": [
+          42732,
+          606,
+          25689,
+          5911
+        ],
+        "original_final_after_gate_losses": null,
+        "original_gate_pass": 68421,
+        "outcome_order": [
+          "passes_both",
+          "rejected_only_by_actual",
+          "accepted_only_by_actual",
+          "rejected_both"
+        ],
+        "outcomes": {
+          "accepted_only_by_actual": {
+            "events": 25689,
+            "sumw": 449716736.79296875,
+            "sumw2": 18423355151464.934
+          },
+          "passes_both": {
+            "events": 42732,
+            "sumw": 778066460.4765625,
+            "sumw2": 30646066889812.742
+          },
+          "rejected_both": {
+            "events": 5911,
+            "sumw": 101576584.44921875,
+            "sumw2": 4239186122476.9053
+          },
+          "rejected_only_by_actual": {
+            "events": 606,
+            "sumw": 10176404.453125,
+            "sumw2": 434604430759.77075
+          }
+        },
+        "pregate_collection_comparison": "not assessed",
+        "pregate_entry_and_key_sets_exactly_equal": true,
+        "pregate_outcomes_exactly_equal": true,
+        "reference_gate_artifacts": [
+          {
+            "bytes": 35975,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_ee/dy_ee-complete-gate.json",
+            "sha256": "d109f52afa25d00f46cadf6cb20518f0a0c71ddde64bfdbca42bf69a15099ccf"
+          },
+          {
+            "bytes": 429360,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_ee/reference-gate-entries.npz",
+            "sha256": "1b61ca20c8a7081d2a24245ac28137c92f532956ee2d6a40eab4bdc7146eb812"
+          }
+        ],
+        "repaired_final_after_gate_losses": 0,
+        "repaired_final_aligned_gate_entry_and_key_sets_exactly_equal": true,
+        "status": "passed"
+      },
+      "input": {
+        "dataset": "/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v4/NANOAODSIM",
+        "entry_start": 0,
+        "entry_stop": 80000,
+        "era": "2024",
+        "file_index_in_source": 1849,
+        "file_inventory_hash": "2d2974d81df8c25945425457a6459c8dbd1d62199f1b64103538ebe2cf33eff2",
+        "frozen_file_entries": 158487,
+        "golden_json": null,
+        "golden_sha256": null,
+        "hww_parent_file_mapping": "historical_hww_part0_verified_by_parent-pair-evidence.json",
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+        "is_data": false,
+        "lfn": "/store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+        "role": "dy_ee",
+        "sample": "DYto2E-2Jets_MLL-50",
+        "source_id": "bd8731e6fe600d168a1861928b70238ccf850de3c6e41599fbd2153a581e1fa8",
+        "stream": null,
+        "verified_events_entries": 158487,
+        "verified_root_uuid": "39e98d54-0b1c-11f0-ae78-630b10acbeef"
+      },
+      "input_gen_sumw": 2825907176.5976562,
+      "input_gen_sumw2": 113661967686177.86,
+      "integer_identity": "Source uint64 preserved; signed int64 snapshot/historical event words inverted modulo 2^64 without floats.",
+      "known_witnesses": [
+        {
+          "current_pre_gate_nLepton": 2,
+          "gate_outcome": "rejected_only_by_actual",
+          "historical_entry": null,
+          "historical_nLepton": null,
+          "known_key": [
+            1,
+            384532,
+            2060318616
+          ],
+          "repaired": {
+            "nLepton": 2,
+            "present": true
+          },
+          "source_entry": 174,
+          "source_ledger_key": [
+            1,
+            384532,
+            2060318616
+          ]
+        }
+      ],
+      "producer_trees": {
+        "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+        "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+      },
+      "production_receipt": {
+        "bytes": 126918,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/production.json",
+        "sha256": "3b8c73dfc93c67650220b3a6281a133ef08d081bf12f2e0e15f1a5783631ce43"
+      },
+      "reordering_examples": [
+        {
+          "final_pt": [
+            51.006195068359375,
+            49.984153747558594
+          ],
+          "final_raw_identities": [
+            [
+              1,
+              -1,
+              -11
+            ],
+            [
+              0,
+              -1,
+              11
+            ]
+          ],
+          "key": [
+            1,
+            384532,
+            2060318835
+          ],
+          "precorr_pt": [
+            49.94783401489258,
+            49.33938980102539
+          ],
+          "precorr_raw_identities": [
+            [
+              0,
+              -1,
+              11
+            ],
+            [
+              1,
+              -1,
+              -11
+            ]
+          ],
+          "rochesterSF": [
+            1.0337824821472168,
+            1.0007271766662598
+          ],
+          "source_entry": 200
+        },
+        {
+          "final_pt": [
+            44.90376663208008,
+            44.697959899902344
+          ],
+          "final_raw_identities": [
+            [
+              1,
+              -1,
+              11
+            ],
+            [
+              0,
+              -1,
+              -11
+            ]
+          ],
+          "key": [
+            1,
+            384532,
+            2060319959
+          ],
+          "precorr_pt": [
+            45.65248489379883,
+            44.907169342041016
+          ],
+          "precorr_raw_identities": [
+            [
+              0,
+              -1,
+              -11
+            ],
+            [
+              1,
+              -1,
+              11
+            ]
+          ],
+          "rochesterSF": [
+            0.9999242424964905,
+            0.9790915250778198
+          ],
+          "source_entry": 335
+        }
+      ],
+      "snapshot_artifacts": [
+        {
+          "bytes": 126918,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/production.json",
+          "sha256": "3b8c73dfc93c67650220b3a6281a133ef08d081bf12f2e0e15f1a5783631ce43"
+        },
+        {
+          "bytes": 147837341,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/dy_ee-repaired.root",
+          "sha256": "4d2a49989496e4b58201ef23c8593c937a2fa94fc5e98369a9447f76d3b3f93c"
+        },
+        {
+          "bytes": 529410,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/input-identity.npz",
+          "sha256": "981d135a19e16ed3001ce4050faf1a71a681f3bc60f63bab99fc2a7fa3054ad2"
+        },
+        {
+          "bytes": 988393,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/gate-ledger.npz",
+          "sha256": "955dd32d5ed478d9bdbe5342f48f3ecdb9ae72eb098d6e4ebfd1e21f0abedbc4"
+        }
+      ],
+      "snapshot_audit": {
+        "anomalies": {},
+        "anomaly_counts_may_overlap": true,
+        "branch_count": 3305,
+        "entries": 43338,
+        "excluded_nonflat_lepton_columns": [],
+        "final_raw_weight_sums": {
+          "events": 43338,
+          "sumw": 788242864.9296875,
+          "sumw2": 31080671320572.516
+        },
+        "multiplicity": {
+          "2": 43142,
+          "3": 190,
+          "4": 6
+        },
+        "nonidentity_precorr_to_final_permutations": 1419,
+        "rochester_ratio_max_absolute_error": 5.9603313395939495e-08,
+        "root_uuid": "18c2064e-bd52-11f1-bf58-001a4a81a8a9",
+        "status": "passed",
+        "unique_anomalous_events": 0
+      },
+      "stages": {
+        "DressedLeptons": 74938,
+        "GenLeptonMatch": 74938,
+        "GenVar": 74938,
+        "HiggsGenVars": 74938,
+        "JES_modules_reducedv15_MC": 78696,
+        "PromptParticlesGenVars": 74938,
+        "TopGenVars": 74938,
+        "WGammaStar": 74938,
+        "baseW": 74938,
+        "chain_selection": 94106,
+        "finalSnapshot_JES": 43338,
+        "formulasMC": 74938,
+        "input_entries": 158487,
+        "input_gen_sumw": 2825907176,
+        "input_gen_sumw2": 113661967686177,
+        "jetIDMaker": 78696,
+        "jetSelMask": 74938,
+        "l2Kin": 43338,
+        "l2tight": 43338,
+        "l3Kin": 43338,
+        "l4Kin": 43338,
+        "lepSel": 78696,
+        "leptonMaker": 93059,
+        "leptonSF": 74938,
+        "leptonScale_mc": 43338,
+        "puW": 74938,
+        "trigMC": 74938
+      },
+      "z_replays": {
+        "historical": {
+          "categories": {
+            "DY_HLT_ELE23_ELE12_ZEE": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 13774,
+                  "sumw": 54.40380472145287,
+                  "sumw2": 0.5543597200251543
+                }
+              },
+              "events": 13774,
+              "sumw": 54.40380472145287,
+              "sumw2": 0.5543597200251543
+            },
+            "DY_HLT_ELE30_ZEE": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 15033,
+                  "sumw": 59.56550998605265,
+                  "sumw2": 0.6101498680962569
+                }
+              },
+              "events": 15033,
+              "sumw": 59.56550998605265,
+              "sumw2": 0.6101498680962569
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1968,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-historical-dy_ee/replay.json",
+            "sha256": "b5dfdc36885af835d54b02dbb8f6ec97004447402bde8292a3a9e9a8c3ec2260"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "dy_ee",
+          "root_sha256": "ea50eb005cf15d7c5c5b36554956b16558bc07c9a9031e0ca5cd16538491ee49",
+          "selected_ledger_sha256": "aca160e7184e836cb2590b04e61c31646267bbe5b3a0223640773999aa6754a6",
+          "unavailable_details": [],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "historical_part0"
+        },
+        "repaired": {
+          "categories": {
+            "DY_HLT_ELE23_ELE12_ZEE": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 13843,
+                  "sumw": 54.80519714285252,
+                  "sumw2": 0.5558812435800807
+                },
+                "rejected_only_by_actual": {
+                  "events": 139,
+                  "sumw": 0.5910818755978349,
+                  "sumw2": 0.006404978841669934
+                }
+              },
+              "events": 13982,
+              "sumw": 55.39627901845036,
+              "sumw2": 0.5622862224217507
+            },
+            "DY_HLT_ELE30_ZEE": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 15103,
+                  "sumw": 59.967994333915115,
+                  "sumw2": 0.6115417800080424
+                },
+                "rejected_only_by_actual": {
+                  "events": 158,
+                  "sumw": 0.6507261436373916,
+                  "sumw2": 0.006940496695569789
+                }
+              },
+              "events": 15261,
+              "sumw": 60.61872047755251,
+              "sumw2": 0.6184822767036121
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_ee/dy_ee-repaired.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 2189,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-repaired-dy_ee/replay.json",
+            "sha256": "c25f0aa3846d197365b3fd258f8f0892d66078b934daf138ca0780e8c576ab61"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "dy_ee",
+          "root_sha256": "bf826a9bce0520ad39cd8bd8e5863f4dc8b05d85cf5f9346ad369e618f05776d",
+          "selected_ledger_sha256": "3263d5a6b9467b32e8838f7f55f0e4c5aacb6c73dd92e7f47be1b19afeea44c8",
+          "unavailable_details": [],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "repaired"
+        }
+      }
+    },
+    "dy_mumu": {
+      "audit_receipt": {
+        "bytes": 185909,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-dy_mumu/audit.json",
+        "sha256": "00f384bd5c65882b8b396d115470bbce8be133b8bb0c67bd731d79833d070b11"
+      },
+      "audited_flat_array_count": 186,
+      "audited_sf_array_count": 159,
+      "elapsed_seconds": 1322.7063714850228,
+      "executed_range": [
+        0,
+        222331
+      ],
+      "gate_comparison": {
+        "aligned_gate_pass": 89282,
+        "cross_tab_by_current_and_historical_nLepton": [
+          {
+            "current_pre_gate_nLepton": 1,
+            "events": 5269,
+            "historical_nLepton": 1,
+            "outcome": "accepted_only_by_actual",
+            "sumw": 76831853.62109375,
+            "sumw2": 3778763606721.505
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 54,
+            "historical_nLepton": 2,
+            "outcome": "accepted_only_by_actual",
+            "sumw": 856960.375,
+            "sumw2": 38727127493.444916
+          },
+          {
+            "current_pre_gate_nLepton": 3,
+            "events": 1,
+            "historical_nLepton": 3,
+            "outcome": "accepted_only_by_actual",
+            "sumw": 26780.01171875,
+            "sumw2": 717169027.6563873
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 82987,
+            "historical_nLepton": 2,
+            "outcome": "passes_both",
+            "sumw": 1519310404.8398438,
+            "sumw2": 59515706098120.62
+          },
+          {
+            "current_pre_gate_nLepton": 3,
+            "events": 373,
+            "historical_nLepton": 3,
+            "outcome": "passes_both",
+            "sumw": 6132622.68359375,
+            "sumw2": 267504047315.83246
+          },
+          {
+            "current_pre_gate_nLepton": 4,
+            "events": 8,
+            "historical_nLepton": 4,
+            "outcome": "passes_both",
+            "sumw": -53560.0234375,
+            "sumw2": 5737352221.251099
+          },
+          {
+            "current_pre_gate_nLepton": 1,
+            "events": 20839,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_both",
+            "sumw": 365413259.90234375,
+            "sumw2": 14945085367331.455
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 855,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_both",
+            "sumw": 14273746.24609375,
+            "sumw2": 613179518646.2112
+          },
+          {
+            "current_pre_gate_nLepton": 3,
+            "events": 3,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_both",
+            "sumw": 26780.01171875,
+            "sumw2": 2151507082.969162
+          },
+          {
+            "current_pre_gate_nLepton": 2,
+            "events": 5884,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_only_by_actual",
+            "sumw": 104816965.8671875,
+            "sumw2": 4219822558730.183
+          },
+          {
+            "current_pre_gate_nLepton": 3,
+            "events": 29,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_only_by_actual",
+            "sumw": 401700.17578125,
+            "sumw2": 20797901802.035233
+          },
+          {
+            "current_pre_gate_nLepton": 4,
+            "events": 1,
+            "historical_nLepton": "absent",
+            "outcome": "rejected_only_by_actual",
+            "sumw": 26780.01171875,
+            "sumw2": 717169027.6563873
+          }
+        ],
+        "expected_counts": [
+          83368,
+          5914,
+          5324,
+          21697
+        ],
+        "historical": {
+          "entries": 88692,
+          "historical_one_lepton_rows": 5269,
+          "join_report": {
+            "bytes": 2077,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_mumu-join.json",
+            "sha256": "ff9c03a972f5ac834b5c3dc4b0a2bc3f6f49e575775886e3d3720dbf876432da"
+          },
+          "mapping": {
+            "bytes": 810132,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_mumu-source-entry-map.tsv.gz",
+            "sha256": "72fdef1c4a28f7439d0a9e91e0f56fd6e998873db318ce5c222cb3ef763a2ad7"
+          },
+          "read_columns": [
+            "run",
+            "luminosityBlock",
+            "event",
+            "nLepton",
+            "Lepton_electronIdx",
+            "Lepton_muonIdx"
+          ],
+          "uuid": "d4c93ad6-37e9-11f1-98cc-3cecef0ddda8"
+        },
+        "observed_counts": [
+          83368,
+          5914,
+          5324,
+          21697
+        ],
+        "original_final_after_gate_losses": null,
+        "original_gate_pass": 88692,
+        "outcome_order": [
+          "passes_both",
+          "rejected_only_by_actual",
+          "accepted_only_by_actual",
+          "rejected_both"
+        ],
+        "outcomes": {
+          "accepted_only_by_actual": {
+            "events": 5324,
+            "sumw": 77715594.0078125,
+            "sumw2": 3818207903242.606
+          },
+          "passes_both": {
+            "events": 83368,
+            "sumw": 1525389467.5,
+            "sumw2": 59788947497657.695
+          },
+          "rejected_both": {
+            "events": 21697,
+            "sumw": 379713786.16015625,
+            "sumw2": 15560416393060.637
+          },
+          "rejected_only_by_actual": {
+            "events": 5914,
+            "sumw": 105245446.0546875,
+            "sumw2": 4241337629559.8745
+          }
+        },
+        "pregate_collection_comparison": "not assessed",
+        "pregate_entry_and_key_sets_exactly_equal": true,
+        "pregate_outcomes_exactly_equal": true,
+        "reference_gate_artifacts": [
+          {
+            "bytes": 35327,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_mumu/dy_mumu-complete-gate.json",
+            "sha256": "cf4508910c54a8038ba660a69feb3314a849431c6771324ae628947c080628fc"
+          },
+          {
+            "bytes": 670352,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/reference-gate-dy_mumu/reference-gate-entries.npz",
+            "sha256": "0c3236e3d8c44d5de456d5528dbb4fb1eb3e3f604821f57f78eced6ddc5c1363"
+          }
+        ],
+        "repaired_final_after_gate_losses": 0,
+        "repaired_final_aligned_gate_entry_and_key_sets_exactly_equal": true,
+        "status": "passed"
+      },
+      "input": {
+        "dataset": "/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v6/NANOAODSIM",
+        "entry_start": 0,
+        "entry_stop": 80000,
+        "era": "2024",
+        "file_index_in_source": 2058,
+        "file_inventory_hash": "366bda7fc8c42e9bf6e67cf24050544af03af90cc2388b2fe714ee4610cbec11",
+        "frozen_file_entries": 222331,
+        "golden_json": null,
+        "golden_sha256": null,
+        "hww_parent_file_mapping": "historical_hww_part0_verified_by_parent-pair-evidence.json",
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root",
+        "is_data": false,
+        "lfn": "/store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+        "role": "dy_mumu",
+        "sample": "DYto2Mu-2Jets_MLL-50",
+        "source_id": "be66d4331c02d5ef9adfc61e644248665296758dc71f6a23e9c6eab5db6a5139",
+        "stream": null,
+        "verified_events_entries": 222331,
+        "verified_root_uuid": "2bd9db6c-1b32-11f0-bdb6-9dbfe183beef"
+      },
+      "input_gen_sumw": 3974341199.1445312,
+      "input_gen_sumw2": 159448907087872.25,
+      "integer_identity": "Source uint64 preserved; signed int64 snapshot/historical event words inverted modulo 2^64 without floats.",
+      "known_witnesses": [
+        {
+          "current_pre_gate_nLepton": 1,
+          "gate_outcome": "rejected_both",
+          "historical_entry": null,
+          "historical_nLepton": null,
+          "known_key": [
+            1,
+            260002,
+            1443526502
+          ],
+          "repaired": {
+            "nLepton": null,
+            "present": false
+          },
+          "source_entry": 127,
+          "source_ledger_key": [
+            1,
+            260002,
+            1443526502
+          ]
+        }
+      ],
+      "producer_trees": {
+        "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+        "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+      },
+      "production_receipt": {
+        "bytes": 126946,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/production.json",
+        "sha256": "5d50348a9aa09ca2c0b4ec59f084bb445465f00d08cde7d1e647a86d3b38ad9f"
+      },
+      "reordering_examples": [
+        {
+          "final_pt": [
+            37.296566009521484,
+            37.227142333984375
+          ],
+          "final_raw_identities": [
+            [
+              -1,
+              1,
+              -13
+            ],
+            [
+              -1,
+              0,
+              13
+            ]
+          ],
+          "key": [
+            1,
+            260002,
+            1443530480
+          ],
+          "precorr_pt": [
+            37.40733337402344,
+            37.271175384521484
+          ],
+          "precorr_raw_identities": [
+            [
+              -1,
+              0,
+              13
+            ],
+            [
+              -1,
+              1,
+              -13
+            ]
+          ],
+          "rochesterSF": [
+            1.0006812810897827,
+            0.995182991027832
+          ],
+          "source_entry": 617
+        },
+        {
+          "final_pt": [
+            84.83534240722656,
+            84.09844970703125
+          ],
+          "final_raw_identities": [
+            [
+              -1,
+              1,
+              -13
+            ],
+            [
+              -1,
+              0,
+              13
+            ]
+          ],
+          "key": [
+            1,
+            260002,
+            1443530540
+          ],
+          "precorr_pt": [
+            83.65003204345703,
+            82.88335418701172
+          ],
+          "precorr_raw_identities": [
+            [
+              -1,
+              0,
+              13
+            ],
+            [
+              -1,
+              1,
+              -13
+            ]
+          ],
+          "rochesterSF": [
+            1.0235509872436523,
+            1.0053606033325195
+          ],
+          "source_entry": 635
+        }
+      ],
+      "snapshot_artifacts": [
+        {
+          "bytes": 126946,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/production.json",
+          "sha256": "5d50348a9aa09ca2c0b4ec59f084bb445465f00d08cde7d1e647a86d3b38ad9f"
+        },
+        {
+          "bytes": 300606593,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/dy_mumu-repaired.root",
+          "sha256": "c0a951ebf32c86454fbdb24dac71c6754b12d262c3969dcb1fb0382129e90dbb"
+        },
+        {
+          "bytes": 742277,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/input-identity.npz",
+          "sha256": "f82f0b1f8bc16d76c83172523ac8fa9926bf2c75d956a77c58348664f3a06243"
+        },
+        {
+          "bytes": 1624724,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/gate-ledger.npz",
+          "sha256": "effc35d4ade62d0ca6035e311c84ce0db496bc63031cf2179886a538fa5fcf52"
+        }
+      ],
+      "snapshot_audit": {
+        "anomalies": {},
+        "anomaly_counts_may_overlap": true,
+        "branch_count": 3305,
+        "entries": 89282,
+        "excluded_nonflat_lepton_columns": [],
+        "final_raw_weight_sums": {
+          "events": 89282,
+          "sumw": 1630634913.5546875,
+          "sumw2": 64030285127217.57
+        },
+        "multiplicity": {
+          "2": 88871,
+          "3": 402,
+          "4": 9
+        },
+        "nonidentity_precorr_to_final_permutations": 978,
+        "rochester_ratio_max_absolute_error": 5.960438786978273e-08,
+        "root_uuid": "69e93aa4-bd4f-11f1-9091-001a4a81a8a9",
+        "status": "passed",
+        "unique_anomalous_events": 0
+      },
+      "stages": {
+        "DressedLeptons": 116303,
+        "GenLeptonMatch": 116303,
+        "GenVar": 116303,
+        "HiggsGenVars": 116303,
+        "JES_modules_reducedv15_MC": 121809,
+        "PromptParticlesGenVars": 116303,
+        "TopGenVars": 116303,
+        "WGammaStar": 116303,
+        "baseW": 116303,
+        "chain_selection": 129548,
+        "finalSnapshot_JES": 89282,
+        "formulasMC": 116303,
+        "input_entries": 222331,
+        "input_gen_sumw": 3974341199,
+        "input_gen_sumw2": 159448907087872,
+        "jetIDMaker": 121809,
+        "jetSelMask": 116303,
+        "l2Kin": 89282,
+        "l2tight": 89282,
+        "l3Kin": 89282,
+        "l4Kin": 89282,
+        "lepSel": 121809,
+        "leptonMaker": 127633,
+        "leptonSF": 116303,
+        "leptonScale_mc": 89282,
+        "puW": 116303,
+        "trigMC": 116303
+      },
+      "z_replays": {
+        "historical": {
+          "categories": {
+            "DY_HLT_ISOMU24_ZMM": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 32559,
+                  "sumw": 137.4093404057502,
+                  "sumw2": 1.5152306895807246
+                }
+              },
+              "events": 32559,
+              "sumw": 137.4093404057502,
+              "sumw2": 1.5152306895807246
+            },
+            "DY_HLT_MU17_MU8_ZMM": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 31373,
+                  "sumw": 132.13120618733268,
+                  "sumw2": 1.4600938712598466
+                }
+              },
+              "events": 31373,
+              "sumw": 132.13120618733268,
+              "sumw2": 1.4600938712598466
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1972,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-historical-dy_mumu/replay.json",
+            "sha256": "421ce861b1d1cfebc4cbba3909942446a87c60d8bbf63e5d4905446ffe4bd0d2"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "dy_mumu",
+          "root_sha256": "fac2a72a98e4256c1b2dfeef1f6c5fd8b4df2d5f99fdca6eec69c76083fad321",
+          "selected_ledger_sha256": "cfb0f3f29a09073b6320a42446ffde73f8555e800330c4bdf3de65a8e10ed9dc",
+          "unavailable_details": [],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "historical_part0"
+        },
+        "repaired": {
+          "categories": {
+            "DY_HLT_ISOMU24_ZMM": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 33349,
+                  "sumw": 140.82362423171853,
+                  "sumw2": 1.5553807384281493
+                },
+                "rejected_only_by_actual": {
+                  "events": 1694,
+                  "sumw": 8.557195631678235,
+                  "sumw2": 0.11899734214612204
+                }
+              },
+              "events": 35043,
+              "sumw": 149.38081986339677,
+              "sumw2": 1.6743780805742714
+            },
+            "DY_HLT_MU17_MU8_ZMM": {
+              "by_producer_outcome": {
+                "passes_both": {
+                  "events": 32142,
+                  "sumw": 135.44892734603076,
+                  "sumw2": 1.4983604849770087
+                },
+                "rejected_only_by_actual": {
+                  "events": 1640,
+                  "sumw": 8.226125688433976,
+                  "sumw2": 0.11557726756402699
+                }
+              },
+              "events": 33782,
+              "sumw": 143.67505303446475,
+              "sumw2": 1.6139377525410357
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu/dy_mumu-repaired.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 2195,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-repaired-dy_mumu/replay.json",
+            "sha256": "8864460cfe0065587616b23909cab370e3398f0b6180efac0f01501dd3ad74b4"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "dy_mumu",
+          "root_sha256": "7c52361c7ff52cefd1020875154bc76e320d36069a587bacdfa96ccb1995bffc",
+          "selected_ledger_sha256": "f6cc34bb6e6ad0d0217ff6a4affa31080e6399364dba0037ab4ad71739648e8a",
+          "unavailable_details": [],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "repaired"
+        }
+      }
+    },
+    "egamma_c": {
+      "audit_receipt": {
+        "bytes": 127380,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-egamma_c/audit.json",
+        "sha256": "ce6e4e45ffa1ba56ec2d1d0fa2ec509e20bd8c9d502495290d0969df19292a70"
+      },
+      "audited_flat_array_count": 21,
+      "audited_sf_array_count": 0,
+      "elapsed_seconds": 114.95340026495978,
+      "executed_range": [
+        0,
+        50000
+      ],
+      "input": {
+        "dataset": "/EGamma0/Run2024C-MINIv6NANOv15-v1/NANOAOD",
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "era": "2024",
+        "file_index_in_source": 39,
+        "file_inventory_hash": "acd005dfa72af7328a9434a7a47f6c93d80d522db014a35b5a3baf5d29a1427a",
+        "frozen_file_entries": 704556,
+        "golden_json": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/mkShapesRDF/processor/data/certification/Cert_Collisions2024_378981_386951_Golden.json",
+        "golden_sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c",
+        "hww_parent_file_mapping": "historical_hww_part0_verified_by_parent-pair-evidence.json",
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root",
+        "is_data": true,
+        "lfn": "/store/data/Run2024C/EGamma0/NANOAOD/MINIv6NANOv15-v1/2540000/3151ab41-a5bd-48f1-be40-449b760a60e6.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/EGamma0/NANOAOD/MINIv6NANOv15-v1/2540000/3151ab41-a5bd-48f1-be40-449b760a60e6.root",
+        "role": "egamma_c",
+        "sample": "EGamma0_Run2024C-ReReco-v1",
+        "source_id": "ea9e9070242fddf52377d6750fc05399ae648053c5b69f4ad99ee3ad43895656",
+        "stream": "EGamma",
+        "verified_events_entries": 704556,
+        "verified_root_uuid": "aec70578-04ed-11f0-afd0-0a8ed380beef"
+      },
+      "input_gen_sumw": null,
+      "input_gen_sumw2": null,
+      "integer_identity": "Source uint64 preserved; signed int64 snapshot/historical event words inverted modulo 2^64 without floats.",
+      "known_witnesses": [
+        {
+          "known_key": [
+            379729,
+            907,
+            1396820419
+          ],
+          "repaired": {
+            "nLepton": 2,
+            "present": true
+          },
+          "source_entry": 20774,
+          "source_ledger_key": [
+            379729,
+            907,
+            1396820419
+          ]
+        }
+      ],
+      "producer_trees": {
+        "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+        "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+      },
+      "production_receipt": {
+        "bytes": 98800,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/production.json",
+        "sha256": "1cb36f555b32604db797b91c1dcb81e3feabeebd3f7e15b0e857accfd7f84445"
+      },
+      "reordering_examples": [
+        {
+          "final_pt": [
+            39.35709762573242,
+            39.337276458740234
+          ],
+          "final_raw_identities": [
+            [
+              1,
+              -1,
+              -11
+            ],
+            [
+              0,
+              -1,
+              11
+            ]
+          ],
+          "key": [
+            379729,
+            907,
+            1396346568
+          ],
+          "precorr_pt": [
+            39.383323669433594,
+            39.046878814697266
+          ],
+          "precorr_raw_identities": [
+            [
+              0,
+              -1,
+              11
+            ],
+            [
+              1,
+              -1,
+              -11
+            ]
+          ],
+          "rochesterSF": [
+            1.0079448223114014,
+            0.9988307952880859
+          ],
+          "source_entry": 22125
+        },
+        {
+          "final_pt": [
+            39.58294677734375,
+            39.24580764770508
+          ],
+          "final_raw_identities": [
+            [
+              1,
+              -1,
+              -11
+            ],
+            [
+              0,
+              -1,
+              11
+            ]
+          ],
+          "key": [
+            379729,
+            908,
+            1399312022
+          ],
+          "precorr_pt": [
+            39.245697021484375,
+            39.090675354003906
+          ],
+          "precorr_raw_identities": [
+            [
+              0,
+              -1,
+              11
+            ],
+            [
+              1,
+              -1,
+              -11
+            ]
+          ],
+          "rochesterSF": [
+            1.0125930309295654,
+            1.0000028610229492
+          ],
+          "source_entry": 24365
+        }
+      ],
+      "snapshot_artifacts": [
+        {
+          "bytes": 98800,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/production.json",
+          "sha256": "1cb36f555b32604db797b91c1dcb81e3feabeebd3f7e15b0e857accfd7f84445"
+        },
+        {
+          "bytes": 8162945,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/egamma_c-repaired.root",
+          "sha256": "e8b2dd9af5c9ab385dd09d8c6deb399917e8cfdc64a499b06dee2c57df8424af"
+        },
+        {
+          "bytes": 250642,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/input-identity.npz",
+          "sha256": "5418d7dcb10b15f20089f011c2d0537efd3d92528b6175e9390c809d0528dae9"
+        }
+      ],
+      "snapshot_audit": {
+        "anomalies": {},
+        "anomaly_counts_may_overlap": true,
+        "branch_count": 2678,
+        "entries": 3189,
+        "excluded_nonflat_lepton_columns": [],
+        "final_raw_weight_sums": {
+          "events": 3189,
+          "sumw": 3189.0,
+          "sumw2": 3189.0
+        },
+        "multiplicity": {
+          "1": 2492,
+          "2": 694,
+          "3": 3
+        },
+        "nonidentity_precorr_to_final_permutations": 8,
+        "rochester_ratio_max_absolute_error": 5.959174975700421e-08,
+        "root_uuid": "667b7e50-bd4e-11f1-80c5-001a4a81a8a9",
+        "status": "passed",
+        "unique_anomalous_events": 0
+      },
+      "stages": {
+        "JES_modules_reducedv15_DATA": 3353,
+        "chain_selection": 15896,
+        "finalSnapshot_DATA": 3189,
+        "formulasDATA": 3189,
+        "input_entries": 50000,
+        "jetIDMaker": 3353,
+        "jetSelMask": 3189,
+        "l2Kin": 3189,
+        "l3Kin": 3189,
+        "l4Kin": 3189,
+        "lepSel": 3353,
+        "leptonMaker": 12493,
+        "leptonScale_data": 3189,
+        "lumiMask": 13341,
+        "trigData": 3189
+      },
+      "z_replays": {
+        "historical": {
+          "categories": {
+            "DY_HLT_ELE23_ELE12_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 191,
+                  "sumw": 191.0,
+                  "sumw2": 191.0
+                }
+              },
+              "events": 191,
+              "sumw": 191.0,
+              "sumw2": 191.0
+            },
+            "DY_HLT_ELE30_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 204,
+                  "sumw": 204.0,
+                  "sumw2": 204.0
+                }
+              },
+              "events": 204,
+              "sumw": 204.0,
+              "sumw2": 204.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1881,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/historical-replay-egamma_c/replay.json",
+            "sha256": "63a96249c0cfb7346edf62195e5afd41ebf9fb22a6697f18b023718161db36f4"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "egamma_c",
+          "root_sha256": "864242efc793ff1cd66c7127f5ace41ac69e147b900fe1f30a8323e583ddf767",
+          "selected_ledger_sha256": "78f5bb1450e19005ab0cab29142ea386fa03c94df16339d190c52c2909d6d2cc",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "historical_part0"
+        },
+        "repaired": {
+          "categories": {
+            "DY_HLT_ELE23_ELE12_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 195,
+                  "sumw": 195.0,
+                  "sumw2": 195.0
+                }
+              },
+              "events": 195,
+              "sumw": 195.0,
+              "sumw2": 195.0
+            },
+            "DY_HLT_ELE30_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 208,
+                  "sumw": 208.0,
+                  "sumw2": 208.0
+                }
+              },
+              "events": 208,
+              "sumw": 208.0,
+              "sumw2": 208.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_c/egamma_c-repaired.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1804,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-egamma_c-v2/replay.json",
+            "sha256": "73d046f43b1ca0a025bdcbb7163660342018049fb3a3b1b742263a9e2c45b1e6"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "egamma_c",
+          "root_sha256": "c0e192386a4638e2ff337a562597bf69e23da77fb1b0809f749bad154b5e6f0d",
+          "selected_ledger_sha256": "fbaa1a02fba43021b9c8835d5648ff5b81e32632f46d3c1524f61e859d5e2046",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "repaired"
+        }
+      }
+    },
+    "egamma_i": {
+      "audit_receipt": {
+        "bytes": 129861,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-egamma_i/audit.json",
+        "sha256": "57a8c6b3b19628d17498a5a98ba317a014bc820bbc95b479212d7976384b9544"
+      },
+      "audited_flat_array_count": 21,
+      "audited_sf_array_count": 0,
+      "elapsed_seconds": 118.46265193913132,
+      "executed_range": [
+        0,
+        50000
+      ],
+      "input": {
+        "dataset": "/EGamma0/Run2024I-MINIv6NANOv15-v1/NANOAOD",
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "era": "2024",
+        "file_index_in_source": 22,
+        "file_inventory_hash": "b2771e7ba175469322c08c1f36821395e188754c4935f72a4434f4981f944da5",
+        "frozen_file_entries": 657356,
+        "golden_json": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/mkShapesRDF/processor/data/certification/Cert_Collisions2024_378981_386951_Golden.json",
+        "golden_sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c",
+        "hww_parent_file_mapping": "historical_hww_part0_verified_by_parent-pair-evidence.json",
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root",
+        "is_data": true,
+        "lfn": "/store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+        "role": "egamma_i",
+        "sample": "EGamma0_Run2024I-Prompt-v1",
+        "source_id": "edcadc7f836259760d92116e91655478164683833af7947a3648fc0143a4a347",
+        "stream": "EGamma",
+        "verified_events_entries": 657356,
+        "verified_root_uuid": "95bbdcc8-0738-11f0-8110-d42411acbeef"
+      },
+      "input_gen_sumw": null,
+      "input_gen_sumw2": null,
+      "integer_identity": "Source uint64 preserved; signed int64 snapshot/historical event words inverted modulo 2^64 without floats.",
+      "known_witnesses": [
+        {
+          "known_key": [
+            386509,
+            159,
+            333332716
+          ],
+          "repaired": {
+            "nLepton": 2,
+            "present": true
+          },
+          "source_entry": 27025,
+          "source_ledger_key": [
+            386509,
+            159,
+            333332716
+          ]
+        },
+        {
+          "known_key": [
+            386509,
+            735,
+            1539152813
+          ],
+          "repaired": {
+            "nLepton": 2,
+            "present": true
+          },
+          "source_entry": 46209,
+          "source_ledger_key": [
+            386509,
+            735,
+            1539152813
+          ]
+        }
+      ],
+      "producer_trees": {
+        "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+        "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+      },
+      "production_receipt": {
+        "bytes": 100681,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/production.json",
+        "sha256": "1b76f1e3df106eeb8c314a367add41e606f5a2ff6bb255971e4f79c1b3f942cc"
+      },
+      "reordering_examples": [
+        {
+          "final_pt": [
+            53.938236236572266,
+            53.73644256591797
+          ],
+          "final_raw_identities": [
+            [
+              1,
+              -1,
+              -11
+            ],
+            [
+              0,
+              -1,
+              11
+            ]
+          ],
+          "key": [
+            386509,
+            157,
+            328269399
+          ],
+          "precorr_pt": [
+            52.3669548034668,
+            52.32224655151367
+          ],
+          "precorr_raw_identities": [
+            [
+              0,
+              -1,
+              11
+            ],
+            [
+              1,
+              -1,
+              -11
+            ]
+          ],
+          "rochesterSF": [
+            1.0308853387832642,
+            1.0261517763137817
+          ],
+          "source_entry": 2493
+        },
+        {
+          "final_pt": [
+            26.888647079467773,
+            26.415287017822266
+          ],
+          "final_raw_identities": [
+            [
+              1,
+              -1,
+              -11
+            ],
+            [
+              0,
+              -1,
+              11
+            ]
+          ],
+          "key": [
+            386509,
+            157,
+            327772325
+          ],
+          "precorr_pt": [
+            26.451541900634766,
+            25.96336555480957
+          ],
+          "precorr_raw_identities": [
+            [
+              0,
+              -1,
+              11
+            ],
+            [
+              1,
+              -1,
+              -11
+            ]
+          ],
+          "rochesterSF": [
+            1.0356379747390747,
+            0.9986293911933899
+          ],
+          "source_entry": 3356
+        }
+      ],
+      "snapshot_artifacts": [
+        {
+          "bytes": 100681,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/production.json",
+          "sha256": "1b76f1e3df106eeb8c314a367add41e606f5a2ff6bb255971e4f79c1b3f942cc"
+        },
+        {
+          "bytes": 9060941,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/egamma_i-repaired.root",
+          "sha256": "5d19f26ee8ccad6976ea921fcfb465a0f8d275a5bd9e85bd451a7124ebc53349"
+        },
+        {
+          "bytes": 253180,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/input-identity.npz",
+          "sha256": "3041401bbaec5d829bf6fb74e98f75a7f322da7c72f26732f4ff9f754830c091"
+        }
+      ],
+      "snapshot_audit": {
+        "anomalies": {},
+        "anomaly_counts_may_overlap": true,
+        "branch_count": 2735,
+        "entries": 3590,
+        "excluded_nonflat_lepton_columns": [],
+        "final_raw_weight_sums": {
+          "events": 3590,
+          "sumw": 3590.0,
+          "sumw2": 3590.0
+        },
+        "multiplicity": {
+          "1": 2905,
+          "2": 678,
+          "3": 7
+        },
+        "nonidentity_precorr_to_final_permutations": 15,
+        "rochester_ratio_max_absolute_error": 5.959992699366978e-08,
+        "root_uuid": "ad470a7a-bd4e-11f1-a049-001a4a81a8a9",
+        "status": "passed",
+        "unique_anomalous_events": 0
+      },
+      "stages": {
+        "JES_modules_reducedv15_DATA": 3782,
+        "chain_selection": 16431,
+        "finalSnapshot_DATA": 3590,
+        "formulasDATA": 3590,
+        "input_entries": 50000,
+        "jetIDMaker": 3782,
+        "jetSelMask": 3590,
+        "l2Kin": 3590,
+        "l3Kin": 3590,
+        "l4Kin": 3590,
+        "lepSel": 3782,
+        "leptonMaker": 14814,
+        "leptonScale_data": 3590,
+        "lumiMask": 16431,
+        "trigData": 3590
+      },
+      "z_replays": {
+        "historical": {
+          "categories": {
+            "DY_HLT_ELE23_ELE12_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 196,
+                  "sumw": 196.0,
+                  "sumw2": 196.0
+                }
+              },
+              "events": 196,
+              "sumw": 196.0,
+              "sumw2": 196.0
+            },
+            "DY_HLT_ELE30_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 208,
+                  "sumw": 208.0,
+                  "sumw2": 208.0
+                }
+              },
+              "events": 208,
+              "sumw": 208.0,
+              "sumw2": 208.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1881,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/historical-replay-egamma_i/replay.json",
+            "sha256": "581ec30bdce002d9c2003320d10e0cb476d8858a7bfc9aed026877047a6253dd"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "egamma_i",
+          "root_sha256": "b7e64190a2b02fbe4ca68ba0e654d50a0f1e200197c4677dbb080d5c45b0f255",
+          "selected_ledger_sha256": "d67ddf059181a15a9317ecdca7ceeba753a0cc39e8a0727a19ff93428ab3b8d4",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "historical_part0"
+        },
+        "repaired": {
+          "categories": {
+            "DY_HLT_ELE23_ELE12_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 203,
+                  "sumw": 203.0,
+                  "sumw2": 203.0
+                }
+              },
+              "events": 203,
+              "sumw": 203.0,
+              "sumw2": 203.0
+            },
+            "DY_HLT_ELE30_ZEE": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 215,
+                  "sumw": 215.0,
+                  "sumw2": 215.0
+                }
+              },
+              "events": 215,
+              "sumw": 215.0,
+              "sumw2": 215.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-egamma_i/egamma_i-repaired.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1804,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-egamma_i/replay.json",
+            "sha256": "774053114b2a27e34dbbc0075b98207c9b93f78cf5c1bc053f8f25bba488632b"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "egamma_i",
+          "root_sha256": "d856131e9e53d79374a7caaa8aa454e84abd10c4d19e267430be08a58249b73c",
+          "selected_ledger_sha256": "b3b3635827912e696de48d06f0d8d4d2f3fedf804f7ed96f603957700451ce82",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "repaired"
+        }
+      }
+    },
+    "muon_c": {
+      "audit_receipt": {
+        "bytes": 122599,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-muon_c/audit.json",
+        "sha256": "da1aa9a7b302a648c14e3b187c8553b8754c98c46b72aef560019d92e26d1b33"
+      },
+      "audited_flat_array_count": 21,
+      "audited_sf_array_count": 0,
+      "elapsed_seconds": 178.11691744904965,
+      "executed_range": [
+        0,
+        50000
+      ],
+      "input": {
+        "dataset": "/Muon0/Run2024C-MINIv6NANOv15-v1/NANOAOD",
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "era": "2024",
+        "file_index_in_source": 42,
+        "file_inventory_hash": "224c7d39dff3a9d53eb4370b871b113e0be50007cf555ef7ca0b5d088d85ad71",
+        "frozen_file_entries": 1354629,
+        "golden_json": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/mkShapesRDF/processor/data/certification/Cert_Collisions2024_378981_386951_Golden.json",
+        "golden_sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c",
+        "hww_parent_file_mapping": "historical_hww_part0_verified_by_parent-pair-evidence.json",
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root",
+        "is_data": true,
+        "lfn": "/store/data/Run2024C/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/677e3bb0-8199-4ffb-83af-165410a7b7a6.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/677e3bb0-8199-4ffb-83af-165410a7b7a6.root",
+        "role": "muon_c",
+        "sample": "Muon0_Run2024C-ReReco-v1",
+        "source_id": "6c504cd504354be724014e5c6b953f377812e0c5bbb4970339bac839f5133b16",
+        "stream": "Muon",
+        "verified_events_entries": 1354629,
+        "verified_root_uuid": "e1152dcc-0522-11f0-a444-8ccce183beef"
+      },
+      "input_gen_sumw": null,
+      "input_gen_sumw2": null,
+      "integer_identity": "Source uint64 preserved; signed int64 snapshot/historical event words inverted modulo 2^64 without floats.",
+      "known_witnesses": [
+        {
+          "known_key": [
+            379416,
+            147,
+            131724611
+          ],
+          "repaired": {
+            "nLepton": 2,
+            "present": true
+          },
+          "source_entry": 234,
+          "source_ledger_key": [
+            379416,
+            147,
+            131724611
+          ]
+        }
+      ],
+      "producer_trees": {
+        "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+        "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+      },
+      "production_receipt": {
+        "bytes": 99673,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/production.json",
+        "sha256": "d0c3092830578f0679ec3c671ae7c0aa5f383f4f66826396228b0795cc0e542d"
+      },
+      "reordering_examples": [
+        {
+          "final_pt": [
+            21.521833419799805,
+            21.50786590576172
+          ],
+          "final_raw_identities": [
+            [
+              -1,
+              1,
+              13
+            ],
+            [
+              -1,
+              0,
+              -13
+            ]
+          ],
+          "key": [
+            379416,
+            212,
+            270212832
+          ],
+          "precorr_pt": [
+            21.468477249145508,
+            21.430593490600586
+          ],
+          "precorr_raw_identities": [
+            [
+              -1,
+              0,
+              -13
+            ],
+            [
+              -1,
+              1,
+              13
+            ]
+          ],
+          "rochesterSF": [
+            1.0042574405670166,
+            1.001834750175476
+          ],
+          "source_entry": 35046
+        },
+        {
+          "final_pt": [
+            35.95166015625,
+            35.855342864990234
+          ],
+          "final_raw_identities": [
+            [
+              -1,
+              1,
+              13
+            ],
+            [
+              -1,
+              0,
+              -13
+            ]
+          ],
+          "key": [
+            379416,
+            213,
+            270879529
+          ],
+          "precorr_pt": [
+            36.05590057373047,
+            35.948768615722656
+          ],
+          "precorr_raw_identities": [
+            [
+              -1,
+              0,
+              -13
+            ],
+            [
+              -1,
+              1,
+              13
+            ]
+          ],
+          "rochesterSF": [
+            1.0000804662704468,
+            0.994437575340271
+          ],
+          "source_entry": 38454
+        }
+      ],
+      "snapshot_artifacts": [
+        {
+          "bytes": 99673,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/production.json",
+          "sha256": "d0c3092830578f0679ec3c671ae7c0aa5f383f4f66826396228b0795cc0e542d"
+        },
+        {
+          "bytes": 21732138,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/muon_c-repaired.root",
+          "sha256": "cc8e4742f6f8ecbd11d28670ee898f4d0fd76e9f74843bd1878b0bd4a37c8ddf"
+        },
+        {
+          "bytes": 257104,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/input-identity.npz",
+          "sha256": "226ae73b6653050592201446d4b849ee696078097834edd441dcb3bacc5b1c06"
+        }
+      ],
+      "snapshot_audit": {
+        "anomalies": {},
+        "anomaly_counts_may_overlap": true,
+        "branch_count": 2695,
+        "entries": 11927,
+        "excluded_nonflat_lepton_columns": [],
+        "final_raw_weight_sums": {
+          "events": 11927,
+          "sumw": 11927.0,
+          "sumw2": 11927.0
+        },
+        "multiplicity": {
+          "1": 9465,
+          "2": 2435,
+          "3": 26,
+          "4": 1
+        },
+        "nonidentity_precorr_to_final_permutations": 2,
+        "rochester_ratio_max_absolute_error": 5.960197224652575e-08,
+        "root_uuid": "ffe61bb8-bd4e-11f1-8ee4-001a4a81a8a9",
+        "status": "passed",
+        "unique_anomalous_events": 0
+      },
+      "stages": {
+        "JES_modules_reducedv15_DATA": 12619,
+        "chain_selection": 30305,
+        "finalSnapshot_DATA": 11927,
+        "formulasDATA": 11927,
+        "input_entries": 50000,
+        "jetIDMaker": 12619,
+        "jetSelMask": 11927,
+        "l2Kin": 11927,
+        "l3Kin": 11927,
+        "l4Kin": 11927,
+        "lepSel": 12619,
+        "leptonMaker": 25497,
+        "leptonScale_data": 11927,
+        "lumiMask": 30305,
+        "trigData": 11927
+      },
+      "z_replays": {
+        "historical": {
+          "categories": {
+            "DY_HLT_ISOMU24_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 525,
+                  "sumw": 525.0,
+                  "sumw2": 525.0
+                }
+              },
+              "events": 525,
+              "sumw": 525.0,
+              "sumw2": 525.0
+            },
+            "DY_HLT_MU17_MU8_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 480,
+                  "sumw": 480.0,
+                  "sumw2": 480.0
+                }
+              },
+              "events": 480,
+              "sumw": 480.0,
+              "sumw2": 480.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1874,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/historical-replay-muon_c/replay.json",
+            "sha256": "74b63bae140eee37a09e6706663b2a8075ec098a8745c2d1e84d11116b783d00"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "muon_c",
+          "root_sha256": "288975c650f27dd6a0f6693524bec78209e4d221cb7117dae0ffdbad95542bbb",
+          "selected_ledger_sha256": "ea633cd2914435dfdc8f6e86fb0ba5777fb68c59c1387486df761ce37d469672",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "historical_part0"
+        },
+        "repaired": {
+          "categories": {
+            "DY_HLT_ISOMU24_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 604,
+                  "sumw": 604.0,
+                  "sumw2": 604.0
+                }
+              },
+              "events": 604,
+              "sumw": 604.0,
+              "sumw2": 604.0
+            },
+            "DY_HLT_MU17_MU8_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 552,
+                  "sumw": 552.0,
+                  "sumw2": 552.0
+                }
+              },
+              "events": 552,
+              "sumw": 552.0,
+              "sumw2": 552.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_c/muon_c-repaired.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1797,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-muon_c/replay.json",
+            "sha256": "d61b209d60b2d175f94686e9e158d31d400057ee37ef3875ea59d8bd55066b0e"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "muon_c",
+          "root_sha256": "7499767b3a4cf82fbbfb683e74332f4126dfa79e4c2bac139b40b39088be61fe",
+          "selected_ledger_sha256": "ab07f5a8355d90dd9ee8959101828bac6fd85b10b3087df50efa87596d286e5a",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "repaired"
+        }
+      }
+    },
+    "muon_i": {
+      "audit_receipt": {
+        "bytes": 128348,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/audit-final-muon_i/audit.json",
+        "sha256": "a22ab5daaaaac6134556de03e7b4ad7df22b914032b43772995b95f11616ae27"
+      },
+      "audited_flat_array_count": 21,
+      "audited_sf_array_count": 0,
+      "elapsed_seconds": 181.2980663010385,
+      "executed_range": [
+        0,
+        50000
+      ],
+      "input": {
+        "dataset": "/Muon0/Run2024I-MINIv6NANOv15-v1/NANOAOD",
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "era": "2024",
+        "file_index_in_source": 65,
+        "file_inventory_hash": "29d778d1758201e346dc1ad9f19b95b237f5fc529a63cd7fab540f3bda19f34c",
+        "frozen_file_entries": 731745,
+        "golden_json": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/mkShapesRDF/processor/data/certification/Cert_Collisions2024_378981_386951_Golden.json",
+        "golden_sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c",
+        "hww_parent_file_mapping": "historical_hww_part0_verified_by_parent-pair-evidence.json",
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024I-Prompt-v1__part0.root",
+        "is_data": true,
+        "lfn": "/store/data/Run2024I/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/7417bff0-941a-492c-abcf-d35be0645afe.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/7417bff0-941a-492c-abcf-d35be0645afe.root",
+        "role": "muon_i",
+        "sample": "Muon0_Run2024I-Prompt-v1",
+        "source_id": "64f1179be098e8d1c99803e739a8e2bbe59e7308f5244d710afecd2ce5a92286",
+        "stream": "Muon",
+        "verified_events_entries": 731745,
+        "verified_root_uuid": "ddfcbca6-08e5-11f0-a439-ba83e4a9beef"
+      },
+      "input_gen_sumw": null,
+      "input_gen_sumw2": null,
+      "integer_identity": "Source uint64 preserved; signed int64 snapshot/historical event words inverted modulo 2^64 without floats.",
+      "known_witnesses": [],
+      "producer_trees": {
+        "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+        "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+      },
+      "production_receipt": {
+        "bytes": 100673,
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/production.json",
+        "sha256": "755f855de07a7090c9373a14a14879b1391dc7555ad035424e935fb6b09d684d"
+      },
+      "reordering_examples": [
+        {
+          "final_pt": [
+            41.15721130371094,
+            41.15711975097656
+          ],
+          "final_raw_identities": [
+            [
+              -1,
+              1,
+              13
+            ],
+            [
+              -1,
+              0,
+              -13
+            ]
+          ],
+          "key": [
+            386592,
+            144,
+            215228286
+          ],
+          "precorr_pt": [
+            41.09403991699219,
+            41.05451202392578
+          ],
+          "precorr_raw_identities": [
+            [
+              -1,
+              0,
+              -13
+            ],
+            [
+              -1,
+              1,
+              13
+            ]
+          ],
+          "rochesterSF": [
+            1.0025014877319336,
+            1.0015350580215454
+          ],
+          "source_entry": 2789
+        },
+        {
+          "final_pt": [
+            25.376506805419922,
+            25.356382369995117
+          ],
+          "final_raw_identities": [
+            [
+              -1,
+              1,
+              -13
+            ],
+            [
+              -1,
+              0,
+              13
+            ]
+          ],
+          "key": [
+            386592,
+            144,
+            215838791
+          ],
+          "precorr_pt": [
+            25.35450553894043,
+            25.33277130126953
+          ],
+          "precorr_raw_identities": [
+            [
+              -1,
+              0,
+              13
+            ],
+            [
+              -1,
+              1,
+              -13
+            ]
+          ],
+          "rochesterSF": [
+            1.0017263889312744,
+            1.000074028968811
+          ],
+          "source_entry": 3612
+        }
+      ],
+      "snapshot_artifacts": [
+        {
+          "bytes": 100673,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/production.json",
+          "sha256": "755f855de07a7090c9373a14a14879b1391dc7555ad035424e935fb6b09d684d"
+        },
+        {
+          "bytes": 20348216,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/muon_i-repaired.root",
+          "sha256": "461682af1fa0ba155a09365cee790bef2a5e1e06a4aac8fbdeb23146b41b26de"
+        },
+        {
+          "bytes": 255483,
+          "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/input-identity.npz",
+          "sha256": "fdbfb696fb04b2f7c440bb6b21a36c2776d0e97687a5e139adaafe35c752aa9a"
+        }
+      ],
+      "snapshot_audit": {
+        "anomalies": {},
+        "anomaly_counts_may_overlap": true,
+        "branch_count": 2735,
+        "entries": 11447,
+        "excluded_nonflat_lepton_columns": [],
+        "final_raw_weight_sums": {
+          "events": 11447,
+          "sumw": 11447.0,
+          "sumw2": 11447.0
+        },
+        "multiplicity": {
+          "1": 9385,
+          "2": 2039,
+          "3": 22,
+          "4": 1
+        },
+        "nonidentity_precorr_to_final_permutations": 7,
+        "rochester_ratio_max_absolute_error": 5.9601769297756846e-08,
+        "root_uuid": "6d7f4e42-bd4f-11f1-ab58-001a4a81a8a9",
+        "status": "passed",
+        "unique_anomalous_events": 0
+      },
+      "stages": {
+        "JES_modules_reducedv15_DATA": 12176,
+        "chain_selection": 30580,
+        "finalSnapshot_DATA": 11447,
+        "formulasDATA": 11447,
+        "input_entries": 50000,
+        "jetIDMaker": 12176,
+        "jetSelMask": 11447,
+        "l2Kin": 11447,
+        "l3Kin": 11447,
+        "l4Kin": 11447,
+        "lepSel": 12176,
+        "leptonMaker": 26220,
+        "leptonScale_data": 11447,
+        "lumiMask": 30580,
+        "trigData": 11447
+      },
+      "z_replays": {
+        "historical": {
+          "categories": {
+            "DY_HLT_ISOMU24_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 434,
+                  "sumw": 434.0,
+                  "sumw2": 434.0
+                }
+              },
+              "events": 434,
+              "sumw": 434.0,
+              "sumw2": 434.0
+            },
+            "DY_HLT_MU17_MU8_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 399,
+                  "sumw": 399.0,
+                  "sumw2": 399.0
+                }
+              },
+              "events": 399,
+              "sumw": 399.0,
+              "sumw2": 399.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024I-Prompt-v1__part0.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1874,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/historical-replay-muon_i/replay.json",
+            "sha256": "62f471276af6b5595b8db241f86fa0b73df03a3e228478ed295db2adc74c13e8"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "muon_i",
+          "root_sha256": "572bf35cfa5f603d746b09c7abad59c5ea848b135c56c82740e32ef0c8bb6fad",
+          "selected_ledger_sha256": "e0f3528858bdf22182e3ac8688ef4c3d56633b9430315c9037ad6277974aebb8",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "historical_part0"
+        },
+        "repaired": {
+          "categories": {
+            "DY_HLT_ISOMU24_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 497,
+                  "sumw": 497.0,
+                  "sumw2": 497.0
+                }
+              },
+              "events": 497,
+              "sumw": 497.0,
+              "sumw2": 497.0
+            },
+            "DY_HLT_MU17_MU8_ZMM": {
+              "by_producer_outcome": {
+                "DATA": {
+                  "events": 458,
+                  "sumw": 458.0,
+                  "sumw2": 458.0
+                }
+              },
+              "events": 458,
+              "sumw": 458.0,
+              "sumw2": 458.0
+            }
+          },
+          "compiled_pickle_sha256": "6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef",
+          "hww_input": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-muon_i/muon_i-repaired.root",
+          "identity_branch_types": {
+            "event": "Long64_t",
+            "luminosityBlock": "Long64_t",
+            "run": "Long64_t"
+          },
+          "independent_histogram_and_ledger_check": "passed (values/variances including flow; keyed rows/outcome sums)",
+          "input_scope": "two complete individual MC files or fixed DATA prefix, not complete source/year",
+          "producer_revision": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+          "rdf_graph_runs": 1,
+          "receipt": {
+            "bytes": 1797,
+            "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-replay-muon_i/replay.json",
+            "sha256": "bfee1dbecbc8346d99cb68cc18c27b2d1e716f9d8ab9c40df1618dc701d80988"
+          },
+          "recorded_source_lumi_fb": 109.08,
+          "reference_runner_commit": "7843a7ff8680f6c9ff48b9372cc0a7784468cb6f",
+          "reference_runner_sha256": "7c92db4b03256f005e3dc095ad708449d9310ddb9392642d9f490cc15e1eb0fa",
+          "rng_limit": "Original, repaired and historical smearing draws are not held equal; final migration/yield differences are descriptive, not association-only causal effects.",
+          "role": "muon_i",
+          "root_sha256": "9e8e51f11fe568b2f38de043844d5d72e73c3f4baa276594a164e3673b64fac7",
+          "selected_ledger_sha256": "5fa80ea970f8d86ba70bed4e91fef5917e96632fb48bff7bc6d8623d374659c8",
+          "unavailable_details": [
+            "XSWeight",
+            "baseW"
+          ],
+          "unit": "MC at 1 fb^-1 using retained full-source baseW; DATA counts",
+          "view": "repaired"
+        }
+      }
+    }
+  },
+  "scope": "Six pinned 2024 inputs: four DATA 0:50000 prefixes and two complete individual DY MC files. Fresh actual nominal snapshots independently reopened; not a complete source/year.",
+  "total_successful_producer_seconds": 2664.197423926089
+}

@@ -1,8 +1,173 @@
 # Bounded 2024 HWWNano object-association demonstration
 
+## Repair demonstration on this branch
+
+**2026-09-30: the full configured event-producing DATA and MC chains wrote
+six fresh nominal HWWNano Events snapshots, which passed independent
+reopening and association audits.** This work is isolated on
+`fix-demo/2024-hwwnano-object-associations`, based on the original demo at
+`69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0`. The measured producer repairs
+are at `9a0e9be35c27e2907e6201460d0a5de58a091651`; `ZH_devel`, historical
+ROOT files, Coffea and the older diagnostic branches were not changed.
+
+Start with the [repair report](REPAIR_REPORT.md). It explains the code changes,
+complete-file accepted-key checks, DATA witnesses, final Z replay, runtime,
+failed attempts and scientific limits. Supporting files are:
+
+- [repair-environment.json](repair-environment.json): original/repaired source
+  trees, installed runtime, fixed PFNs/UUIDs, payloads and hashes.
+- [repair-results.json](repair-results.json): stage counts, weighted gate
+  outcomes, multiplicity/historical cross-tabs, reopened invariant checks,
+  downstream replay and local artifact paths/hashes.
+- [repair-witnesses.json](repair-witnesses.json): a small selected set of full-key
+  witnesses with raw, maker, filtered, pre-correction and serialized arrays.
+- [repair_demo.py](repair_demo.py): opt-in actual producer-through-snapshot
+  runner. Normal production never imports it.
+- [repair_audit.py](repair_audit.py): independent ROOT reopen and key/array
+  audit; also emits selected witness records from already written outputs.
+- [repair_original_gate.py](repair_original_gate.py): output-only extension of
+  the unchanged original gate diagnostic, persisting the exact accepted keys.
+- [repair_replay.py](repair_replay.py): bounded use of the commit-pinned
+  historical replay and exact compiled selection/weights.
+
+The two complete MC files produce **43,338 ee / 89,282 μμ events**, exactly
+the independently aligned reference keys, with zero one-lepton survivors.
+All six snapshots have zero checked association anomalies, including
+**1,419 ee / 978 μμ** real corrected-pT reorderings. The four DATA outputs
+retain 3,189 / 3,590 EGamma C/I and 11,927 / 11,447 Muon C/I entries from
+their respective 0:50,000 prefixes. DATA's loose chain legitimately permits
+single retained leptons.
+
+### Environment and reproduction
+
+Use the existing LPC framework installation and CMS remote-file access.
+ROOT 6.38, the recorded CVMFS payloads, pinned input/historical PFNs, Golden
+JSON and retained exact compiled RunStability pickle must remain accessible.
+No DAS query, new normalization scan, scheduler submission or stage-out is
+performed. The scripts reject changed source identities and pre-existing
+output directories; do not substitute files silently.
+
+The visible repair checkout used here is
+`/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations`.
+From a clean checkout of this branch beside the established `mkShapesRDF`
+installation, run:
+
+```bash
+source ../mkShapesRDF/start.sh
+export PYTHONPATH="$PWD:${PYTHONPATH:-}"
+export PYTHONHASHSEED=0
+export XRD_REQUESTTIMEOUT=30
+diag=PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations
+revision=$(git rev-parse HEAD)
+out="../codex_analysis/hww-repair-reproduce-$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir "$out"
+
+for role in egamma_c egamma_i muon_c muon_i dy_ee dy_mumu; do
+  timeout 1800 python -u "$diag/repair_demo.py" \
+    --role "$role" --kind repaired --stop 50000 \
+    --producer-root "$PWD" --producer-revision "$revision" \
+    --output-dir "$out/final-repaired-$role" \
+    > "$out/production-$role.log" 2>&1 || exit $?
+done
+```
+
+`--stop 50000` applies only to DATA. MC uses its complete 158,487 / 222,331
+input entries. The original manifest's longer DATA and 80,000-entry MC
+windows belong to the earlier study; actual repair intervals are recorded
+separately in `production.json`. Each process imports its explicitly pinned
+producer checkout and archives the executed harness. The measured commands
+used `--producer-revision 9a0e9be35c27e2907e6201460d0a5de58a091651`; a
+later documentation-only HEAD has the same repaired producer tree.
+
+Each successful output directory contains `production.json`,
+`input-identity.npz`, `computed-events.root`, `<role>-repaired.root`, and, for
+MC, `gate-ledger.npz`. All configured event-producing modules are run. The
+actual HWW Snapshot callback uses the configured wildcard nominal column
+selection from the native checkpoint, subject to its existing serialization
+exclusions (`BeamSpot_type`, `Electron_seediEtaOriX`, `Photon_seediEtaOriX`
+in these inputs). Auxiliary-key copying and remote publication are outside this
+Events-only demonstration. Detailed ROOT and NPZ products remain local.
+
+### Original gate reference and independent audit
+
+The existing complete join is under
+`../codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/`. Its source-entry
+maps and hashes are described in [complete-join-receipt.json](complete-join-receipt.json).
+Reuse it; do not repeat the NanoAOD join. To reproduce the gate reference,
+use the clean **original** demo checkout and a separate process:
+
+```bash
+original=../demo-2024-hwwnano-object-associations
+join=../codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4
+for role in dy_ee dy_mumu; do
+  PYTHONPATH="$(realpath "$original"):$PYTHONPATH" timeout 600 python -u \
+    "$diag/repair_original_gate.py" --role "$role" \
+    --producer-root "$original" --join-dir "$join" \
+    --output-dir "$out/reference-gate-$role" \
+    > "$out/reference-$role.log" 2>&1 || exit $?
+done
+
+for role in egamma_c egamma_i muon_c muon_i dy_ee dy_mumu; do
+  extra=()
+  if [[ "$role" == dy_* ]]; then
+    extra=(--reference-gate-dir "$out/reference-gate-$role" --join-dir "$join")
+  fi
+  timeout 600 python "$diag/repair_audit.py" \
+    --repaired-dir "$out/final-repaired-$role" \
+    --output-dir "$out/audit-final-$role" "${extra[@]}" || exit $?
+  timeout 600 python "$diag/repair_audit.py" --witness-only \
+    --audit-json "$out/audit-final-$role/audit.json" \
+    --repaired-dir "$out/final-repaired-$role" \
+    --output-dir "$out/witnesses-final-$role" "${extra[@]}" || exit $?
+done
+```
+
+The original script requires original HEAD `69ff2dad`, processor/include
+tree checks and pinned source evidence. The reference persists existing
+actual/aligned gate sets without changing modules or executing smearing.
+The audit requires exact accepted keys, not just expected counts, and
+independently reopens final ROOT fields. There is no fresh original
+final-kinematic snapshot claim.
+
+### Fixed historical-policy Z replay
+
+```bash
+for role in egamma_c egamma_i muon_c muon_i dy_ee dy_mumu; do
+  for view in repaired historical; do
+    extra=()
+    if [ "$view" = historical ]; then extra=(--historical); fi
+    timeout 600 python -u "$diag/repair_replay.py" \
+      --role "$role" --production-dir "$out/final-repaired-$role" \
+      --output-dir "$out/replay-$view-$role" "${extra[@]}" \
+      > "$out/replay-$view-$role.log" 2>&1 || exit $?
+  done
+done
+```
+
+The executed final outputs are in
+`../codex_analysis/hww-repair-demo-20260930/`; their exact paths and hashes,
+including the actual replay directory names, are in `repair-results.json`.
+Every final producer command ran into a fresh directory and its real output
+was audited; no complete scan was repeated just to edit prose. Replays book
+one RDF traversal per view. MC uses retained full-source baseW and reports
+one-file contributions at 1 fb⁻¹, never partial-file normalization.
+
+Sequential production random draws were preserved. Gate acceptance and
+association checks are causal repair evidence; before/after final weights
+and yields are descriptive because common-event random variates were not
+held fixed. The exact old dirty producer and historical eta-only operation
+remain unresolved. Full systematic production, full-year frequency and
+published discrepancy attribution are not established by this demonstration.
+The task-local CLI explicitly exits after its outputs close and a basic
+reopen/count succeeds to avoid the recorded ROOT/XRootD teardown stall;
+independent reopening is the output acceptance gate. The report also records
+the separate unsigned-high-bit Snapshot limitation.
+
+## Original demonstration retained as evidence
+
 **Status: six pinned event witnesses and a complete two-file DY MC reverse
 lookup, observed locally on LPC on 2026-09-30.**
-This is a producer diagnostic on the separate
+The following sections describe the original producer diagnostic on the separate
 `demo/2024-hwwnano-object-associations` branch. It does not change the shared
 producer, historical HWWNano, RunStability selections, or published yields.
 The [full local result](observed-summary.json) contains exact event keys,

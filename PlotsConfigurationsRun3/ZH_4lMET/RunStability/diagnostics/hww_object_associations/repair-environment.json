@@ -1,0 +1,144 @@
+{
+  "calibration_payloads": {
+    "electron_scale_and_smearing": {
+      "compressed_bytes": 72891,
+      "compressed_sha256": "b464129d2c0c3974618d0d0dbda7d1bdff73641a0b8d04c2ac4164180ae5ed67",
+      "path": "/cvmfs/cms-griddata.cern.ch/cat/metadata/EGM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-15/electronSS_EtDependent.json.gz"
+    },
+    "jer_smearing_tool": {
+      "compressed_bytes": 650,
+      "compressed_sha256": "07477ce14b4d7770c5ffbb8ed3951686dc4eabacd121ac75b15a512612740daf",
+      "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/mkShapesRDF/processor/data/jer_smear/jer_smear_run3.json.gz"
+    },
+    "jet_id": {
+      "compressed_bytes": 942,
+      "compressed_sha256": "2ae07e7b7c67332fa4ccc374c7b3cfe667c653ce65c3f421f956460e46b1eb35",
+      "path": "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/jetid.json.gz"
+    },
+    "jet_jerc": {
+      "compressed_bytes": 610794,
+      "compressed_sha256": "ff3f656858d24f349438cc67c4bea0ea32f2bd89fb8d8e18b0b1e7667640ab2a",
+      "path": "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/jet_jerc.json.gz"
+    },
+    "jet_veto_map": {
+      "compressed_bytes": 312652,
+      "compressed_sha256": "849cd1098814175ab58faac4834df0a353de63482f4017e22c0134ee7e840aec",
+      "path": "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/jetvetomaps.json.gz"
+    },
+    "muon_scale_and_smearing": {
+      "compressed_bytes": 26304,
+      "compressed_sha256": "d91bcf2d239c2878feb8a3e7fbf3009e0db842f2b58471b02fabe01e0ba98e7c",
+      "path": "/cvmfs/cms-griddata.cern.ch/cat/metadata/MUO/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-11-27/muon_scalesmearing.json.gz"
+    }
+  },
+  "calibration_tags": {
+    "jec_data": "Summer24Prompt24_V2_DATA",
+    "jec_mc": "Summer24Prompt24_V2_MC",
+    "jer_mc": "Summer23BPixPrompt23_RunD_JRV1_MC",
+    "jet_id": [
+      "AK4PUPPI_Tight",
+      "AK4PUPPI_TightLeptonVeto"
+    ],
+    "jet_veto_map": "Summer24Prompt24_RunBCDEFGHI_V1"
+  },
+  "execution_boundary": "Diagnostic local Snapshot and replay artifacts only; ordinary processor auxiliary-object copy and EOS stage-out are outside this local repair exercise.",
+  "fixed_campaign": "Full2024v15",
+  "pinned_inputs": {
+    "fileset_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/coffea/artifacts/studies/run3-2024-trigger-probe-btv-v5/fileset.json",
+    "fileset_sha256_recorded": "92e36a63ddc927069fddf299dcea7bab9e47736c610a1e6271a256d8f8c5f552",
+    "golden_json_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/mkShapesRDF/processor/data/certification/Cert_Collisions2024_378981_386951_Golden.json",
+    "golden_json_sha256": "ce8291686737fda0b67c5f7dc22061e49f76dbfb121e33865735c653a741e32c",
+    "manifest_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/inputs/inputs.json",
+    "manifest_sha256": "c47bc8fde91a4c06aeead3c488115585df85194331d5886024f6f74333d8ee98",
+    "normalization_sha256": {
+      "dy_ee": "557e7e75c054099e303e0e0258a1dd0170f601ba2752c13656aeb473e76efa4a",
+      "dy_mumu": "366729024becd971f5205c511fb13325d3bb26823b86b02da0d0b6a3c7b77eba"
+    },
+    "parent_pair_evidence_path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/fix-demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/inputs/parent-pair-evidence.json",
+    "parent_pair_evidence_sha256": "a49c3c2bddda0a0d006114933cdca43125cfaf24d05996944ea66997dcad7f6b",
+    "roles": {
+      "dy_ee": {
+        "entry_start": 0,
+        "entry_stop": 80000,
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+        "source_id": "bd8731e6fe600d168a1861928b70238ccf850de3c6e41599fbd2153a581e1fa8",
+        "verified_events_entries": 158487,
+        "verified_root_uuid": "39e98d54-0b1c-11f0-ae78-630b10acbeef"
+      },
+      "dy_mumu": {
+        "entry_start": 0,
+        "entry_stop": 80000,
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+        "source_id": "be66d4331c02d5ef9adfc61e644248665296758dc71f6a23e9c6eab5db6a5139",
+        "verified_events_entries": 222331,
+        "verified_root_uuid": "2bd9db6c-1b32-11f0-bdb6-9dbfe183beef"
+      },
+      "egamma_c": {
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024C-ReReco-v1__part0.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/EGamma0/NANOAOD/MINIv6NANOv15-v1/2540000/3151ab41-a5bd-48f1-be40-449b760a60e6.root",
+        "source_id": "ea9e9070242fddf52377d6750fc05399ae648053c5b69f4ad99ee3ad43895656",
+        "verified_events_entries": 704556,
+        "verified_root_uuid": "aec70578-04ed-11f0-afd0-0a8ed380beef"
+      },
+      "egamma_i": {
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root",
+        "source_id": "edcadc7f836259760d92116e91655478164683833af7947a3648fc0143a4a347",
+        "verified_events_entries": 657356,
+        "verified_root_uuid": "95bbdcc8-0738-11f0-8110-d42411acbeef"
+      },
+      "muon_c": {
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024C-ReReco-v1__part0.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024C/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/677e3bb0-8199-4ffb-83af-165410a7b7a6.root",
+        "source_id": "6c504cd504354be724014e5c6b953f377812e0c5bbb4970339bac839f5133b16",
+        "verified_events_entries": 1354629,
+        "verified_root_uuid": "e1152dcc-0522-11f0-a444-8ccce183beef"
+      },
+      "muon_i": {
+        "entry_start": 0,
+        "entry_stop": 200000,
+        "hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon/DATAl2loose2024v15__l2loose/nanoLatino_Muon0_Run2024I-Prompt-v1__part0.root",
+        "pfn": "root://cmsxrootd.fnal.gov//store/data/Run2024I/Muon0/NANOAOD/MINIv6NANOv15-v1/2530000/7417bff0-941a-492c-abcf-d35be0645afe.root",
+        "source_id": "64f1179be098e8d1c99803e739a8e2bbe59e7308f5244d710afecd2ce5a92286",
+        "verified_events_entries": 731745,
+        "verified_root_uuid": "ddfcbca6-08e5-11f0-a439-ba83e4a9beef"
+      }
+    }
+  },
+  "purpose": "Bounded 2024 HWW object-association repair diagnostic; original and repaired producer source and exact pinned central inputs",
+  "runtime": {
+    "ROOT": "6.38.00",
+    "activation": "source ../mkShapesRDF/start.sh; export PYTHONPATH=\"$PWD:${PYTHONPATH:-}\"",
+    "awkward": "2.8.9",
+    "correctionlib": "2.6.4",
+    "python_executable": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/myenv/bin/python",
+    "python_version": "3.13.11",
+    "uproot": "5.6.0"
+  },
+  "schema_version": 1,
+  "scope_note": "ROOT UUIDs, Events entries, and manifest entry_start/entry_stop are transcribed from pinned inputs/inputs.json, not rescanned here. Those original diagnostic windows differ from repair-demo execution windows, which each production.json records. The six fixed files are not complete datasets or a complete year.",
+  "source": {
+    "checkout_head_at_capture": "9a0e9be35c27e2907e6201460d0a5de58a091651",
+    "original_trees": {
+      "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+      "mkShapesRDF/processor": "9c86299cdd2a8419fd30f48ad73a4fc530a567aa"
+    },
+    "repaired_trees": {
+      "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+      "mkShapesRDF/processor": "592fdadf25d978a469546c6d22656b94fd1540d2"
+    },
+    "revisions": {
+      "data_jec_repair": "68a082c29b08d85978e9af33e9d194610b19f8a6",
+      "original": "69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0",
+      "repaired_producer": "9a0e9be35c27e2907e6201460d0a5de58a091651"
+    }
+  }
+}
