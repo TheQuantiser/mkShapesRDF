@@ -1,0 +1,687 @@
+{
+  "producer_base_revision": "bf75c7f50245891ddad20aa3bced35057148fca2",
+  "producer_source_tree_sha1": {
+    "mkShapesRDF/include": "311e5fd6311c74b58ba233258acb2018aabcdd7d",
+    "mkShapesRDF/processor": "9c86299cdd2a8419fd30f48ad73a4fc530a567aa"
+  },
+  "roles": {
+    "dy_ee": {
+      "aligned_gate_pass": 43338,
+      "complete_source_entries": 158487,
+      "configured_wp_columns": [
+        "Lepton_isTightElectron_wp90iso",
+        "Lepton_isTightElectron_testrecipes",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW",
+        "Lepton_isTightMuon_cut_TightID_POG",
+        "Lepton_isTightMuon_cut_Tight_HWW",
+        "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+      ],
+      "current_pre_gate_fewer_than_two_retained": {
+        "events": 31488,
+        "gen_sumw": 549525840.46875,
+        "gen_sumw2": 22582218342840.566
+      },
+      "dataset": "/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v4/NANOAODSIM",
+      "historical_hww_one_retained_lepton_count": 25638,
+      "historical_hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2E-2Jets_MLL-50__part0.root",
+      "historical_hww_uuid": "c183f92c-3747-11f1-be55-3cecef0de5e4",
+      "join_counts": {
+        "ambiguous_hww_rows": 0,
+        "ambiguous_keys": 0,
+        "ambiguous_source_rows": 0,
+        "input_only": 90066,
+        "matched": 68421,
+        "output_only": 0
+      },
+      "local_complete_result": {
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-gate-ee-20260930-bf75c7f/dy_ee-complete-gate.json",
+        "sha256": "7f3eb903dbf371dc7a649dbda78978c59f5dc2659b21ca9059c3071d2025795e"
+      },
+      "local_join_map": {
+        "format": "gzip TSV, one row per central entry in ascending order; columns source_entry, hww_entry, status; blank hww_entry for input_only or ambiguous",
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_ee-source-entry-map.tsv.gz",
+        "sha256": "5a3361a93bc3a0aecc5a38be452cbe6975b6d408c1ce1cd8470f7e24f3020450"
+      },
+      "original_gate_pass": 68421,
+      "outcome_by_historical_membership": [
+        {
+          "events": 25689,
+          "gen_sumw": 449716736.79296875,
+          "gen_sumw2": 18423355151461.973,
+          "historical_membership": "historical_part0",
+          "outcome": "accepted_only_by_actual"
+        },
+        {
+          "events": 42732,
+          "gen_sumw": 778066460.4765625,
+          "gen_sumw2": 30646066889807.44,
+          "historical_membership": "historical_part0",
+          "outcome": "passes_both"
+        },
+        {
+          "events": 5911,
+          "gen_sumw": 101576584.44921875,
+          "gen_sumw2": 4239186122476.658,
+          "historical_membership": "absent_from_part0",
+          "outcome": "rejected_both"
+        },
+        {
+          "events": 606,
+          "gen_sumw": 10176404.453125,
+          "gen_sumw2": 434604430759.7644,
+          "historical_membership": "absent_from_part0",
+          "outcome": "rejected_only_by_actual"
+        }
+      ],
+      "producer_elapsed_seconds": 82.98541153711267,
+      "sample": "DYto2E-2Jets_MLL-50",
+      "selected_event_witnesses": [
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": 0,
+          "key": [
+            1,
+            384532,
+            2060317100
+          ],
+          "outcome": "passes_both",
+          "prefilter_electronIdx": [
+            0,
+            1
+          ],
+          "prefilter_muonIdx": [
+            -1,
+            -1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ],
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90"
+            ]
+          ],
+          "prefilter_positions_for_retained": [
+            0,
+            1
+          ],
+          "retained_electronIdx": [
+            0,
+            1
+          ],
+          "retained_muonIdx": [
+            -1,
+            -1
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ],
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90"
+            ]
+          ],
+          "source_entry": 1,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        },
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": null,
+          "key": [
+            1,
+            384532,
+            2060317140
+          ],
+          "outcome": "rejected_both",
+          "prefilter_electronIdx": [
+            0,
+            1
+          ],
+          "prefilter_muonIdx": [
+            -1,
+            -1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90"
+            ],
+            []
+          ],
+          "prefilter_positions_for_retained": [
+            0
+          ],
+          "retained_electronIdx": [
+            0
+          ],
+          "retained_muonIdx": [
+            -1
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90"
+            ]
+          ],
+          "source_entry": 5,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        },
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": 2,
+          "key": [
+            1,
+            384532,
+            2060317109
+          ],
+          "outcome": "accepted_only_by_actual",
+          "prefilter_electronIdx": [
+            0,
+            1
+          ],
+          "prefilter_muonIdx": [
+            -1,
+            -1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ],
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW"
+            ]
+          ],
+          "prefilter_positions_for_retained": [
+            0
+          ],
+          "retained_electronIdx": [
+            0
+          ],
+          "retained_muonIdx": [
+            -1
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ]
+          ],
+          "source_entry": 8,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        },
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": null,
+          "key": [
+            1,
+            384532,
+            2060318616
+          ],
+          "outcome": "rejected_only_by_actual",
+          "prefilter_electronIdx": [
+            0,
+            -1,
+            1
+          ],
+          "prefilter_muonIdx": [
+            -1,
+            0,
+            -1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ],
+            [],
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ]
+          ],
+          "prefilter_positions_for_retained": [
+            0,
+            2
+          ],
+          "retained_electronIdx": [
+            0,
+            1
+          ],
+          "retained_muonIdx": [
+            -1,
+            -1
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ],
+            [
+              "Lepton_isTightElectron_wp90iso",
+              "Lepton_isTightElectron_testrecipes",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+              "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+              "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW"
+            ]
+          ],
+          "source_entry": 174,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        }
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2E-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v4/2540000/4dd4d960-192a-47b9-9bb4-7a6513c1a1de.root",
+      "source_stage_counts_before_gate": {
+        "DressedLeptons": 74938,
+        "GenLeptonMatch": 74938,
+        "GenVar": 74938,
+        "HiggsGenVars": 74938,
+        "JES_modules_reducedv15_MC": 78696,
+        "PromptParticlesGenVars": 74938,
+        "TopGenVars": 74938,
+        "WGammaStar": 74938,
+        "baseW": 74938,
+        "chain_selection": 94106,
+        "formulasMC": 74938,
+        "jetIDMaker": 78696,
+        "jetSelMask": 74938,
+        "lepSel": 78696,
+        "leptonMaker": 93059,
+        "leptonSF": 74938,
+        "puW": 74938,
+        "trigMC": 74938
+      },
+      "source_uuid": "39e98d54-0b1c-11f0-ae78-630b10acbeef",
+      "uncut_events_gen_sumw": 2825907176.5976562,
+      "uncut_events_gen_sumw2_float64_audit": 113661967686177.86
+    },
+    "dy_mumu": {
+      "aligned_gate_pass": 89282,
+      "complete_source_entries": 222331,
+      "configured_wp_columns": [
+        "Lepton_isTightElectron_wp90iso",
+        "Lepton_isTightElectron_testrecipes",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3",
+        "Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3",
+        "Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW",
+        "Lepton_isTightMuon_cut_TightID_POG",
+        "Lepton_isTightMuon_cut_Tight_HWW",
+        "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+        "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+      ],
+      "current_pre_gate_fewer_than_two_retained": {
+        "events": 26108,
+        "gen_sumw": 442245113.5234375,
+        "gen_sumw2": 18723848974049.94
+      },
+      "dataset": "/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v6/NANOAODSIM",
+      "historical_hww_one_retained_lepton_count": 5269,
+      "historical_hww_part0_pfn": "root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Summer24_150x_nAODv15_Full2024v15/MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight/nanoLatino_DYto2Mu-2Jets_MLL-50__part0.root",
+      "historical_hww_uuid": "d4c93ad6-37e9-11f1-98cc-3cecef0ddda8",
+      "join_counts": {
+        "ambiguous_hww_rows": 0,
+        "ambiguous_keys": 0,
+        "ambiguous_source_rows": 0,
+        "input_only": 133639,
+        "matched": 88692,
+        "output_only": 0
+      },
+      "local_complete_result": {
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-gate-mumu-20260930-bf75c7f/dy_mumu-complete-gate.json",
+        "sha256": "e63ee2f875aac26b8447342f53a2cb27569b4a8deb45efa81e8235f829a61902"
+      },
+      "local_join_map": {
+        "format": "gzip TSV, one row per central entry in ascending order; columns source_entry, hww_entry, status; blank hww_entry for input_only or ambiguous",
+        "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_mumu-source-entry-map.tsv.gz",
+        "sha256": "72fdef1c4a28f7439d0a9e91e0f56fd6e998873db318ce5c222cb3ef763a2ad7"
+      },
+      "original_gate_pass": 88692,
+      "outcome_by_historical_membership": [
+        {
+          "events": 5324,
+          "gen_sumw": 77715594.0078125,
+          "gen_sumw2": 3818207903242.4395,
+          "historical_membership": "historical_part0",
+          "outcome": "accepted_only_by_actual"
+        },
+        {
+          "events": 83368,
+          "gen_sumw": 1525389467.5,
+          "gen_sumw2": 59788947497646.82,
+          "historical_membership": "historical_part0",
+          "outcome": "passes_both"
+        },
+        {
+          "events": 21697,
+          "gen_sumw": 379713786.16015625,
+          "gen_sumw2": 15560416393058.22,
+          "historical_membership": "absent_from_part0",
+          "outcome": "rejected_both"
+        },
+        {
+          "events": 5914,
+          "gen_sumw": 105245446.0546875,
+          "gen_sumw2": 4241337629559.627,
+          "historical_membership": "absent_from_part0",
+          "outcome": "rejected_only_by_actual"
+        }
+      ],
+      "producer_elapsed_seconds": 107.1073998559732,
+      "sample": "DYto2Mu-2Jets_MLL-50",
+      "selected_event_witnesses": [
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": null,
+          "key": [
+            1,
+            260002,
+            1443525631
+          ],
+          "outcome": "rejected_only_by_actual",
+          "prefilter_electronIdx": [
+            -1,
+            -1,
+            -1
+          ],
+          "prefilter_muonIdx": [
+            0,
+            1,
+            2
+          ],
+          "prefilter_passing_working_points": [
+            [],
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ],
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ]
+          ],
+          "prefilter_positions_for_retained": [
+            1,
+            2
+          ],
+          "retained_electronIdx": [
+            -1,
+            -1
+          ],
+          "retained_muonIdx": [
+            1,
+            2
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ],
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ]
+          ],
+          "source_entry": 5,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        },
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": 0,
+          "key": [
+            1,
+            260002,
+            1443525607
+          ],
+          "outcome": "passes_both",
+          "prefilter_electronIdx": [
+            -1,
+            -1
+          ],
+          "prefilter_muonIdx": [
+            0,
+            1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ],
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ]
+          ],
+          "prefilter_positions_for_retained": [
+            0,
+            1
+          ],
+          "retained_electronIdx": [
+            -1,
+            -1
+          ],
+          "retained_muonIdx": [
+            0,
+            1
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ],
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ]
+          ],
+          "source_entry": 6,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        },
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": 39,
+          "key": [
+            1,
+            260002,
+            1443526295
+          ],
+          "outcome": "accepted_only_by_actual",
+          "prefilter_electronIdx": [
+            -1,
+            0
+          ],
+          "prefilter_muonIdx": [
+            0,
+            -1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ],
+            [
+              "Lepton_isTightElectron_testrecipes"
+            ]
+          ],
+          "prefilter_positions_for_retained": [
+            0
+          ],
+          "retained_electronIdx": [
+            -1
+          ],
+          "retained_muonIdx": [
+            0
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ]
+          ],
+          "source_entry": 102,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        },
+        {
+          "genWeight": 26780.01171875,
+          "historical_hww_entry": null,
+          "key": [
+            1,
+            260002,
+            1443526502
+          ],
+          "outcome": "rejected_both",
+          "prefilter_electronIdx": [
+            -1,
+            -1
+          ],
+          "prefilter_muonIdx": [
+            0,
+            1
+          ],
+          "prefilter_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ],
+            []
+          ],
+          "prefilter_positions_for_retained": [
+            0
+          ],
+          "retained_electronIdx": [
+            -1
+          ],
+          "retained_muonIdx": [
+            0
+          ],
+          "retained_passing_working_points": [
+            [
+              "Lepton_isTightMuon_cut_TightID_POG",
+              "Lepton_isTightMuon_cut_Tight_HWW",
+              "Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet"
+            ]
+          ],
+          "source_entry": 127,
+          "working_point_encoding": "For each slot, lists every true configured WP; all other configured_wp_columns are false."
+        }
+      ],
+      "source_pfn": "root://cmsxrootd.fnal.gov//store/mc/RunIII2024Summer24NanoAODv15/DYto2Mu-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v6/90000/1de50b48-ee8f-41f3-b5e9-f8a2f8f4dde2.root",
+      "source_stage_counts_before_gate": {
+        "DressedLeptons": 116303,
+        "GenLeptonMatch": 116303,
+        "GenVar": 116303,
+        "HiggsGenVars": 116303,
+        "JES_modules_reducedv15_MC": 121809,
+        "PromptParticlesGenVars": 116303,
+        "TopGenVars": 116303,
+        "WGammaStar": 116303,
+        "baseW": 116303,
+        "chain_selection": 129548,
+        "formulasMC": 116303,
+        "jetIDMaker": 121809,
+        "jetSelMask": 116303,
+        "lepSel": 121809,
+        "leptonMaker": 127633,
+        "leptonSF": 116303,
+        "puW": 116303,
+        "trigMC": 116303
+      },
+      "source_uuid": "2bd9db6c-1b32-11f0-bdb6-9dbfe183beef",
+      "uncut_events_gen_sumw": 3974341199.1445312,
+      "uncut_events_gen_sumw2_float64_audit": 159448907087872.25
+    }
+  },
+  "schema_version": 1,
+  "scope": "Two complete pinned DY central files versus their exact historical HWW part0, and current bf75c7f producer through l2tight; not full-year or final RunStability yields."
+}

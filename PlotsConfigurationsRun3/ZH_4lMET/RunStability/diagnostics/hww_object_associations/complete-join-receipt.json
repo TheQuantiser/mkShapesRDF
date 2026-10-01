@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-09-30T23:25:02.642892+00:00",
+  "kind": "pinned_dy_part0_complete_identity_join",
+  "manifest": {
+    "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/inputs/inputs.json",
+    "sha256": "c47bc8fde91a4c06aeead3c488115585df85194331d5886024f6f74333d8ee98"
+  },
+  "parent_pair_evidence": {
+    "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/demo-2024-hwwnano-object-associations/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/inputs/parent-pair-evidence.json",
+    "sha256": "a49c3c2bddda0a0d006114933cdca43125cfaf24d05996944ea66997dcad7f6b"
+  },
+  "roles": {
+    "dy_ee": {
+      "counts": {
+        "ambiguous_hww_rows": 0,
+        "ambiguous_keys": 0,
+        "ambiguous_source_rows": 0,
+        "input_only": 90066,
+        "matched": 68421,
+        "output_only": 0
+      },
+      "mapping": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_ee-source-entry-map.tsv.gz",
+      "result": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_ee-join.json",
+      "result_sha256": "db97f5a81c7c46e6345e8a7b4aba8589d26336aa8302e89cba8cc53822ecd358"
+    },
+    "dy_mumu": {
+      "counts": {
+        "ambiguous_hww_rows": 0,
+        "ambiguous_keys": 0,
+        "ambiguous_source_rows": 0,
+        "input_only": 133639,
+        "matched": 88692,
+        "output_only": 0
+      },
+      "mapping": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_mumu-source-entry-map.tsv.gz",
+      "result": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-complete-join-dy-20260930-bf75c7f-8db4/dy_mumu-join.json",
+      "result_sha256": "ff9c03a972f5ac834b5c3dc4b0a2bc3f6f49e575775886e3d3720dbf876432da"
+    }
+  },
+  "runtime_seconds": 19.672,
+  "scope": "Two exact central files and their paired historical HWW part0 only; no producer replay or other samples",
+  "upstream": {
+    "frozen_fileset_path": {
+      "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/coffea/artifacts/studies/run3-2024-trigger-probe-btv-v5/fileset.json",
+      "sha256_verified": true
+    },
+    "hww_exact_compiled_pickle_path": {
+      "path": "/uscms_data/d3/mwadud/private/mkShapesRDF_devel/mkShapesRDF/PlotsConfigurationsRun3/ZH_4lMET/RunStability/configs/config_26-08-18_21_38_40.pkl",
+      "sha256_verified": true
+    }
+  }
+}
