@@ -11,6 +11,27 @@ stored `Lepton_isTight*` bit and coordinates. Central raw objects are printed
 separately to distinguish an association error from changed raw inputs.
 These are offline working-point decisions, not HLT bits.
 
+## Show the previously identified DATA witnesses
+
+The script uses the original fixed events: Muon C entry **234**, EGamma C
+entry **20774**, and EGamma I entries **27025** and **46209**. Their original
+full event keys and historical HWW entries are checked before displaying
+the arrays. The committed transcript contains the actual ROOT rereads of
+all four; the additional MC witness did not replace them.
+
+After activating the existing ROOT runtime, display just those four events:
+
+```bash
+python PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/root_inspect.py \
+  --case muon_c --case egamma_c --case egamma_i_eta --case egamma_i_both
+```
+
+For entries 234, 20774 and 46209, both retained raw objects pass every cut
+in the full named WP, but the first stored tight bit is **false**. Entry
+27025 demonstrates a different error: both tight bits are correct, while
+the stored eta values belong to the other indexed electron. The
+[actual observations](#actual-observations) below show these exact failures.
+
 ## One-command reproduction
 
 From the repository root, activate the existing ROOT/CMS runtime, then run:
