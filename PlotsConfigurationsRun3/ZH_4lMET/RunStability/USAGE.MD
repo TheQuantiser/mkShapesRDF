@@ -5,6 +5,14 @@ Before using retained or newly produced HWWNano for this leaf, read
 audited historical failures, conditional source risks, ruled-out active-chain
 concerns, and campaign-specific limits.
 
+The [completed bounded repair demonstration](diagnostics/hww_object_associations/REPAIR_REPORT.md)
+documents fresh snapshot validation, the complete two-file MC gate result,
+and its historical-policy RunStability effect. **The producer repairs are
+NOT present in `ZH_devel`.** This branch contains the documentation only;
+the report links to the separate repair branch for scripts and reproduction
+commands. It does not certify historical inputs or change this leaf's
+selection.
+
 This leaf has one public workflow: nominal DY run stability. The default
 production profile resolves the strict 35/35 GeV selected-lepton thresholds,
 the strict `60 < m(Z0) < 120 GeV` window, six observables, and 48 categories

@@ -2,6 +2,17 @@
 
 **Scope and revision.** This audit concerns only the four 2024 HLT-path AND selected-Z-flavor categories: Ele30→ee, Ele23–Ele12→ee, IsoMu24→μμ, and Mu17–Mu8→μμ. It excludes Mu50, Ele115, eµ paths, inclusive categories, tag-and-probe fits, and high-pT probe inputs. Coffea `main` was read at `2b5ba43` and mkShapesRDF `ZH_devel` at `c064927` on 2026-09-30. The completed Coffea v5 `nominal/` histograms use `matched_z_v2`; the default `2024-stability-only.yaml` still uses `matched_z_v1`. Historical mkShapes plots used a compiled campaign and HWWNano produced from an unavailable dirty worktree. Current source describes the intended/current chain, while the retained files and compiled historical selection establish what the published campaign actually consumed. See the [mkShapesRDF HWWNano issues report][hww-issues], especially its distinction between producer defects and RunStability consequences.
 
+**Evidence update, 2026-10-01:** the [completed repair report](diagnostics/hww_object_associations/REPAIR_REPORT.md)
+adds exact aligned-gate key closure in two complete MC files, six freshly
+written and reopened nominal snapshots, and historical-policy Z replays.
+The original-versus-aligned pre-smearing gate comparison is causal; final
+historical-versus-repaired MC yields remain descriptive because common
+random draws and the historical dirty producer/payload were not held fixed.
+These results strengthen the producer-association explanation without
+establishing an exact full-year attribution. **The fixes remain on the
+separate repair branch; they are not present in `ZH_devel`.** The table
+below retains this audit's original 2026-09-30 evidence scope.
+
 ## The question and the answer
 
 The useful comparison has three parts: (1) do the four named categories share the intended offline working points, HLT paths, event-quality and luminosity concepts; (2) does Coffea reproduce the **historically executed** HWWNano→RunStability event population and weights; and (3) do the HWWNano association errors enter Coffea's independent NanoAOD→histogram path?

@@ -1,6 +1,6 @@
 # HWWNano object-association findings relevant to 2024 RunStability
 
-**Scope, 2026-09-30.** HWWNano is produced by the **shared mkShapesRDF
+**Scope, updated 2026-10-01.** HWWNano is produced by the **shared mkShapesRDF
 framework** used by the Latino group. This page lives in a personal
 `RunStability` analysis leaf because that analysis exposed the failures; the
 producer findings are not RunStability-only code. The retained 2024 HWWNano
@@ -9,12 +9,27 @@ producer ran from an unavailable *dirty worktree*, so current source at
 [`4e6793f`](https://github.com/TheQuantiser/mkShapesRDF/tree/4e6793fd315807b7db7823d2612dc1ad705f55bd)
 shows present mechanisms, not the exact historical executable.
 
+**Completed repair demonstration:** read the
+[repair report](diagnostics/hww_object_associations/REPAIR_REPORT.md) for the
+controlled two-file MC gate comparison, six freshly written and reopened
+snapshots, and historical-policy Z replay. The producer repairs were executed
+at [`9a0e9be`](https://github.com/TheQuantiser/mkShapesRDF/commit/9a0e9be35c27e2907e6201460d0a5de58a091651)
+on `fix-demo/2024-hwwnano-object-associations`, with reviewed evidence at
+[`8d940ab`](https://github.com/TheQuantiser/mkShapesRDF/commit/8d940abcf429f753074121a250db3717434eb2f6).
+**The repairs are NOT present in `ZH_devel`.** This integration adds
+documentation only; the four relevant producer files still match the
+original complete-file diagnostic at
+[`69ff2dad`](https://github.com/TheQuantiser/mkShapesRDF/commit/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0).
+The report's reproduction commands point to the separate repair branch,
+where the scripts and numerical evidence remain.
+
 | Finding | Confidence | Relevant scope |
 | --- | --- | --- |
 | Tight electron/muon bits can describe prefilter positions | **Confirmed in audited historical HWW events**; matching omission visible in current source | Shared producer output; MC skim and downstream selections can consume these bits. |
 | Electron eta can disagree with retained raw-electron index while phi agrees | **Confirmed in audited historical period-I HWW events**; producer operation unresolved | Retained product and its RunStability coordinate matching. |
-| Corrected-pT reorder can reuse a mutable permutation | **Current-source conditional defect**; occurrence in produced files unmeasured | Per-lepton arrays after lepton scale/smearing, not the earlier MC `l2tight` skim. |
-| `isLoose` is defined before filtering and is not carried through later reorder | **Current-source association concern**; no measured RunStability effect | Not consumed directly by this RunStability leaf. |
+| Corrected-pT reorder can reuse a mutable permutation | **Current-source conditional defect**, reproduced in an isolated live lepton-module witness; repaired snapshots pass real nonidentity-permutation checks | Historical eta-only cause and campaign prevalence remain unresolved; this stage follows MC `l2tight`. |
+| `isLoose` is defined before filtering and is not carried through later reorder | **Current-source association/length concern**; repaired snapshot audits pass; no direct measured RunStability effect | Not consumed directly by this RunStability leaf. |
+| DATA JEC requests unsupported uncertainty sources | **Recorded configuration failure**, resolved on the repair branch by requesting no DATA JES sources | Nominal corrections and cleaning were retained; this failure is separate from object association. |
 | Jet-cleaning masked-slot expression | **Ruled out as an index error for the active 2024 module order** | Fragile only if reused with an unsorted lepton collection. |
 | JES variation jet-index composition | **Conditional source risk requiring an input-order audit** | Variation branches only; no established nominal RunStability effect. |
 
@@ -133,12 +148,14 @@ df = df.Filter(f"{l2tight_selection}")
 The first two lines are from the first electron-WP branch and the final two
 lines are the completed predicate and filter; muon choices are also added in
 between. A falsely attached bit can therefore omit an MC event **before**
-`leptonScale_mc` and the HWWNano snapshot. The paired DY→μμ prefix ledger
-locates many missing HWW events at the upstream `l2tight` step, but does not
-prove how many of those losses were caused specifically by this association
-error. DATA has no corresponding MC `l2tight` production skim in its active
-chain; wrong retained bits can still change later DATA selections. An
-HWWNano-only alias change cannot recover MC events absent from that file.
+`leptonScale_mc` and the HWWNano snapshot. The complete two-file investigation
+now measures erroneous losses and acceptances causally on the current
+pre-smearing producer graph; its accepted-key sets also match the actual
+paired historical part0 membership. That does not recover the exact dirty
+historical executable. DATA has no corresponding MC `l2tight` production
+skim in its active chain; wrong retained bits can still change later DATA
+selections. An HWWNano-only alias change cannot recover MC events absent
+from that file. See [the complete-file gate result](diagnostics/hww_object_associations/REPAIR_REPORT.md#complete-file-mc-acceptance-causal-gate-result).
 
 ### Historical electron eta/index association is a separate error
 
@@ -199,13 +216,19 @@ returns that list; iteration order is not an object-association contract.
 
 This is a **conditional source-level defect when momentum corrections change
 ordering**. Misordered stored coordinates, original indices, ID/selection or
-weight vectors, and derived kinematics are possible. No affected-file rate
-or share of the published discrepancy has been measured. In MC,
+weight vectors, and derived kinematics are possible. An
+[isolated live trace](https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/observed-summary.json)
+for EGamma I entry 27025 reproduces a phi/index mismatch under a real swap
+and its recorded column order. That run omitted preceding JME and was not
+a full DATA snapshot; it did **not** reproduce the historical eta-only
+pattern. Campaign prevalence and the share of the published full-year
+discrepancy remain unmeasured. In MC,
 `l2tight` precedes this loop, so this reordering cannot be the cause of an
 earlier `l2tight` event loss. A conceptual correction would retain one
 immutable permutation, apply it once to each aligned input vector, and
 exclude the permutation and already reordered outputs from the generic loop.
-No producer fix is made here.
+The separate repair branch implements this mapping and validates fresh
+snapshots, including real reorderings. No producer fix is integrated here.
 
 ### `isLoose` is a narrower association concern
 
@@ -228,6 +251,11 @@ limits what a stale position can change here; do not infer a measured false
 decision from the code alone. A source search finds **no direct `isLoose`
 consumer in this RunStability leaf**. Its presence or effect in a particular
 retained file, or another Latino analysis, needs its own audit.
+
+The repaired producer includes `isLoose` in both the immutable retention
+mapping and the once-only correction permutation. Fresh snapshot checks
+confirm its retained length and association; this does not establish that
+`isLoose` caused a historical RunStability yield change.
 
 ## 2. Consequences in this RunStability analysis
 
@@ -265,6 +293,52 @@ EGamma priority, not misassociated objects. The
 also records the independent flags, overlapping mechanisms and historical-only
 events. Those flags must not be summed as disjoint causes. None of these
 prefix counts assigns a full-year correction.
+
+### Completed repair: producer acceptance and selected Z yield differ
+
+With all WP definitions held fixed, including the production OR's permissive
+`Electron_testrecipes` (`pT > 10`), the complete-file repair has the following
+gate results. Passing that OR does not establish passing this leaf's specific
+tight WP or its Z selection.
+
+| Complete MC file | Rescued gate events | Removed false acceptances | Historical part0 → repaired snapshot |
+| --- | ---: | ---: | ---: |
+| DY→ee | 606 | 25,689 | 68,421 → 43,338 |
+| DY→μμ | 5,914 | 5,324 | 88,692 → 89,282 |
+
+Repaired accepted keys equal the independent aligned-gate reference exactly;
+reopened snapshots have no n<2 MC survivors and pass the recorded object
+audits. Removed ee events comprise 25,638 singletons and 51 n≥2 events;
+removed μμ events comprise 5,269 singletons and 55 n≥2 events. Legitimate
+singleton rejections remain rejected. **None of the removed gate events
+contributed to the historical four Z categories**, as established by the
+selected-event ledgers. Thus removing many wrongly retained ee entries can
+coexist with more selected Z events. DATA singletons are legitimate producer
+outputs under its loose chain, which does not apply the MC tight skim.
+
+The [bounded replay tables and assessment](diagnostics/hww_object_associations/REPAIR_REPORT.md#bounded-runstability-replay-descriptive-downstream-result)
+retain the historical leading-two analysis gate, global Z choice, stream
+priorities, weights and full-source normalization receipts. They do not
+substitute Coffea's selection or normalize by the partial input-file sum.
+Selected MC counts increase by about 1.5% for electrons and 7.6–7.7% for
+muons; signed yields at 1 fb⁻¹ increase by about 1.8% and 8.7%. The four
+fixed DATA prefixes show electron increases of 2.0–3.6% and muon increases
+of 14.5–15.0%.
+
+Those final changes are **descriptive**, while the pre-smearing gate result
+is a controlled causal measurement. Changed acceptance shifts sequential
+MC smearing and trigger-period random draws; correctly attached arrays and
+the unavailable historical producer/payload can also change common-gate
+events. For example, +2,484 IsoMu24 selections consist of 1,694 rescued-class
+events plus a net +790 within the pass-both class; the latter is not attributed
+entirely to RNG. The final baseline is actual historical part0, not a newly
+run original final-kinematic snapshot.
+
+The measured association effects are substantial in these paired inputs;
+their flavor-dependent pattern supports a producer contribution to the
+earlier published comparison. Two MC files and four
+DATA prefixes do **not** measure their exact contribution to the published
+full-year 12.4% muon DATA, 2.8% electron DATA or 6.66% muon MC differences.
 
 ## 3. Investigated concerns outside the established historical errors
 
@@ -339,9 +413,11 @@ using it for a claim; do not fold it into the historical DATA/MC discrepancy.
 | Population or product | Established or conditional impact | What is needed |
 | --- | --- | --- |
 | Historical DATA HWWNano | Wrong tight-bit and period-I coordinate associations are demonstrated in audited entries. No MC `l2tight` production skim applies to this DATA chain. | Retained raw HWW branches can diagnose, and sometimes recompute, decisions for events present. A complete corrected result needs a coverage audit and fresh downstream outputs; rebuilding corrected HWW from original NanoAOD is the producer-level remedy. |
-| Historical MC HWWNano | Tight-bit misassociation is observed where HWW events exist; an upstream `l2tight` failure can also omit an event before snapshot. Its specific numerical loss from misassociation is unmeasured. | HWW-only edits cannot restore absent events. Use the parent NanoAOD and producer-step evidence, then regenerate where necessary. |
-| Newly produced files from current source | Tight-vector filtering and corrected-pT permutation paths are susceptible under their stated conditions; historical eta-only behavior is unproven for them. | Pin producer revision and audit raw-index/coordinate/bit alignment on the actual campaign before use; repair and regenerate if affected. |
+| Historical MC HWWNano | The two-file historical join and controlled current-source gate comparison establish corresponding erroneous losses/acceptances. Exact historical failing lines and full-year prevalence remain unproven. | HWW-only edits, replotting or renormalizing a skim cannot restore absent events. Regenerate affected inputs from parent NanoAOD, then dependent outputs. |
+| Newly produced files from unrepaired `ZH_devel` | Tight-vector filtering and corrected-pT permutation paths remain susceptible under their stated conditions; historical eta-only behavior is unproven for them. | Pin producer revision and audit raw-index/coordinate/bit alignment on the actual campaign before use; documentation alone does not repair it. |
+| Fresh snapshots on the separate repair branch | All recorded nominal association checks pass in two complete MC files and four DATA prefixes, including rescued events and nonidentity permutations. | Bounded evidence only; not a full systematic, auxiliary ROOT metadata or remote stage-out qualification. |
 | Nominal versus systematic jet branches | The active nominal 2024 jet-cleaning prefix has no shown mask-index defect. JES variation index composition has a conditional input-order risk only. | Audit variation ordering and association before interpreting JES branches; no nominal yield correction follows from this note. |
+| Native unsigned event-ID serialization | The ≥2⁶³ Snapshot/list conversion limitation remains unresolved; no such event occurred in these six executed ranges. | Audit the identity boundary for any campaign that reaches it; the signed-bridge check does not fix native production serialization. |
 | Original central NanoAOD | These HWW producer observations do not establish a defect in the original input. | Preserve it as the source for any required regeneration. |
 | This RunStability output | It consumes retained tight bits and coordinates; affected entries can change selection and mass. | Reprocess from trustworthy HWW after campaign-specific producer/coverage audit for corrected yields. Do not replot old histograms as a fix. |
 

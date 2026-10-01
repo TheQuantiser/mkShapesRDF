@@ -27,6 +27,12 @@ The exact luminosity reconstruction sequence is in
 [`lumi/REPRODUCE.md`](lumi/REPRODUCE.md), and dated campaign status is indexed
 by [`production_history/README.md`](production_history/README.md).
 
+For input reliability, read [KNOWN_HWWNANO_ISSUES.md](KNOWN_HWWNANO_ISSUES.md)
+and the [completed bounded producer repair report](diagnostics/hww_object_associations/REPAIR_REPORT.md).
+The repair was demonstrated on a separate branch; **the producer fixes are
+not integrated into `ZH_devel`**. The report separates shared HWWNano
+content/skim defects from this leaf's downstream Z-yield consequences.
+
 ## Public contract
 
 The only supported analysis graph is:
