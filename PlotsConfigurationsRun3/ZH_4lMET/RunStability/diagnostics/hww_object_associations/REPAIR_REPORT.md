@@ -1,259 +1,293 @@
-# HWWNano lepton-association defects: evidence, consequences and repair
+# HWWNano lepton-association repair: what was measured and how
+
+**Updated 2026-10-01.** This report explains the historical defects, the
+bounded producer repair, and the change in the RunStability Z selection.
+The affected 2024 HWWNano products have incorrect retained lepton IDs or
+coordinates and are invalid inputs for analyses that depend on those
+associations.
+
+There are three different measurements in this report:
+
+| Measurement | Question answered | What is counted or checked |
+| --- | --- | --- |
+| Historical object inspection | Do stored properties describe the lepton named by its raw index? | Raw inputs, stored decisions and coordinates in specific historical events. |
+| Controlled MC production-gate comparison | Which events does the original gate reject or accept incorrectly? | Event-key sets before smearing, with the same inputs and WP policy. |
+| Historical-versus-repaired Z replay | How does the final analysis result change on these fixed inputs? | Selected events and their weights after the same frozen analysis selection. |
+
+**DATA and MC differ at production.** The identified retention and reorder
+bugs corrupt properties in both. In the investigated DATA recipe, these
+bugs do not themselves discard events before writing. MC additionally has
+a production `l2tight` gate that consumes the wrong decisions and can
+discard valid events or accept invalid ones.
+
+**The repair remains on a separate branch.** Six fresh nominal Events
+outputs were produced and independently checked. The producer changes have
+not been integrated into `ZH_devel`; this update revises documentation.
+
+## Contents
+
+- [Conclusions and production status](#conclusions-and-production-status)
+- [Evidence scope](#evidence-scope)
+- [Direct evidence in historical ntuples](#direct-evidence-in-historical-ntuples)
+- [Complete-file MC acceptance: causal gate result](#complete-file-mc-acceptance-causal-gate-result)
+- [Fresh snapshots and repair validation](#fresh-snapshots-and-repair-validation)
+- [Bounded RunStability replay: descriptive downstream result](#bounded-runstability-replay-descriptive-downstream-result)
+- [Shared producer changes](#shared-producer-changes)
+- [What remains unresolved](#what-remains-unresolved)
+- [Required follow-up for analysis use](#required-follow-up-for-analysis-use)
+- [Evidence and reproduction details](#evidence-and-reproduction-details)
 
 ## Conclusions and production status
 
-**The affected historical HWWNano ntuples are invalid inputs for analyses
-that depend on their retained lepton IDs and object associations.** Direct
-reads show offline tight decisions attached to the wrong retained leptons,
-and a separate electron coordinate/index inconsistency. A controlled
-producer comparison also demonstrates erroneous MC losses and acceptances
-before the ntuple is written. These failures change the objects selected
-and the events available to an analysis.
+The wrong historical ID and coordinate associations are directly observed.
+The controlled MC gate comparison establishes erroneous rejection and
+acceptance in the available original implementation. Independent reopening
+establishes correct checked associations in the six repaired nominal
+outputs.
 
-This is a **shared mkShapesRDF producer problem**. RunStability exposed it,
-but any HWW analysis consuming the affected products and relying on these
-lepton decisions or associations inherits the problem. The demonstrated
-historical scope is the audited **2024 Full2024v15 inputs**; the extent in
-other files, campaigns and years still requires a production audit. Product
-invalidity for these analyses does not require every event or every branch
-to be wrong. The parent central NanoAOD records remain the regeneration
-inputs.
-
-**A repair has been demonstrated on a separate branch, but it has not been
-integrated into `ZH_devel`.** Six fresh nominal Events snapshots were written
-on LPC on 2026-09-30 and independently reopened. The checked associations
-passed, including real changes in lepton pT ordering. In the two complete DY
-files, repaired final event keys equal the independent aligned-gate
-reference exactly. This establishes the repair for those nominal outputs;
-production adoption and campaign-wide regeneration remain to be done.
-
-| Question | Conclusion | Decisive evidence |
-| --- | --- | --- |
-| Are the old inputs trustworthy for lepton-ID-dependent analyses? | **No, for the affected products.** Stored decisions can describe another object; coordinate and index fields can disagree. | [Within-record historical checks](#direct-evidence-in-historical-ntuples), including raw-WP reconstruction inside the same HWW events. |
-| Can an analysis-only edit restore the correct MC sample? | **No.** Correcting retained branches cannot recover events already rejected by the producer. Regeneration must start from parent NanoAOD. | [Complete-file gate comparison](#complete-file-mc-acceptance-causal-gate-result): 606 ee and 5,914 μμ events satisfy the aligned gate but are absent from the paired historical outputs. |
-| Does the proposed producer repair work? | **Yes for the six executed nominal snapshots and the checked invariants.** | [Independent reopening](#fresh-snapshots-and-repair-validation): exact accepted-key closure and zero checked association anomalies. |
-| How much did this change the RunStability result? | The fixed-policy local Z replay gains about 2.0–3.6% electron DATA and 14.5–15.0% muon DATA; MC signed weighted contributions gain about 1.8% and 8.7%. | [Downstream replay](#bounded-runstability-replay-descriptive-downstream-result). These are measured local changes, not campaign correction factors. |
-| Does that explain the entire published Coffea discrepancy? | The defects are a substantial demonstrated contributor in the paired inputs. Their exact full-year contribution has not been measured. | Historical association failures, causal gate losses and the flavor-dependent local replay, with [remaining attribution limits](#what-remains-unresolved). |
+The final Z replay finds local increases of about **2.0–3.6% in electron
+DATA**, **14.5–15.0% in muon DATA**, and **1.8% / 8.7% in the ee / μμ MC
+weighted contributions**. These are changes in a bounded analysis result,
+not defect fractions or correction factors for full campaigns.
 
 ### Which source contains the repair?
 
-| Revision / branch | What it establishes |
+| Source | Purpose |
 | --- | --- |
-| [`69ff2dad`][original-revision] on `demo/2024-hwwnano-object-associations` | Clean original producer and complete-file diagnostic reference. |
-| [`9a0e9be`][repaired-revision] on `fix-demo/2024-hwwnano-object-associations` | Producer actually used to write the repaired snapshots. |
-| [`8d940ab`][evidence-revision] on the repair branch | Reviewed report, scripts and committed numerical evidence for the completed demonstration. |
-| [`a3b160a`][inspected-zh-revision] on `ZH_devel`, inspected for this revision | `LeptonSel.py`, `L2TightSelection.py`, `LeptonScaleSmearing.py` and `Steps_cfg.py` all have the same Git blobs as the original reference. **The producer remains unrepaired here.** |
+| `demo/2024-hwwnano-object-associations`, pinned at [`69ff2dad`][original-revision] | Original producer, historical witnesses and complete-file gate reference. |
+| `fix-demo/2024-hwwnano-object-associations`, measured at [`9a0e9be`][repaired-revision] | Repaired producer used to write the six outputs. |
+| Repair branch evidence at [`8d940ab`][evidence-revision] | Scripts, tests, reports and numerical evidence for the executed demonstration. |
+| `ZH_devel`, checked at [`44bd978`][inspected-zh-revision] before this update | Documentation. The four relevant producer files still have the original blobs. |
 
-This `ZH_devel` update changes this report only. The implementation, tests,
-scripts and JSON evidence remain on the repair branch. Reproduction commands
-are in its [README][repair-readme]; the scripts do not exist in this
-`ZH_devel` diagnostic directory. Existing historical ROOT files, scientific
-selections and Coffea code were not changed by this documentation revision.
+The four checked files are `LeptonSel.py`, `L2TightSelection.py`,
+`LeptonScaleSmearing.py` and `Steps_cfg.py`. The diagnostic scripts and
+JSON evidence linked here remain on the repair branch; they are not
+installed in this `ZH_devel` directory. Its [README][repair-readme] gives
+the executable reproduction commands. The
+[consolidated issues guide](../../KNOWN_HWWNANO_ISSUES.md) maps the earlier
+branches, tests and investigations.
 
 ## Evidence scope
 
-A framework yield disagreement motivated the investigation. The historical
-object-invariant checks and controlled gate comparison establish the
-defects; fresh serialized outputs establish the repair. The downstream
-replay then measures the local analysis impact.
+The repair used six fixed central NanoAOD files:
 
-The four repaired DATA runs each cover source entries `0:50000` of one
-EGamma or Muon file in periods C or I. The two MC runs cover **all 158,487
-DY→ee and 222,331 DY→μμ entries** of the pinned individual files. These are
-six fixed inputs, not six complete datasets. Earlier historical DATA audits
-used longer prefixes; their counts must not be combined with the repair-run
-counts. [Environment and input identities][environment] record the exact
-PFNs, UUIDs, payloads and hashes; each run's executed interval is retained
-in [the results][results].
+| Role | Central source range | Meaning |
+| --- | --- | --- |
+| EGamma C | `[0,50000)` | First 50,000 entries of one period-C EGamma0 file. |
+| EGamma I | `[0,50000)` | First 50,000 entries of one period-I EGamma0 file. |
+| Muon C | `[0,50000)` | First 50,000 entries of one period-C Muon0 file. |
+| Muon I | `[0,50000)` | First 50,000 entries of one period-I Muon0 file. |
+| DY→ee | `[0,158487)` | Complete individual central MC file. |
+| DY→μμ | `[0,222331)` | Complete individual central MC file. |
+
+Ranges are zero-based and half-open. They describe **central Events
+entries**, not entries in a skimmed HWW output. C and I are DATA periods;
+neither row represents all files from that period. A complete MC file is
+still only part of its full dataset.
+
+The [input manifest][inputs] and [environment record][environment] identify
+the exact central/HWW file pairs, UUIDs, payloads and hashes. The
+[results][results] record the executed ranges. Earlier studies used
+200,000-entry DATA and 80,000-entry MC prefixes; their counts must not be
+mixed with this repair demonstration.
+
+The relevant production order is:
+
+```text
+DATA:
+  central selection → luminosity mask → LeptonMaker
+  → LeptonSel [retention defect]
+  → jet ID/corrections/JetSelMask
+  → leptonScale_data [reorder defect]
+  → kinematics/triggers/DATA formulas → Snapshot → analysis
+
+MC:
+  central selection → LeptonMaker → LeptonSel [retention defect]
+  → jet ID/corrections/JetSelMask
+  → generator quantities/matching/normalization/triggers/SFs/weights/formulas
+  → l2tight [consumes stale decisions]
+  → leptonScale_mc [reorder defect]
+  → kinematics → Snapshot → analysis
+```
+
+The configured DATA chain has no production `l2tight`. Its `LeptonSel`
+event requirement is evaluated before inconsistent retention, and the
+modules after the correction reorder calculate columns without applying
+an event filter. A wrong stored DATA ID can reject an existing event in
+the analysis; it does not itself remove that event from the ntuple.
+Ordinary production cuts are separate from these defects.
 
 ## Direct evidence in historical ntuples
 
 ### Tight decisions are attached to the wrong retained objects
 
-At retained position `i`, `Lepton_isTightMuon_*[i]` must describe the raw
-muon named by `Lepton_muonIdx[i]`; the corresponding electron decision must
-describe `Lepton_electronIdx[i]`. Every object-indexed vector must follow
-the same retention mapping and later permutations. Equal vector lengths
-alone do not establish this correspondence. These are **offline working-point
-bits**, not HLT decisions.
+At retained position `i`, a muon tight bit must describe the raw muon
+named by `Lepton_muonIdx[i]`; the electron rule uses
+`Lepton_electronIdx[i]`. Matching vector lengths alone is insufficient.
 
-The following records were read from the actual historical paired `part0`
-files. The named WPs were recomputed from raw inputs **within those same HWW
-events**:
+The following events were read from actual historical paired `part0`
+files. The complete named WPs were recomputed from raw inputs **inside the
+same HWW records**, not inferred from a single primitive ID flag.
 
-| Historical witness | Retained raw objects | Correct named tight bits | Stored named tight bits |
+| DATA witness | Retained raw indices | Expected named tight bits | Stored named tight bits |
 | --- | --- | --- | --- |
-| Muon C source entry 234; key `(379416,147,131724611)`; HWW entry 65 | Muons `[1,2]` | `[true,true]` | **`[false,true]`** |
-| EGamma C source entry 20774; key `(379729,907,1396820419)`; HWW entry 991 | Electrons `[0,1]` | `[true,true]` | **`[false,true]`** |
+| Muon C: central entry 234, HWW entry 65; key `(379416,147,131724611)` | Muons `[1,2]` | `[true,true]` | **`[false,true]`** |
+| EGamma C: central entry 20774, HWW entry 991; key `(379729,907,1396820419)` | Electrons `[0,1]` | `[true,true]` | **`[false,true]`** |
 
-The muon WP is
-`Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67`; the electron WP is
-`Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3`. In the muon
-record, prefilter raw indices `[0,1,2]` have decisions
-`[false,true,true]`. Retention removes muon 0, but the stored first bit still
-describes it. The [historical muon audit][muon-audit],
-[electron audit][electron-audit] and [observed witnesses][observations]
-record the raw inputs and arrays.
+The named columns are:
 
-The historical muon audit extends beyond one example. Among the **508
-Coffea-only IsoMu24 events with the historical leading-two decision false**
-in the paired C/I prefixes, both selected raw HWW muons pass the named WP.
-**503** have a wrong stored decision for the retained pair; **502** of those
-also have the prefilter decision prefix stored at retained positions. The
-audit is conditioned on this discrepancy class, so these counts establish
-repeated historical failures rather than a file-wide defect fraction.
+- `Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67`
+- `Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3`
 
-The clean [original `LeptonSel`][original-selection] defines tight vectors
-before filtering. Later it filters only the six core arrays, leaving the
-decisions in prefilter positions. This is a consistent live mechanism for
-the retained failures. The unavailable dirty historical source is needed to
-identify the exact old operation, including how its stored tight vectors
-acquired retained length while keeping the wrong prefix.
+The muon event exposes the positional error:
 
-**Analysis consequence:** a selection can reject two genuinely tight
-retained leptons or accept a decision belonging to a removed object.
-Changing a downstream Z builder or fitting a normalization factor does not
-restore the ID-to-object contract.
+```text
+Before retention:
+  raw muon indices   [0,     1,    2]
+  named tight bits   [false, true, true]
+
+After retaining raw muons 1 and 2:
+  correct bits       [true, true]
+  historical bits    [false,true]  ← first bit describes removed muon 0
+```
+
+The available original `LeptonSel` computes decisions before retention,
+then filters only pT, eta, phi, pdgId and the two raw-index arrays. It omits
+the tight vectors and `isLoose`. The core fields remain mutually aligned
+at this step; the decisions no longer follow them. Raw Electron/Muon and
+prefilter VetoLepton collections are preserved.
+
+In clean original live runs, the omitted decision vectors remain longer
+than the retained collection. Some historical vectors have retained length
+but the wrong prefix. The historical producer's dirty worktree is
+unavailable, so its exact shortening/serialization operation is unresolved.
+
+The [observed witnesses][observations], [muon audit][muon-audit] and
+[electron audit][electron-audit] record the inputs and comparisons. In the
+earlier paired C/I discrepancy class, 508 Coffea-only IsoMu24 events had
+a false historical leading-two decision although both selected raw HWW
+muons passed. Of those, 503 had wrong stored retained bits and 502 also
+matched the prefilter prefix. These are counts conditioned on that
+discrepancy class, not a file-wide defect fraction.
 
 ### Electron coordinates can disagree with their raw indices
 
-For EGamma I source entry 27025, key `(386509,159,333332716)`, historical
-HWW entry 1936 contains:
+EGamma I central entry 27025, HWW entry 1936, key
+`(386509,159,333332716)`, contains:
 
-| Field | Correct values for retained `electronIdx=[0,1]` | Historical values |
+| Field | Expected for stored `electronIdx=[0,1]` | Historical value |
 | --- | --- | --- |
-| `Lepton_eta` | `[-0.9336,-2.0571]` | **`[-2.0571,-0.9336]`** |
-| `Lepton_phi` | `[-1.2280,1.9678]` | `[-1.2280,1.9678]` |
-| Named electron tight bits | `[true,true]` | `[true,true]` |
+| `Lepton_eta` | `[-0.93359375,-2.05712890625]` | **`[-2.05712890625,-0.93359375]`** |
+| `Lepton_phi` | `[-1.22802734375,1.9677734375]` | Same as expected |
+| Named tight bits | `[true,true]` | Same as expected |
 
-The eta swap is therefore a separate association failure even when both
-tight bits are correct. The historical RunStability coordinate matcher
-cannot connect either retained electron to its prefilter `VetoLepton`
-identity; both production-gate indices become `-1` and the leading-two gate
-rejects the event. Coordinate errors can also affect reconstructed
-kinematics. EGamma I entry 46209, key `(386509,735,1539152813)`, contains
-both a tight-bit failure and an eta/index failure. Their event counts cannot
-be added as independent losses. The [electron audit][electron-audit] and
-[historical replay note][historical-replay-note] retain these checks.
+Eta is exchanged between the two electrons while phi and tight bits agree
+with the stored indices. The historical analysis's retained-to-VetoLepton
+coordinate matcher consequently fails for both electrons: both gate
+indices become `-1`, and its leading-two analysis requirement fails.
+Coordinates can also affect reconstructed pair kinematics.
 
-The current [scale/smearing module][original-scale] has a reproduced
-ordering hazard: its generic permutation loop can reorder the permutation
-itself and an already ordered correction ratio. An isolated live run of
-entry 27025 produced a real swap and a **phi/index mismatch**, with the
-actual loop order recorded in [the witness artifact][observations]. That
-establishes the present source defect. The exact operation responsible for
-the historical **eta-only** mismatch remains unresolved. Fresh repaired
-snapshots verify the coordinate/index invariant directly.
+Entry 46209, key `(386509,735,1539152813)`, has both wrong tight bits and
+an eta/index mismatch. These defects overlap; their event counts cannot
+be added as independent losses.
+
+A live original correction run of entry 27025 exercised a real pT swap
+and produced a **phi/index** mismatch under the recorded column order.
+It proves the available source's reorder defect, but does not reproduce
+the historical eta-only pattern. Its exact historical cause remains
+unresolved. The shared reorder loop can affect electrons or muons;
+correct coordinates in a muon witness do not establish muon immunity.
+The electron supercluster-eta calculation is a local correction input,
+not an overwrite of `Lepton_eta`.
 
 ## Complete-file MC acceptance: causal gate result
 
 ### The failure happens before the analysis can see the event
 
-The configured 2024 MC path is
-`MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight`. Its decisive
-[production order][original-steps] is:
+The original production `l2tight` reads positions 0 and 1 of the decision
+vectors, ORs **all configured electron and muon WPs at each position**, and
+ANDs the two results. It has no explicit retained-size ≥ 2 guard.
 
-```python
-"formulasMC",
-"l2tight",
-"leptonScale_mc",
-"l2Kin",
-```
+A removed object's decision can therefore reject a valid retained pair or
+supply a passing second slot to an event with only one retained lepton.
+This happens before smearing and writing.
 
-`l2tight` runs before lepton scale/smearing and the HWW snapshot. It reads
-positions 0 and 1 of the WP vectors, OR-ing **every configured electron and
-muon tight WP for each position**, then AND-ing the two positions. The
-original module has no guard on the retained collection's size. Thus a
-removed object's stale bit can affect acceptance, including when only one
-lepton remains.
-
-The all-WP OR includes `Electron_testrecipes`, whose original recipe is
-strict raw `pT > 10`. It was preserved in the reference and repair. Passing
-this producer gate is consequently a different requirement from passing
-RunStability's specific named tight WPs. The corresponding DATA chain,
-`DATAl2loose2024v15__l2loose`, has **no production `l2tight` skim**; retained
-DATA bits still affect subsequent analysis cuts. Single retained leptons
-are legitimate in that loose DATA output.
+The gate includes `Electron_testrecipes`, whose original cut is strict
+raw pT > 10 GeV. That permissive WP remains in the repair. The production
+all-WP gate and the analysis's specific named-WP requirements are different
+selections.
 
 ### Controlled comparison on the two complete parent files
 
-The original diagnostic runs the configured modules through `l2tight`,
-stopping before smearing. Its independent reference remaps all **seven
-electron and six muon WP vectors** to retained raw identities and rejects
-collections with fewer than two retained leptons, then evaluates the
-unchanged all-WP predicate. It uses raw indices and flavor, rather than
-coordinate or pT matching. Both branches consume the same pre-gate events
-and raw decisions. [Complete-file results][complete-results] document the
-reference; [repair results][results] record its exact key comparison to the
-repaired producer.
+The original diagnostic runs the configured modules up to the gate and
+stops before smearing. An independent aligned reference maps all seven
+electron and six muon WP vectors through retained raw indices, requires
+two retained leptons, then applies the **same all-WP predicate**.
+
+Both decisions use the same pre-gate events and raw WPs. Thus the controlled
+difference isolates association and retained-slot handling, rather than
+changed WP definitions or random smearing.
 
 | Gate accounting | DY→ee | DY→μμ |
 | --- | ---: | ---: |
-| Pre-gate events | 74,938 | 116,303 |
-| Pass both | 42,732 | 83,368 |
+| Events reaching the gate | 74,938 | 116,303 |
+| Pass original and aligned | 42,732 | 83,368 |
 | Original rejects; aligned passes (**rescued**) | **606** | **5,914** |
 | Original passes; aligned rejects (**removed**) | **25,689** | **5,324** |
 | Reject both | 5,911 | 21,697 |
 | Original accepted / historical paired total | **68,421** | **88,692** |
 | Aligned accepted / repaired final total | **43,338** | **89,282** |
 
-The four outcome classes partition every pre-gate event. Their differences
-are **causal association/slot-handling effects** in this controlled graph:
-the WP definitions, gate policy and input events are unchanged.
+The four outcome rows partition the gate input. Original acceptance is
+pass-both plus removed; aligned acceptance is pass-both plus rescued.
 
-The complete central-to-historical join checks full `(run,lumi,event)`
-keys, UUIDs, parent pairing and uniqueness. The original accepted-key set
-equals historical paired `part0` membership exactly in both files; there
-are no HWW-only or ambiguous keys. Every rescued key is absent from that
-paired `part0`, and every removed key is present. This corroborates the
-retention mechanism in the actual files; exact historical source-line
-attribution remains limited by the unavailable producer worktree. Absence
-has been proved for these verified paired files, not every HWW part.
+The complete key join verifies full `(run,luminosityBlock,event)`
+identities, UUIDs, parent pairing and uniqueness. Original accepted keys
+equal actual historical paired `part0` membership exactly: every rescued
+key is absent there, and every removed key is present. This verifies those
+files' membership; it does not recover the unavailable historical source
+or prove absence from every HWW part.
 
-Independent repaired-output checks establish that:
-
-- The pre-gate source-entry/key sets, original/aligned gate outcomes and
-  `genWeight` values match the saved original reference.
-- Final repaired source-entry/key sets equal the aligned accepted sets
-  **exactly**, with zero event losses between the gate and final snapshot.
-- Final repaired output has **zero events with fewer than two leptons**.
-
-The reference does not retain all pre-gate collection arrays; the result
-explicitly records `pregate_collection_comparison="not assessed"`. Exact
-key and gate closure must not be restated as a complete original-versus-
-repaired pre-gate array comparison. Repaired serialized array associations
-are checked separately in the next section.
+The repaired output has exactly the aligned accepted keys, with no later
+event losses and no fewer-than-two-lepton survivors. The audit also matches
+pre-gate key sets, gate outcomes and `genWeight` to the original reference.
+It does **not** compare all original/repaired pre-gate collection arrays;
+the saved result explicitly says `pregate_collection_comparison="not assessed"`.
 
 ### Losses and false acceptances must both be counted
 
-Of the removed events, **25,638 ee and 5,269 μμ** are historical
-one-lepton survivors. The remaining **51 ee and 55 μμ** have at least two
-retained leptons, so false acceptance is not confined to singletons. The
-full multiplicity cross-tab is in [the accounting appendix](#mc-accounting-details).
+Removed events include:
 
-The net producer output changes are **−25,083 ee** and **+590 μμ**. Those
-net values hide substantial opposing movements and are not changes to a
-selected Z yield. A single-retained-lepton rejection is expected: DY→μμ
-source entry 127, key `(1,260002,1443526502)`, is rejected by both gates and
-absent from both outputs. It is a control, not evidence of an erroneous loss.
+| Historical retained multiplicity | DY→ee removed | DY→μμ removed |
+| --- | ---: | ---: |
+| One lepton | 25,638 | 5,269 |
+| At least two leptons | 51 | 55 |
+| Total | 25,689 | 5,324 |
 
-**Required recovery:** for a complete corrected MC selection, regenerate
-affected HWWNano from its parent NanoAOD. An HWW-only alias can operate on
-retained events; it cannot recreate the missing accepted keys.
+Net output changes are **−25,083 ee** and **+590 μμ**, but these hide
+opposing acceptance changes. They are not changes in selected Z yields.
+
+DY→μμ entry 127, key `(1,260002,1443526502)`, fails both gates and is
+absent from both outputs. It is a legitimate rejection control. Recovering
+erroneously rejected MC requires parent NanoAOD; changing aliases on the
+retained HWW file cannot restore absent events.
+
+[Complete original results][complete-results] and [repair results][results]
+retain the exact accounting and key comparisons.
 
 ## Fresh snapshots and repair validation
 
 ### Executed chains and stage counts
 
-The repaired producer at [`9a0e9be`][repaired-revision] ran all configured
-event-producing DATA or MC modules and the actual Snapshot callback. The
-callback uses its configured wildcard nominal columns, subject to the
-unchanged serialization exclusions (`BeamSpot_type`,
-`Electron_seediEtaOriX`, `Photon_seediEtaOriX` in these inputs). An immutable
-native ROOT checkpoint computes the columns once before the callback reads
-10,000-event chunks. No producer physics module, nominal JEC or event
-cleaning was bypassed. Auxiliary ROOT-key copying and EOS publication are
-outside this local **Events-output** demonstration.
+The repaired producer ran all configured event-producing modules and the
+actual Snapshot callback. An immutable native ROOT checkpoint computed
+the columns once before the callback's 10,000-event chunk reads.
+
+Nominal wildcard persistence kept the existing exclusions
+(`BeamSpot_type`, `Electron_seediEtaOriX`, `Photon_seediEtaOriX`).
+No physics module, nominal JEC or cleaning was bypassed. Auxiliary ROOT
+metadata copying, remote stage-out and full systematic persistence were
+outside this local nominal **Events** demonstration.
 
 | Stage | EGamma C | EGamma I | Muon C | Muon I | DY→ee | DY→μμ |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -264,79 +298,140 @@ outside this local **Events-output** demonstration.
 | LeptonSel | 3,353 | 3,782 | 12,619 | 12,176 | 78,696 | 121,809 |
 | JetSelMask / MC pre-gate | 3,189 | 3,590 | 11,927 | 11,447 | 74,938 | 116,303 |
 | Repaired l2tight | — | — | — | — | 43,338 | 89,282 |
-| Independently reopened final Events | **3,189** | **3,590** | **11,927** | **11,447** | **43,338** | **89,282** |
-| Actual correction reorderings | 8 | 15 | 2 | 7 | **1,419** | **978** |
+| Reopened final Events | **3,189** | **3,590** | **11,927** | **11,447** | **43,338** | **89,282** |
+| Events with correction-induced reordering | 8 | 15 | 2 | 7 | **1,419** | **978** |
 | Successful producer seconds | 114.95 | 118.46 | 178.12 | 181.30 | 748.66 | 1,322.71 |
 
-The six successful producer runs sum to **44.40 minutes** of processing,
-excluding failed attempts and subsequent audits/replays. The original gate
-reference runs took 83.59 s and 110.03 s. These are run timings rather than
-campaign wall time. Input ledgers cover every assigned source entry before
-cuts, with unique identities throughout the six ranges.
+Event counts are those remaining after each named stage. Dashes mean the
+step is absent or inapplicable, not zero. The reordering row counts events
+whose lepton order changed, not events rejected or failing an audit.
+
+Successful producer time totals **44.40 minutes**, excluding failed
+attempts and later audits/replays. The original gate reference took
+83.59 s / 110.03 s. These are measured run times, not campaign wall time.
 
 ### What independent reopening checked
 
-The [audit implementation][repair-audit] reopened the actual written ROOT
-files and compared retained objects with raw indices, prefilter decisions
-and frozen pre-correction vectors. It checked **21 flat per-lepton arrays
-per DATA output and 186 per MC output**, including **159 SF arrays** in MC.
+The [auditor][repair-audit] read the written ROOT files and compared their
+objects against raw indices, prefilter decisions and frozen pre-correction
+arrays. It checked 21 flat per-lepton arrays per DATA output and 186 per MC
+output, including 159 MC SF arrays.
+
 All six outputs had **zero checked anomalous events** for:
 
-- Full event identity and unique source-entry correspondence.
-- Lepton raw identity/flavor, eta/phi mapping, vector lengths and descending
-  corrected-pT order.
-- All 13 tight-WP vectors and `isLoose` following retained object identity.
-- Correction-ratio association and each frozen MC SF array following the
-  same nominal permutation.
+- Full event identity, uniqueness and source-entry mapping.
+- Flavor/raw-index correspondence, eta/phi, array lengths and descending corrected pT.
+- All 13 tight-WP vectors and `isLoose`.
+- Correction ratios and the permutation of frozen MC SF arrays.
 
-The largest MC correction-ratio residual was below `5.961e-8`. The real
-reorderings in the table exercise nonidentity permutations. The audit
-therefore verifies serialization and changing order, as well as cases where
-order remains unchanged. These checks establish association correctness;
-they do not independently validate the physics definitions of every WP,
-correction or systematic formula.
+The maximum MC correction-ratio residual was below `5.961e-8`. Real
+reorderings test the repair where the original defect becomes visible.
+These checks establish associations, not an independent physics validation
+of every calibration, WP or systematic formula.
 
 ### Reopened witnesses
 
-The [repair witness artifact][repair-witnesses] retains raw, maker,
-filtered, pre-scale and serialized fields, checked by full event key:
-
-| Role / source entry | Key `(run,lumi,event)` | Repaired snapshot observation |
+| Role / central entry | Full event key | Repaired observation |
 | --- | --- | --- |
-| Muon C / 234 | `(379416,147,131724611)` | Two retained muons; tight bits and coordinates follow their raw indices. |
-| EGamma C / 20774 | `(379729,907,1396820419)` | Two retained electrons with the corrected tight association. |
-| EGamma I / 27025 | `(386509,159,333332716)` | Both eta and phi follow `electronIdx`. |
-| EGamma I / 46209 | `(386509,735,1539152813)` | Both decision and coordinate invariants pass. |
-| DY→ee / 174 | `(1,384532,2060318616)` | Rescued event written with two retained leptons; absent from historical paired `part0`. |
-| DY→μμ / 5 | `(1,260002,1443525631)` | Rescued event written with two retained leptons; absent from historical paired `part0`. |
-| DY→ee / 8 | `(1,384532,2060317109)` | Old one-lepton acceptance removed; absent from repaired output. |
-| DY→μμ / 102 | `(1,260002,1443526295)` | Old one-lepton acceptance removed; absent from repaired output. |
+| Muon C / 234 | `(379416,147,131724611)` | Tight bits and coordinates follow both retained muons. |
+| EGamma C / 20774 | `(379729,907,1396820419)` | Tight bits follow both retained electrons. |
+| EGamma I / 27025 | `(386509,159,333332716)` | Eta and phi follow electronIdx. |
+| EGamma I / 46209 | `(386509,735,1539152813)` | ID and coordinate associations pass. |
+| DY→ee / 174 | `(1,384532,2060318616)` | Rescued event is written with two leptons; absent from historical paired part0. |
+| DY→μμ / 5 | `(1,260002,1443525631)` | Rescued event is written with two leptons; absent from historical paired part0. |
+| DY→ee / 8 | `(1,384532,2060317109)` | Old singleton acceptance is removed. |
+| DY→μμ / 102 | `(1,260002,1443526295)` | Old singleton acceptance is removed. |
 
-Correct newly written electron eta establishes the repaired output invariant.
-Identifying the historical eta-only failing operation remains a separate
-provenance question.
+The [witness artifact][repair-witnesses] records raw, maker, retained,
+pre-correction and serialized arrays. Correct repaired eta proves the new
+output invariant; it does not identify the exact old eta-only operation.
 
 ## Bounded RunStability replay: descriptive downstream result
 
-### Fixed analysis policy and normalization
+**These tables count events after the final Z analysis selection, not all
+events written to HWWNano.** The replay applies the same frozen historical
+analysis to actual historical outputs and newly repaired outputs.
 
-The replay uses the retained compiled pickle SHA-256
-`6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef`
-and the [commit-pinned historical runner][historical-runner]. It preserves
-the global Z builder, historical leading-two analysis gate, 35/35 GeV and
-60–120 GeV cuts, DATA stream priorities and component weights. The repaired
-view replaces only the HWW input URI. The selection remains the historical
-RunStability policy throughout this comparison.
+### Step 1: choose the input domain and the two views
 
-MC uses `XSWeight × METFilter_Common × puWeight × SelectedLeptonSF_Z ×
-TriggerSF_Z`, with `XSWeight=baseW×genWeight`. Existing **full-source**
-`baseW` receipts are reused. No new Runs scan or partial-file normalization
-is introduced. The runner's compiled source luminosity is **109.08 fb⁻¹**;
-reported MC sums divide by that same reference to express **one file's
-contribution at 1 fb⁻¹**. They are not complete-source predictions or
-absolute DATA/MC calibrations.
+The domain is the six central ranges in [Evidence scope](#evidence-scope).
+The two views are:
+
+| View | Analysis input |
+| --- | --- |
+| Historical | Actual previously produced paired HWW `part0.root`. |
+| Repaired | Fresh repaired nominal HWW output from the chosen central range. |
+
+The historical baseline is not a newly produced unrepaired final file.
+The separate original producer reference stops at the MC gate.
+
+[repair_replay.py][repair-replay] loads `production.json` and the saved
+`input-identity.npz`, builds full central event keys, and restricts each
+HWW view to that key set. For DATA this means the keys from **central
+entries 0–49,999**, not the first 50,000 skimmed HWW entries. MC uses keys
+from the complete individual central file.
+
+The two views have the same parent domain; their surviving event sets can
+differ. The script verifies input identity, manifest and producer trees.
+
+### Step 2: apply the same frozen analysis selection
+
+The replay loads the retained compiled pickle, SHA-256
+`6f7fb49e310297baa0e2b0624d58a46d2e88c28f96481991bfc95e7dea2e86ef`,
+through the [pinned historical runner][historical-runner]. For the repaired
+view it replaces the sample's input URI. Historical aliases, cuts, DATA
+stream priorities and component weights remain unchanged.
+
+Selection proceeds through:
+
+1. Historical aggregate trigger OR, at least two leptons, the historical **analysis** leading-two tight requirement, zero horn jets and nonzero weight.
+2. The global Z builder: construct opposite-sign, same-flavor pairs passing the configured IDs and choose the candidate closest to the Z across both flavors.
+3. The DY selection: valid candidate, the retained construction checks, strict **60 < mℓℓ < 120 GeV**, and strict **pT > 35 GeV for each selected lepton**.
+4. The category's selected-Z flavor and event HLT bit.
+
+The construction includes the historical mass > 30 GeV and selected-lepton
+pT > 10 GeV checks; the final mass/pT requirements are tighter.
+The preselection also retains applicable event-quality and DATA
+stream/component rules through the historical weights.
+
+The production MC `l2tight` and the downstream analysis leading-two gate
+are different operations. This replay preserves the latter; it does not
+remove it to recover more events.
+
+| Table label | Event HLT bit | Required selected Z flavor |
+| --- | --- | --- |
+| Ele30 | `HLT_Ele30_WPTight_Gsf` | ee |
+| Ele23–Ele12 | `HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL` | ee |
+| IsoMu24 | `HLT_IsoMu24` | μμ |
+| Mu17–Mu8 | `HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8` | μμ |
+
+Trigger names do not replace the offline 35/35 GeV cuts. These historical
+categories use event HLT bits, without Coffea's selected-pair TrigObj
+matching requirement. The replay is an HWW-versus-repaired-HWW comparison,
+not a substitution of Coffea selection. See the
+[chain audit](../../chain-audit.md) for the policy differences.
+
+### Step 3: count selected DATA events
+
+For each category, the script collects the selected event rows:
+
+```python
+N = len(selected_rows)
+delta_N = N_repaired - N_historical
+percent_change = 100 * delta_N / N_historical
+```
+
+| DATA column | Meaning |
+| --- | --- |
+| DATA prefix / category | Fixed input file/prefix and selected trigger/flavor category. |
+| Historical selected | Events passing the full selection on historical HWW properties. |
+| Repaired selected | Events passing the same selection on repaired HWW properties. |
+| ΔN | Repaired minus historical count. |
+| ΔN / historical | Percentage difference relative to the historical count. |
 
 ### Measured local changes
+
+#### DATA: selected counts from four 50,000-entry central prefixes
 
 | DATA prefix / category | Historical selected | Repaired selected | ΔN | ΔN / historical |
 | --- | ---: | ---: | ---: | ---: |
@@ -349,8 +444,41 @@ absolute DATA/MC calibrations.
 | Muon I / IsoMu24 | 434 | 497 | +63 | +14.52% |
 | Muon I / Mu17–Mu8 | 399 | 458 | +59 | +14.79% |
 
-DATA `sumw` and `sumw²` equal these counts. These are the repair runs'
-fixed 50,000-entry prefixes, not the longer historical diagnostic ranges.
+Each EGamma row counts selected ee events; each Muon row counts selected
+μμ events. C/I specifies the one period-specific input file.
+
+For example, EGamma C / Ele30 gives `208 − 204 = 4`, then
+`100 × 4 / 204 = 1.96%`. Muon C / IsoMu24 gives `604 − 525 = 79`,
+then `100 × 79 / 525 = 15.05%`.
+
+These are **net** changes. Subtracting totals does not count all one-way
+entries and exits. The DATA gain is a change in analysis selection, not
+evidence that these bugs previously deleted the gained events at
+production. Selected DATA weights are one here, so `sumw = sumw2 = N`.
+
+The event populations are much smaller than the input or output totals:
+
+```text
+EGamma C:
+  50,000 central events → 3,189 repaired HWW events → 208 Ele30 Z selections
+```
+
+### Step 4: count and weight selected MC events
+
+MC reports both the number of selected simulated events and their signed
+weighted contribution.
+
+| MC column | Meaning |
+| --- | --- |
+| MC / category | DY flavor/sample and selected trigger/flavor category. |
+| Historical N | Number of selected events from historical HWW. |
+| Repaired N | Number of selected events from repaired HWW. |
+| ΔN / historical | `100 × (N_repaired − N_historical) / N_historical`. |
+| Historical Σw at 1 fb⁻¹ | Historical selected weight sum at the stated luminosity projection. |
+| Repaired Σw at 1 fb⁻¹ | Repaired selected weight sum at the same projection. |
+| ΔΣw / historical | `100 × (sumw_repaired − sumw_historical) / sumw_historical`. |
+
+#### MC: complete individual DY files, selected counts and signed weights
 
 | MC / category | Historical N | Repaired N | ΔN / historical | Historical Σw at 1 fb⁻¹ | Repaired Σw at 1 fb⁻¹ | ΔΣw / historical |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -359,260 +487,283 @@ fixed 50,000-entry prefixes, not the longer historical diagnostic ranges.
 | μμ / IsoMu24 | 32,559 | 35,043 | +7.63% | 137.409340 | 149.380820 | +8.71% |
 | μμ / Mu17–Mu8 | 31,373 | 33,782 | +7.68% | 132.131206 | 143.675053 | +8.74% |
 
-Exact signed sums, variances and outcome contributions are in
-[repair-results.json][results]. Repaired MC `Σw²` at the same 1 fb⁻¹
-projection are `0.618482`, `0.562286`, `1.674378` and `1.613938` in table
-order. The trigger categories overlap and must not be summed as unique
-events.
+The ee rows use the 158,487-entry DY→ee file and select ee Z candidates.
+The μμ rows use the 222,331-entry DY→μμ file and select μμ candidates.
+Their net count changes are **+228, +208, +2,484 and +2,409** in table order.
+
+#### Where the MC weight comes from
+
+The preserved component weight uses:
+
+```text
+XSWeight × METFilter_Common × puWeight × SelectedLeptonSF_Z × TriggerSF_Z
+XSWeight = baseW × genWeight
+```
+
+| Factor | Purpose |
+| --- | --- |
+| baseW | Retained full-source cross-section normalization. |
+| genWeight | Generator weight, including its sign. |
+| METFilter_Common | Event-quality factor. |
+| puWeight | Pileup correction. |
+| SelectedLeptonSF_Z | Lepton SF product for the selected Z pair. |
+| TriggerSF_Z | Historical trigger correction evaluated on the selected pair. |
+
+The compiled analysis uses **109.08 fb⁻¹**. The reducer divides each selected
+MC row weight by that luminosity, then sums:
+
+```python
+weights = [row["weight"] / config["lumi"] for row in rows]
+events = len(rows)
+sumw = sum(weights)
+sumw2 = sum(w * w for w in weights)
+```
+
+Thus `60.618720` is **this one DY→ee file's selected contribution at
+1 fb⁻¹**, using the existing full-source baseW. It is neither a count of
+60 simulated events nor the prediction from the complete DY dataset.
+No new Runs scan, selected-event normalization or partial-file denominator
+was introduced.
+
+Weights vary between events and can be negative. Therefore the count and
+weight percentages need not agree. For μμ / IsoMu24:
+
+```text
+Count:   35,043 − 32,559 = 2,484                 → +7.63%
+Weight: 149.3808198634 − 137.4093404058 = 11.9714794576 → +8.71%
+```
+
+Percentages use the unrounded JSON values; displayed sums are rounded.
+
+#### What Σw² means
+
+The repaired values below correspond to the four MC rows in table order:
+
+| MC / category | Repaired Σw² at the same 1 fb⁻¹ projection |
+| --- | ---: |
+| ee / Ele30 | 0.618482 |
+| ee / Ele23–Ele12 | 0.562286 |
+| μμ / IsoMu24 | 1.674378 |
+| μμ / Mu17–Mu8 | 1.613938 |
+
+Σw² means **sum of squared individual weights**, `sum(w*w)`, not the
+square of the total weight sum. It is the weighted histogram variance
+contribution. Exact signed sums, squared sums and class contributions are
+in [repair-results.json][results].
+
+### Step 5: check the ledgers against the ROOT histograms
+
+Each view/category produces selected rows and a Z-mass histogram. The local
+replay directory contains:
+
+- `selected-events.jsonl`: category, full key, source entry, weight, Z mass and producer-outcome label.
+- `z-mass.root`: the category histograms.
+- `replay.json`: counts, weight sums, provenance and artifact hashes.
+
+The reducer obtains N, Σw and Σw² from the selected rows. Independent ROOT
+reopening checks histogram contents and variances, including flows,
+against those rows. MC comparisons restore factors of **109.08** and
+**109.08²** because the ROOT histograms retain the original analysis
+luminosity while the summary is at 1 fb⁻¹.
+
+Each replay used one RDF graph. Key checks reject duplicates within a
+category and verify source-entry and producer-outcome mapping.
+
+**Categories overlap.** One event can pass both single- and double-lepton
+trigger rows. Do not add those rows to claim a unique-event count.
+
+#### Reproduce one paired comparison from the saved output
+
+From the pinned repair checkout, activate the supported ROOT runtime as in
+the [repair README][repair-readme]. The retained compiled pickle and
+historical input must be accessible. For example:
+
+```bash
+diag=PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations
+production=/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/hww-repair-demo-20260930/final-repaired-dy_mumu
+
+python "$diag/repair_replay.py" --role dy_mumu \
+  --production-dir "$production" \
+  --output-dir /absolute/new/replay-repaired-dy_mumu
+python "$diag/repair_replay.py" --role dy_mumu --historical \
+  --production-dir "$production" \
+  --output-dir /absolute/new/replay-historical-dy_mumu
+```
+
+Use fresh output paths. The first command reads the repaired ROOT output;
+the second reads the historical paired file but uses the same production
+receipt to define the central key domain. Read each output's
+`replay.json` → `categories` → `events`, `sumw`, `sumw2` for the table
+values. Repeat with the corresponding production directory for another
+role. This replays existing outputs; it does not rerun the producer.
 
 ### Why fewer producer entries can give more selected Z events
 
-**None of the removed gate events enters any of these historical Z
-categories**, as verified by the outcome-tagged selected ledgers. This
-statement includes the removed events with at least two retained leptons;
-it is established by the replay rather than inferred from singleton counts.
-Only 158/139 of the 606 rescued ee events and 1,694/1,640 of the 5,914
-rescued μμ events enter the respective single/double-lepton-trigger
-categories. Passing the producer gate is necessary but insufficient for
-the Z selection.
+The MC gate removes many false production acceptances, but none of the
+removed events enters these historical Z categories. That was checked
+from the selected ledgers, including removed events with two or more
+leptons; it was not inferred only from singleton counts.
 
-| Repaired MC category | Selected from pass-both class | Selected from rescued class | Net Δ selected within pass-both | Total Δ selected |
+Only part of the rescued class passes the final analysis. Events accepted
+by both gates can also change analysis selection:
+
+| Repaired category | Selected from pass-both | Selected from rescued | Net Δ within pass-both | Total Δ selected |
 | --- | ---: | ---: | ---: | ---: |
 | ee / Ele30 | 15,103 | 158 | +70 | **+228** |
 | ee / Ele23–Ele12 | 13,843 | 139 | +69 | **+208** |
 | μμ / IsoMu24 | 33,349 | 1,694 | +790 | **+2,484** |
 | μμ / Mu17–Mu8 | 32,142 | 1,640 | +769 | **+2,409** |
 
-The ee producer loses a net 25,083 entries while these selected Z counts
-rise by 228/208: it removes false production acceptances that never entered
-the historical Z categories and recovers relevant events. Gross ntuple
-entry counts are not selected-sample yields or purity measures.
+For μμ / IsoMu24:
 
-For IsoMu24, the exact count accounting is
-**+2,484 = 1,694 rescued-class events + 790 net additional pass-both
-events**. The weighted increase is **11.971479**, comprising **8.557196
-from rescued events** and a **3.414284 net increase in the pass-both
-class**; components are calculated from unrounded JSON values and rounded
-independently for display. The 790 is a net class-count change,
-not a claim of 790 one-way individual recoveries. Events accepted by both
-producer gates can still change their selected pair, correctly attached WP
-outcome, kinematics or weights.
+```text
+Historical selected:                        32,559
+Repaired selected from pass-both:            33,349
+Repaired selected from rescued:              1,694
+Repaired total:                              35,043
+
+Net gain = (33,349 − 32,559) + 1,694 = 790 + 1,694 = 2,484
+```
+
+The 790 is a net change within the common production class, not 790 proven
+one-way recoveries. Pair choice, IDs, coordinates, kinematics and weights
+can change even for events present in both outputs.
+
+The IsoMu24 weighted gain is **11.971479**, consisting of **8.557196** from
+rescued events and **3.414284** net change in pass-both. Components use
+unrounded values and are rounded independently.
+
+The ee producer writes 25,083 fewer events overall while its selected Z
+counts rise. Total ntuple entries and selected Z yields measure different
+populations.
 
 ### What these yield changes establish
 
-The larger muon changes reproduce the **qualitative flavor pattern** of the
-earlier Coffea comparison. Together with the directly observed historical
-failures and controlled producer losses, this makes association defects a
-substantial explanation in the paired inputs and a demonstrated contributor
-to that discrepancy. The local percentages are insufficient to assign an
-exact share of a full-year difference or to supply a universal correction.
+The final replay measures the observed downstream result of repaired
+versus actual historical outputs under one fixed analysis policy. It does
+not isolate every causal contribution.
 
-Final MC yield comparisons also contain stochastic and historical-provenance
-effects. Electron smearing uses a sequential static TRandom3; muon smearing
-and unseeded TrigMaker use shared gRandom. Changing the surviving events
-shifts subsequent draws, including trigger-period and weight assignments.
-Common-event draws were **not held equal**. Corrected associations,
-historical producer differences and shifted draws can all contribute to
-the pass-both changes; their causal shares have not been partitioned.
+MC common-event random draws were **not held equal**. Electron smearing
+uses sequential static TRandom3; muon smearing and unseeded TrigMaker use
+shared gRandom. Changed survival shifts subsequent draws, including
+trigger-period and weight assignments. Historical producer/payload
+differences are also not fully recoverable.
 
-Consequently, the **pre-smearing gate comparison** measures the causal
-association/slot effect. The **historical-versus-repaired final replay**
-measures descriptive downstream changes. The original reference stops at
-the gate; its baseline final output is the actual historical `part0`.
 DATA scale corrections are deterministic, but exact historical source and
-payload-byte equality remain unavailable for the DATA comparison too.
-Different source coverage, intentional stream/gate/pair policies, trigger
-association and normalization choices remain separate parts of the broader
-framework comparison.
+payload-byte equality remain unavailable there too.
 
-Each replay books one RDF graph. Independent histogram reopening verifies
-contents and variances, including flows, against the selected ledgers, with
-109.08 and 109.08² restored for MC. Selected keys match source entries,
-with no within-category duplicates or missing gate labels. These checks
-validate the reported replay accounting.
+Accordingly:
+
+- The **controlled pre-smearing gate comparison** isolates association/slot effects.
+- The **final historical-versus-repaired replay** reports descriptive analysis changes.
+- The **larger local muon changes** are consistent with the earlier flavor pattern and the established association/acceptance failures.
+- No exact full-year attribution, universal defect fraction or campaign correction factor follows from these six inputs.
 
 ## Shared producer changes
 
-The repair changes **how existing per-object values follow their objects**.
-It preserves WP expressions, isolation/MVA choices, thresholds, the all-WP
-gate policy and nominal correction formulas. The following source excerpts
-are selected operations; intervening setup is described or linked.
+The repair preserves existing WP cuts, thresholds, isolation/MVA choices,
+all-WP gate policy and nominal calibration formulas. It corrects how
+values follow their physical objects.
 
 ### One retained-object mapping for every stage-created decision
 
-The [original selection module][original-selection] defines the electron
-and muon tight vectors in their respective WP loops:
-
-```python
-df = df.Define("Lepton_isTightElectron_"+ids, "propagateMask(Lepton_electronIdx, comb, false)")
-df = df.Define("Lepton_isTightMuon_"+ids, "propagateMask(Lepton_muonIdx, comb, false)")
-```
-
-Its later filtering loop includes only core fields:
+The [original LeptonSel][original-selection] computes tight decisions
+before retention, then filters only:
 
 ```python
 branches = ["pt", "eta", "phi", "pdgId", "electronIdx", "muonIdx"]
-for prop in branches:
-    df = df.Redefine(
-        f"Lepton_{prop}",
-        f"Lepton_{prop}[LeptonMaskHyg_Ele && LeptonMaskHyg_Mu]",
-    )
 ```
 
-The [repaired selection][repaired-selection] binds one immutable mapping
-before any core redefinition:
+The [repair][repaired-selection] binds the retained positions once:
 
 ```python
 df = df.Define(
     "LeptonSel_keepIdx",
     "ROOT::VecOps::Nonzero(LeptonMaskHyg_Ele && LeptonMaskHyg_Mu)",
 )
-```
-
-It builds `lepton_columns` from the six core fields, `isLoose`, and every
-configured electron and muon tight-WP column, then applies the same mapping:
-
-```python
 for column in lepton_columns:
-    df = df.Redefine(
-        column,
-        f"ROOT::VecOps::Take({column}, LeptonSel_keepIdx)",
-    )
+    df = df.Redefine(column, f"ROOT::VecOps::Take({column}, LeptonSel_keepIdx)")
 ```
 
-Binding the indices once avoids reevaluating a mask against already shortened
-collections. Raw Electron/Muon and prefilter VetoLepton collections are
-preserved. The muon example `[false,true,true]` at raw indices `[0,1,2]`
-becomes `[true,true]` when retained indices are `[1,2]`.
+Here `lepton_columns` includes all six core fields, `isLoose` and all
+13 configured tight vectors. Raw Electron/Muon and VetoLepton are preserved.
+
+The pT > 8 requirement remains an event requirement for at least one
+hygiene-passing object. Final retention still uses hygiene alone.
+The active Loose route's `isLoose` OR already yields true at ordinary
+single-flavor positions because its other-flavor hygiene default is true.
+The repair preserves that meaning while fixing length and association.
+This leaf does not consume `isLoose` directly; no measured historical
+RunStability loss is assigned to it.
 
 ### Guard the two-slot gate
 
-The [repaired `L2TightSelection`][repaired-gate] starts with:
+The [repaired gate][repaired-gate] first applies:
 
 ```python
-def runModule(self, df, values):
-
-    # Reject short retained collections before evaluating either tight slot.
-    df = df.Filter("Lepton_pt.size() >= 2")
-
-    first = True
+df = df.Filter("Lepton_pt.size() >= 2")
 ```
 
-The original begins with `first = True` without that filter. Both modules
-construct the same per-slot OR over all configured WPs, including
-`Electron_testrecipes`, and retain the same final predicate:
-
-```python
-l2tight_selection = f"({lepton1_selection}) && ({lepton2_selection})"
-
-df = df.Filter(f"{l2tight_selection}")
-```
-
-The retention repair fixes whose bit is read; the guard fixes the existence
-of the two retained slots. Neither changes the intended WP policy.
+It then evaluates the unchanged per-slot all-WP OR on aligned decisions.
+The retention fix determines whose bit is read; the guard ensures both
+retained slots exist.
 
 ### Apply the correction permutation once and keep it immutable
 
-The [original scale module][original-scale] contains:
+The [original loop][original-scale] includes `Lepton_sorting` itself:
 
 ```python
-df = df.Define("Lepton_sorting",     "sortedIndices(Lepton_newPt)")
-df = df.Define("Lepton_rochesterSF", "Take(Lepton_newPt/Lepton_pt, Lepton_sorting)")
-df = df.Redefine("Lepton_pt",        "Take(Lepton_newPt, Lepton_sorting)")
 for branch in df.GetColumnNames():
-    if branch.startswith("Lepton_") and branch!="Lepton_pt":
+    if branch.startswith("Lepton_") and branch != "Lepton_pt":
         df = df.Redefine(branch, f"Take({branch}, Lepton_sorting)")
 ```
 
-For `p=[1,0]`, `Take(p,p)` is `[0,1]`. Once the loop processes
-`Lepton_sorting` itself, later fields may receive a different permutation.
-`Lepton_rochesterSF` is already ordered at definition and may be ordered
-twice. The [recorded isolated witness][observations] demonstrates the
-resulting phi/index mismatch under an actual swap.
+For a swap `p=[1,0]`, reordering the permutation gives `Take(p,p)=[0,1]`.
+Later fields can receive a different mapping. The already sorted
+`Lepton_rochesterSF` can also be ordered twice; `isLoose` is omitted.
 
 The [repaired module][repaired-scale] captures genuine flat per-lepton
-arrays **before** defining the permutation. It includes `isLoose` and
-excludes correction temporaries, generated variation columns, nonflat
-fields, `Lepton_pt`, the permutation and the already ordered ratio:
+arrays before defining the permutation, includes `isLoose`, and excludes
+temporaries, the permutation, already sorted products and generated
+variation columns. Each captured nominal field receives the immutable
+mapping once. Existing pT variations are reordered explicitly; registered
+SF variations follow nominal redefinition.
 
-```python
-varied_columns = set(df.GetVariedColumns(df.GetColumnNames()))
-excluded_columns = set(self.columnsToDrop) | varied_columns | {
-    "Lepton_pt",
-    "Lepton_sorting",
-    "Lepton_rochesterSF",
-}
-```
-
-After constructing the filtered `lepton_columns` list, it defines the
-permutation, ratio and ordered pT as above. The existing pT variations and
-captured nominal arrays then follow that unchanged permutation once:
-
-```python
-for branch in df.GetVariedColumns(["Lepton_pt"]):
-    df = df.Define(
-        branch, f"Take({branch}, Lepton_sorting)", excludeVariations=["*"]
-    )
-for branch in lepton_columns:
-    df = df.Redefine(branch, f"Take({branch}, Lepton_sorting)")
-```
-
-mRDF propagates registered SF variations through nominal redefinition. Real
-snapshots here persist nominal fields; synthetic ROOT checks separately
-exercise variation associations and MET propagation. Full systematic
-production remains outside the executed validation.
-
-`isLoose` also follows both retention and ordering in the repair. Its old
-length/association handling is a narrower source concern: this RunStability
-leaf does not consume it directly, and its exact active Loose recipe limits
-what a stale boolean can change. No historical RunStability yield loss is
-assigned to `isLoose`.
+Real outputs qualify nominal associations. Synthetic checks additionally
+exercise variation and MET propagation; full systematic production is
+not qualified by this demonstration.
 
 ### Separate DATA JEC configuration correction
 
-The DATA JEC change was separately committed at [`68a082c`][jec-revision].
-The pinned DATA payload supplies nominal JEC levels but lacks the requested
-`Regrouped_*` uncertainty corrections. Their lookup raised `map::at`
-although DATA JES variations were already disabled. The repair changes the
-DATA-only `jes_unc` list to `[]` in [Steps_cfg.py][repaired-steps]. It retains
-nominal JEC, corrected-jet sorting, veto/cleaning and the settings
-`do_JER=False`, `store_nominal=True`, `store_variations=False`, `isMC=False`.
-MC source configuration is unchanged. This fixes an execution blocker and
-is separate from the lepton-association findings.
+The DATA payload lacks the requested `Regrouped_*` uncertainty entries,
+so lookup raised `map::at` although DATA variations were disabled.
+The separate [`68a082c` change][jec-revision] sets DATA `jes_unc=[]` in
+[Steps_cfg.py][repaired-steps]. Nominal JEC, sorting, cleaning and
+`do_JER=False`, `store_nominal=True`, `store_variations=False`,
+`isMC=False` are retained. MC source configuration is unchanged.
+This removes an execution blocker; it is not an association repair.
 
 ## What remains unresolved
 
-| Remaining question | Present evidence boundary |
+| Question | Evidence boundary |
 | --- | --- |
-| Which exact old operation made the historical eta-only error and shortened wrong tight vectors? | The historical dirty producer worktree is unavailable. Retained-file defects are directly established; exact historical operation/payload equivalence is unresolved. |
-| Which additional productions and analyses are affected? | Demonstrated inputs are the pinned 2024 files. The defective operations are in shared source; campaign/year inventory and consumer audits are still needed. |
-| What fraction of each full-year Coffea difference comes from these defects? | Different coverage and policies remain, and MC common-event draws were not fixed. No full-year 12.4%, 2.8% or 6.66% attribution is established. |
-| Are all systematic products and ordinary production outputs ready? | Nominal Events outputs and focused synthetic variation checks were exercised. Full systematic production, auxiliary metadata copying and remote publication were not. |
-| Is nominal jet cleaning also broken? | The active sorted-prefix invariant holds; its selection was left unchanged. A conditional JES variation index-composition concern requires a separate ordering audit. |
-| Does Snapshot handle the full unsigned event-ID range? | The native unsigned ≥2⁶³ conversion remains a known limitation. No high-bit event occurs in these six ranges; the signed two's-complement bridge was checked separately. |
+| Exact old eta-only operation and tight-vector shortening? | Historical dirty worktree unavailable; direct stored-file failures are established, exact source attribution is not. |
+| Other campaigns, years and channels affected? | Demonstrated scope is the pinned 2024 inputs; actual producer and consumer inventory is still required. |
+| Exact share of full-year Coffea differences? | Coverage and selection policies differ; MC draws were not controlled. No full-year 12.4%, 2.8% or 6.66% attribution was measured. |
+| Ordinary production fully qualified? | Nominal local Events and synthetic variation checks were exercised; full systematics, auxiliary metadata and publication were not. |
+| Nominal JetSelMask also defective? | Earlier index allegation was withdrawn for the active sorted-prefix order. A conditional JES variation concern requires its own input-order audit. |
+| Full unsigned event-ID serialization fixed? | Native ≥2⁶³ conversion remains an expected failure. No high-bit key occurs in these six ranges; a signed bridge was checked separately. |
 
-These limits define the reach of the measurements. They do not defer the
-analysis-input conclusion for the products with demonstrated wrong IDs or
-incomplete acceptance.
+These limits do not make the demonstrated wrong historical associations
+usable for dependent analyses. They describe what additional conclusions
+and production uses still need evidence.
 
 ## Required follow-up for analysis use
 
-1. **Adopt and review the shared producer repair.** `ZH_devel` currently
-   retains the defective source. The demonstrated repair is a concrete
-   starting point, with tests and output evidence on its own branch.
-2. **Determine the affected production inventory.** Trace actual producer
-   revisions/configurations and audit retained object invariants and skim
-   behavior for the relevant campaigns, rather than assigning this study's
-   percentages to unmeasured files.
-3. **Regenerate affected HWWNano from parent NanoAOD and validate the ordinary
-   production output.** Include accepted-key/identity checks, serialized
-   lepton decisions and coordinates, exercised ordering changes, required
-   systematic products and metadata. Missing MC events require the parent
-   inputs.
-4. **Regenerate dependent histograms and assess analysis results.** Repeat
-   RunStability and other consumers on validated inputs with their intended
-   selections. The repaired local replay demonstrates material impact; it
-   is not a substitute for that production and analysis validation.
+1. Review and integrate the shared producer repair; documentation adoption does not change production.
+2. Identify affected recipes, executable revisions, campaigns and consumers.
+3. Regenerate affected HWWNano from parent NanoAOD, including missing MC acceptance, and validate the ordinary output path, required variations and metadata.
+4. Recompute dependent histograms with validated inputs and the intended analysis policies.
 
 ## Evidence and reproduction details
 
@@ -711,7 +862,7 @@ provides the wider source and consumer context.
 [original-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0
 [repaired-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/9a0e9be35c27e2907e6201460d0a5de58a091651
 [evidence-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/8d940abcf429f753074121a250db3717434eb2f6
-[inspected-zh-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/a3b160a5952e4198e61060b17be64da5b4c445e3
+[inspected-zh-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/44bd97884666a3cb8262a2e4727e58198ba1893e
 [jec-revision]: https://github.com/TheQuantiser/mkShapesRDF/commit/68a082c29b08d85978e9af33e9d194610b19f8a6
 [repair-readme]: https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/README.md#repair-demonstration-on-this-branch
 [executed-report]: https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/REPAIR_REPORT.md
@@ -732,3 +883,6 @@ provides the wider source and consumer context.
 [repaired-scale]: https://github.com/TheQuantiser/mkShapesRDF/blob/9a0e9be35c27e2907e6201460d0a5de58a091651/mkShapesRDF/processor/modules/LeptonScaleSmearing.py
 [original-steps]: https://github.com/TheQuantiser/mkShapesRDF/blob/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0/mkShapesRDF/processor/framework/Steps_cfg.py
 [repaired-steps]: https://github.com/TheQuantiser/mkShapesRDF/blob/9a0e9be35c27e2907e6201460d0a5de58a091651/mkShapesRDF/processor/framework/Steps_cfg.py
+
+[inputs]: https://github.com/TheQuantiser/mkShapesRDF/blob/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/inputs/inputs.json
+[repair-replay]: https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair_replay.py
