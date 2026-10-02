@@ -7,6 +7,7 @@ import shlex
 import sys
 import re
 from textwrap import dedent
+from copy import deepcopy
 
 from mkShapesRDF.lib.runtime_package import build_runtime_archive
 
@@ -93,6 +94,43 @@ def _record_condor_submit_result(result, submit_dir, action):
 
 
 class BatchSubmission:
+    @staticmethod
+    def _select_sample_config(config, sample_name, subsample_names=()):
+        """Copy shared entries and entries for this job's parent or children."""
+        applicable = (sample_name, *subsample_names)
+        selected = {}
+        for name, value in config.items():
+            if not isinstance(value, dict) or "samples" not in value:
+                selected[name] = deepcopy(value)
+                continue
+
+            sample_spec = value["samples"]
+            matching = [name for name in applicable if name in sample_spec]
+            if not matching:
+                continue
+
+            selected[name] = deepcopy(value)
+            if isinstance(sample_spec, dict):
+                selected[name]["samples"] = {
+                    key: deepcopy(sample_spec[key]) for key in matching
+                }
+            elif isinstance(sample_spec, (list, tuple, set)):
+                selected[name]["samples"] = matching
+        return selected
+
+    def _batch_value(self, variable, sample_name, subsample_names=()):
+        """Reduce sample-aware collections before runtime path relocation."""
+        value = self.d[variable]
+        if variable in ("aliases", "nuisances"):
+            value = self._select_sample_config(value, sample_name, subsample_names)
+        if variable == "nuisances":
+            for nuisance in value.values():
+                for folder_key in ("folderUp", "folderDown"):
+                    folders = nuisance.get(folder_key)
+                    if isinstance(folders, dict):
+                        nuisance[folder_key] = folders[sample_name]
+        return value
+
     @staticmethod
     def _runtime_pythonpath(project_folder):
         module_path = Path(__file__).resolve()
@@ -321,6 +359,12 @@ class BatchSubmission:
 
         # submission folder
         sampleName = sample[0]
+        subsample_names = []
+        if len(sample) == 7:
+            flatten = sample[5].get(
+                "flatten_samples_map", lambda parent, child: f"{parent}_{child}"
+            )
+            subsample_names = [flatten(sampleName, child) for child in sample[6]]
         i = sample[3]
         try:
             Path(f"{self.batchFolder}/{self.tag}/{sampleName}_{str(i)}").mkdir(
@@ -375,7 +419,9 @@ class BatchSubmission:
 
             if _var == "samples":
                 continue
-            value = self.d[_var]
+            # Keep the final in-memory configuration inline for both runner
+            # types, including CLI overrides and custom batch variables.
+            value = self._batch_value(_var, sampleName, subsample_names)
             if packaged:
                 value = self._tokenize_runtime_paths(value, runtime_specs)
                 txtpy += f"{_var} = _expand_runtime_paths({repr(value)})\n"
