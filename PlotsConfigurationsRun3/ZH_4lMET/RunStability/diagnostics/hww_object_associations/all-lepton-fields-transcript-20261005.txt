@@ -1,0 +1,970 @@
+Direct ROOT inspection; ROOT 6.38.00, Python 3.13.11
+Script SHA-256=5700839dd952381152c9fc32f83ababd5d55a3f05948c8b1a82abc9705191c6d
+Manifest SHA-256=c47bc8fde91a4c06aeead3c488115585df85194331d5886024f6f74333d8ee98; eta/wrapped-phi tolerance=1e-06
+Named WP source: mkShapesRDF 69ff2dad, Full2024v15 LeptonSel_cfg.py; definitions are frozen locally, no framework imports.
+
+Checking egamma_i central: complete 657,356-entry identity-only scan for 1 fixed keys
+
+Checking egamma_i HWW: complete 44,596-entry identity-only scan for 1 fixed keys
+
+=== CASE egamma_i_both: key=(386509, 735, 1539152813), zero-based entries 46209 / 3325 ===
+CENTRAL: root://cmsxrootd.fnal.gov//store/data/Run2024I/EGamma0/NANOAOD/MINIv6NANOv15-v1/90000/07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root
+  UUID=95bbdcc8-0738-11f0-8110-d42411acbeef, tree=Events, entry=46209
+HISTORICAL HWW part0: root://eoscms.cern.ch//store/group/phys_higgs/cmshww/amassiro/HWWNano/Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma/DATAl2loose2024v15__l2loose/nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root
+  UUID=904011a4-359c-11f1-9867-7cc2559e8508, tree=Events, entry=3325
+
+OPENING WITNESS — freshly read historical/raw ROOT values:
+Prefilter order: Muon 0, Electron 0, Electron 1. Muon 0 is absent from retained Lepton.
+Its tightId=False and |dz|>=0.1 fail the configured Loose hygiene; both raw electrons pass the named tight WP.
+Retained electron identities [0,1]: stored named tight [False,True], correctly attached [True,True].
+Stored eta follows electron identities [1,0]; stored indices and phi follow [0,1].
+This is DATA: the MC l2tight production gate was NOT applied to this recipe.
+
+WP source snapshot: 69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0/mkShapesRDF/processor/data/LeptonSel_cfg.py; file SHA-256=dfe253af96dfa5a1caaff5c6f5e78ce9fc14dc466a7abb6d07db58d8c1d754b2
+A/B: Central and historical RAW Electron/Muon collections (not the retained Lepton collection).
+Raw fields: bool/integer exact, finite floats exact; 17 significant digits; nested values untruncated.
+
+Electron branch availability inventory: 72 Central, 71 HWW, 72 union
+branch                            | availability | configured WP dependencies
+----------------------------------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Electron_IPx                      | both         | not used by the inspected WP expressions
+Electron_IPy                      | both         | not used by the inspected WP expressions
+Electron_IPz                      | both         | not used by the inspected WP expressions
+Electron_PreshowerEnergy          | both         | not used by the inspected WP expressions
+Electron_charge                   | both         | not used by the inspected WP expressions
+Electron_convVeto                 | both         | FakeObjWP/HLTsafe, TightObjWP/wp90iso, TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_cutBased                 | both         | FakeObjWP/HLTsafe, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_cutBased_HEEP            | both         | not used by the inspected WP expressions
+Electron_deltaEtaSC               | both         | not used by the inspected WP expressions
+Electron_dr03EcalRecHitSumEt      | both         | not used by the inspected WP expressions
+Electron_dr03HcalDepth1TowerSumEt | both         | not used by the inspected WP expressions
+Electron_dr03TkSumPt              | both         | not used by the inspected WP expressions
+Electron_dr03TkSumPtHEEP          | both         | not used by the inspected WP expressions
+Electron_dxy                      | both         | FakeObjWP/HLTsafe, TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_dxyErr                   | both         | not used by the inspected WP expressions
+Electron_dz                       | both         | FakeObjWP/HLTsafe, TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_dzErr                    | both         | not used by the inspected WP expressions
+Electron_eInvMinusPInv            | both         | FakeObjWP/HLTsafe
+Electron_ecalEnergy               | both         | not used by the inspected WP expressions
+Electron_ecalEnergyError          | both         | not used by the inspected WP expressions
+Electron_energyErr                | both         | not used by the inspected WP expressions
+Electron_eta                      | both         | FakeObjWP/HLTsafe, TightObjWP/wp90iso, TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_fbrem                    | both         | not used by the inspected WP expressions
+Electron_fsrPhotonIdx             | both         | not used by the inspected WP expressions
+Electron_gsfTrketaMode            | both         | not used by the inspected WP expressions
+Electron_gsfTrkpMode              | both         | not used by the inspected WP expressions
+Electron_gsfTrkpModeErr           | both         | not used by the inspected WP expressions
+Electron_gsfTrkphiMode            | both         | not used by the inspected WP expressions
+Electron_hoe                      | both         | not used by the inspected WP expressions
+Electron_ip3d                     | both         | not used by the inspected WP expressions
+Electron_ipLengthSig              | both         | not used by the inspected WP expressions
+Electron_isEB                     | both         | not used by the inspected WP expressions
+Electron_isEcalDriven             | both         | not used by the inspected WP expressions
+Electron_isPFcand                 | both         | not used by the inspected WP expressions
+Electron_jetDF                    | both         | not used by the inspected WP expressions
+Electron_jetIdx                   | both         | not used by the inspected WP expressions
+Electron_jetNDauCharged           | both         | not used by the inspected WP expressions
+Electron_jetPtRelv2               | both         | not used by the inspected WP expressions
+Electron_jetRelIso                | both         | not used by the inspected WP expressions
+Electron_lostHits                 | both         | not used by the inspected WP expressions
+Electron_mass                     | both         | not used by the inspected WP expressions
+Electron_miniPFRelIso_all         | both         | not used by the inspected WP expressions
+Electron_miniPFRelIso_chg         | both         | not used by the inspected WP expressions
+Electron_mvaHZZIso                | both         | not used by the inspected WP expressions
+Electron_mvaIso                   | both         | not used by the inspected WP expressions
+Electron_mvaIso_WP80              | both         | not used by the inspected WP expressions
+Electron_mvaIso_WP90              | both         | TightObjWP/wp90iso, TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW
+Electron_mvaIso_WPHZZ             | both         | not used by the inspected WP expressions
+Electron_mvaNoIso                 | both         | not used by the inspected WP expressions
+Electron_mvaNoIso_WP80            | both         | not used by the inspected WP expressions
+Electron_mvaNoIso_WP90            | both         | not used by the inspected WP expressions
+Electron_pdgId                    | both         | not used by the inspected WP expressions
+Electron_pfRelIso03_all           | both         | TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW
+Electron_pfRelIso03_chg           | both         | not used by the inspected WP expressions
+Electron_pfRelIso04_all           | both         | not used by the inspected WP expressions
+Electron_phi                      | both         | not used by the inspected WP expressions
+Electron_photonIdx                | both         | not used by the inspected WP expressions
+Electron_promptMVA                | both         | TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_pt                       | both         | FakeObjWP/HLTsafe, TightObjWP/wp90iso, TightObjWP/testrecipes, TightObjWP/mvaWinter22V2Iso_WP90, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3, TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW, TightObjWP/cutBased_MediumID_tthMVA_Run3, TightObjWP/cutBased_MediumID_tthMVA_HWW
+Electron_r9                       | both         | not used by the inspected WP expressions
+Electron_rawEnergy                | both         | not used by the inspected WP expressions
+Electron_scEtOverPt               | both         | not used by the inspected WP expressions
+Electron_seedGain                 | both         | not used by the inspected WP expressions
+Electron_seediEtaOriX             | Central-only | not used by the inspected WP expressions
+Electron_seediPhiOriY             | both         | not used by the inspected WP expressions
+Electron_sieie                    | both         | FakeObjWP/HLTsafe
+Electron_sip3d                    | both         | not used by the inspected WP expressions
+Electron_superclusterEta          | both         | not used by the inspected WP expressions
+Electron_svIdx                    | both         | not used by the inspected WP expressions
+Electron_tightCharge              | both         | not used by the inspected WP expressions
+Electron_vidNestedWPBitmap        | both         | not used by the inspected WP expressions
+Electron_vidNestedWPBitmapHEEP    | both         | not used by the inspected WP expressions
+Required by configured WP but unavailable: NONE
+
+Electron RAW INDEX 0 — Central exists=True, HWW exists=True
+Historical VetoLepton positions=[1]; retained Lepton positions=[0]
+  Kinematics, indices and other fields
+field                             | Central raw             | historical HWW raw      | comparison
+----------------------------------+-------------------------+-------------------------+-----------
+Electron_IPx                      | -1.9162893295288086e-05 | -1.9162893295288086e-05 | EQUAL
+Electron_IPy                      | -5.0365924835205078e-06 | -5.0365924835205078e-06 | EQUAL
+Electron_IPz                      | 1.239776611328125e-05   | 1.239776611328125e-05   | EQUAL
+Electron_PreshowerEnergy          | 0                       | 0                       | EQUAL
+Electron_charge                   | -1                      | -1                      | EQUAL
+Electron_dr03HcalDepth1TowerSumEt | 1.2265625               | 1.2265625               | EQUAL
+Electron_dr03TkSumPt              | 0                       | 0                       | EQUAL
+Electron_dr03TkSumPtHEEP          | 0                       | 0                       | EQUAL
+Electron_ecalEnergy               | 46.6875                 | 46.6875                 | EQUAL
+Electron_eta                      | 0.6126708984375         | 0.6126708984375         | EQUAL
+Electron_fbrem                    | 0.2347412109375         | 0.2347412109375         | EQUAL
+Electron_gsfTrketaMode            | 0.61279296875           | 0.61279296875           | EQUAL
+Electron_gsfTrkpMode              | 45.875                  | 45.875                  | EQUAL
+Electron_gsfTrkphiMode            | 1.408203125             | 1.408203125             | EQUAL
+Electron_ipLengthSig              | 0.00977325439453125     | 0.00977325439453125     | EQUAL
+Electron_isEB                     | True                    | True                    | EQUAL
+Electron_isEcalDriven             | True                    | True                    | EQUAL
+Electron_isPFcand                 | True                    | True                    | EQUAL
+Electron_jetDF                    | 0.00254058837890625     | 0.00254058837890625     | EQUAL
+Electron_jetNDauCharged           | 1                       | 1                       | EQUAL
+Electron_jetPtRelv2               | 7.609375                | 7.609375                | EQUAL
+Electron_mass                     | -3.3713877201080322e-07 | -3.3713877201080322e-07 | EQUAL
+Electron_phi                      | 1.408203125             | 1.408203125             | EQUAL
+Electron_pt                       | 39.041893005371094      | 39.041893005371094      | EQUAL
+Electron_rawEnergy                | 44.59375                | 44.59375                | EQUAL
+Electron_superclusterEta          | 0.623046875             | 0.623046875             | EQUAL
+Electron_tightCharge              | 2                       | 2                       | EQUAL
+  Conversion and tracking
+field                        | Central raw    | historical HWW raw | comparison
+-----------------------------+----------------+--------------------+-----------
+Electron_convVeto            | True           | True               | EQUAL
+Electron_dr03EcalRecHitSumEt | 2.3828125      | 2.3828125          | EQUAL
+Electron_ecalEnergyError     | 0.456298828125 | 0.456298828125     | EQUAL
+Electron_energyErr           | 0.4375         | 0.4375             | EQUAL
+Electron_gsfTrkpModeErr      | 1.609375       | 1.609375           | EQUAL
+Electron_lostHits            | 0              | 0                  | EQUAL
+  ID flags and scores
+field                          | Central raw         | historical HWW raw  | comparison
+-------------------------------+---------------------+---------------------+-----------
+Electron_cutBased              | 4                   | 4                   | EQUAL
+Electron_cutBased_HEEP         | True                | True                | EQUAL
+Electron_fsrPhotonIdx          | -1                  | -1                  | EQUAL
+Electron_jetIdx                | 1                   | 1                   | EQUAL
+Electron_mvaHZZIso             | 0.99999946355819702 | 0.99999946355819702 | EQUAL
+Electron_mvaIso                | 0.99999898672103882 | 0.99999898672103882 | EQUAL
+Electron_mvaIso_WP80           | True                | True                | EQUAL
+Electron_mvaIso_WP90           | True                | True                | EQUAL
+Electron_mvaIso_WPHZZ          | True                | True                | EQUAL
+Electron_mvaNoIso              | 0.99999678134918213 | 0.99999678134918213 | EQUAL
+Electron_mvaNoIso_WP80         | True                | True                | EQUAL
+Electron_mvaNoIso_WP90         | True                | True                | EQUAL
+Electron_pdgId                 | 11                  | 11                  | EQUAL
+Electron_photonIdx             | 0                   | 0                   | EQUAL
+Electron_promptMVA             | 0.99945068359375    | 0.99945068359375    | EQUAL
+Electron_svIdx                 | -1                  | -1                  | EQUAL
+Electron_vidNestedWPBitmap     | 613566756           | 613566756           | EQUAL
+Electron_vidNestedWPBitmapHEEP | 4095                | 4095                | EQUAL
+  Shower shape and matching
+field                  | Central raw             | historical HWW raw      | comparison
+-----------------------+-------------------------+-------------------------+-----------------------------------
+Electron_deltaEtaSC    | 0.0101470947265625      | 0.0101470947265625      | EQUAL
+Electron_eInvMinusPInv | -0.00038623809814453125 | -0.00038623809814453125 | EQUAL
+Electron_hoe           | 0.00927734375           | 0.00927734375           | EQUAL
+Electron_r9            | 1.005859375             | 1.005859375             | EQUAL
+Electron_scEtOverPt    | -0.0063629150390625     | -0.0063629150390625     | EQUAL
+Electron_seedGain      | 12                      | 12                      | EQUAL
+Electron_seediEtaOriX  | 36                      | UNAVAILABLE             | UNAVAILABLE (not a false decision)
+Electron_seediPhiOriY  | 92                      | 92                      | EQUAL
+Electron_sieie         | 0.00966644287109375     | 0.00966644287109375     | EQUAL
+  Impact parameters
+field           | Central raw             | historical HWW raw      | comparison
+----------------+-------------------------+-------------------------+-----------
+Electron_dxy    | -0.00058317184448242188 | -0.00058317184448242188 | EQUAL
+Electron_dxyErr | 0.002532958984375       | 0.002532958984375       | EQUAL
+Electron_dz     | -0.00010544061660766602 | -0.00010544061660766602 | EQUAL
+Electron_dzErr  | 0.003173828125          | 0.003173828125          | EQUAL
+Electron_ip3d   | 0.00058984756469726562  | 0.00058984756469726562  | EQUAL
+Electron_sip3d  | 0.237060546875          | 0.237060546875          | EQUAL
+  Isolation
+field                     | Central raw           | historical HWW raw    | comparison
+--------------------------+-----------------------+-----------------------+-----------
+Electron_jetRelIso        | 0.100830078125        | 0.100830078125        | EQUAL
+Electron_miniPFRelIso_all | 0                     | 0                     | EQUAL
+Electron_miniPFRelIso_chg | 0                     | 0                     | EQUAL
+Electron_pfRelIso03_all   | 0.0018994753481820226 | 0.0018994753481820226 | EQUAL
+Electron_pfRelIso03_chg   | 0                     | 0                     | EQUAL
+Electron_pfRelIso04_all   | 0                     | 0                     | EQUAL
+
+Electron RAW INDEX 1 — Central exists=True, HWW exists=True
+Historical VetoLepton positions=[2]; retained Lepton positions=[1]
+  Kinematics, indices and other fields
+field                             | Central raw            | historical HWW raw     | comparison
+----------------------------------+------------------------+------------------------+-----------
+Electron_IPx                      | 0.001064300537109375   | 0.001064300537109375   | EQUAL
+Electron_IPy                      | 0.00019955635070800781 | 0.00019955635070800781 | EQUAL
+Electron_IPz                      | 0.00014579296112060547 | 0.00014579296112060547 | EQUAL
+Electron_PreshowerEnergy          | 11.796875              | 11.796875              | EQUAL
+Electron_charge                   | 1                      | 1                      | EQUAL
+Electron_dr03HcalDepth1TowerSumEt | 0.2529296875           | 0.2529296875           | EQUAL
+Electron_dr03TkSumPt              | 0                      | 0                      | EQUAL
+Electron_dr03TkSumPtHEEP          | 0                      | 0                      | EQUAL
+Electron_ecalEnergy               | 111.8125               | 111.8125               | EQUAL
+Electron_eta                      | 1.73095703125          | 1.73095703125          | EQUAL
+Electron_fbrem                    | 0.477783203125         | 0.477783203125         | EQUAL
+Electron_gsfTrketaMode            | 1.7314453125           | 1.7314453125           | EQUAL
+Electron_gsfTrkpMode              | 117.75                 | 117.75                 | EQUAL
+Electron_gsfTrkphiMode            | -1.7626953125          | -1.7626953125          | EQUAL
+Electron_ipLengthSig              | 0.362060546875         | 0.362060546875         | EQUAL
+Electron_isEB                     | False                  | False                  | EQUAL
+Electron_isEcalDriven             | True                   | True                   | EQUAL
+Electron_isPFcand                 | True                   | True                   | EQUAL
+Electron_jetDF                    | 0.00328826904296875    | 0.00328826904296875    | EQUAL
+Electron_jetNDauCharged           | 1                      | 1                      | EQUAL
+Electron_jetPtRelv2               | 6.21875                | 6.21875                | EQUAL
+Electron_mass                     | 0                      | 0                      | EQUAL
+Electron_phi                      | -1.76171875            | -1.76171875            | EQUAL
+Electron_pt                       | 38.787693023681641     | 38.787693023681641     | EQUAL
+Electron_rawEnergy                | 89.25                  | 89.25                  | EQUAL
+Electron_superclusterEta          | 1.73828125             | 1.73828125             | EQUAL
+Electron_tightCharge              | 2                      | 2                      | EQUAL
+  Conversion and tracking
+field                        | Central raw | historical HWW raw | comparison
+-----------------------------+-------------+--------------------+-----------
+Electron_convVeto            | True        | True               | EQUAL
+Electron_dr03EcalRecHitSumEt | 0           | 0                  | EQUAL
+Electron_ecalEnergyError     | 5.56640625  | 5.56640625         | EQUAL
+Electron_energyErr           | 5.875       | 5.875              | EQUAL
+Electron_gsfTrkpModeErr      | 35.375      | 35.375             | EQUAL
+Electron_lostHits            | 0           | 0                  | EQUAL
+  ID flags and scores
+field                          | Central raw         | historical HWW raw  | comparison
+-------------------------------+---------------------+---------------------+-----------
+Electron_cutBased              | 3                   | 3                   | EQUAL
+Electron_cutBased_HEEP         | True                | True                | EQUAL
+Electron_fsrPhotonIdx          | -1                  | -1                  | EQUAL
+Electron_jetIdx                | 0                   | 0                   | EQUAL
+Electron_mvaHZZIso             | 0.99999749660491943 | 0.99999749660491943 | EQUAL
+Electron_mvaIso                | 0.99997144937515259 | 0.99997144937515259 | EQUAL
+Electron_mvaIso_WP80           | True                | True                | EQUAL
+Electron_mvaIso_WP90           | True                | True                | EQUAL
+Electron_mvaIso_WPHZZ          | True                | True                | EQUAL
+Electron_mvaNoIso              | 0.99985760450363159 | 0.99985760450363159 | EQUAL
+Electron_mvaNoIso_WP80         | True                | True                | EQUAL
+Electron_mvaNoIso_WP90         | True                | True                | EQUAL
+Electron_pdgId                 | -11                 | -11                 | EQUAL
+Electron_photonIdx             | 1                   | 1                   | EQUAL
+Electron_promptMVA             | 0.96905517578125    | 0.96905517578125    | EQUAL
+Electron_svIdx                 | -1                  | -1                  | EQUAL
+Electron_vidNestedWPBitmap     | 613562660           | 613562660           | EQUAL
+Electron_vidNestedWPBitmapHEEP | 4095                | 4095                | EQUAL
+  Shower shape and matching
+field                  | Central raw            | historical HWW raw     | comparison
+-----------------------+------------------------+------------------------+-----------------------------------
+Electron_deltaEtaSC    | 0.007236480712890625   | 0.007236480712890625   | EQUAL
+Electron_eInvMinusPInv | -0.0034503936767578125 | -0.0034503936767578125 | EQUAL
+Electron_hoe           | 0.0313720703125        | 0.0313720703125        | EQUAL
+Electron_r9            | 0.8876953125           | 0.8876953125           | EQUAL
+Electron_scEtOverPt    | -0.086669921875        | -0.086669921875        | EQUAL
+Electron_seedGain      | 12                     | 12                     | EQUAL
+Electron_seediEtaOriX  | 42                     | UNAVAILABLE            | UNAVAILABLE (not a false decision)
+Electron_seediPhiOriY  | 12                     | 12                     | EQUAL
+Electron_sieie         | 0.027069091796875      | 0.027069091796875      | EQUAL
+  Impact parameters
+field           | Central raw           | historical HWW raw    | comparison
+----------------+-----------------------+-----------------------+-----------
+Electron_dxy    | 0.0015859603881835938 | 0.0015859603881835938 | EQUAL
+Electron_dxyErr | 0.003143310546875     | 0.003143310546875     | EQUAL
+Electron_dz     | 0.003665924072265625  | 0.003665924072265625  | EQUAL
+Electron_dzErr  | 0.00677490234375      | 0.00677490234375      | EQUAL
+Electron_ip3d   | 0.0020236968994140625 | 0.0020236968994140625 | EQUAL
+Electron_sip3d  | 0.6279296875          | 0.6279296875          | EQUAL
+  Isolation
+field                     | Central raw       | historical HWW raw | comparison
+--------------------------+-------------------+--------------------+-----------
+Electron_jetRelIso        | 0.23974609375     | 0.23974609375      | EQUAL
+Electron_miniPFRelIso_all | 0                 | 0                  | EQUAL
+Electron_miniPFRelIso_chg | 0                 | 0                  | EQUAL
+Electron_pfRelIso03_all   | 0                 | 0                  | EQUAL
+Electron_pfRelIso03_chg   | 0                 | 0                  | EQUAL
+Electron_pfRelIso04_all   | 0.039581298828125 | 0.039581298828125  | EQUAL
+
+Exact Electron Full2024v15 WP definitions and indexed raw inputs:
+Each condition implies the AND of its listed cuts; all implications are ANDed.
+FakeObjWP/HLTsafe supplies Loose hygiene; VetoObjWP is separate. No WgStarObjWP exists in this era.
+
+VetoObjWP/HLTsafe: DEFINITION/INPUTS ONLY; not recomputed
+  IF True
+    REQUIRE False
+    Central raw index 0: no raw inputs (constant expression)
+    HWW raw raw index 0: no raw inputs (constant expression)
+    Central raw index 1: no raw inputs (constant expression)
+    HWW raw raw index 1: no raw inputs (constant expression)
+
+FakeObjWP/HLTsafe: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_cutBased >= 3
+    REQUIRE Electron_convVeto == 1
+    Central raw index 0: Electron_convVeto=True; Electron_cutBased=4; Electron_eta=0.6126708984375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_cutBased=4; Electron_eta=0.6126708984375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_cutBased=3; Electron_eta=1.73095703125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_cutBased=3; Electron_eta=1.73095703125; Electron_pt=38.787693023681641
+  IF ROOT::VecOps::abs(Electron_eta)  <= 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.05
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.1
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF ROOT::VecOps::abs(Electron_eta)  > 1.479
+    REQUIRE Electron_sieie  < 0.03
+    REQUIRE ROOT::VecOps::abs(Electron_eInvMinusPInv) < 0.014
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.1
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.2
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eInvMinusPInv=-0.00038623809814453125; Electron_eta=0.6126708984375; Electron_sieie=0.00966644287109375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eInvMinusPInv=-0.00038623809814453125; Electron_eta=0.6126708984375; Electron_sieie=0.00966644287109375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eInvMinusPInv=-0.0034503936767578125; Electron_eta=1.73095703125; Electron_sieie=0.027069091796875
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eInvMinusPInv=-0.0034503936767578125; Electron_eta=1.73095703125; Electron_sieie=0.027069091796875
+
+TightObjWP/wp90iso: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_mvaIso_WP90
+    REQUIRE Electron_convVeto
+    Central raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pt=38.787693023681641
+
+TightObjWP/testrecipes: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE Electron_pt>10
+    Central raw index 0: Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_pt=39.041893005371094
+    Central raw index 1: Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_pt=38.787693023681641
+
+TightObjWP/mvaWinter22V2Iso_WP90: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_mvaIso_WP90
+    REQUIRE Electron_convVeto
+    REQUIRE Electron_pfRelIso03_all < 0.06
+    Central raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0.0018994753481820226; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0.0018994753481820226; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0; Electron_pt=38.787693023681641
+  IF ROOT::VecOps::abs(Electron_eta) <= 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.05
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.1
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF ROOT::VecOps::abs(Electron_eta) > 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.1
+    REQUIRE ROOT::VecOps::abs(Electron_dz) <  0.2
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+
+TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_Run3: RECOMPUTED named WP
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_mvaIso_WP90
+    REQUIRE Electron_convVeto
+    REQUIRE Electron_pfRelIso03_all < 0.06
+    REQUIRE Electron_promptMVA > 0.90
+    Central raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0.0018994753481820226; Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0.0018994753481820226; Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0; Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0; Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+  IF ROOT::VecOps::abs(Electron_eta) <= 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.05
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.1
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF ROOT::VecOps::abs(Electron_eta) > 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.1
+    REQUIRE ROOT::VecOps::abs(Electron_dz) <  0.2
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+
+TightObjWP/mvaWinter22V2Iso_WP90_tthMVA_HWW: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_mvaIso_WP90
+    REQUIRE Electron_convVeto
+    REQUIRE Electron_pfRelIso03_all < 0.06
+    Central raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0.0018994753481820226; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_eta=0.6126708984375; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0.0018994753481820226; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_eta=1.73095703125; Electron_mvaIso_WP90=True; Electron_pfRelIso03_all=0; Electron_pt=38.787693023681641
+  IF ROOT::VecOps::abs(Electron_eta) <= 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.05
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.1
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF ROOT::VecOps::abs(Electron_eta) > 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.1
+    REQUIRE ROOT::VecOps::abs(Electron_dz) <  0.2
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF Electron_pt <= 20.0
+    REQUIRE Electron_promptMVA > 0.35
+    Central raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+  IF Electron_pt > 20.0
+    REQUIRE Electron_promptMVA > 0.90
+    Central raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+
+TightObjWP/cutBased_MediumID_tthMVA_Run3: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_cutBased >= 3
+    REQUIRE Electron_promptMVA > 0.90
+    REQUIRE Electron_convVeto
+    Central raw index 0: Electron_convVeto=True; Electron_cutBased=4; Electron_eta=0.6126708984375; Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_cutBased=4; Electron_eta=0.6126708984375; Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_cutBased=3; Electron_eta=1.73095703125; Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_cutBased=3; Electron_eta=1.73095703125; Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+  IF ROOT::VecOps::abs(Electron_eta) <= 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.05
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.1
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF ROOT::VecOps::abs(Electron_eta) > 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.1
+    REQUIRE ROOT::VecOps::abs(Electron_dz) <  0.2
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+
+TightObjWP/cutBased_MediumID_tthMVA_HWW: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Electron_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Electron_eta) < 2.5
+    REQUIRE Electron_cutBased >= 3
+    REQUIRE Electron_convVeto
+    Central raw index 0: Electron_convVeto=True; Electron_cutBased=4; Electron_eta=0.6126708984375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_convVeto=True; Electron_cutBased=4; Electron_eta=0.6126708984375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_convVeto=True; Electron_cutBased=3; Electron_eta=1.73095703125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_convVeto=True; Electron_cutBased=3; Electron_eta=1.73095703125; Electron_pt=38.787693023681641
+  IF ROOT::VecOps::abs(Electron_eta) <= 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.05
+    REQUIRE ROOT::VecOps::abs(Electron_dz)  < 0.1
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF ROOT::VecOps::abs(Electron_eta) > 1.479
+    REQUIRE ROOT::VecOps::abs(Electron_dxy) < 0.1
+    REQUIRE ROOT::VecOps::abs(Electron_dz) <  0.2
+    Central raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    HWW raw raw index 0: Electron_dxy=-0.00058317184448242188; Electron_dz=-0.00010544061660766602; Electron_eta=0.6126708984375
+    Central raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+    HWW raw raw index 1: Electron_dxy=0.0015859603881835938; Electron_dz=0.003665924072265625; Electron_eta=1.73095703125
+  IF Electron_pt <= 20.0
+    REQUIRE Electron_promptMVA > 0.35
+    Central raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+  IF Electron_pt > 20.0
+    REQUIRE Electron_promptMVA > 0.90
+    Central raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    HWW raw raw index 0: Electron_promptMVA=0.99945068359375; Electron_pt=39.041893005371094
+    Central raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+    HWW raw raw index 1: Electron_promptMVA=0.96905517578125; Electron_pt=38.787693023681641
+
+EVERY individual named-WP cut (raw inputs at the pre-correction defining stage):
+Central Electron raw index 0; named tight=True
+cut/threshold       | actual raw inputs                                 | decision
+--------------------+---------------------------------------------------+---------
+abs(eta)<2.5        | eta=0.6126708984375                               | PASS
+mvaIso_WP90         | mvaIso_WP90=True                                  | PASS
+convVeto            | convVeto=True                                     | PASS
+pfRelIso03_all<0.06 | pfRelIso03_all=0.0018994753481820226              | PASS
+promptMVA>0.90      | pt=39.041893005371094; promptMVA=0.99945068359375 | PASS
+abs(dxy)<0.05       | eta=0.6126708984375; dxy=-0.00058317184448242188  | PASS
+abs(dz)<0.1         | eta=0.6126708984375; dz=-0.00010544061660766602   | PASS
+Central Electron raw index 1; named tight=True
+cut/threshold       | actual raw inputs                                 | decision
+--------------------+---------------------------------------------------+---------
+abs(eta)<2.5        | eta=1.73095703125                                 | PASS
+mvaIso_WP90         | mvaIso_WP90=True                                  | PASS
+convVeto            | convVeto=True                                     | PASS
+pfRelIso03_all<0.06 | pfRelIso03_all=0                                  | PASS
+promptMVA>0.90      | pt=38.787693023681641; promptMVA=0.96905517578125 | PASS
+abs(dxy)<0.1        | eta=1.73095703125; dxy=0.0015859603881835938      | PASS
+abs(dz)<0.2         | eta=1.73095703125; dz=0.003665924072265625        | PASS
+HWW raw Electron raw index 0; named tight=True
+cut/threshold       | actual raw inputs                                 | decision
+--------------------+---------------------------------------------------+---------
+abs(eta)<2.5        | eta=0.6126708984375                               | PASS
+mvaIso_WP90         | mvaIso_WP90=True                                  | PASS
+convVeto            | convVeto=True                                     | PASS
+pfRelIso03_all<0.06 | pfRelIso03_all=0.0018994753481820226              | PASS
+promptMVA>0.90      | pt=39.041893005371094; promptMVA=0.99945068359375 | PASS
+abs(dxy)<0.05       | eta=0.6126708984375; dxy=-0.00058317184448242188  | PASS
+abs(dz)<0.1         | eta=0.6126708984375; dz=-0.00010544061660766602   | PASS
+HWW raw Electron raw index 1; named tight=True
+cut/threshold       | actual raw inputs                                 | decision
+--------------------+---------------------------------------------------+---------
+abs(eta)<2.5        | eta=1.73095703125                                 | PASS
+mvaIso_WP90         | mvaIso_WP90=True                                  | PASS
+convVeto            | convVeto=True                                     | PASS
+pfRelIso03_all<0.06 | pfRelIso03_all=0                                  | PASS
+promptMVA>0.90      | pt=38.787693023681641; promptMVA=0.96905517578125 | PASS
+abs(dxy)<0.1        | eta=1.73095703125; dxy=0.0015859603881835938      | PASS
+abs(dz)<0.2         | eta=1.73095703125; dz=0.003665924072265625        | PASS
+
+Muon branch availability inventory: 75 Central, 75 HWW, 75 union
+branch                  | availability | configured WP dependencies
+------------------------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Muon_IPx                | both         | not used by the inspected WP expressions
+Muon_IPy                | both         | not used by the inspected WP expressions
+Muon_IPz                | both         | not used by the inspected WP expressions
+Muon_VXBS_Cov00         | both         | not used by the inspected WP expressions
+Muon_VXBS_Cov03         | both         | not used by the inspected WP expressions
+Muon_VXBS_Cov33         | both         | not used by the inspected WP expressions
+Muon_bestTrackType      | both         | not used by the inspected WP expressions
+Muon_bsConstrainedChi2  | both         | not used by the inspected WP expressions
+Muon_bsConstrainedPt    | both         | not used by the inspected WP expressions
+Muon_bsConstrainedPtErr | both         | not used by the inspected WP expressions
+Muon_charge             | both         | not used by the inspected WP expressions
+Muon_dxy                | both         | FakeObjWP/HLTsafe, TightObjWP/cut_Tight_HWW, TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW, TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_dxyErr             | both         | not used by the inspected WP expressions
+Muon_dxybs              | both         | not used by the inspected WP expressions
+Muon_dxybsErr           | both         | not used by the inspected WP expressions
+Muon_dz                 | both         | FakeObjWP/HLTsafe, TightObjWP/cut_Tight_HWW, TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW, TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_dzErr              | both         | not used by the inspected WP expressions
+Muon_eta                | both         | VetoObjWP/HLTsafe, FakeObjWP/HLTsafe, TightObjWP/cut_TightID_POG, TightObjWP/cut_Tight_HWW, TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW, TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_fsrPhotonIdx       | both         | not used by the inspected WP expressions
+Muon_highPtId           | both         | not used by the inspected WP expressions
+Muon_highPurity         | both         | not used by the inspected WP expressions
+Muon_inTimeMuon         | both         | not used by the inspected WP expressions
+Muon_ip3d               | both         | not used by the inspected WP expressions
+Muon_ipLengthSig        | both         | not used by the inspected WP expressions
+Muon_isGlobal           | both         | not used by the inspected WP expressions
+Muon_isPFcand           | both         | not used by the inspected WP expressions
+Muon_isStandalone       | both         | not used by the inspected WP expressions
+Muon_isTracker          | both         | not used by the inspected WP expressions
+Muon_jetDF              | both         | not used by the inspected WP expressions
+Muon_jetIdx             | both         | not used by the inspected WP expressions
+Muon_jetNDauCharged     | both         | not used by the inspected WP expressions
+Muon_jetPtRelv2         | both         | not used by the inspected WP expressions
+Muon_jetRelIso          | both         | not used by the inspected WP expressions
+Muon_looseId            | both         | not used by the inspected WP expressions
+Muon_mass               | both         | not used by the inspected WP expressions
+Muon_mediumId           | both         | not used by the inspected WP expressions
+Muon_mediumPromptId     | both         | not used by the inspected WP expressions
+Muon_miniIsoId          | both         | not used by the inspected WP expressions
+Muon_miniPFRelIso_all   | both         | not used by the inspected WP expressions
+Muon_miniPFRelIso_chg   | both         | not used by the inspected WP expressions
+Muon_multiIsoId         | both         | not used by the inspected WP expressions
+Muon_mvaLowPt           | both         | not used by the inspected WP expressions
+Muon_mvaMuID            | both         | not used by the inspected WP expressions
+Muon_mvaMuID_WP         | both         | not used by the inspected WP expressions
+Muon_nStations          | both         | not used by the inspected WP expressions
+Muon_nTrackerLayers     | both         | not used by the inspected WP expressions
+Muon_pdgId              | both         | not used by the inspected WP expressions
+Muon_pfIsoId            | both         | TightObjWP/cut_Tight_HWW, TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW, TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_pfRelIso03_all     | both         | not used by the inspected WP expressions
+Muon_pfRelIso03_chg     | both         | not used by the inspected WP expressions
+Muon_pfRelIso04_all     | both         | FakeObjWP/HLTsafe
+Muon_phi                | both         | not used by the inspected WP expressions
+Muon_pnScore_heavy      | both         | not used by the inspected WP expressions
+Muon_pnScore_light      | both         | not used by the inspected WP expressions
+Muon_pnScore_prompt     | both         | TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_pnScore_tau        | both         | TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_promptMVA          | both         | TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW
+Muon_pt                 | both         | VetoObjWP/HLTsafe, FakeObjWP/HLTsafe, TightObjWP/cut_TightID_POG, TightObjWP/cut_Tight_HWW, TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW, TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_ptErr              | both         | not used by the inspected WP expressions
+Muon_puppiIsoId         | both         | not used by the inspected WP expressions
+Muon_segmentComp        | both         | not used by the inspected WP expressions
+Muon_sip3d              | both         | not used by the inspected WP expressions
+Muon_softId             | both         | not used by the inspected WP expressions
+Muon_softMva            | both         | not used by the inspected WP expressions
+Muon_softMvaId          | both         | not used by the inspected WP expressions
+Muon_softMvaRun3        | both         | not used by the inspected WP expressions
+Muon_svIdx              | both         | not used by the inspected WP expressions
+Muon_tightCharge        | both         | not used by the inspected WP expressions
+Muon_tightId            | both         | FakeObjWP/HLTsafe, TightObjWP/cut_TightID_POG, TightObjWP/cut_Tight_HWW, TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67, TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW, TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet
+Muon_tkIsoId            | both         | not used by the inspected WP expressions
+Muon_tkRelIso           | both         | not used by the inspected WP expressions
+Muon_triggerIdLoose     | both         | not used by the inspected WP expressions
+Muon_tuneP_charge       | both         | not used by the inspected WP expressions
+Muon_tuneP_pterr        | both         | not used by the inspected WP expressions
+Muon_tunepRelPt         | both         | not used by the inspected WP expressions
+Required by configured WP but unavailable: NONE
+
+Muon RAW INDEX 0 — Central exists=True, HWW exists=True
+Historical VetoLepton positions=[0]; retained Lepton positions=[]
+  Kinematics, indices and other fields
+field                | Central raw             | historical HWW raw      | comparison
+---------------------+-------------------------+-------------------------+-----------
+Muon_IPx             | 0                       | 0                       | EQUAL
+Muon_IPy             | 0                       | 0                       | EQUAL
+Muon_IPz             | 0                       | 0                       | EQUAL
+Muon_VXBS_Cov00      | 1.8191058188676834e-05  | 1.8191058188676834e-05  | EQUAL
+Muon_VXBS_Cov03      | -2.2186432033777237e-06 | -2.2186432033777237e-06 | EQUAL
+Muon_VXBS_Cov33      | 0.0099942684173583984   | 0.0099942684173583984   | EQUAL
+Muon_bsConstrainedPt | 108.20836639404297      | 108.20836639404297      | EQUAL
+Muon_charge          | 1                       | 1                       | EQUAL
+Muon_eta             | 0.36374282836914062     | 0.36374282836914062     | EQUAL
+Muon_highPurity      | False                   | False                   | EQUAL
+Muon_inTimeMuon      | True                    | True                    | EQUAL
+Muon_ipLengthSig     | 0                       | 0                       | EQUAL
+Muon_isGlobal        | False                   | False                   | EQUAL
+Muon_isPFcand        | False                   | False                   | EQUAL
+Muon_isStandalone    | True                    | True                    | EQUAL
+Muon_jetDF           | 0                       | 0                       | EQUAL
+Muon_jetNDauCharged  | 0                       | 0                       | EQUAL
+Muon_jetPtRelv2      | 0                       | 0                       | EQUAL
+Muon_mass            | 0.10565185546875        | 0.10565185546875        | EQUAL
+Muon_nStations       | 1                       | 1                       | EQUAL
+Muon_phi             | 2.56329345703125        | 2.56329345703125        | EQUAL
+Muon_pt              | 108.35409545898438      | 108.35409545898438      | EQUAL
+Muon_segmentComp     | 0.399993896484375       | 0.399993896484375       | EQUAL
+Muon_tightCharge     | 0                       | 0                       | EQUAL
+Muon_tuneP_charge    | 1                       | 1                       | EQUAL
+Muon_tunepRelPt      | 1                       | 1                       | EQUAL
+  Conversion and tracking
+field                   | Central raw | historical HWW raw | comparison
+------------------------+-------------+--------------------+-----------
+Muon_bestTrackType      | 2           | 2                  | EQUAL
+Muon_bsConstrainedChi2  | 0.119140625 | 0.119140625        | EQUAL
+Muon_bsConstrainedPtErr | 53.5        | 53.5               | EQUAL
+Muon_isTracker          | False       | False              | EQUAL
+Muon_nTrackerLayers     | 0           | 0                  | EQUAL
+Muon_ptErr              | 53.5        | 53.5               | EQUAL
+Muon_tuneP_pterr        | 53.5        | 53.5               | EQUAL
+  Impact parameters
+field         | Central raw         | historical HWW raw  | comparison
+--------------+---------------------+---------------------+-----------
+Muon_dxy      | -0.0175323486328125 | -0.0175323486328125 | EQUAL
+Muon_dxyErr   | 0.099609375         | 0.099609375         | EQUAL
+Muon_dxybs    | -0.0164947509765625 | -0.0164947509765625 | EQUAL
+Muon_dxybsErr | 0.099609375         | 0.099609375         | EQUAL
+Muon_dz       | -0.3193359375       | -0.3193359375       | EQUAL
+Muon_dzErr    | 2.21875             | 2.21875             | EQUAL
+Muon_ip3d     | 0.2998046875        | 0.2998046875        | EQUAL
+Muon_sip3d    | 0.14501953125       | 0.14501953125       | EQUAL
+  ID flags and scores
+field               | Central raw          | historical HWW raw   | comparison
+--------------------+----------------------+----------------------+-----------
+Muon_fsrPhotonIdx   | -1                   | -1                   | EQUAL
+Muon_highPtId       | 0                    | 0                    | EQUAL
+Muon_jetIdx         | -1                   | -1                   | EQUAL
+Muon_looseId        | False                | False                | EQUAL
+Muon_mediumId       | False                | False                | EQUAL
+Muon_mediumPromptId | False                | False                | EQUAL
+Muon_miniIsoId      | 4                    | 4                    | EQUAL
+Muon_multiIsoId     | 2                    | 2                    | EQUAL
+Muon_mvaLowPt       | -0.99884033203125    | -0.99884033203125    | EQUAL
+Muon_mvaMuID        | 0.060546875          | 0.060546875          | EQUAL
+Muon_mvaMuID_WP     | 0                    | 0                    | EQUAL
+Muon_pdgId          | -13                  | -13                  | EQUAL
+Muon_pfIsoId        | 6                    | 6                    | EQUAL
+Muon_pnScore_heavy  | 0.03365325927734375  | 0.03365325927734375  | EQUAL
+Muon_pnScore_light  | 0.773193359375       | 0.773193359375       | EQUAL
+Muon_pnScore_prompt | 0.10880279541015625  | 0.10880279541015625  | EQUAL
+Muon_pnScore_tau    | 0.084339141845703125 | 0.084339141845703125 | EQUAL
+Muon_promptMVA      | 0.094089508056640625 | 0.094089508056640625 | EQUAL
+Muon_puppiIsoId     | 3                    | 3                    | EQUAL
+Muon_softId         | False                | False                | EQUAL
+Muon_softMva        | -1                   | -1                   | EQUAL
+Muon_softMvaId      | False                | False                | EQUAL
+Muon_softMvaRun3    | 0                    | 0                    | EQUAL
+Muon_svIdx          | -1                   | -1                   | EQUAL
+Muon_tightId        | False                | False                | EQUAL
+Muon_tkIsoId        | 2                    | 2                    | EQUAL
+Muon_triggerIdLoose | False                | False                | EQUAL
+  Isolation
+field                 | Central raw | historical HWW raw | comparison
+----------------------+-------------+--------------------+-----------
+Muon_jetRelIso        | -1          | -1                 | EQUAL
+Muon_miniPFRelIso_all | 0           | 0                  | EQUAL
+Muon_miniPFRelIso_chg | 0           | 0                  | EQUAL
+Muon_pfRelIso03_all   | 0           | 0                  | EQUAL
+Muon_pfRelIso03_chg   | 0           | 0                  | EQUAL
+Muon_pfRelIso04_all   | 0           | 0                  | EQUAL
+Muon_tkRelIso         | 0           | 0                  | EQUAL
+
+Exact Muon Full2024v15 WP definitions and indexed raw inputs:
+Each condition implies the AND of its listed cuts; all implications are ANDed.
+FakeObjWP/HLTsafe supplies Loose hygiene; VetoObjWP is separate. No WgStarObjWP exists in this era.
+
+VetoObjWP/HLTsafe: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_pt > 10.0
+    Central raw index 0: Muon_eta=0.36374282836914062; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_eta=0.36374282836914062; Muon_pt=108.35409545898438
+
+FakeObjWP/HLTsafe: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE ROOT::VecOps::abs(Muon_dz) < 0.1
+    REQUIRE Muon_pfRelIso04_all < 0.4
+    Central raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfRelIso04_all=0; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfRelIso04_all=0; Muon_pt=108.35409545898438; Muon_tightId=False
+  IF Muon_pt <= 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.01
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+  IF Muon_pt > 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.02
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+
+TightObjWP/cut_TightID_POG: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE Muon_pt > 15.0
+    Central raw index 0: Muon_eta=0.36374282836914062; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_eta=0.36374282836914062; Muon_pt=108.35409545898438; Muon_tightId=False
+
+TightObjWP/cut_Tight_HWW: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE ROOT::VecOps::abs(Muon_dz) < 0.1
+    REQUIRE Muon_pfIsoId >= 4
+    Central raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_pt=108.35409545898438; Muon_tightId=False
+  IF Muon_pt <= 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.01
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+  IF Muon_pt > 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.02
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+
+TightObjWP/cut_TightID_pfIsoTight_HWW_tthmva_67: RECOMPUTED named WP
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE ROOT::VecOps::abs(Muon_dz) < 0.1
+    REQUIRE Muon_pfIsoId >= 4
+    REQUIRE Muon_promptMVA > 0.67
+    Central raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438; Muon_tightId=False
+  IF Muon_pt <= 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.01
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+  IF Muon_pt > 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.02
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+
+TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_67: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE ROOT::VecOps::abs(Muon_dz) < 0.1
+    REQUIRE Muon_pfIsoId >= 2
+    REQUIRE Muon_promptMVA > 0.67
+    Central raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438; Muon_tightId=False
+  IF Muon_pt <= 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.01
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+  IF Muon_pt > 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.02
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+
+TightObjWP/cut_TightID_pfIsoLoose_HWW_tthmva_HWW: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE ROOT::VecOps::abs(Muon_dz) < 0.1
+    REQUIRE Muon_pfIsoId >= 2
+    Central raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_pt=108.35409545898438; Muon_tightId=False
+  IF Muon_pt <= 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.01
+    REQUIRE Muon_promptMVA > 0.20
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438
+  IF Muon_pt > 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.02
+    REQUIRE Muon_promptMVA > 0.67
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_promptMVA=0.094089508056640625; Muon_pt=108.35409545898438
+
+TightObjWP/cut_TightID_pfIsoLoose_HWW_PNet: DEFINITION/INPUTS ONLY; not recomputed
+  IF ROOT::RVecB (Muon_pt.size(), true)
+    REQUIRE ROOT::VecOps::abs(Muon_eta) < 2.4
+    REQUIRE Muon_tightId
+    REQUIRE ROOT::VecOps::abs(Muon_dz) < 0.1
+    REQUIRE Muon_pfIsoId >= 2
+    REQUIRE (Muon_pnScore_prompt + Muon_pnScore_tau) > 0.989
+    Central raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_pnScore_prompt=0.10880279541015625; Muon_pnScore_tau=0.084339141845703125; Muon_pt=108.35409545898438; Muon_tightId=False
+    HWW raw raw index 0: Muon_dz=-0.3193359375; Muon_eta=0.36374282836914062; Muon_pfIsoId=6; Muon_pnScore_prompt=0.10880279541015625; Muon_pnScore_tau=0.084339141845703125; Muon_pt=108.35409545898438; Muon_tightId=False
+  IF Muon_pt <= 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.01
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+  IF Muon_pt > 20.0
+    REQUIRE ROOT::VecOps::abs(Muon_dxy) < 0.02
+    Central raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+    HWW raw raw index 0: Muon_dxy=-0.0175323486328125; Muon_pt=108.35409545898438
+
+EVERY individual named-WP cut (raw inputs at the pre-correction defining stage):
+Central Muon raw index 0; named tight=False
+cut/threshold  | actual raw inputs                                                       | decision
+---------------+-------------------------------------------------------------------------+---------
+abs(eta)<2.4   | eta=0.36374282836914062                                                 | PASS
+tightId        | tightId=False                                                           | FAIL
+abs(dz)<0.1    | eta=0.36374282836914062; dz=-0.3193359375                               | FAIL
+pfIsoId>=4     | pfIsoId=6                                                               | PASS
+promptMVA>0.67 | pt=108.35409545898438; promptMVA=0.094089508056640625                   | FAIL
+abs(dxy)<0.02  | pt=108.35409545898438; eta=0.36374282836914062; dxy=-0.0175323486328125 | PASS
+HWW raw Muon raw index 0; named tight=False
+cut/threshold  | actual raw inputs                                                       | decision
+---------------+-------------------------------------------------------------------------+---------
+abs(eta)<2.4   | eta=0.36374282836914062                                                 | PASS
+tightId        | tightId=False                                                           | FAIL
+abs(dz)<0.1    | eta=0.36374282836914062; dz=-0.3193359375                               | FAIL
+pfIsoId>=4     | pfIsoId=6                                                               | PASS
+promptMVA>0.67 | pt=108.35409545898438; promptMVA=0.094089508056640625                   | FAIL
+abs(dxy)<0.02  | pt=108.35409545898438; eta=0.36374282836914062; dxy=-0.0175323486328125 | PASS
+
+RAW FIELD COVERAGE: 219 object/field rows; differences among available common raw values=0
+C/D: Historical prefilter VetoLepton and retained Lepton follow below, with their OWN positions.
+Additional complete stored per-lepton fields (including every decision; not presumed aligned):
+branch                 | actual length | collection length | FULL stored values
+-----------------------+---------------+-------------------+-------------------------------------------------------------
+VetoLepton_electronIdx | 3             | 3                 | [-1, 0, 1]
+VetoLepton_eta         | 3             | 3                 | [0.36374282836914062, 0.6126708984375, 1.73095703125]
+VetoLepton_muonIdx     | 3             | 3                 | [0, -1, -1]
+VetoLepton_pdgId       | 3             | 3                 | [-13, 11, -11]
+VetoLepton_phi         | 3             | 3                 | [2.56329345703125, 1.408203125, -1.76171875]
+VetoLepton_pt          | 3             | 3                 | [108.35409545898438, 39.041893005371094, 38.787693023681641]
+branch                                                   | actual length | collection length | FULL stored values
+---------------------------------------------------------+---------------+-------------------+-----------------------------------------
+Lepton_electronIdx                                       | 2             | 2                 | [0, 1]
+Lepton_eta                                               | 2             | 2                 | [1.73095703125, 0.6126708984375]
+Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW      | 2             | 2                 | [False, True]
+Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3     | 2             | 2                 | [False, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90             | 2             | 2                 | [False, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW  | 2             | 2                 | [False, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3 | 2             | 2                 | [False, True]
+Lepton_isTightElectron_testrecipes                       | 2             | 2                 | [False, True]
+Lepton_isTightElectron_wp90iso                           | 2             | 2                 | [False, True]
+Lepton_isTightMuon_cut_TightID_POG                       | 2             | 2                 | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet       | 2             | 2                 | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67  | 2             | 2                 | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW | 2             | 2                 | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67  | 2             | 2                 | [False, False]
+Lepton_isTightMuon_cut_Tight_HWW                         | 2             | 2                 | [False, False]
+Lepton_muonIdx                                           | 2             | 2                 | [-1, -1]
+Lepton_pdgId                                             | 2             | 2                 | [11, -11]
+Lepton_phi                                               | 2             | 2                 | [1.408203125, -1.76171875]
+Lepton_pt                                                | 2             | 2                 | [39.518318176269531, 38.978096008300781]
+Lepton_rochesterSF                                       | 2             | 2                 | [1.018836498260498, 0.99836593866348267]
+isLoose: actual length=3; values=[1, 1, 1]
+isVeto: actual length=UNAVAILABLE; values=UNAVAILABLE
+isWgs: actual length=UNAVAILABLE; values=UNAVAILABLE
+isLoose in original Loose recipe was formed on the prefilter domain using OR of hygiene masks
+with true defaults for the opposite flavor. Its stored length is evidence, not a guarantee of retained association.
+
+All 13 STORED tight-WP vectors: per-position OR=[False, True]
+MC production predicate: OR(electron WPs, muon WPs) at slot 0 AND the OR at slot 1.
+Stored two-position predicate=False; retained nLepton=2
+This is a stored-vector diagnostic, not a named-WP recomputation or an applied DATA production skim.
+
+RECORDED REPAIRED COUNTERPART (JSON, NOT freshly read ROOT): 8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair-witnesses.json
+Evidence file SHA-256=1248b7ecac3e2b1f6ccf10ac2a5174ef9e6fe94c8d998ac43a128cce95b260eb; source entry=46209
+field                                                    | historical ROOT (fresh read)             | repaired snapshot (recorded JSON)
+---------------------------------------------------------+------------------------------------------+-----------------------------------------
+Lepton_electronIdx                                       | [0, 1]                                   | [1, 0]
+Lepton_eta                                               | [1.73095703125, 0.6126708984375]         | [1.73095703125, 0.6126708984375]
+Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW      | [False, True]                            | [True, True]
+Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3     | [False, True]                            | [True, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90             | [False, True]                            | [True, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW  | [False, True]                            | [True, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3 | [False, True]                            | [True, True]
+Lepton_isTightElectron_testrecipes                       | [False, True]                            | [True, True]
+Lepton_isTightElectron_wp90iso                           | [False, True]                            | [True, True]
+Lepton_isTightMuon_cut_TightID_POG                       | [False, False]                           | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet       | [False, False]                           | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67  | [False, False]                           | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW | [False, False]                           | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67  | [False, False]                           | [False, False]
+Lepton_isTightMuon_cut_Tight_HWW                         | [False, False]                           | [False, False]
+Lepton_muonIdx                                           | [-1, -1]                                 | [-1, -1]
+Lepton_pdgId                                             | [11, -11]                                | [-11, 11]
+Lepton_phi                                               | [1.408203125, -1.76171875]               | [-1.76171875, 1.408203125]
+Lepton_pt                                                | [39.518318176269531, 38.978096008300781] | [39.518318176269531, 38.978096008300781]
+Lepton_rochesterSF                                       | [1.018836498260498, 0.99836593866348267] | [1.018836498260498, 0.99836593866348267]
+isLoose                                                  | [1, 1, 1]                                | [1, 1]
+Corrected pT reverses electron order: repaired identities [1,0] follow pT/eta, with phi and bits following too.
+Historical pT/eta match the recorded repaired arrays, but its indices/phi/ID bits do not follow that order.
+Repair restores object identity across fields; it is not merely swapping eta back.
+The exact dirty historical producer operation causing the coordinate error remains unresolved.
+
+Central versus HWW raw cut inputs: EXACTLY EQUAL
+
+Historical VetoLepton collection (3 slots):
+slot | pt            | eta            | phi           | pdgId | electronIdx | muonIdx
+-----+---------------+----------------+---------------+-------+-------------+--------
+0    | 108.354095459 | 0.363742828369 | 2.56329345703 | -13   | -1          | 0
+1    | 39.0418930054 | 0.612670898438 | 1.408203125   | 11    | 0           | -1
+2    | 38.7876930237 | 1.73095703125  | -1.76171875   | -11   | 1           | -1
+
+Historical Lepton collection (2 slots):
+slot | pt            | eta            | phi         | pdgId | electronIdx | muonIdx
+-----+---------------+----------------+-------------+-------+-------------+--------
+0    | 39.5183181763 | 1.73095703125  | 1.408203125 | 11    | 0           | -1
+1    | 38.9780960083 | 0.612670898438 | -1.76171875 | -11   | 1           | -1
+
+ALL stored tight-decision vector lengths (no truncation or repair):
+branch                                                   | length | stored values
+---------------------------------------------------------+--------+---------------
+Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW      | 2      | [False, True]
+Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3     | 2      | [False, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90             | 2      | [False, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW  | 2      | [False, True]
+Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3 | 2      | [False, True]
+Lepton_isTightElectron_testrecipes                       | 2      | [False, True]
+Lepton_isTightElectron_wp90iso                           | 2      | [False, True]
+Lepton_isTightMuon_cut_TightID_POG                       | 2      | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet       | 2      | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67  | 2      | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW | 2      | [False, False]
+Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67  | 2      | [False, False]
+Lepton_isTightMuon_cut_Tight_HWW                         | 2      | [False, False]
+MISMATCH slot 0: stored tight=False, indexed raw tight=True
+
+Retained slot versus the RAW HWW object named by its raw index:
+slot | flavor   | raw index | raw pT        | stored pT     | pT ratio      | raw eta        | stored eta     | raw phi     | stored phi  | expected tight | stored tight | result
+-----+----------+-----------+---------------+---------------+---------------+----------------+----------------+-------------+-------------+----------------+--------------+--------------------
+0    | Electron | 0         | 39.0418930054 | 39.5183181763 | 1.01220292189 | 0.612670898438 | 1.73095703125  | 1.408203125 | 1.408203125 | True           | False        | MISMATCH: tight,eta
+1    | Electron | 1         | 38.7876930237 | 38.9780960083 | 1.00490885046 | 1.73095703125  | 0.612670898438 | -1.76171875 | -1.76171875 | True           | True         | MISMATCH: eta
+OBSERVATION REPRODUCED: egamma_i_both; mismatching fields=['eta', 'tight']
+
+PASS: all 1 fixed observations reproduced; elapsed=47.64s

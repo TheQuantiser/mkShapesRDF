@@ -11,6 +11,180 @@ stored `Lepton_isTight*` bit and coordinates. Central raw objects are printed
 separately to distinguish an association error from changed raw inputs.
 These are offline working-point decisions, not HLT bits.
 
+## Opening display for the association-bug talk
+
+From the existing installation's repository root:
+
+```bash
+source start.sh
+python PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/root_inspect.py \
+  --case egamma_i_both --all-lepton-fields
+```
+
+This reuses `CASES["egamma_i_both"]`: EGamma0 Run2024I, key
+**`(386509,735,1539152813)`**, central entry **46209**, historical HWW
+entry **3325**. It opens the manifest's exact parent
+`07df45e1-d7a2-4dc4-b4db-e0ea381a3e3b.root` and historical
+`nanoLatino_EGamma0_Run2024I-Prompt-v1__part0.root`. Full URLs remain in
+the unchanged [manifest](inputs/inputs.json) and are printed with the
+verified ROOT UUIDs. No discovery or producer run is involved. Complete
+integer-key scans reject missing, duplicate or incorrectly located keys;
+they read identity branches only. Object branches are read for this event.
+
+### Complete inventory and four separate collection domains
+
+Comprehensive mode discovers the **union of every `Electron_*` and
+`Muon_*` branch in both actual Events schemas**. Names choose a display
+section only; no heuristic decides inclusion. All raw objects, including
+removed leptons, receive grouped vertical field comparisons. Availability
+is listed as both, Central-only, HWW-only, or required by a configured WP
+but unavailable in either input.
+
+| Domain | Identity and meaning |
+| --- | --- |
+| A. Central raw Electron/Muon | Original collection index in the pinned central event. |
+| B. Historical raw Electron/Muon | Raw index in that historical HWW event; compared with A. |
+| C. Historical `VetoLepton` | Prefilter joined collection, with its own sorted positions and raw indices. |
+| D. Historical `Lepton` | Retained, corrected joined collection, with its own positions and raw indices. |
+
+Raw-object membership and positions are found through stored
+`electronIdx`/`muonIdx`. Retained checks use those raw indices, not
+positional agreement or coordinate matching as an identity oracle. Every
+stored `Lepton_*` and `VetoLepton_*` field is printed in full, including
+all **13 tight vectors**. `isLoose`, `isVeto`, `isWgs` and any standalone
+`hygiene*` fields are shown when available. Actual vector lengths remain
+separate from retained multiplicity; mismatched vectors are not truncated.
+
+Missing branches/objects are **UNAVAILABLE**, never false or zero. Missing
+required named-WP inputs or configured tight vectors still fail clearly.
+Bools/integers compare exactly; common finite raw floats compare exactly,
+with differences and values printed at 17 significant digits. Nested
+values are untruncated. A prefix branch with a non-object length fails
+explicitly. Coordinate checks retain the `1e-6` eta/wrapped-phi tolerance.
+Corrected pT changes alone are not labeled bugs.
+
+### Configured formulas versus recomputed decisions
+
+The script embeds a **machine-extracted, cuts-only snapshot** of the
+original [Full2024v15 configuration at `69ff2dad`](https://github.com/TheQuantiser/mkShapesRDF/blob/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0/mkShapesRDF/processor/data/LeptonSel_cfg.py).
+The complete source file's SHA-256 is
+`dfe253af96dfa5a1caaff5c6f5e78ce9fc14dc466a7abb6d07db58d8c1d754b2`.
+Every guard and predicate in `VetoObjWP`, `FakeObjWP/HLTsafe` and
+`TightObjWP` is shown with indexed raw inputs; dependency labels come
+from these expressions. Each guard implies the AND of its cuts, and
+all guarded groups are ANDed. This frozen reference neither changes the
+producer policy nor imports its mutable package or calibration payloads.
+
+**Only the two existing named WPs in `cuts()` are recomputed.** Every
+active named-WP cut has its raw input, threshold and PASS/FAIL printed
+for both raw collections. Other WPs are labeled **DEFINITION/INPUTS
+ONLY**, not recomputed. Seven electron and six muon tight WPs are shown.
+
+The [original `LeptonSel` semantics](https://github.com/TheQuantiser/mkShapesRDF/blob/69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0/mkShapesRDF/processor/modules/LeptonSel.py#L49-L147)
+map `Loose → isLoose → FakeObjWP`, which supplies hygiene retention.
+Veto is a different definition. This era has no `WgStarObjWP`; none is
+fabricated. Original `isLoose` used the OR of propagated hygiene masks
+with true defaults for the opposite flavor, before filtering. It is not
+equivalent to the raw fake-WP decision or guaranteed aligned by its name.
+
+The separately printed **OR of all 13 stored tight vectors at each
+position** describes the original MC production predicate: OR at slot 0
+AND OR at slot 1. It is not the named electron WP or a recomputed all-WP
+decision. **This DATA recipe did not apply that MC `l2tight` skim.**
+The separate DY→ee entry-174 erroneous MC-rejection example remains in
+the [repair report](REPAIR_REPORT.md) and its
+[pinned witness evidence](https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair-witnesses.json).
+This command does not execute that gate or read an absent MC event.
+
+### Opening event and recorded repaired counterpart
+
+Prefilter order is **Muon 0, Electron 0, Electron 1**. Muon 0 has
+`tightId=false` and `abs(dz)>=0.1`, fails hygiene and is absent from
+retained `Lepton`. Both retained raw electrons pass every named tight
+cut. Retained indices `[0,1]` have stored named tight **`[false,true]`**
+instead of the correctly associated `[true,true]`. Historical eta follows
+raw identities **`[1,0]`**, while indices and phi follow **`[0,1]`**.
+These exact patterns are asserted against the fresh ROOT read.
+
+The displayed repaired column comes from
+`/roles/egamma_i/evidence/witnesses/2` in
+[repair-witnesses.json at `8d940abc`](https://github.com/TheQuantiser/mkShapesRDF/blob/8d940abcf429f753074121a250db3717434eb2f6/PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair-witnesses.json),
+SHA-256 `1248b7ecac3e2b1f6ccf10ac2a5174ef9e6fe94c8d998ac43a128cce95b260eb`.
+It is explicitly **recorded JSON evidence**, not freshly read ROOT.
+This command opens no repaired ROOT file.
+
+| Field | Historical HWW (fresh read) | Repaired snapshot (recorded evidence) |
+| --- | --- | --- |
+| Electron indices | `[0,1]` | `[1,0]` |
+| pT | `[39.5183181763,38.9780960083]` | Same values |
+| eta | `[1.73095703125,0.612670898438]` | Same values |
+| phi | `[1.408203125,-1.76171875]` | `[-1.76171875,1.408203125]` |
+| pdgId | `[11,-11]` | `[-11,11]` |
+| Named electron tight | `[false,true]` | `[true,true]` |
+
+Corrected pT reverses the order. The repair makes indices, coordinates,
+charge/flavor and decisions follow that order together: **it is not
+simply swapping eta back**. Historical pT/eta equality with the recorded
+repaired arrays is checked explicitly. The exact operation in the dirty
+historical producer causing the coordinate mismatch remains unresolved.
+Current-code reproduction and historical file observations remain separate
+evidence classes. These few objects do not establish a full-year rate.
+
+### Executed comprehensive display — 5 October 2026
+
+The command above ran on `cmslpc-el9-heavy02.fnal.gov`, using the existing
+`start.sh`, Python **3.13.11** and ROOT **6.38.00**. It returned exit
+code **0**, with **49.30 s wall time**, **12.56 s user CPU** and **0.50 s
+system CPU**. The identity-only scans covered all **657,356 central** and
+**44,596 historical HWW** entries and located the fixed full key uniquely
+at entries 46209 and 3325. No other event's object branches were displayed.
+
+| Coverage | Central | Historical HWW | Displayed union |
+| --- | ---: | ---: | ---: |
+| Raw electrons | 2 | 2 | Both original indices |
+| Electron fields | 72 | 71 | 72 per electron |
+| Raw muons | 1 | 1 | Removed raw Muon 0 included |
+| Muon fields | 75 | 75 | 75 for the muon |
+| Configured stored tight vectors | Not a central joined collection | 13 | Every vector, length and value |
+
+The complete comparison has **219 object/field rows**. All **217 common
+raw values match exactly**. `Electron_seediEtaOriX` is Central-only;
+no HWW-only raw electron/muon fields or missing configured-WP dependencies
+were found. The post-run static coverage check required each schema-union
+field to occur exactly once for every raw object, including the removed
+muon. The formerly omitted shower-shape, MVA WP80, cut-based, isolation
+and ParticleNet inputs are present in the output.
+
+All seven stored electron tight vectors are `[false,true]`; all six muon
+tight vectors are `[false,false]`, each of length two. The stored per-slot
+OR is `[false,true]`. `isLoose` is **`[1,1,1]` of length three** while the
+retained collection has two leptons; this displays the prefilter-domain
+length problem directly without assigning its third element to a retained
+object. `isVeto` and `isWgs` are unavailable. The two expected mismatch
+classes, **tight** and **eta**, were reproduced. The repaired arrays remain
+the labeled pinned evidence rather than a fresh repaired-file read.
+
+Read the [complete fresh transcript](all-lepton-fields-transcript-20261005.txt)
+and [stderr/timing](all-lepton-fields-stderr-20261005.txt). Only trailing
+table padding was removed from stdout; no fields, objects or lines were
+removed. Auxiliary CMS metadata dictionary warnings are preserved in
+stderr. They did not prevent reading the required Events branches.
+
+The executed script SHA-256 is
+`5700839dd952381152c9fc32f83ababd5d55a3f05948c8b1a82abc9705191c6d`;
+the committed transcript SHA-256 is
+`6284df37f724606be0f50f34fa53cf02d1634fcaa7a8cea11f27e1b4d2573f71`.
+The executed script is byte-identical to this revision's inspector.
+The fresh local run directory is
+`/uscms_data/d3/mwadud/private/mkShapesRDF_devel/codex_analysis/all-lepton-fields-20261005-owyT5b/`,
+retaining untrimmed stdout, stderr, timing, exit status and the executed
+script. The base revision was `58dc702c7f9f45e01e2f2440d4b882ae91b0dc4b`.
+An unrelated pre-existing skill edit was preserved and not published.
+
+No producer, selection, calibration, manifest or ROOT input changed.
+This verifies display completeness and the fixed historical inconsistency;
+it does not certify all other WPs, events, years or systematic branches.
+
 ## Show the previously identified DATA witnesses
 
 The script uses the original fixed events: Muon C entry **234**, EGamma C
@@ -205,7 +379,7 @@ PASS: all 7 fixed observations reproduced; elapsed=170.80s
 
 The elapsed value inside the script excludes Python/ROOT startup. All seven
 central-versus-HWW raw-input comparisons were **exactly equal**. The executed
-script is byte-identical to the committed script, SHA-256
+script is the original inspector at pinned `864dca0`, SHA-256
 `b669ecdd5158d8779d88a8002be0e2a4144ff6a8acafcf424d426b405841764d`;
 the transcript SHA-256 is
 `a0a814a5e26836aba7a514ff4ba7e9ee9ab8de7d17a91f2d752ec827df28c1af`.

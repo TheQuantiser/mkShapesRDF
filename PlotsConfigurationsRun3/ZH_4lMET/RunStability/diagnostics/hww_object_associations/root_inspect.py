@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 import sys
 import time
@@ -14,12 +15,281 @@ WPS = {
     "Electron": "mvaWinter22V2Iso_WP90_tthMVA_Run3",
     "Muon": "cut_TightID_pfIsoTight_HWW_tthmva_67",
 }
-FIELDS = {
+NAMED_INPUTS = {
     "Electron": ("pt", "eta", "phi", "charge", "mvaIso_WP90", "convVeto",
                  "pfRelIso03_all", "promptMVA", "dxy", "dz"),
     "Muon": ("pt", "eta", "phi", "charge", "tightId", "pfIsoId",
              "promptMVA", "dxy", "dz"),
 }
+# Exact cuts-only snapshot, extracted with ast.literal_eval from Full2024v15.
+# No alternate WP evaluator: only the two existing named WPs are recomputed.
+WP_REVISION = "69ff2dad8ac45c052e0f3364c35317c8ee7c6fa0"
+WP_SOURCE = "mkShapesRDF/processor/data/LeptonSel_cfg.py"
+WP_SOURCE_SHA256 = "dfe253af96dfa5a1caaff5c6f5e78ce9fc14dc466a7abb6d07db58d8c1d754b2"
+WP_DEFINITIONS = {'Electron': {'VetoObjWP': {'HLTsafe': {'True': ['False']}},
+              'FakeObjWP': {'HLTsafe': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                   '< 2.5',
+                                                                                   'Electron_cutBased '
+                                                                                   '>= 3',
+                                                                                   'Electron_convVeto '
+                                                                                   '== 1'],
+                                        'ROOT::VecOps::abs(Electron_eta)  <= 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                      '< 0.05',
+                                                                                      'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                      '< 0.1'],
+                                        'ROOT::VecOps::abs(Electron_eta)  > 1.479': ['Electron_sieie  '
+                                                                                     '< 0.03',
+                                                                                     'ROOT::VecOps::abs(Electron_eInvMinusPInv) '
+                                                                                     '< 0.014',
+                                                                                     'ROOT::VecOps::abs(Electron_dxy) '
+                                                                                     '< 0.1',
+                                                                                     'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                     '< 0.2']}},
+              'TightObjWP': {'wp90iso': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                    '< 2.5',
+                                                                                    'Electron_mvaIso_WP90',
+                                                                                    'Electron_convVeto']},
+                             'testrecipes': {'ROOT::RVecB (Electron_pt.size(), true)': ['Electron_pt>10']},
+                             'mvaWinter22V2Iso_WP90': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                                  '< '
+                                                                                                  '2.5',
+                                                                                                  'Electron_mvaIso_WP90',
+                                                                                                  'Electron_convVeto',
+                                                                                                  'Electron_pfRelIso03_all '
+                                                                                                  '< '
+                                                                                                  '0.06'],
+                                                       'ROOT::VecOps::abs(Electron_eta) <= 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                    '< '
+                                                                                                    '0.05',
+                                                                                                    'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                                    '< '
+                                                                                                    '0.1'],
+                                                       'ROOT::VecOps::abs(Electron_eta) > 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                   '< '
+                                                                                                   '0.1',
+                                                                                                   'ROOT::VecOps::abs(Electron_dz) '
+                                                                                                   '<  '
+                                                                                                   '0.2']},
+                             'mvaWinter22V2Iso_WP90_tthMVA_Run3': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                                              '< '
+                                                                                                              '2.5',
+                                                                                                              'Electron_mvaIso_WP90',
+                                                                                                              'Electron_convVeto',
+                                                                                                              'Electron_pfRelIso03_all '
+                                                                                                              '< '
+                                                                                                              '0.06',
+                                                                                                              'Electron_promptMVA '
+                                                                                                              '> '
+                                                                                                              '0.90'],
+                                                                   'ROOT::VecOps::abs(Electron_eta) <= 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                                '< '
+                                                                                                                '0.05',
+                                                                                                                'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                                                '< '
+                                                                                                                '0.1'],
+                                                                   'ROOT::VecOps::abs(Electron_eta) > 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                               '< '
+                                                                                                               '0.1',
+                                                                                                               'ROOT::VecOps::abs(Electron_dz) '
+                                                                                                               '<  '
+                                                                                                               '0.2']},
+                             'mvaWinter22V2Iso_WP90_tthMVA_HWW': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                                             '< '
+                                                                                                             '2.5',
+                                                                                                             'Electron_mvaIso_WP90',
+                                                                                                             'Electron_convVeto',
+                                                                                                             'Electron_pfRelIso03_all '
+                                                                                                             '< '
+                                                                                                             '0.06'],
+                                                                  'ROOT::VecOps::abs(Electron_eta) <= 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                               '< '
+                                                                                                               '0.05',
+                                                                                                               'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                                               '< '
+                                                                                                               '0.1'],
+                                                                  'ROOT::VecOps::abs(Electron_eta) > 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                              '< '
+                                                                                                              '0.1',
+                                                                                                              'ROOT::VecOps::abs(Electron_dz) '
+                                                                                                              '<  '
+                                                                                                              '0.2'],
+                                                                  'Electron_pt <= 20.0': ['Electron_promptMVA '
+                                                                                          '> 0.35'],
+                                                                  'Electron_pt > 20.0': ['Electron_promptMVA '
+                                                                                         '> 0.90']},
+                             'cutBased_MediumID_tthMVA_Run3': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                                          '< '
+                                                                                                          '2.5',
+                                                                                                          'Electron_cutBased '
+                                                                                                          '>= '
+                                                                                                          '3',
+                                                                                                          'Electron_promptMVA '
+                                                                                                          '> '
+                                                                                                          '0.90',
+                                                                                                          'Electron_convVeto'],
+                                                               'ROOT::VecOps::abs(Electron_eta) <= 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                            '< '
+                                                                                                            '0.05',
+                                                                                                            'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                                            '< '
+                                                                                                            '0.1'],
+                                                               'ROOT::VecOps::abs(Electron_eta) > 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                           '< '
+                                                                                                           '0.1',
+                                                                                                           'ROOT::VecOps::abs(Electron_dz) '
+                                                                                                           '<  '
+                                                                                                           '0.2']},
+                             'cutBased_MediumID_tthMVA_HWW': {'ROOT::RVecB (Electron_pt.size(), true)': ['ROOT::VecOps::abs(Electron_eta) '
+                                                                                                         '< '
+                                                                                                         '2.5',
+                                                                                                         'Electron_cutBased '
+                                                                                                         '>= '
+                                                                                                         '3',
+                                                                                                         'Electron_convVeto'],
+                                                              'ROOT::VecOps::abs(Electron_eta) <= 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                           '< '
+                                                                                                           '0.05',
+                                                                                                           'ROOT::VecOps::abs(Electron_dz)  '
+                                                                                                           '< '
+                                                                                                           '0.1'],
+                                                              'ROOT::VecOps::abs(Electron_eta) > 1.479': ['ROOT::VecOps::abs(Electron_dxy) '
+                                                                                                          '< '
+                                                                                                          '0.1',
+                                                                                                          'ROOT::VecOps::abs(Electron_dz) '
+                                                                                                          '<  '
+                                                                                                          '0.2'],
+                                                              'Electron_pt <= 20.0': ['Electron_promptMVA '
+                                                                                      '> 0.35'],
+                                                              'Electron_pt > 20.0': ['Electron_promptMVA '
+                                                                                     '> 0.90']}}},
+ 'Muon': {'VetoObjWP': {'HLTsafe': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                           '< 2.4',
+                                                                           'Muon_pt > 10.0']}},
+          'FakeObjWP': {'HLTsafe': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                           '< 2.4',
+                                                                           'Muon_tightId',
+                                                                           'ROOT::VecOps::abs(Muon_dz) '
+                                                                           '< 0.1',
+                                                                           'Muon_pfRelIso04_all < '
+                                                                           '0.4'],
+                                    'Muon_pt <= 20.0': ['ROOT::VecOps::abs(Muon_dxy) < 0.01'],
+                                    'Muon_pt > 20.0': ['ROOT::VecOps::abs(Muon_dxy) < 0.02']}},
+          'TightObjWP': {'cut_TightID_POG': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                                    '< 2.4',
+                                                                                    'Muon_tightId',
+                                                                                    'Muon_pt > '
+                                                                                    '15.0']},
+                         'cut_Tight_HWW': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                                  '< 2.4',
+                                                                                  'Muon_tightId',
+                                                                                  'ROOT::VecOps::abs(Muon_dz) '
+                                                                                  '< 0.1',
+                                                                                  'Muon_pfIsoId >= '
+                                                                                  '4'],
+                                           'Muon_pt <= 20.0': ['ROOT::VecOps::abs(Muon_dxy) < '
+                                                               '0.01'],
+                                           'Muon_pt > 20.0': ['ROOT::VecOps::abs(Muon_dxy) < '
+                                                              '0.02']},
+                         'cut_TightID_pfIsoTight_HWW_tthmva_67': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                                                         '< '
+                                                                                                         '2.4',
+                                                                                                         'Muon_tightId',
+                                                                                                         'ROOT::VecOps::abs(Muon_dz) '
+                                                                                                         '< '
+                                                                                                         '0.1',
+                                                                                                         'Muon_pfIsoId '
+                                                                                                         '>= '
+                                                                                                         '4',
+                                                                                                         'Muon_promptMVA '
+                                                                                                         '> '
+                                                                                                         '0.67'],
+                                                                  'Muon_pt <= 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                      '< 0.01'],
+                                                                  'Muon_pt > 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                     '< 0.02']},
+                         'cut_TightID_pfIsoLoose_HWW_tthmva_67': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                                                         '< '
+                                                                                                         '2.4',
+                                                                                                         'Muon_tightId',
+                                                                                                         'ROOT::VecOps::abs(Muon_dz) '
+                                                                                                         '< '
+                                                                                                         '0.1',
+                                                                                                         'Muon_pfIsoId '
+                                                                                                         '>= '
+                                                                                                         '2',
+                                                                                                         'Muon_promptMVA '
+                                                                                                         '> '
+                                                                                                         '0.67'],
+                                                                  'Muon_pt <= 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                      '< 0.01'],
+                                                                  'Muon_pt > 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                     '< 0.02']},
+                         'cut_TightID_pfIsoLoose_HWW_tthmva_HWW': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                                                          '< '
+                                                                                                          '2.4',
+                                                                                                          'Muon_tightId',
+                                                                                                          'ROOT::VecOps::abs(Muon_dz) '
+                                                                                                          '< '
+                                                                                                          '0.1',
+                                                                                                          'Muon_pfIsoId '
+                                                                                                          '>= '
+                                                                                                          '2'],
+                                                                   'Muon_pt <= 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                       '< 0.01',
+                                                                                       'Muon_promptMVA '
+                                                                                       '> 0.20'],
+                                                                   'Muon_pt > 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                      '< 0.02',
+                                                                                      'Muon_promptMVA '
+                                                                                      '> 0.67']},
+                         'cut_TightID_pfIsoLoose_HWW_PNet': {'ROOT::RVecB (Muon_pt.size(), true)': ['ROOT::VecOps::abs(Muon_eta) '
+                                                                                                    '< '
+                                                                                                    '2.4',
+                                                                                                    'Muon_tightId',
+                                                                                                    'ROOT::VecOps::abs(Muon_dz) '
+                                                                                                    '< '
+                                                                                                    '0.1',
+                                                                                                    'Muon_pfIsoId '
+                                                                                                    '>= '
+                                                                                                    '2',
+                                                                                                    '(Muon_pnScore_prompt '
+                                                                                                    '+ '
+                                                                                                    'Muon_pnScore_tau) '
+                                                                                                    '> '
+                                                                                                    '0.989'],
+                                                             'Muon_pt <= 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                 '< 0.01'],
+                                                             'Muon_pt > 20.0': ['ROOT::VecOps::abs(Muon_dxy) '
+                                                                                '< 0.02']}}}}
+
+# Recorded repaired snapshot evidence; NOT a fresh ROOT read in this inspector.
+REPAIR_REVISION = "8d940abcf429f753074121a250db3717434eb2f6"
+REPAIR_SOURCE = "PlotsConfigurationsRun3/ZH_4lMET/RunStability/diagnostics/hww_object_associations/repair-witnesses.json"
+REPAIR_SOURCE_SHA256 = "1248b7ecac3e2b1f6ccf10ac2a5174ef9e6fe94c8d998ac43a128cce95b260eb"
+REPAIRED_OPENING = {'key': [386509, 735, 1539152813],
+ 'source_entry': 46209,
+ 'final': {'Lepton_electronIdx': [1, 0],
+           'Lepton_eta': [1.73095703125, 0.6126708984375],
+           'Lepton_isTightElectron_cutBased_MediumID_tthMVA_HWW': [True, True],
+           'Lepton_isTightElectron_cutBased_MediumID_tthMVA_Run3': [True, True],
+           'Lepton_isTightElectron_mvaWinter22V2Iso_WP90': [True, True],
+           'Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_HWW': [True, True],
+           'Lepton_isTightElectron_mvaWinter22V2Iso_WP90_tthMVA_Run3': [True, True],
+           'Lepton_isTightElectron_testrecipes': [True, True],
+           'Lepton_isTightElectron_wp90iso': [True, True],
+           'Lepton_isTightMuon_cut_TightID_POG': [False, False],
+           'Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_PNet': [False, False],
+           'Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_67': [False, False],
+           'Lepton_isTightMuon_cut_TightID_pfIsoLoose_HWW_tthmva_HWW': [False, False],
+           'Lepton_isTightMuon_cut_TightID_pfIsoTight_HWW_tthmva_67': [False, False],
+           'Lepton_isTightMuon_cut_Tight_HWW': [False, False],
+           'Lepton_muonIdx': [-1, -1],
+           'Lepton_pdgId': [-11, 11],
+           'Lepton_phi': [-1.76171875, 1.408203125],
+           'Lepton_pt': [39.51831817626953, 38.97809600830078],
+           'Lepton_rochesterSF': [1.018836498260498, 0.9983659386634827],
+           'isLoose': [1, 1]}}
+
 HWW_ID = {
     "muon_c": ("bcc9d2f0-3579-11f1-a0a2-a4bf01606976", 316341),
     "egamma_c": ("ebce4a80-358e-11f1-aade-3cecef951668", 49200),
@@ -65,6 +335,9 @@ def vector(tree, name):
         return list(values)
     leaf = tree.GetLeaf(name)
     require(bool(leaf), f"Missing leaf: {name}")
+    if isinstance(values, (bool, int, float, str)):
+        require(leaf.GetLen() == 1, f"Unexpected scalar representation: {name}")
+        return [values]
     return [values[i] for i in range(leaf.GetLen())]
 
 
@@ -96,9 +369,9 @@ def cuts(flavor, obj):
     }
 
 
-def raw(tree, label):
+def raw(tree, label, verbose=True):
     objects = {}
-    for flavor, fields in FIELDS.items():
+    for flavor, fields in NAMED_INPUTS.items():
         columns = {field: vector(tree, f"{flavor}_{field}") for field in fields}
         count = len(columns["pt"])
         require(count == int(getattr(tree, "n" + flavor)),
@@ -109,6 +382,8 @@ def raw(tree, label):
                            for i in range(count)]
         require(all(math.isfinite(value) for obj in objects[flavor] for value in obj.values()),
                 f"Nonfinite {label} raw {flavor} input")
+        if not verbose:
+            continue
         print(f"\n{label} raw {flavor}: {count} objects")
         if not count:
             continue
@@ -123,7 +398,228 @@ def raw(tree, label):
     return objects
 
 
-def display(central, hww, case_name, case):
+def branch_names(tree):
+    return {branch.GetName() for branch in tree.GetListOfBranches()}
+
+
+def printable(value):
+    """Preserve bools, integer words and nested values without display truncation."""
+    if isinstance(value, (bool, int, float, str)):
+        return value
+    return [printable(item) for item in value]
+
+
+def field_values(tree, name):
+    values = vector(tree, name)
+    leaf = tree.GetLeaf(name)
+    kind = leaf.GetTypeName() if leaf else tree.GetBranch(name).GetClassName()
+    # PyROOT exposes some byte leaves as one-character strings.
+    if kind in ("Char_t", "UChar_t"):
+        values = [ord(v) if isinstance(v, str) else int(v) for v in values]
+        if kind == "Char_t":
+            values = [v - 256 if v >= 128 else v for v in values]
+    return [printable(v) for v in values]
+
+
+def formatted(value):
+    if value is None:
+        return "UNAVAILABLE"
+    if isinstance(value, float):
+        return format(value, ".17g")
+    if isinstance(value, list):
+        return "[" + ", ".join(formatted(v) for v in value) + "]"
+    return str(value)
+
+
+def comparison(left, right):
+    if left is None or right is None:
+        return "UNAVAILABLE (not a false decision)"
+    # Scalars are compared according to their type, never by truthiness.
+    if isinstance(left, list) or isinstance(right, list):
+        if not isinstance(left, list) or not isinstance(right, list):
+            return "DIFFERENT TYPE"
+        if len(left) != len(right):
+            return "DIFFERENT LENGTH"
+        return "EQUAL" if all(comparison(a, b) == "EQUAL" for a, b in zip(left, right)) else "DIFFERENT"
+    if isinstance(left, bool) or isinstance(right, bool):
+        return "EQUAL" if type(left) is type(right) and left == right else "DIFFERENT TYPE/VALUE"
+    if isinstance(left, float) or isinstance(right, float):
+        if not (math.isfinite(left) and math.isfinite(right)):
+            return "NONFINITE (not certified equal)"
+        # The two raw collections should contain copied values. Do not hide
+        # representable differences with a kinematic-association tolerance.
+        return "EQUAL" if left == right else "DIFFERENT, HWW-Central=" + formatted(right - left)
+    return "EQUAL" if left == right else "DIFFERENT"
+
+
+def dependencies(expressions):
+    return sorted(set(re.findall(r"\b(?:Electron|Muon)_[A-Za-z0-9_]+", " ".join(expressions))))
+
+
+def field_group(name):
+    """Names choose the section only; every schema-discovered field is included."""
+    field = name.lower()
+    for group, tokens in (
+        ("ID flags and scores", ("mva", "score", "id", "cutbased")),
+        ("Isolation", ("iso",)),
+        ("Impact parameters", ("dxy", "dz", "sip", "ip3d")),
+        ("Conversion and tracking", ("conv", "losthit", "missinghit", "track", "hit", "err", "chi2")),
+        ("Shower shape and matching", ("sieie", "hoe", "r9", "einv", "delta", "seed", "scet")),
+    ):
+        if any(token in field for token in tokens):
+            return group
+    return "Kinematics, indices and other fields"
+
+
+def positions(tree, collection, flavor, index):
+    return [i for i, raw_index in enumerate(vector(tree, f"{collection}_{flavor.lower()}Idx"))
+            if int(raw_index) == index]
+
+
+def wp_input_text(exprs, index, columns):
+    return "; ".join(f"{b}={formatted(columns[b][index]) if b in columns else 'UNAVAILABLE'}"
+                     for b in dependencies(exprs)) or "no raw inputs (constant expression)"
+
+
+def configured_definitions(flavor, ccols, hcols, craw, hraw):
+    print(f"\nExact {flavor} Full2024v15 WP definitions and indexed raw inputs:")
+    print("Each condition implies the AND of its listed cuts; all implications are ANDed.")
+    print("FakeObjWP/HLTsafe supplies Loose hygiene; VetoObjWP is separate. No WgStarObjWP exists in this era.")
+    for group, wps in WP_DEFINITIONS[flavor].items():
+        for name, conditions in wps.items():
+            recomputed = group == "TightObjWP" and name == WPS[flavor]
+            print(f"\n{group}/{name}: " + ("RECOMPUTED named WP" if recomputed else "DEFINITION/INPUTS ONLY; not recomputed"))
+            for condition, exprs in conditions.items():
+                print(f"  IF {condition}")
+                for expr in exprs:
+                    print(f"    REQUIRE {expr}")
+                for i in range(max(len(craw), len(hraw))):
+                    for label, cols, objs in [("Central", ccols, craw), ("HWW raw", hcols, hraw)]:
+                        inputs = wp_input_text([condition, *exprs], i, cols) if i < len(objs) else "OBJECT UNAVAILABLE"
+                        print(f"    {label} raw index {i}: {inputs}")
+    print("\nEVERY individual named-WP cut (raw inputs at the pre-correction defining stage):")
+    for label, objs in [("Central", craw), ("HWW raw", hraw)]:
+        for i, obj in enumerate(objs):
+            # Reuse cuts(), the inspector's verified two-WP implementation.
+            rows = []
+            for expr, passed in cuts(flavor, obj).items():
+                inputs = [(name, obj[name]) for name in NAMED_INPUTS[flavor]
+                          if name in expr or (name == "eta" and ("dxy" in expr or "dz" in expr))
+                          or (flavor == "Muon" and name == "pt" and "dxy" in expr)]
+                rows.append([expr, "; ".join(f"{name}={formatted(v)}" for name, v in inputs),
+                             "PASS" if passed else "FAIL"])
+            print(f"{label} {flavor} raw index {i}; named tight={all(cuts(flavor, obj).values())}")
+            table(["cut/threshold", "actual raw inputs", "decision"], rows)
+
+
+def comprehensive_display(ctree, htree, craw, hraw, case_name):
+    cnames, hnames = branch_names(ctree), branch_names(htree)
+    if case_name == "egamma_i_both":
+        require(vector(htree, "VetoLepton_muonIdx") == [0, -1, -1]
+                and vector(htree, "VetoLepton_electronIdx") == [-1, 0, 1], "Opening prefilter identities changed")
+        require(vector(htree, "Lepton_electronIdx") == [0, 1], "Opening retained identities changed")
+        require(all(all(cuts("Electron", obj).values()) for obj in hraw["Electron"]), "Opening named electron WP changed")
+        require(vector(htree, "Lepton_isTightElectron_" + WPS["Electron"]) == [False, True],
+                "Opening stored named tight bits changed")
+        for i in range(2):
+            require(abs(vector(htree, "Lepton_eta")[i] - hraw["Electron"][1-i]["eta"]) <= TOLERANCE
+                    and abs(math.remainder(vector(htree, "Lepton_phi")[i] - hraw["Electron"][i]["phi"],
+                                           2 * math.pi)) <= TOLERANCE, "Opening coordinate pattern changed")
+        require(all(vector(htree, b) == REPAIRED_OPENING["final"][b] for b in ["Lepton_pt", "Lepton_eta"]),
+                "Opening historical/repaired pT or eta equality changed")
+        print("\nOPENING WITNESS — freshly read historical/raw ROOT values:")
+        print("Prefilter order: Muon 0, Electron 0, Electron 1. Muon 0 is absent from retained Lepton.")
+        print("Its tightId=False and |dz|>=0.1 fail the configured Loose hygiene; both raw electrons pass the named tight WP.")
+        require(not hraw["Muon"][0]["tightId"] and abs(hraw["Muon"][0]["dz"]) >= 0.1,
+                "Opening muon hygiene-failure inputs changed")
+        print("Retained electron identities [0,1]: stored named tight [False,True], correctly attached [True,True].")
+        print("Stored eta follows electron identities [1,0]; stored indices and phi follow [0,1].")
+        print("This is DATA: the MC l2tight production gate was NOT applied to this recipe.")
+    print(f"\nWP source snapshot: {WP_REVISION}/{WP_SOURCE}; file SHA-256={WP_SOURCE_SHA256}")
+    print("A/B: Central and historical RAW Electron/Muon collections (not the retained Lepton collection).")
+    print("Raw fields: bool/integer exact, finite floats exact; 17 significant digits; nested values untruncated.")
+    printed, raw_differences = 0, 0
+    for flavor in NAMED_INPUTS:
+        available = sorted(b for b in cnames | hnames if b.startswith(flavor + "_"))
+        columns = []
+        for tree, names in [(ctree, cnames), (htree, hnames)]:
+            cols = {b: field_values(tree, b) for b in available if b in names}
+            count = int(getattr(tree, "n" + flavor))
+            require(all(len(values) == count for values in cols.values()),
+                    f"Non-object/unequal {flavor} branch length; cannot silently assign it to raw objects")
+            columns.append(cols)
+        ccols, hcols = columns
+        annotations = {}
+        for group, wps in WP_DEFINITIONS[flavor].items():
+            for wp, conditions in wps.items():
+                for b in dependencies([x for condition, cuts_ in conditions.items() for x in [condition, *cuts_]]):
+                    annotations.setdefault(b, []).append(f"{group}/{wp}")
+        print(f"\n{flavor} branch availability inventory: {len(ccols)} Central, {len(hcols)} HWW, {len(available)} union")
+        table(["branch", "availability", "configured WP dependencies"],
+              [[b, "both" if b in ccols and b in hcols else "Central-only" if b in ccols else "HWW-only",
+                ", ".join(annotations.get(b, [])) or "not used by the inspected WP expressions"] for b in available])
+        missing = sorted(set(annotations) - (set(ccols) & set(hcols)))
+        print("Required by configured WP but unavailable: " + (", ".join(missing) or "NONE"))
+        for i in range(max(len(craw[flavor]), len(hraw[flavor]))):
+            print(f"\n{flavor} RAW INDEX {i} — Central exists={i < len(craw[flavor])}, HWW exists={i < len(hraw[flavor])}")
+            print(f"Historical VetoLepton positions={positions(htree, 'VetoLepton', flavor, i)}; "
+                  f"retained Lepton positions={positions(htree, 'Lepton', flavor, i)}")
+            for group in dict.fromkeys(field_group(b.split("_", 1)[1]) for b in available):
+                print(f"  {group}")
+                rows = []
+                for b in available:
+                    if field_group(b.split("_", 1)[1]) != group:
+                        continue
+                    c = ccols[b][i] if b in ccols and i < len(ccols[b]) else None
+                    h = hcols[b][i] if b in hcols and i < len(hcols[b]) else None
+                    status = comparison(c, h)
+                    raw_differences += status not in ("EQUAL", "UNAVAILABLE (not a false decision)")
+                    rows.append([b, formatted(c), formatted(h), status])
+                    printed += 1
+                table(["field", "Central raw", "historical HWW raw", "comparison"], rows)
+        configured_definitions(flavor, ccols, hcols, craw[flavor], hraw[flavor])
+    print(f"\nRAW FIELD COVERAGE: {printed} object/field rows; differences among available common raw values={raw_differences}")
+    print("C/D: Historical prefilter VetoLepton and retained Lepton follow below, with their OWN positions.")
+    print("Additional complete stored per-lepton fields (including every decision; not presumed aligned):")
+    for collection in ["VetoLepton", "Lepton"]:
+        n = len(vector(htree, collection + "_pt"))
+        table(["branch", "actual length", "collection length", "FULL stored values"],
+              [[b, len(field_values(htree, b)), n, formatted(field_values(htree, b))]
+               for b in sorted(hnames) if b.startswith(collection + "_")])
+    other_decisions = {"isLoose", "isVeto", "isWgs"} | {b for b in hnames if b.startswith("hygiene")}
+    for b in sorted(other_decisions):
+        values = field_values(htree, b) if b in hnames else None
+        print(f"{b}: actual length={len(values) if values is not None else 'UNAVAILABLE'}; values={formatted(values)}")
+    print("isLoose in original Loose recipe was formed on the prefilter domain using OR of hygiene masks")
+    print("with true defaults for the opposite flavor. Its stored length is evidence, not a guarantee of retained association.")
+    configured = ["Lepton_isTight" + flavor + "_" + wp for flavor, groups in WP_DEFINITIONS.items()
+                  for wp in groups["TightObjWP"]]
+    require(len(configured) == 13, "Pinned tight-WP inventory changed")
+    require(all(b in hnames for b in configured), "Missing configured tight-WP vector")
+    bits = {b: field_values(htree, b) for b in configured}
+    max_slots = max(len(v) for v in bits.values())
+    slot_or = [any(bits[b][i] for b in configured) if all(i < len(v) for v in bits.values()) else None
+               for i in range(max_slots)]
+    print(f"\nAll 13 STORED tight-WP vectors: per-position OR={formatted(slot_or)}")
+    print("MC production predicate: OR(electron WPs, muon WPs) at slot 0 AND the OR at slot 1.")
+    if len(slot_or) >= 2 and None not in slot_or[:2]:
+        print(f"Stored two-position predicate={bool(slot_or[0] and slot_or[1])}; retained nLepton={int(htree.nLepton)}")
+    else:
+        print("Stored two-position predicate=UNAVAILABLE (no invented out-of-range decision)")
+    print("This is a stored-vector diagnostic, not a named-WP recomputation or an applied DATA production skim.")
+    if case_name == "egamma_i_both":
+        require(tuple(REPAIRED_OPENING["key"]) == key(htree), "Recorded repaired key changed")
+        print(f"\nRECORDED REPAIRED COUNTERPART (JSON, NOT freshly read ROOT): {REPAIR_REVISION}/{REPAIR_SOURCE}")
+        print(f"Evidence file SHA-256={REPAIR_SOURCE_SHA256}; source entry={REPAIRED_OPENING['source_entry']}")
+        table(["field", "historical ROOT (fresh read)", "repaired snapshot (recorded JSON)"],
+              [[b, formatted(field_values(htree, b)), formatted(v)] for b, v in REPAIRED_OPENING["final"].items()])
+        print("Corrected pT reverses electron order: repaired identities [1,0] follow pT/eta, with phi and bits following too.")
+        print("Historical pT/eta match the recorded repaired arrays, but its indices/phi/ID bits do not follow that order.")
+        print("Repair restores object identity across fields; it is not merely swapping eta back.")
+        print("The exact dirty historical producer operation causing the coordinate error remains unresolved.")
+
+
+def display(central, hww, case_name, case, comprehensive=False):
     role, source_entry, hww_entry, wanted, expected = case
     ctree, htree = central.Get("Events"), hww.Get("Events")
     for tree, entry in [(ctree, source_entry), (htree, hww_entry)]:
@@ -133,12 +629,14 @@ def display(central, hww, case_name, case):
     print(f"\n=== CASE {case_name}: key={wanted}, zero-based entries {source_entry} / {hww_entry} ===")
     for label, file, entry in [("CENTRAL", central, source_entry), ("HISTORICAL HWW part0", hww, hww_entry)]:
         print(f"{label}: {file.GetName()}\n  UUID={file.GetUUID().AsString()}, tree=Events, entry={entry}")
-    craw, hraw = raw(ctree, "CENTRAL"), raw(htree, "HWW")
+    craw, hraw = raw(ctree, "CENTRAL", not comprehensive), raw(htree, "HWW", not comprehensive)
+    if comprehensive:
+        comprehensive_display(ctree, htree, craw, hraw, case_name)
     differences = []
-    for flavor in FIELDS:
+    for flavor in NAMED_INPUTS:
         require(len(craw[flavor]) == len(hraw[flavor]), f"Raw {flavor} counts differ")
         for i, (cobj, hobj) in enumerate(zip(craw[flavor], hraw[flavor])):
-            for field in FIELDS[flavor]:
+            for field in NAMED_INPUTS[flavor]:
                 if cobj[field] != hobj[field]:
                     differences.append([flavor, i, field, cobj[field], hobj[field]])
     print("\nCentral versus HWW raw cut inputs: " + ("EXACTLY EQUAL" if not differences else "DIFFERENCES"))
@@ -201,6 +699,8 @@ def display(central, hww, case_name, case):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--case", choices=CASES, action="append", help="Show one fixed case (repeatable); default: all")
+    parser.add_argument("--all-lepton-fields", action="store_true",
+                        help="Discover and compare every Electron_/Muon_ field, with exact WP definitions")
     args = parser.parse_args()
     import ROOT
     ROOT.PyConfig.IgnoreCommandLineOptions = True
@@ -269,18 +769,23 @@ def main():
                     expected_entry = case[1] if kind == "central" else case[2]
                     require(list(found) == [expected_entry], f"Missing/duplicate/wrong entry for {case[3]}: {list(found)}")
                 needed = {"run", "luminosityBlock", "event", "nElectron", "nMuon"}
-                needed.update(f"{flavor}_{field}" for flavor, fields in FIELDS.items() for field in fields)
+                needed.update(f"{flavor}_{field}" for flavor, fields in NAMED_INPUTS.items() for field in fields)
                 if kind == "HWW":
                     needed.add("nLepton")
                     needed.update(f"{c}_{f}" for c in ["Lepton", "VetoLepton"]
                                   for f in ["pt", "eta", "phi", "pdgId", "electronIdx", "muonIdx"])
                     needed.update(b.GetName() for b in tree.GetListOfBranches() if b.GetName().startswith("Lepton_isTight"))
                     needed.update("Lepton_isTight" + f + "_" + wp for f, wp in WPS.items())
+                if args.all_lepton_fields:
+                    needed.update(b.GetName() for b in tree.GetListOfBranches()
+                                  if b.GetName().startswith(("Electron_", "Muon_", "Lepton_", "VetoLepton_"))
+                                  or b.GetName().startswith("hygiene")
+                                  or b.GetName() in ("isLoose", "isVeto", "isWgs"))
                 for branch in needed:
                     require(bool(tree.GetBranch(branch)), f"Missing required branch: {kind} {branch}")
                     tree.SetBranchStatus(branch, True)
             for name, case in cases:
-                display(*files, name, case)
+                display(*files, name, case, args.all_lepton_fields)
         finally:
             for file in files:
                 file.Close()
